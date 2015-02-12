@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/EnterStartDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/EnterClaimName"
+        android:layout_below="@+id/EnterDescription"
+        android:layout_marginTop="15dp"
+        android:layout_weight=".5"
+        android:ems="10"
+        android:focusableInTouchMode="false"
+        android:hint="@string/Enter_Start_Date"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/EnterEndDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/EnterStartDate"
+        android:layout_below="@+id/EnterStartDate"
+        android:layout_marginTop="15dp"
+        android:layout_weight=".5"
+        android:focusableInTouchMode="false"
+        android:ems="10"
+        android:hint="@string/Enter_End_Date"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/EnterClaimName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/Enter_Claim_Name"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/EnterTags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/EnterEndDate"
+        android:layout_marginTop="38dp"
+        android:ems="10"
+        android:hint="@string/tags"
+        android:layout_weight=".5"
+        android:focusableInTouchMode="false"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/EnterDestinations"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonsaveClaim"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_weight=".5"
+        android:focusableInTouchMode="false"
+        android:ems="10"
+        android:hint="@string/destinations"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/EnterDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/EnterClaimName"
+        android:layout_below="@+id/EnterClaimName"
+        android:layout_marginTop="34dp"
+        android:ems="10"
+        android:hint="@string/Enter_Description"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/buttonsaveClaim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/Done" />
+
+</RelativeLayout>

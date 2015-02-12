@@ -3,6 +3,56 @@
 
     <string name="app_name">CMPUT301W15T12</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="title_activity_add_claim">AddClaimActivity</string>
+    <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="title_activity_item_view">ItemViewActivity</string>
+    <string name="New_Claim">New Claim</string>
+    <string name="Edit_Item">Edit Item</string>
+    <string name="Edit_Claim">Edit Claim</string>
+    <string name="Enter_Claim_Name">Enter Claim Name</string>
+    <string name="Enter_Status">Enter Status</string>
+    <string name="Enter_End_Date">End Date</string>
+    <string name="Enter_Start_Date">Start Date</string>
+    <string name="Enter_Description">Enter Description</string>
+    <string name="Description">Description</string>
+    <string name="Add_Claim">Add Claim</string>
+    <string name="Enter_Amount">Enter Amount</string>
+    <string name="Enter_Currency">Enter Currency (CUR)</string>
+    <string name="Enter_Date">Enter Date (YYYY/MM/DD)</string>
+    <string name="Enter_Expense_Name">Enter Expense Name</string>
+    <string name="Enter_Category">Enter Category</string>
+    <string name="New_Expense_Item">New Expense Item</string>
+    <string name="Date_Date">Date-Date</string>
+    <string name="CN_Status">Claim Name - Status</string>
+    <string name="Total">Total</string>
+    <string name="Add_Expense_Item">Add Expense Item</string>
+    <string name="Choose">Choose</string>
+    <string name="Date">Date</string>
+    <string name="Expense_Item">Expense Item</string>
+    <string name="Category">Category</string>
+    <string name="Amount">Amount</string>
+    <string name="ACurrency">Amount CUR</string>
+    <string name="title_activity_expense_item">ExpenseItemActivity</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="email">E-mail</string>
+    <string name="save">Save</string>
+    <string name="more">See More</string>
+    <string name="title_activity_edit_claim">EditClaimActivity</string>
+    <string name="title_activity_edit_item">EditItemActivity</string>
+    <string name="title_activity_email">EmailActivity</string>
+    <string name="Recipient">Recipient</string>
+    <string name="Subject">Subject</string>
+    <string name="Message">Message</string>
+    <string name="Send">Send</string>
+    <string name="login">Login</string>
+    <string name="Done">Done</string>
+    <string name="User_Name">User Name</string>
+    <string name="New_Account">Create New Account</string>
+    <string name="tags">Tags</string>
+    <string name="destinations">Destinations</string>
+    <string name="Add_Image">Add Image</string>
+    <string name="Flagged">Flagged</string>    
+    
+    
 </resources>
