@@ -1,5 +1,5 @@
-##CMPUT301W15T12 README File 
-description of the program
+##CMPUT301W15T12 README 
+A travel app that allows users to maintain, sort, and manage travel claims and expense items for themselves, submit them for approval to other users, and in turn evaluate claims that are awaiting approval.
 
 ##License
 Copyright 2015[Team Name??]
