@@ -9,6 +9,7 @@ public class ExpenseListTests extends TestCase
 	//TODO tests for get/add/remove items
 	//TODO tests for get/count list
 	
+	//US04.07.01 - able to delete an expense item when allowed
 	public void deleteExpense() {
 		ExpenseItem expense = new ExpenseItem();
 		ExpenseList expenseList = new ExpenseList();
