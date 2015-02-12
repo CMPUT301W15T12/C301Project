@@ -11,7 +11,7 @@ public class ClaimListTests extends TestCase
 	
 	public void deleteClaim() {
 		ClaimItem claim = new ClaimItem();
-		ClaimsList claimsList = new ClaimsList();
+		ClaimsList claimsList = ClaimsListController.getClaims();
 		
 		claimsList.add(claim);
 		assertTrue("Claim was not added to claims list", claimsList.size() > 0 && claimsList.contains(claim));

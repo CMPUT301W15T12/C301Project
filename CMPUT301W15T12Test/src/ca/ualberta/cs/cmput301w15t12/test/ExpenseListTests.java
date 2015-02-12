@@ -12,7 +12,8 @@ public class ExpenseListTests extends TestCase
 	//US04.07.01 - able to delete an expense item when allowed
 	public void deleteExpense() {
 		ExpenseItem expense = new ExpenseItem();
-		ExpenseList expenseList = new ExpenseList();
+		ClaimItem claim = new ClaimItem();
+		ExpenseList expenseList = claim.getExpenses();
 		
 		expenseList.add(expense);
 		assertTrue("Expense was not added to expense list", expenseList.size() > 0 && expenseList.contains(expense));
