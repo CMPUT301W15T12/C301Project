@@ -32,8 +32,8 @@ public class ReceiptPhotoCRUDTest extends ActivityInstrumentationTestCase2<Expen
 		assertTrue("After deleting the receiptphoto, getReceiptPhoto() should return null",activity.getReceiptPhoto()==null);
 	}
 	
-	
 	//see [US06.02.01] and [US06.04.01] in ViewPhotoActivityTest.java
+	
 	private ExpenseItemActivity startExpenseItemActivity(){
 		Intent intent = new Intent();
 		setActivityIntent(intent);
