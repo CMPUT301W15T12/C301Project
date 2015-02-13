@@ -96,8 +96,21 @@ public class ExpenseItemTests extends TestCase {
 		//assertFalse("Item does have a flag",expenseItem.getFlag());
 	}
 	
-	//US04.05.01 - able to view an expense item its details
-	//US04.06.01 - able to edit an expense item when allowed - set methods
+	//US04.05.01 - able to view an expense item its details - xml/activity
+	
+	
+	//US04.06.01 - able to edit an expense item when allowed - setters
+	public void testEditItem(){
+		Date date = new Date();
+		BigDecimal amount = new BigDecimal(45.50);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
+		assertNotNull("date not initialized",expenseItem.getDate());
+		assertNotNull("category not initialized",expenseItem.getCategory());
+		assertNotNull("description not initialized",expenseItem.getDescription());
+		assertNotNull("amount not initialized",expenseItem.getAmount());
+		assertNotNull("currency not initialized",expenseItem.getCurrency());
+		assertNotNull("name not initialized",expenseItem.getName());
+	}
 	
 	//US04.08.01 - minimal required navigation in user interface when entering an item - test manually
 	
