@@ -2,6 +2,7 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.view.Menu;
 
 public class ExpenseItemActivity extends Activity {
@@ -17,6 +18,16 @@ public class ExpenseItemActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.expense_item, menu);
 		return true;
+	}
+
+	public void deleteReceiptPhoto() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Bitmap getReceiptPhoto() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
