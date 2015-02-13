@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 import android.widget.ImageView;
 import ca.ualberta.cs.cmput301w15t12.R;
 
@@ -22,10 +23,10 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 	//[US06.02.01] - Viewing photograph of a receipt
 	public void testImageView(){
 		ViewPhotoActivity activity = startViewPhotoActivity();
-		ImageView receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
+		View receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
 		assertNotNull("Fail to allocate image view",receiptImageView);
-		assertTrue("receiptImageView should be an instanceof ImageView",receiptImageView instanceof ImageView);
-		if((BitmapDrawable)receiptImageView.getDrawable()==null){
+		assertTrue("receiptImageView should be an instanceof ImageView",receiptImageView.getClass() == ImageView.class);
+		if((BitmapDrawable)((ImageView)receiptImageView).getDrawable()==null){
 			fail("Receipt photo is not loaded inside the image view");
 			return;
 		}
