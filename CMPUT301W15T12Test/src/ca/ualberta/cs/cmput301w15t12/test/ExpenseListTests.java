@@ -4,8 +4,6 @@ import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseList;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import junit.framework.TestCase;
 
 
