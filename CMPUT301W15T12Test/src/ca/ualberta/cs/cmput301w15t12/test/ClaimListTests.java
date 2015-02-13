@@ -1,5 +1,8 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import junit.framework.TestCase;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +27,9 @@ public class ClaimListTests extends TestCase
 	}
 	
 	public void deleteClaim() {
-		Claim claim = new Claim();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved");
 		ClaimList claimList = ClaimListController.getClaims();
 		
 		claimList.add(claim);
@@ -38,8 +43,9 @@ public class ClaimListTests extends TestCase
 	
 	//US02.01.01 - list all my expense claims, showing for each claim: the starting date of travel, the destination(s) of travel, the claim status, tags, and total currency amounts
 	public void testListClaims(){
-		Claim claim = new Claim(null, null, null);
-		ClaimList claimList = ClaimList.getClaims();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved");
 		ClaimList activity = startWithClaim(claim, ClaimListActivity.NORMAL);
 		ListView view = (ListView) activity.findViewById(R.id.listViewClaims);
 		
