@@ -52,7 +52,9 @@
     <string name="tags">Tags</string>
     <string name="destinations">Destinations</string>
     <string name="Add_Image">Add Image</string>
-    <string name="Flagged">Flagged</string>    
-    
-    
+    <string name="Flagged">Flagged</string>
+    <string name="title_activity_claim_list">ClaimListActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_claim">ClaimActivity</string>
+
 </resources>

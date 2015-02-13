@@ -3,6 +3,9 @@ package ca.ualberta.cs.cmput301w15t12.test;
 import junit.framework.TestCase;
 import android.widget.ListView;
 import android.widget.TextView;
+import ca.ualberta.cs.cmput301w15t12.Claim;
+import ca.ualberta.cs.cmput301w15t12.ClaimList;
+import ca.ualberta.cs.cmput301w15t12.ClaimListActivity;
 
 
 public class ClaimListTests extends TestCase
@@ -12,7 +15,7 @@ public class ClaimListTests extends TestCase
 	
 	//constructor
 	public ClaimListTests(){
-		super(ClaimList.class);
+		super();
 	}
 	
 	//setup
@@ -31,18 +34,13 @@ public class ClaimListTests extends TestCase
 		assertTrue("Claim was not removed from claims list", claimList.size() == 0 && !claimList.contains(claim));
 	}
 	
-	public void testDisplayText(){
-		String text = "Hello";
-		IntentReaderActivity activity = startWithText(text, IntentReaderActivity.NORMAL);
-		TextView view = (TextView) activity.findViewById(R.id.intentText);
-		assertEquals("correct text?", text, view.getText());	
-	}
+
 	
 	//US02.01.01 - list all my expense claims, showing for each claim: the starting date of travel, the destination(s) of travel, the claim status, tags, and total currency amounts
 	public void testListClaims(){
-		Claim claim = new Claim();
-		ClaimList claimList = ClaimListController.getClaims();
-		ClaimListActivity activity = startWithClaim(claim, ClaimListActivity.NORMAL);
+		Claim claim = new Claim(null, null, null);
+		ClaimList claimList = ClaimList.getClaims();
+		ClaimList activity = startWithClaim(claim, ClaimListActivity.NORMAL);
 		ListView view = (ListView) activity.findViewById(R.id.listViewClaims);
 		
 	}
