@@ -96,14 +96,34 @@ public class ExpenseItemTests extends TestCase {
 		//assertFalse("Item does have a flag",expenseItem.getFlag());
 	}
 	
-	//US04.05.01 - able to view an expense item its details
-	//US04.06.01 - able to edit an expense item when allowed - set methods
+	//US04.05.01 - able to view an expense item its details - xml/activity
+	
+	
+	//US04.06.01 - able to edit an expense item when allowed - setters
+	public void testEditItem(){
+		Date date = new Date();
+		BigDecimal amount = new BigDecimal(45.50);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
+		Date date2 = new Date();
+		BigDecimal amount2 = new BigDecimal(800.23);
+		expenseItem.setName("name2");
+		expenseItem.setCategory("parking");
+		expenseItem.setDescription("description2");
+		expenseItem.setCurrency("CAD");
+		expenseItem.setAmount(amount2);
+		expenseItem.setDate(date2);
+		expenseItem.setFlag(true);
+		
+		
+		assertEquals("date not initialized",date2,expenseItem.getDate());
+		assertEquals("category not initialized","parking",expenseItem.getCategory());
+		assertEquals("description not initialized","description2",expenseItem.getDescription());
+		assertEquals("amount not initialized",amount2,expenseItem.getAmount());
+		assertEquals("currency not initialized","CAD",expenseItem.getCurrency());
+		assertEquals("name not initialized","name2",expenseItem.getName());
+	}
 	
 	//US04.08.01 - minimal required navigation in user interface when entering an item - test manually
 	
-	//US06.01.01 - take and attach a photograph to item
-	//US06.02.01 - view photograph
-	//US06.03.01 - able to delete photograph (when edits are allowed)
-	//US06.04.01 - image file < 65536 bytes
 	
 }
