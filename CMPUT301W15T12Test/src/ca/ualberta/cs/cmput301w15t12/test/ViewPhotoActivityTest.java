@@ -21,6 +21,7 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 	}
 	
 	//[US06.02.01] - Viewing photograph of a receipt
+	//[US08.05.01] - As an approver, I want to view any attached photographic receipt for an expense item.
 	public void testImageView(){
 		ViewPhotoActivity activity = startViewPhotoActivity();
 		View receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);

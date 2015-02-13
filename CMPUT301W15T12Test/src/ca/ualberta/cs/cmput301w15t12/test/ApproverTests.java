@@ -7,16 +7,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
+import android.widget.ImageView;
+
 import ca.ualberta.cs.cmput301w15t12.CantApproveOwnClaimException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
+import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
+import ca.ualberta.cs.cmput301w15t12.R;
 import ca.ualberta.cs.cmput301w15t12.User;
-import junit.framework.TestCase;
+import ca.ualberta.cs.cmput301w15t12.ViewPhotoActivity;
 
-
-public class ApproverTests extends TestCase
+public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity>
 {
 	DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
+	
+	public ApproverTests() {
+		super(ExpenseItemActivity.class);
+	}
+
 //	US08.01.01
 //	As an approver, I want to view a list of all the expense claims that were submitted for approval, 
 //	which have their claim status as submitted, showing for each claim: the claimant name, 
@@ -44,11 +56,9 @@ public class ApproverTests extends TestCase
 	public void seeItemAttributes() {
 		
 	}
-//	US08.05.01
-//	As an approver, I want to view any attached photographic receipt for an expense item.
-	public void seePhotoTest() {
-		
-	}
+
+//  US08.07.1 - see ViewPhotoActivityTest
+
 //	US08.06.01
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the
 //	claim was returned or provide accounting details for a payment.
