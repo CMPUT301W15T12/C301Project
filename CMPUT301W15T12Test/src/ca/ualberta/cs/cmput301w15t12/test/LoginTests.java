@@ -1,7 +1,5 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
-import java.util.ArrayList;
-
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.UserList;
 
@@ -13,9 +11,11 @@ public class LoginTests extends TestCase
 {
 	
 	public void testTweetList() {
-		//test constructor
+		UserList users = new UserList();
+		assertNotNull("users not initialized", users);
 	}
 	
+	//[DC01.02]
 	public void addAccount() throws AlreadyExistsException{
 		boolean thrown = false;
 		UserList users = new UserList();
@@ -30,6 +30,7 @@ public class LoginTests extends TestCase
 		assertTrue("Cannot create two accounts with the same email", thrown);
 	}
 	
+	//[DC01.01]
 	public void login() throws AlreadyExistsException {
 		String user = "Sarah";
 		UserList users = new UserList();

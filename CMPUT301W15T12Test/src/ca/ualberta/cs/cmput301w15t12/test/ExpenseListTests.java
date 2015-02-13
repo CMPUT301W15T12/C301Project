@@ -1,5 +1,7 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
+import ca.ualberta.cs.cmput301w15t12.ExpenseList;
 import junit.framework.TestCase;
 
 
