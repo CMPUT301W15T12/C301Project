@@ -3,6 +3,7 @@ package ca.ualberta.cs.cmput301w15t12.test;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
+import ca.ualberta.cs.cmput301w15t12.Claim;
 
 public class ClaimActivityTests extends
 		ActivityInstrumentationTestCase2<ClaimActivity> {
