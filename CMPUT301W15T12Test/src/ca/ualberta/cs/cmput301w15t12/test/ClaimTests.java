@@ -1,30 +1,43 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
-import junit.framework.TestCase;
+import java.util.Date;
+
+import android.test.ActivityInstrumentationTestCase2;
+import ca.ualberta.cs.cmput301w15t12.Claim;
 
 
-public class ClaimTests extends TestCase
+public class ClaimTests extends ActivityInstrumentationTestCase2<Claim>
 {
 	public ClaimTests(){
-		super(ClaimItem.class);
+		super(Claim.class);
 	}
 	//Tests for equal/submit/edit/getSum
 	//Test for equals, claim name must be unique
 	public void testEquals(){
-		ClaimItem claim1 = new ClaimItem();
-		ClaimItem claim2 = new ClaimItem();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		Claim claim1 = new Claim("name1",date1, date2);
+		Claim claim2 = new Claim("name2", date1,date2);
 		assertFalse("names are the same", claim1.getName().equals(claim2.getName()));
 	}
 	
 	//US01.01.01 - expense claim that records my name, a starting date of travel, and an ending date of travel
 	//US01.02.01 - record one or more destinations of travel and an associated reason for travel to each destination
 	public void testClaim(){
-		ClaimItem claim = new ClaimItem();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		Claim claim = new Claim("name",date1, date2);
 		assertNotNull("Name not initialized", claim.getName());
 		assertNotNull("Start Date not initialized", claim.getStartDate());
 		assertNotNull("End Date not initialized", claim.getEndDate());
+
+	}
+	
+	public void testDestination(){
+		Date date1 = new Date();
+		Date date2 = new Date();
+		Claim claim = new Claim("name",date1, date2);
 		assertNotNull("Destination not initialized", claim.getDestination());
-		assertNotNull("Destination description not initialized", claim.getDestinationDescription);
 	}
 	
 	//US01.03.01 - view an expense claim and its details
