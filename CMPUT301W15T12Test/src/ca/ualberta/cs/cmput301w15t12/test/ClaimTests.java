@@ -21,8 +21,8 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 	public void testEquals(){
 		Date date1 = new Date();
 		Date date2 = new Date();
-		Claim claim1 = new Claim("name1",date1, date2);
-		Claim claim2 = new Claim("name2", date1,date2);
+		Claim claim1 = new Claim("name1",  date1, date2, "description1", "Approved");
+		Claim claim2 = new Claim("name1",  date1, date2, "description1", "Approved");
 		assertFalse("names are the same", claim1.getName().equals(claim2.getName()));
 	}
 	
@@ -31,7 +31,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 	public void testClaim(){
 		Date date1 = new Date();
 		Date date2 = new Date();
-		Claim claim = new Claim("name",date1, date2);
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved");
 		assertNotNull("Name not initialized", claim.getName());
 		assertNotNull("Start Date not initialized", claim.getStartDate());
 		assertNotNull("End Date not initialized", claim.getEndDate());
@@ -41,7 +41,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 	public void testDestination(){
 		Date date1 = new Date();
 		Date date2 = new Date();
-		Claim claim = new Claim("name",date1, date2);
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved");
 		assertNotNull("Destination not initialized", claim.getDestination());
 	}
 	
@@ -65,7 +65,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		Date date2 = new Date();
 		Date date3 = new Date();
 		Date date4 = new Date();
-		Claim claim = new Claim("name1",date1, date2);
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved");
 		claim.setName("name2");
 		claim.setStartDate(date3);
 		claim.setEndDate(date4);
