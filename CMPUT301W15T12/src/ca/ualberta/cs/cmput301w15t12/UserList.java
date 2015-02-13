@@ -26,5 +26,13 @@ public class UserList
 		return users;
 	}
 	
-	
+	public boolean contains(String user)
+	{
+		for (int i = 0; i < users.size(); i++ ) {
+			if (users.get(i).equals(user)) {
+				return true;
+			}
+		}
+		return false;		
+	}
 }
