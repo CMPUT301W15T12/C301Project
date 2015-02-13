@@ -106,9 +106,6 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	
 	//US04.05.01 - able to view an expense item and its details
 	public void testViewItem(){
-//		Date date = new Date();
-//		BigDecimal amount = new BigDecimal(45.50);
-//		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
 		ExpenseItemActivity activity = startExpenseItemActivity();
 		
 		TextView nameView = (TextView) activity.findViewById(R.id.textItemName);
@@ -119,8 +116,6 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),descriptionView);
 		TextView currencyView = (TextView) activity.findViewById(R.id.textItemCurrency);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),currencyView);
-//		TextView amountView = (TextView) activity.findViewById(R.id.textItemCurrency);
-//		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),amountView);
 		TextView dateView = (TextView) activity.findViewById(R.id.textDate);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),dateView);
 		CheckBox flagView = (CheckBox) activity.findViewById(R.id.checkBox1);
