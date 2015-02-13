@@ -16,7 +16,7 @@ public class Claim {
 	private ExpenseList expenseItems;
 	//still needs tags list
 	
-	public Claim(String name, Date startDate, Date endDate, String description, String Status){
+	public Claim(String name, Date startDate, Date endDate, String description, String Status, String Claimant){
 		this.Name = name;
 		this.Status = Status;
 		this.startDate = startDate; 
@@ -41,6 +41,14 @@ public class Claim {
 
 	public void setName(String name) {
 		this.Name = name;
+	}
+	
+	public String getClaimant() {
+		return Claimant;
+	}
+
+	public void setClaimant (String name) {
+		this.Claimant = name;
 	}
 	
 	public String getComment() {

@@ -22,7 +22,7 @@ public class ExpenseListTests extends TestCase
 		Date date1 = new Date();
 		Date date2 = new Date();
 		ExpenseItem expense = new ExpenseItem("name","air fare","description","USD",amount,date,false);
-		Claim claim = new Claim("Claim",date1,date2,"description","Submitted");
+		Claim claim = new Claim("Claim",date1,date2,"description","Submitted", "Leah");
 		ExpenseList expenseList = claim.getExpenses(claim.getExpenseItems());
 		
 		expenseList.add(expense);
