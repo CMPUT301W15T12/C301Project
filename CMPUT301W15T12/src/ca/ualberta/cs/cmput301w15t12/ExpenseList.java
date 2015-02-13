@@ -15,6 +15,14 @@ public class ExpenseList implements Serializable
 		this.listeners = new ArrayList<Listener>();
 	}
 	
+	public ArrayList<ExpenseItem> getItems() {
+		return Items;
+	}
+
+	public void setItems(ArrayList<ExpenseItem> items) {
+		Items = items;
+	}
+
 	public void add(ExpenseItem item) throws AlreadyExistsException {
 		for (int i = 0; i < Items.size(); i++) {
 			if (Items.get(i).equals(item)){
