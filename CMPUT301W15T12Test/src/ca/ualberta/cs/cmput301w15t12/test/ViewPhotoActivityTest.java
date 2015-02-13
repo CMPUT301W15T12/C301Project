@@ -8,5 +8,6 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 	public ViewPhotoActivityTest() {
 		super(ViewPhotoActivity.class);
 	}
+	
 
 }
