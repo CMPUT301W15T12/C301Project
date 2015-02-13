@@ -4,10 +4,11 @@ import java.util.Date;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.ViewAsserts;
 import android.widget.TextView;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
-import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
+import ca.ualberta.cs.cmput301w15t12.R;
 
 
 public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
@@ -46,14 +47,16 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 	
 	//US01.03.01 - view an expense claim and its details
 	public void testViewClaim(){
-		Date date1 = new Date();
-		Date date2 = new Date();
-		Claim claim = new Claim("name1",date1, date2);
-		claim.setName("name2");
+//		Date date1 = new Date();
+//		Date date2 = new Date();
+//		Claim claim = new Claim("name1",date1, date2);
 		ClaimActivity activity = startClaimActivity();
-		TextView viewName = (TextView) ClaimActivity.findViewById(R.id.textViewName);
-		TextView viewStartDate = (TextView) ClaimActivity.findViewById(R.id.textViewStartDate);
-		TextView viewEndDate = (TextView) ClaimActivity.findViewById(R.id.textViewEndDate);
+		TextView viewName = (TextView) activity.findViewById(R.id.textViewName);
+		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(), viewName);
+		TextView viewStartDate = (TextView) activity.findViewById(R.id.textViewStartDate);
+		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(), viewStartDate);
+		TextView viewEndDate = (TextView) activity.findViewById(R.id.textViewEndDate);
+		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(), viewEndDate);
 	}
 	
 	//US01.04.01 - edit an expense claim while changes are allowed (setters)
