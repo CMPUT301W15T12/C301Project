@@ -2,6 +2,9 @@ package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
+import ca.ualberta.cs.cmput301w15t12.UserList;
+
 import junit.framework.TestCase;
 //where userlist is the list of registered users
 //already exists exception thrown when a new account is being created with an email address used previously 
@@ -13,14 +16,14 @@ public class LoginTests extends TestCase
 		//test constructor
 	}
 	
-	public void addAccount(){
+	public void addAccount() throws AlreadyExistsException{
 		boolean thrown = false;
 		UserList users = new UserList();
-		String email = "1234@ualbert.ca";
-		users.add(email);
-		assertTrue("User Added", users.getUsers()[0].equals(email));
+		String user = "Sarah";
+		users.add(user);
+		assertTrue("User Added", users.getUsers().get(0).equals(user));
 		try {
-			users.add(email);
+			users.add(user);
 		} catch (AlreadyExistsException e){
 			thrown = true;
 		}
@@ -28,9 +31,9 @@ public class LoginTests extends TestCase
 	}
 	
 	public void login() {
-		String email = "1234@ualbert.ca";
+		String user = "Sarah";
 		UserList users = new UserList();
-		users.add(email);
-		assertTrue("Can retrieve accounts", users.getUsers().getUser(email).equals(email));
+		users.add(user);
+		assertTrue("Can retrieve accounts", users.getUsers().getUser(user).equals(user));
 	}
 }
