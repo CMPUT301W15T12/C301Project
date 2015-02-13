@@ -17,6 +17,28 @@ public class ClaimList {
 		return Claims;
 	}
 	
+	public void returnClaim(Claim claim, String name)
+	{
+		claim.setStatus("Returned");
+		claim.addApprover(name);
+		//TODO add back to other list, remove from this list
+	}
+	
+	public void approveClaim(Claim claim, String name){
+		claim.setStatus("Approved");
+		claim.addApprover(name);
+		//TODO add back to other list, remove from this list
+	}
+	
+	public void remove(Claim claim) {
+		//TODO
+	}
+	
+	public void add(Claim claim){
+		//TODO check for name duplicates
+		Claims.add(claim);
+	}
+	
 	private ArrayList<Listener> getListeners() {
 		if (listeners == null) {
 			listeners = new ArrayList<Listener>();

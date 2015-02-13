@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public class UserList
 {
-	public ArrayList<String> users;
+	public ArrayList<User> users;
 	
 	public UserList() {
-		users = new ArrayList<String>();
+		users = new ArrayList<User>();
 	}
 
 	public void add(String user) throws AlreadyExistsException

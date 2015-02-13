@@ -4,28 +4,67 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Claim {
-	private String name;
+	private String Claimant;
+	private String Comment;
+	private String Name;
 	private Date startDate;
 	private Date endDate;
+	private String Description;
+	private String Status;
 	private ArrayList<String> destination;
+	private ArrayList<String> approvers;
 	//still needs tags list
 	
-	public Claim(String name, Date startDate, Date endDate){
-		this.name = name;
+	public Claim(String name, Date startDate, Date endDate, String description, String Status){
+		this.Name = name;
+		this.Status = Status;
 		this.startDate = startDate; 
 		this.endDate = endDate;
-		//destination should be a list later on
-		this.destination = destination;
+		this.Description = description;
+		this.destination = new ArrayList<String>();
+		this.approvers = new ArrayList<String>();
 	}
 
 	public String getName() {
-		return name;
+		return Name;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.Name = name;
+	}
+	
+	public String getComment() {
+		return Comment;
 	}
 
+	public void setComment(String comment) {
+		this.Comment = comment;
+	}
+	
+	public String getClaimant() {
+		return Claimant;
+	}
+
+	public void setClaimant (String name) {
+		this.Claimant = name;
+	}
+	
+	public String getDescription() {
+		return Description;
+	}
+
+	public void setDescription(String desc) {
+		this.Description = desc;
+	}
+	
+	public String getStatus() {
+		return Status;
+	}
+
+	public void setStatus(String status) {
+		this.Status = status;
+	}
+	
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -41,6 +80,18 @@ public class Claim {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	public void addDestination (String Destination) {
+		destination.add(Destination);
+	}
+	
+	public void removeDestination(String Destination) {
+		//TODO
+	}
+	
+	public void containsDestination(String Destination) {
+		//TODO
+	}
 
 	public ArrayList<String> getDestination() {
 		return destination;
@@ -48,6 +99,22 @@ public class Claim {
 
 	public void setDestination(ArrayList<String> destination) {
 		this.destination = destination;
+	}
+	
+	public void addApprover(String name) {
+		approvers.add(name);
+	}
+	
+	public void removeApprover(String name) {
+		//TODO
+	}
+	
+	public ArrayList<String> getApprovers() {
+		return approvers;
+	}
+
+	public void setApprovers(ArrayList<String> apps) {
+		this.approvers = apps;
 	}
 
 

@@ -1,11 +1,20 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import ca.ualberta.cs.cmput301w15t12.Claim;
+import ca.ualberta.cs.cmput301w15t12.ClaimList;
 import junit.framework.TestCase;
 
 
 public class ApproverTests extends TestCase
 {
-
+	DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
 //	US08.01.01
 //	As an approver, I want to view a list of all the expense claims that were submitted for approval, 
 //	which have their claim status as submitted, showing for each claim: the claimant name, 
@@ -41,22 +50,43 @@ public class ApproverTests extends TestCase
 //	US08.06.01
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the
 //	claim was returned or provide accounting details for a payment.
-	public void addCommentTest() {
+	public void addCommentTest() throws ParseException {
+		Date d1 = format.parse("01-02-1233");
+		Date d2 = format.parse("01-02-2134");
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		claim.setComment("Great");
+		assertEquals("comment got set", claim.getStatus(), "Great");
+		
+		
 		
 	}
 
 //	US08.07.01
 //	As an approver, I want to return a submitted expense claim that was not approved, denoting the claim 
 //	status as returned and setting my name as the approver for the expense claim.
-	public void approveClaimTest() {
-		
+	public void approveClaimTest() throws ParseException {
+		Date d1 = format.parse("01-02-1233");
+		Date d2 = format.parse("01-02-2134");
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		ClaimList list = new ClaimList();
+		list.add(claim);
+		list.returnClaim(claim, "Sarah");
+		assertTrue("Status = Returned?",claim.getStatus().equals("Returned"));
+		assertTrue("Name is set?",claim.getStatus().equals("Returned"));
 	}
 
 //	US08.08.01
 //	As an approver, I want to approve a submitted expense claim that was approved, denoting the claim status 
 //	as approved and setting my name as the approver for the expense claim.
-	public void returnClaimTest() {
-		
+	public void returnClaimTest() throws ParseException {
+		Date d1 = format.parse("01-02-1233");
+		Date d2 = format.parse("01-02-2134");
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		ClaimList list = new ClaimList();
+		list.add(claim);
+		list.approveClaim(claim, "Sarah");
+		assertTrue("Status = Approved?",claim.getStatus().equals("Approved"));
+		assertTrue("Name is set?",claim.getStatus().equals("Returned"));
 	}
 
 //	US08.09.01 added 2015-02-12
