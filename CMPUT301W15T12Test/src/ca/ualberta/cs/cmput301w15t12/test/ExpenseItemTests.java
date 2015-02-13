@@ -4,13 +4,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
-import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;
 
 
-public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseItem> {
+public class ExpenseItemTests extends TestCase {
 	public ExpenseItemTests(){
-		super(ExpenseItem.class);
+		super();
 	}
 	
 	protected void setUp() throws Exception {
