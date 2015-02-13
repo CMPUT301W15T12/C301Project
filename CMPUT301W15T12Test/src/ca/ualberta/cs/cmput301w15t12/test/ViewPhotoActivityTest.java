@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import android.widget.ImageView;
 import ca.ualberta.cs.cmput301w15t12.R;
 
