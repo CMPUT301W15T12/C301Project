@@ -3,23 +3,15 @@ package ca.ualberta.cs.cmput301w15t12.test;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-
-import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
-import android.widget.ImageView;
 
 import ca.ualberta.cs.cmput301w15t12.CantApproveOwnClaimException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
-import ca.ualberta.cs.cmput301w15t12.R;
 import ca.ualberta.cs.cmput301w15t12.User;
-import ca.ualberta.cs.cmput301w15t12.ViewPhotoActivity;
 
 public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity>
 {
@@ -29,26 +21,35 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		super(ExpenseItemActivity.class);
 	}
 
-//	US08.01.01
-//	As an approver, I want to view a list of all the expense claims that were submitted for approval, 
-//	which have their claim status as submitted, showing for each claim: the claimant name, 
-//  the starting date of travel, the destination(s) of travel, the claim status, total currency amounts, and any approver name.
-	public void claimUITests() {
-		
-	}
+//	US08.01.01 - see ApproverActivityTests
 
 //	US08.02.01
 //	As an approver, I want the list of submitted expense claims to be sorted by starting date of travel, 
 //	in order from oldest to most recent, so that older claims are considered first.
-	public void sortItemTest() {
-		
+	public void sortItemTest() throws ParseException {
+		String approver = "Sarah";
+		User user = new User(approver);
+		Date d1 = format.parse("01-02-1232");
+		Date d2 = format.parse("01-02-2134");
+		Claim claim1 = new Claim("c1", d1, d2, "Blah", "Submitted","Leah");
+		Date d3 = format.parse("01-02-1233");
+		Date d4 = format.parse("01-02-2134");
+		Claim claim2 = new Claim("c1", d3, d4, "Blah", "Submitted","Leah");
+		Date d5 = format.parse("01-02-1234");
+		Date d6 = format.parse("01-02-2134");
+		Claim claim3 = new Claim("c1", d5, d6, "Blah", "Submitted","Leah");
+		ClaimList list = new ClaimList(approver);
+		list.add(claim3);
+		list.add(claim1);
+		list.add(claim2);
+		user.setToApprove(list);
+		user.getToApprove().sort();
+		assertTrue("first item is claim 1",user.getToApprove().getClaims().get(0).equals(claim1));
+		assertTrue("first item is claim 2",user.getToApprove().getClaims().get(1).equals(claim2));
+		assertTrue("first item is claim 3",user.getToApprove().getClaims().get(2).equals(claim3));
 	}
 
-//	US08.03.01
-//	As an approver, I want to view all the details of a submitted expense claim.
-	public void itemUITest() {
-		
-	}
+//	US08.03.01 - see ApproverActivityTests
 
 //	US08.04.01
 //	As an approver, I want to list all the expense items for a submitted claim, in order of entry,
@@ -67,7 +68,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", "Leah");
 		ClaimList list = new ClaimList(name);
 		list.add(claim);
 		user.setToApprove(list);
@@ -85,11 +86,11 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", n);
 		ClaimList list = new ClaimList(name);
 		list.add(claim);
 		user.setToApprove(list);
-		user.getToApprove().approveClaim(claim, name, n);
+		user.getToApprove().approveClaim(claim, name);
 		assertTrue("Status = Returned?",claim.getStatus().equals("Returned"));
 		assertTrue("Name is set?",claim.getStatus().equals("Returned"));
 	}
@@ -103,11 +104,11 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", n);
 		ClaimList list = new ClaimList(name);
 		list.add(claim);
 		user.setToApprove(list);
-		user.getToApprove().returnClaim(claim, name, n);
+		user.getToApprove().returnClaim(claim, name);
 		assertTrue("Status = Approved?",claim.getStatus().equals("Approved"));
 		assertTrue("Name is set?",claim.getStatus().equals("Returned"));
 	}
@@ -122,17 +123,17 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		User user = new User(approver);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", claimant);
 		ClaimList list = new ClaimList(claimant);
 		list.add(claim);
 		user.setToApprove(list);
 		try {
-			user.getToApprove().returnClaim(claim, approver, claimant);
+			user.getToApprove().returnClaim(claim, approver);
 		} catch (CantApproveOwnClaimException e) {
 			thrown1 = true;
 		}
 		try {
-			user.getToApprove().approveClaim(claim, approver, claimant);
+			user.getToApprove().approveClaim(claim, approver);
 		} catch (CantApproveOwnClaimException e) {
 			thrown2 = true;
 		}

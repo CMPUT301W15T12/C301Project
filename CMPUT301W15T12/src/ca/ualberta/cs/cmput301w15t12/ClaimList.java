@@ -7,29 +7,19 @@ import java.util.Comparator;
 public class ClaimList {
 	public ArrayList<Claim> Claims;
 	public ArrayList<Listener> listeners;
-	public String Claimant;
 
 	public ClaimList(String Claimant) {
 		this.Claims = new ArrayList<Claim>();	
 		this.listeners = new ArrayList<Listener>();
-		this.Claimant = Claimant;
 	}
 
 	public ArrayList<Claim> getClaims() {
 		return Claims;
 	}
 	
-	public String getClaimant() {
-		return Claimant;
-	}
-
-	public void setClaimant (String name) {
-		this.Claimant = name;
-	}
-	
-	public void returnClaim(Claim claim, String approver, String claimant) throws CantApproveOwnClaimException
+	public void returnClaim(Claim claim, String approver) throws CantApproveOwnClaimException
 	{
-		if (approver.equals(claimant)){
+		if (approver.equals(claim.getClaimant())){
 			throw new CantApproveOwnClaimException();
 		}
 		claim.setStatus("Returned");
@@ -38,8 +28,8 @@ public class ClaimList {
 		//TODO add back to other list, remove from this list
 	}
 	
-	public void approveClaim(Claim claim, String approver, String Claimant) throws CantApproveOwnClaimException{
-		if (approver.equals(Claimant)){
+	public void approveClaim(Claim claim, String approver) throws CantApproveOwnClaimException{
+		if (approver.equals(claim.getClaimant())){
 			throw new CantApproveOwnClaimException();
 		}
 		claim.setStatus("Approved");
