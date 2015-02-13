@@ -13,6 +13,7 @@ public class Claim {
 	private String Status;
 	private ArrayList<String> destination;
 	private ArrayList<String> approvers;
+	private ExpenseList expenseItems;
 	//still needs tags list
 	
 	public Claim(String name, Date startDate, Date endDate, String description, String Status){
@@ -23,6 +24,15 @@ public class Claim {
 		this.Description = description;
 		this.destination = new ArrayList<String>();
 		this.approvers = new ArrayList<String>();
+		expenseItems = new ExpenseList();
+	}
+
+	public ExpenseList getExpenseItems() {
+		return expenseItems;
+	}
+
+	public void setExpenseItems(ExpenseList expenseItems) {
+		this.expenseItems = expenseItems;
 	}
 
 	public String getName() {
@@ -107,6 +117,11 @@ public class Claim {
 
 	public void setApprovers(ArrayList<String> apps) {
 		this.approvers = apps;
+	}
+
+	public ExpenseList getExpenses(ExpenseList expenseItems) {
+		// TODO Auto-generated method stub
+		return expenseItems;
 	}
 
 

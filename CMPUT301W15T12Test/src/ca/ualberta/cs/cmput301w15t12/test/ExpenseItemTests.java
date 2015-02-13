@@ -13,7 +13,6 @@ import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
 
-import junit.framework.TestCase;
 
 
 public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity> {
