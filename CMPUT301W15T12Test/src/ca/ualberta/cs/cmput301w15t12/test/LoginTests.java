@@ -30,10 +30,10 @@ public class LoginTests extends TestCase
 		assertTrue("Cannot create two accounts with the same email", thrown);
 	}
 	
-	public void login() {
+	public void login() throws AlreadyExistsException {
 		String user = "Sarah";
 		UserList users = new UserList();
 		users.add(user);
-		assertTrue("Can retrieve accounts", users.getUsers().getUser(user).equals(user));
+		assertTrue("Can retrieve accounts", users.getUsers().contains(user));
 	}
 }
