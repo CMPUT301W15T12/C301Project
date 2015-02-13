@@ -104,19 +104,26 @@ public class ExpenseItemTests extends TestCase {
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
 		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
-		assertNotNull("date not initialized",expenseItem.getDate());
-		assertNotNull("category not initialized",expenseItem.getCategory());
-		assertNotNull("description not initialized",expenseItem.getDescription());
-		assertNotNull("amount not initialized",expenseItem.getAmount());
-		assertNotNull("currency not initialized",expenseItem.getCurrency());
-		assertNotNull("name not initialized",expenseItem.getName());
+		Date date2 = new Date();
+		BigDecimal amount2 = new BigDecimal(800.23);
+		expenseItem.setName("name2");
+		expenseItem.setCategory("parking");
+		expenseItem.setDescription("description2");
+		expenseItem.setCurrency("CAD");
+		expenseItem.setAmount(amount2);
+		expenseItem.setDate(date2);
+		expenseItem.setFlag(true);
+		
+		
+		assertEquals("date not initialized",date2,expenseItem.getDate());
+		assertEquals("category not initialized","parking",expenseItem.getCategory());
+		assertEquals("description not initialized","description2",expenseItem.getDescription());
+		assertEquals("amount not initialized",amount2,expenseItem.getAmount());
+		assertEquals("currency not initialized","CAD",expenseItem.getCurrency());
+		assertEquals("name not initialized","name2",expenseItem.getName());
 	}
 	
 	//US04.08.01 - minimal required navigation in user interface when entering an item - test manually
 	
-	//US06.01.01 - take and attach a photograph to item
-	//US06.02.01 - view photograph
-	//US06.03.01 - able to delete photograph (when edits are allowed)
-	//US06.04.01 - image file < 65536 bytes
 	
 }
