@@ -7,8 +7,7 @@ public class Claim {
 	private String name;
 	private Date startDate;
 	private Date endDate;
-	private String destination;
-	private String destinationDescription;
+	private ArrayList<String> destination;
 	//still needs tags list
 	
 	public Claim(String name, Date startDate, Date endDate){
@@ -17,26 +16,39 @@ public class Claim {
 		this.endDate = endDate;
 		//destination should be a list later on
 		this.destination = destination;
-		this.destinationDescription = destinationDescription;
 	}
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
-	public String getStartDate() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getEndDate() {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public ArrayList getDestination() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public ArrayList<String> getDestination() {
+		return destination;
+	}
+
+	public void setDestination(ArrayList<String> destination) {
+		this.destination = destination;
+	}
+
+
 }

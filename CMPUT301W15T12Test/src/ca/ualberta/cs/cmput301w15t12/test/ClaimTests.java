@@ -2,14 +2,14 @@ package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.Date;
 
-import android.test.ActivityInstrumentationTestCase2;
+import junit.framework.TestCase;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 
 
-public class ClaimTests extends ActivityInstrumentationTestCase2<Claim>
+public class ClaimTests extends TestCase
 {
 	public ClaimTests(){
-		super(Claim.class);
+		super();
 	}
 	//Tests for equal/submit/edit/getSum
 	//Test for equals, claim name must be unique
