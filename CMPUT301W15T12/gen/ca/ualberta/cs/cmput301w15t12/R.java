@@ -68,22 +68,24 @@ public final class R {
         public static final int textcreatenewaccount=0x7f080028;
     }
     public static final class layout {
-        public static final int activity_claim=0x7f030000;
-        public static final int activity_claim_list=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_view_photo=0x7f030003;
-        public static final int add_claim=0x7f030004;
-        public static final int claim_page=0x7f030005;
-        public static final int email=0x7f030006;
-        public static final int item_page=0x7f030007;
-        public static final int new_account=0x7f030008;
+        public static final int activity_approver=0x7f030000;
+        public static final int activity_claim=0x7f030001;
+        public static final int activity_claim_list=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_view_photo=0x7f030004;
+        public static final int add_claim=0x7f030005;
+        public static final int claim_page=0x7f030006;
+        public static final int email=0x7f030007;
+        public static final int item_page=0x7f030008;
+        public static final int new_account=0x7f030009;
     }
     public static final class menu {
-        public static final int claim=0x7f070000;
-        public static final int claim_list=0x7f070001;
-        public static final int expense_item=0x7f070002;
-        public static final int main=0x7f070003;
-        public static final int view_photo=0x7f070004;
+        public static final int approver=0x7f070000;
+        public static final int claim=0x7f070001;
+        public static final int claim_list=0x7f070002;
+        public static final int expense_item=0x7f070003;
+        public static final int main=0x7f070004;
+        public static final int view_photo=0x7f070005;
     }
     public static final class string {
         public static final int ACurrency=0x7f05001e;
@@ -134,6 +136,7 @@ public final class R {
         public static final int tags=0x7f050030;
         public static final int title_activity_add_claim=0x7f050002;
         public static final int title_activity_add_item=0x7f050003;
+        public static final int title_activity_approver=0x7f050037;
         public static final int title_activity_claim=0x7f050036;
         public static final int title_activity_claim_list=0x7f050034;
         public static final int title_activity_edit_claim=0x7f050025;

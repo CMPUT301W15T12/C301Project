@@ -56,5 +56,6 @@
     <string name="title_activity_claim_list">ClaimListActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_claim">ClaimActivity</string>
+    <string name="title_activity_approver">ApproverActivity</string>
 
 </resources>
