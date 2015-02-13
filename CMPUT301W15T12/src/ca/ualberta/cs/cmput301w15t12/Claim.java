@@ -41,14 +41,6 @@ public class Claim {
 		this.Comment = comment;
 	}
 	
-	public String getClaimant() {
-		return Claimant;
-	}
-
-	public void setClaimant (String name) {
-		this.Claimant = name;
-	}
-	
 	public String getDescription() {
 		return Description;
 	}

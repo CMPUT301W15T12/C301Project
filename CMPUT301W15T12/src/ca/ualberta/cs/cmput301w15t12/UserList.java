@@ -11,7 +11,7 @@ public class UserList
 		users = new ArrayList<User>();
 	}
 
-	public void add(String user) throws AlreadyExistsException
+	public void add(User user) throws AlreadyExistsException
 	{
 		for (int i = 0; i < users.size(); i++ ) {
 			if (users.get(i).equals(user)) {
@@ -21,7 +21,7 @@ public class UserList
 		users.add(user);		
 	}
 
-	public ArrayList<String> getUsers()
+	public ArrayList<User> getUsers()
 	{
 		return users;
 	}

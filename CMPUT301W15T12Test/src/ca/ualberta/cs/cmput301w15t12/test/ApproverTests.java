@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import ca.ualberta.cs.cmput301w15t12.CantApproveOwnClaimException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
+import ca.ualberta.cs.cmput301w15t12.User;
 import junit.framework.TestCase;
 
 
@@ -51,26 +53,33 @@ public class ApproverTests extends TestCase
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the
 //	claim was returned or provide accounting details for a payment.
 	public void addCommentTest() throws ParseException {
+		String name = "Sarah";
+		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		ClaimList list = new ClaimList(name);
+		list.add(claim);
+		user.setToApprove(list);
+		user.getToApprove().getClaims().get(0).setComment("great");
 		claim.setComment("Great");
-		assertEquals("comment got set", claim.getStatus(), "Great");
-		
-		
-		
+		assertEquals("comment got set", claim.getStatus(), "Great");		
 	}
 
 //	US08.07.01
 //	As an approver, I want to return a submitted expense claim that was not approved, denoting the claim 
 //	status as returned and setting my name as the approver for the expense claim.
-	public void approveClaimTest() throws ParseException {
+	public void approveClaimTest() throws ParseException, CantApproveOwnClaimException {
+		String n = "leah";
+		String name = "Sarah";
+		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
-		ClaimList list = new ClaimList();
+		ClaimList list = new ClaimList(name);
 		list.add(claim);
-		list.returnClaim(claim, "Sarah");
+		user.setToApprove(list);
+		user.getToApprove().approveClaim(claim, name, n);
 		assertTrue("Status = Returned?",claim.getStatus().equals("Returned"));
 		assertTrue("Name is set?",claim.getStatus().equals("Returned"));
 	}
@@ -78,20 +87,49 @@ public class ApproverTests extends TestCase
 //	US08.08.01
 //	As an approver, I want to approve a submitted expense claim that was approved, denoting the claim status 
 //	as approved and setting my name as the approver for the expense claim.
-	public void returnClaimTest() throws ParseException {
+	public void returnClaimTest() throws ParseException, CantApproveOwnClaimException {
+		String n = "leah";
+		String name = "Sarah";
+		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
-		ClaimList list = new ClaimList();
+		ClaimList list = new ClaimList(name);
 		list.add(claim);
-		list.approveClaim(claim, "Sarah");
+		user.setToApprove(list);
+		user.getToApprove().returnClaim(claim, name, n);
 		assertTrue("Status = Approved?",claim.getStatus().equals("Approved"));
 		assertTrue("Name is set?",claim.getStatus().equals("Returned"));
 	}
 
 //	US08.09.01 added 2015-02-12
 //	As an approver, I want to ensure I cannot return or approve an expense claim for which I am the claimant.
-	public void restrictionsTest() {
+	public void restrictionsTest() throws ParseException, CantApproveOwnClaimException{
+		boolean thrown1 = false;
+		boolean thrown2 = false;
+		String approver = "Sarah";
+		String claimant= "Leah";
+		User user = new User(approver);
+		Date d1 = format.parse("01-02-1233");
+		Date d2 = format.parse("01-02-2134");
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted");
+		ClaimList list = new ClaimList(claimant);
+		list.add(claim);
+		user.setToApprove(list);
+		try {
+			user.getToApprove().returnClaim(claim, approver, claimant);
+		} catch (CantApproveOwnClaimException e) {
+			thrown1 = true;
+		}
+		try {
+			user.getToApprove().approveClaim(claim, approver, claimant);
+		} catch (CantApproveOwnClaimException e) {
+			thrown2 = true;
+		}
+		assertTrue("exception thrown", thrown1 == true);
+		assertTrue("exception thrown", thrown2 == true);
+		
+		
 		
 	}
 }

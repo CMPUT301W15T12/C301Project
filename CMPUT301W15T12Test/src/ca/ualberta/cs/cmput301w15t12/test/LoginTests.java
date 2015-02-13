@@ -1,6 +1,7 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
+import ca.ualberta.cs.cmput301w15t12.User;
 import ca.ualberta.cs.cmput301w15t12.UserList;
 
 import junit.framework.TestCase;
@@ -19,7 +20,7 @@ public class LoginTests extends TestCase
 	public void addAccount() throws AlreadyExistsException{
 		boolean thrown = false;
 		UserList users = new UserList();
-		String user = "Sarah";
+		User user = new User("Sarah");
 		users.add(user);
 		assertTrue("User Added", users.getUsers().get(0).equals(user));
 		try {
@@ -32,7 +33,7 @@ public class LoginTests extends TestCase
 	
 	//[DC01.01]
 	public void login() throws AlreadyExistsException {
-		String user = "Sarah";
+		User user = new User("Sarah");
 		UserList users = new UserList();
 		users.add(user);
 		assertTrue("Can retrieve accounts", users.getUsers().contains(user));
