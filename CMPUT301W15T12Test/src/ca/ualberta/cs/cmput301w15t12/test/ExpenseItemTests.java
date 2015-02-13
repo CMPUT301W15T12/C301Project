@@ -1,5 +1,9 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
+import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.TestCase;
 
@@ -15,10 +19,14 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	
 	//tests for equals - name must be unique to an expense item
 	public void testEquals(){
-		ExpenseItem expenseItem1 = new ExpenseItem();
-		ExpenseItem expenseItem2 = new ExpenseItem();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		BigDecimal amount1 = new BigDecimal(45.50);
+		BigDecimal amount2 = new BigDecimal(50.00);
+		ExpenseItem expenseItem1 = new ExpenseItem("name1","air fare","description1","USD",amount1,date1,false);
+		ExpenseItem expenseItem2 = new ExpenseItem("name2","registration","description2","JPY",amount2,date2,false);
 		boolean i = false;
-		if (expenseItem1.getName().equals(expenseItem2.getName)){
+		if (expenseItem1.getName().equals(expenseItem2.getName())){
 			i=true;
 		}
 		assertFalse("Names are the same",i);
@@ -26,19 +34,23 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	
 	//US04.01.01 - expense item has date, category, description, amount, currency
 	public void testExpenseItem(){
-		ExpenseItem expenseItem = new ExpenseItem();
+		Date date = new Date();
+		BigDecimal amount = new BigDecimal(45.50);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
 		assertNotNull("date not initialized",expenseItem.getDate());
-		assertNotNull("category not initialized",expenseItem.getCategory);
-		assertNotNull("description not initialized",expenseItem.getDescription);
-		assertNotNull("amount not initialized",expenseItem.getAmount);
-		assertNotNull("currency not initialized",expenseItem.getCurrency);
-		assertNotNull("name not initialized",expenseItem.getName);
+		assertNotNull("category not initialized",expenseItem.getCategory());
+		assertNotNull("description not initialized",expenseItem.getDescription());
+		assertNotNull("amount not initialized",expenseItem.getAmount());
+		assertNotNull("currency not initialized",expenseItem.getCurrency());
+		assertNotNull("name not initialized",expenseItem.getName());
 	}
 	
 	//US04.02.01 - category is one of air fare, round transport, vehicle rental, 
 	//private automobile, fuel, parking, registration, accommodation, meal, or supplies.
 	public void testCategory(){
-		ExpenseItem expenseItem = new ExpenseItem();
+		Date date = new Date();
+		BigDecimal amount = new BigDecimal(45.50);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
 		boolean i = false;
 		if (expenseItem.getCategory().equals("air fare") || 
 				expenseItem.getCategory().equals("round transport") || 
@@ -57,7 +69,9 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	
 	//US04.03.01 - currency is one of CAD, USD, EUR, GBP, CHF, JPY, CNY
 	public void testCurrency(){
-		ExpenseItem expenseItem = new ExpenseItem();
+		Date date = new Date();
+		BigDecimal amount = new BigDecimal(45.50);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
 		boolean i = false;
 		if (expenseItem.getCurrency().equals("CAD") || 
 				expenseItem.getCurrency().equals("USD") || 
@@ -73,9 +87,11 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	
 	//US04.04.01 - expense item can be flagged
 	public void testFlag(){
-		ExpenseItem expenseItem = new ExpenseItem();
+		Date date = new Date();
+		BigDecimal amount = new BigDecimal(45.50);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
 		//passes if item has a flag
-		assertTrue("Item does not have a flag",expenseItem.getFlag());
+		assertTrue("Item does not have a flag",expenseItem.isFlag());
 		
 		//passes if item does not have a flag
 		//assertFalse("Item does have a flag",expenseItem.getFlag());
