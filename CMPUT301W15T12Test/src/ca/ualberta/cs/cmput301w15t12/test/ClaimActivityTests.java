@@ -49,7 +49,7 @@ public class ClaimActivityTests extends
 	}
 	
 	//US07.02.01 - Visual warning of missing values
-	public void testIncompletePrompt() {
+	public void testIncompleteClaimPrompt() {
 		// Start ClaimActivity, should be blank since its a new claim
 		ClaimActivity activity = getActivity();
 		
