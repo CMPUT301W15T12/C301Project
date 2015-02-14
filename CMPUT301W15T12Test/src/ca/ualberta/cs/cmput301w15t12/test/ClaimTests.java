@@ -23,7 +23,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		Date date2 = new Date();
 		Claim claim1 = new Claim("name1",  date1, date2, "description1", "Approved", "Leah");
 		Claim claim2 = new Claim("name1",  date1, date2, "description1", "Approved", "Leah");
-		assertFalse("names are the same", claim1.getName().equals(claim2.getName()));
+		assertTrue("names are not the same", claim1.getName().equals(claim2.getName()));
 	}
 	
 	//US01.01.01 - expense claim that records my name, a starting date of travel, and an ending date of travel
