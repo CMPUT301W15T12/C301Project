@@ -51,13 +51,10 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 
 //	US08.03.01 - see ApproverActivityTests
 
-//	US08.04.01
+//	US08.04.01 - see US05.01.01 in ExpenseListTests
 //	As an approver, I want to list all the expense items for a submitted claim, in order of entry,
 //	showing for each expense item: the date the expense was incurred, the category, the textual description, amount spent, unit of currency, and whether there is a photographic receipt.
-	public void seeItemAttributes() {
-		
-		
-	}
+
 
 //  US08.07.1 - see ViewPhotoActivityTest
 
