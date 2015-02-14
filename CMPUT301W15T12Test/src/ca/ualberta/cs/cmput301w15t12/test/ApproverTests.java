@@ -15,7 +15,7 @@ import ca.ualberta.cs.cmput301w15t12.User;
 
 public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity>
 {
-	DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
+	DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
 	
 	public ApproverTests() {
 		super(ExpenseItemActivity.class);
@@ -55,6 +55,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	As an approver, I want to list all the expense items for a submitted claim, in order of entry,
 //	showing for each expense item: the date the expense was incurred, the category, the textual description, amount spent, unit of currency, and whether there is a photographic receipt.
 	public void seeItemAttributes() {
+		
 		
 	}
 

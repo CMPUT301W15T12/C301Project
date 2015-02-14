@@ -72,13 +72,8 @@ public class ClaimList {
 		notifyListeners();
 	}
 	
-	public boolean contains(String claimname) {
-		for (int i = 0; i < Claims.size(); i++) {
-			if (Claims.get(i).getName().equals(claimname)) {
-				return true;
-			}
-		}
-		return false;
+	public boolean contains(Claim claim) {
+		return Claims.contains(claim);
 	}
 	
 	public int size()

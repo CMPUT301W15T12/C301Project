@@ -29,7 +29,7 @@ public class ClaimListTests extends TestCase
 	public void deleteClaim() {
 		Date date1 = new Date();
 		Date date2 = new Date();
-		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved");
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
 		ClaimList claimList = ClaimListController.getClaims();
 		
 		claimList.add(claim);
@@ -45,7 +45,7 @@ public class ClaimListTests extends TestCase
 	public void testListClaims(){
 		Date date1 = new Date();
 		Date date2 = new Date();
-		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved");
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
 		ClaimList activity = startWithClaim(claim, ClaimListActivity.NORMAL);
 		ListView view = (ListView) activity.findViewById(R.id.listViewClaims);
 		

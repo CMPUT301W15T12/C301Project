@@ -1,7 +1,10 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class Claim {
 	private String Claimant;
@@ -13,7 +16,9 @@ public class Claim {
 	private String Status;
 	private ArrayList<String> destination;
 	private ArrayList<String> approvers;
+	private TotalList total;
 	private ExpenseList expenseItems;
+	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	//still needs tags list
 	
 	public Claim(String name, Date startDate, Date endDate, String description, String Status, String Claimant){
@@ -24,9 +29,37 @@ public class Claim {
 		this.Description = description;
 		this.destination = new ArrayList<String>();
 		this.approvers = new ArrayList<String>();
-		expenseItems = new ExpenseList();
+		this.total = new TotalList();
+		this.expenseItems = new ExpenseList();
 	}
-
+	
+	public String toStringClaimantList() {
+		String ds = df.format(startDate);
+		String block = "["+ds+"] "+Name+" - "+Status+"\n"+total.toStringList()+"\n"+destinationsToString()+"\n"+tagsToString();
+		return block;
+	}
+	
+	public String destinationsToString() {
+		//TODO
+		return "";
+	}
+	
+	public String tagsToString() {
+		//TODO
+		return "";
+	}
+	
+	public String approversToString() {
+		//TODO 
+		return "";
+	}
+	
+	public String toStringApproverList() {
+		String ds= df.format(startDate);
+		String block = "["+ds+"] "+Claimant+" - "+Status+"\n"+total.toStringList()+"\n"+destinationsToString()+"\n"+approversToString();
+		return block;
+	}
+	
 	public ExpenseList getExpenseItems() {
 		return expenseItems;
 	}

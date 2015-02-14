@@ -1,28 +1,36 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ExpenseItem{
 	
 	private String name;
 	private String category;
 	private String description;
-	private String currency;
-	private BigDecimal amount;
+	private Amt_Cur AC;
 	private Date date;
 	private boolean flag;
+	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	
 	public ExpenseItem(String name,String category, String description, String currency, 
 			BigDecimal amount, Date date, boolean flag){
 		this.name = name;
 		this.category = category;
 		this.description = description;
-		this.currency = currency;
-		this.amount = amount;
+		this.AC = new Amt_Cur(amount, currency);
 		this.date = date;
 		this.flag = flag;
 		
+	}
+	
+	public String toStringList() {
+		String d = df.format(date);
+		String block = "["+d+"] "+name+"\n"+category+" - "+AC.getAmount()+" "+AC.getCurrency()+"\n"+description;
+		return block;
 	}
 	
 	public String getName() {
@@ -43,17 +51,20 @@ public class ExpenseItem{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public Amt_Cur getAmt_Cur() {
+		return AC;
+	}
 	public String getCurrency() {
-		return currency;
+		return AC.getCurrency();
 	}
 	public void setCurrency(String currency) {
-		this.currency = currency;
+		this.AC.setCurrency(currency);
 	}
 	public BigDecimal getAmount() {
-		return amount;
+		return AC.getAmount();
 	}
 	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+		this.AC.setAmount(amount);
 	}
 	public Date getDate() {
 		return date;

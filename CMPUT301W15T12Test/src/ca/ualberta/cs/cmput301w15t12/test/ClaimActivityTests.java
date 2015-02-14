@@ -1,5 +1,7 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import java.util.Date;
+
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
