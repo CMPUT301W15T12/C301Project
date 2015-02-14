@@ -38,7 +38,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d5 = format.parse("01-02-1234");
 		Date d6 = format.parse("01-02-2134");
 		Claim claim3 = new Claim("c1", d5, d6, "Blah", "Submitted","Leah");
-		ClaimList list = new ClaimList(approver);
+		ClaimList list = new ClaimList();
 		list.add(claim3);
 		list.add(claim1);
 		list.add(claim2);
@@ -70,7 +70,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", "Leah");
-		ClaimList list = new ClaimList(name);
+		ClaimList list = new ClaimList();
 		list.add(claim);
 		user.setToApprove(list);
 		user.getToApprove().getClaims().get(0).setComment("great");
@@ -88,7 +88,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", n);
-		ClaimList list = new ClaimList(name);
+		ClaimList list = new ClaimList();
 		list.add(claim);
 		user.setToApprove(list);
 		user.getToApprove().approveClaim(claim, name);
@@ -106,7 +106,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", n);
-		ClaimList list = new ClaimList(name);
+		ClaimList list = new ClaimList();
 		list.add(claim);
 		user.setToApprove(list);
 		user.getToApprove().returnClaim(claim, name);
@@ -125,7 +125,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", claimant);
-		ClaimList list = new ClaimList(claimant);
+		ClaimList list = new ClaimList();
 		list.add(claim);
 		user.setToApprove(list);
 		try {

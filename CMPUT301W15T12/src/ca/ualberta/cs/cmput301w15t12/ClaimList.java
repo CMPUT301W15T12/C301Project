@@ -8,7 +8,7 @@ public class ClaimList {
 	public ArrayList<Claim> Claims;
 	public ArrayList<Listener> listeners;
 
-	public ClaimList(String Claimant) {
+	public ClaimList() {
 		this.Claims = new ArrayList<Claim>();	
 		this.listeners = new ArrayList<Listener>();
 	}

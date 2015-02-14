@@ -8,8 +8,8 @@ public class User
 	private String UserName;
 	
 	public User(String name) {
-		toClaim = new ClaimList(name);
-		toApprove = new ClaimList(name);
+		toClaim = new ClaimList();
+		toApprove = new ClaimList();
 		this.UserName = name;
 	}
 	
@@ -22,7 +22,7 @@ public class User
 	}
 
 	
-	public ClaimList gettoClaim(){
+	public ClaimList getToClaim(){
 		return toClaim;
 	}
 
