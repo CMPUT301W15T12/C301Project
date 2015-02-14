@@ -21,16 +21,22 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 	}
 	
 	//[US06.02.01] - Viewing photograph of a receipt
-	//[US08.05.01] - As an approver, I want to view any attached photographic receipt for an expense item.
 	public void testImageView(){
 		ViewPhotoActivity activity = startViewPhotoActivity();
 		View receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
 		assertNotNull("Fail to allocate image view",receiptImageView);
 		assertTrue("receiptImageView should be an instanceof ImageView",receiptImageView.getClass() == ImageView.class);
+	}
+	
+	//[US06.02.01] - Viewing photograph of a receipt
+	//[US08.05.01] - As an approver, I want to view any attached photographic receipt for an expense item.
+	public void testImageLoaded(){
+		ViewPhotoActivity activity = startViewPhotoActivity();
+		View receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
 		if((BitmapDrawable)((ImageView)receiptImageView).getDrawable()==null){
 			fail("Receipt photo is not loaded inside the image view");
 			return;
-		}
+		}		
 	}
 	
 	//[US06.04.01] - Limiting image file size
