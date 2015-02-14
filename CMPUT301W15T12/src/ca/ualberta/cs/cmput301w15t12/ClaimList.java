@@ -105,4 +105,9 @@ public class ClaimList {
 		});
 	}
 
+	public void setSelected(Claim claim) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
