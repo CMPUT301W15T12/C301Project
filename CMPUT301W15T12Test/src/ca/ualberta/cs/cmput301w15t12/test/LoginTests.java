@@ -17,7 +17,7 @@ public class LoginTests extends TestCase
 	}
 	
 	//[DC01.02]
-	public void addAccount() throws AlreadyExistsException{
+	public void testaddAccount() throws AlreadyExistsException{
 		boolean thrown = false;
 		UserList users = new UserList();
 		User user = new User("Sarah");
@@ -32,7 +32,7 @@ public class LoginTests extends TestCase
 	}
 	
 	//[DC01.01]
-	public void login() throws AlreadyExistsException {
+	public void testlogin() throws AlreadyExistsException {
 		User user = new User("Sarah");
 		UserList users = new UserList();
 		users.add(user);

@@ -182,3 +182,4 @@ public class ClaimActivityTests extends
 		assertTrue("Comment is not correct", claim.getComment().matches(comment));
 	}
 }
+

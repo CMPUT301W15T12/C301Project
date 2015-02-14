@@ -26,7 +26,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	US08.02.01
 //	As an approver, I want the list of submitted expense claims to be sorted by starting date of travel, 
 //	in order from oldest to most recent, so that older claims are considered first.
-	public void sortItemTest() throws ParseException {
+	public void testsortItem() throws ParseException {
 		String approver = "Sarah";
 		User user = new User(approver);
 		Date d1 = format.parse("01-02-1232");
@@ -64,7 +64,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	US08.06.01
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the
 //	claim was returned or provide accounting details for a payment.
-	public void addCommentTest() throws ParseException {
+	public void testaddComment() throws ParseException {
 		String name = "Sarah";
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
@@ -81,7 +81,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	US08.07.01
 //	As an approver, I want to return a submitted expense claim that was not approved, denoting the claim 
 //	status as returned and setting my name as the approver for the expense claim.
-	public void approveClaimTest() throws ParseException, CantApproveOwnClaimException {
+	public void testapproveClaim() throws ParseException, CantApproveOwnClaimException {
 		String n = "leah";
 		String name = "Sarah";
 		User user = new User(name);
@@ -99,7 +99,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	US08.08.01
 //	As an approver, I want to approve a submitted expense claim that was approved, denoting the claim status 
 //	as approved and setting my name as the approver for the expense claim.
-	public void returnClaimTest() throws ParseException, CantApproveOwnClaimException {
+	public void testreturnClaim() throws ParseException, CantApproveOwnClaimException {
 		String n = "leah";
 		String name = "Sarah";
 		User user = new User(name);
@@ -116,7 +116,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 
 //	US08.09.01 added 2015-02-12
 //	As an approver, I want to ensure I cannot return or approve an expense claim for which I am the claimant.
-	public void restrictionsTest() throws ParseException, CantApproveOwnClaimException{
+	public void testrestrictions() throws ParseException, CantApproveOwnClaimException{
 		boolean thrown1 = false;
 		boolean thrown2 = false;
 		String approver = "Sarah";

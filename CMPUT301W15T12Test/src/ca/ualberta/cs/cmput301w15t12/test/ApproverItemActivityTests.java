@@ -19,7 +19,7 @@ public class ApproverItemActivityTests extends ActivityInstrumentationTestCase2<
 	
 	//	US08.03.01
 	//As an approver, I want to view all the details of a submitted expense claim.
-	public void itemUITest() {
+	public void testitemUI() {
 		ApproverItemActivity activity = startApproverItemActivity();
 		
 		TextView nameView = (TextView) activity.findViewById(R.id.textApproverItemName);

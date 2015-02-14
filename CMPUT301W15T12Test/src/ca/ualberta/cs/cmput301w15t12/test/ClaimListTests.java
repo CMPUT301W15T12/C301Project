@@ -1,3 +1,4 @@
+
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.text.DateFormat;
@@ -29,7 +30,7 @@ public class ClaimListTests extends TestCase
 		super.setUp();
 	}
 	
-	public void deleteClaim() {
+	public void testdeleteClaim() {
 		Date date1 = new Date();
 		Date date2 = new Date();
 		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
@@ -78,3 +79,4 @@ public class ClaimListTests extends TestCase
 		assertTrue("first item is claim 3",user.getToApprove().getClaims().get(2).equals(claim3));	
 	}
 }
+
