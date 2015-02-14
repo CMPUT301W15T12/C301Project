@@ -98,10 +98,10 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		BigDecimal amount = new BigDecimal(45.50);
 		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
 		//passes if item has a flag
-		assertTrue("Item does not have a flag",expenseItem.isFlag());
+		assertFalse("Item does have a flag",expenseItem.isFlag());
 		
 		//passes if item does not have a flag
-		//assertFalse("Item does have a flag",expenseItem.getFlag());
+		//assertTrue("Item does not have a flag",expenseItem.isFlag());
 	}
 	
 	//US04.05.01 - able to view an expense item and its details
