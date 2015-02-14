@@ -57,5 +57,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_claim">ClaimActivity</string>
     <string name="title_activity_approver">ApproverActivity</string>
-
+    <string name = "approverAddComment">Add Comment</string>
+	<string name = "approverApprove">Approve</string>
+	<string name = "approverReturn">Return</string>
+	
 </resources>
