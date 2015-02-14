@@ -50,14 +50,6 @@ public class ExpenseList implements Serializable
 		notifyListeners();
 	}
 	
-	public void toStringApprover() {
-		
-	}
-	
-	public void toStringClaimant() {
-	
-	}
-	
 	public int size() {
 		return Items.size();
 	}

@@ -8,7 +8,7 @@ public class ClaimList {
 	public ArrayList<Claim> Claims;
 	public ArrayList<Listener> listeners;
 
-	public ClaimList(String Claimant) {
+	public ClaimList() {
 		this.Claims = new ArrayList<Claim>();	
 		this.listeners = new ArrayList<Listener>();
 	}
@@ -72,13 +72,8 @@ public class ClaimList {
 		notifyListeners();
 	}
 	
-	public boolean contains(String claimname) {
-		for (int i = 0; i < Claims.size(); i++) {
-			if (Claims.get(i).getName().equals(claimname)) {
-				return true;
-			}
-		}
-		return false;
+	public boolean contains(Claim claim) {
+		return Claims.contains(claim);
 	}
 	
 	public int size()

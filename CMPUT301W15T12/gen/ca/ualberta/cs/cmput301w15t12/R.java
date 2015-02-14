@@ -26,6 +26,7 @@ public final class R {
     public static final class id {
         public static final int ApproverlistExpenseItems=0x7f080002;
         public static final int ApproverlistTotalSum=0x7f080004;
+<<<<<<< HEAD
         public static final int EnterClaimName=0x7f08001b;
         public static final int EnterDescription=0x7f08001c;
         public static final int EnterDestinations=0x7f08001f;
@@ -59,6 +60,39 @@ public final class R {
         public static final int sendEmail=0x7f08002a;
         public static final int subject=0x7f080028;
         public static final int textApproverCategory=0x7f08000a;
+=======
+        public static final int EnterClaimName=0x7f080015;
+        public static final int EnterDescription=0x7f080016;
+        public static final int EnterDestinations=0x7f080019;
+        public static final int EnterEndDate=0x7f080017;
+        public static final int EnterStartDate=0x7f080014;
+        public static final int EnterTags=0x7f080018;
+        public static final int action_settings=0x7f080031;
+        public static final int body=0x7f080023;
+        public static final int buttonAddClaim=0x7f08000d;
+        public static final int buttonAddComment=0x7f080003;
+        public static final int buttonAddItem=0x7f08001e;
+        public static final int buttonApproverApprove=0x7f080006;
+        public static final int buttonApproverReturn=0x7f080007;
+        public static final int buttonImage=0x7f080027;
+        public static final int buttonLogin=0x7f080012;
+        public static final int buttonNewAccount=0x7f080011;
+        public static final int buttonNewAccountDone=0x7f08002e;
+        public static final int buttonitemdelete=0x7f080025;
+        public static final int buttonitemedit=0x7f080026;
+        public static final int buttonsaveClaim=0x7f08001a;
+        public static final int checkBox1=0x7f08002d;
+        public static final int editLoginUserName=0x7f080010;
+        public static final int editNewUserName=0x7f08002f;
+        public static final int editTextSearchTags=0x7f08000c;
+        public static final int listExpenseItems=0x7f08001d;
+        public static final int listTotalSum=0x7f08001f;
+        public static final int listViewClaims=0x7f08000e;
+        public static final int receiptImageView=0x7f080013;
+        public static final int recipient=0x7f080021;
+        public static final int sendEmail=0x7f080024;
+        public static final int subject=0x7f080022;
+>>>>>>> fb23ddcee96306902a4e261c7c3e1e219b8c2ff7
         public static final int textApproverClaimDescription=0x7f080005;
         public static final int textApproverClaimName=0x7f080001;
         public static final int textApproverDate=0x7f080008;
