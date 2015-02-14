@@ -40,6 +40,22 @@ public class Claim {
 		return block;
 	}
 	
+	public TotalList getTotal() {
+		return total;
+	}
+
+	public void setTotal(TotalList total) {
+		this.total = total;
+	}
+
+	public DateFormat getDf() {
+		return df;
+	}
+
+	public void setDf(DateFormat df) {
+		this.df = df;
+	}
+
 	public String destinationsToString() {
 		//TODO
 		return "";
@@ -164,6 +180,11 @@ public class Claim {
 	public ExpenseList getExpenses(ExpenseList expenseItems) {
 		// TODO Auto-generated method stub
 		return expenseItems;
+	}
+
+	public void setApprover(User approver) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

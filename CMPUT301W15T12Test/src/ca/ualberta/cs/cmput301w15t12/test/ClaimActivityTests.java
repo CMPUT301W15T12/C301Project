@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
+import ca.ualberta.cs.cmput301w15t12.ClaimList;
 
 public class ClaimActivityTests extends
 		ActivityInstrumentationTestCase2<ClaimActivity> {
@@ -22,8 +23,11 @@ public class ClaimActivityTests extends
 	// US07.01.01 - Submission of claim, allowing no edits thereafter
 	public void testSubmitStatus() {
 		// Make new claim and add to claims list
-		Claim claim = new Claim();
-		ClaimListController.addClaim(claim);
+		ClaimList claimList = new ClaimList();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
+		claimList.addClaim(claim);
 		
 		// Note: setStatus automatically handles valid changes to status
 		// If a call is not valid, nothing happens, and the status remains the same
@@ -33,7 +37,7 @@ public class ClaimActivityTests extends
 		assertTrue("Status was not changed to submitted", claim.getStatus() == "Submitted");
 		
 		// Select the claim via controller
-		ClaimListController.setSelected(claim);
+		claimList.setSelected(claim);
 		
 		// Start ClaimActivity and make it output data from claim
 		ClaimActivity activity = getActivity();
@@ -75,8 +79,11 @@ public class ClaimActivityTests extends
 	// US07.03.01 - Returning a claim, allowing edits thereafter
 	public void testReturnedStatus() {
 		// Make new claim and add to claims list
-		Claim claim = new Claim();
-		ClaimListController.addClaim(claim);
+		Date date1 = new Date();
+		Date date2 = new Date();
+		ClaimList claimList = new ClaimList();
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
+		claimList.addClaim(claim);
 		
 		// Make sure claim is in submitted status
 		claim.setStatus("Submitted");
@@ -87,7 +94,7 @@ public class ClaimActivityTests extends
 		assertTrue("Status was not changed to returned", claim.getStatus() == "Returned");
 		
 		// Select the claim via controller
-		ClaimListController.setSelected(claim);
+		claimList.setSelected(claim);
 		
 		// Start ClaimActivity and make it output data from claim
 		ClaimActivity activity = getActivity();
@@ -109,8 +116,11 @@ public class ClaimActivityTests extends
 	// US07.04.01 - Approving a claim, allowing no edits thereafter
 	public void testApprovedStatus() {
 		// Make new claim and add to claims list
-		Claim claim = new ClaimItem();
-		ClaimListController.addClaim(claim);
+		Date date1 = new Date();
+		Date date2 = new Date();
+		ClaimList claimList = new ClaimList();
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
+		claimList.addClaim(claim);
 		
 		// Make sure claim is in submitted status
 		claim.setStatus("Submitted");
@@ -140,7 +150,9 @@ public class ClaimActivityTests extends
 	//US07.05.01 - Show name and comments of approver
 	public void testApproverComments() {
 		// Make new claim
-		Claim claim = new Claim();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
 		
 		// Make new user who will act as approver, and his comments
 		User approver = new User();
