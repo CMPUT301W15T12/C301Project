@@ -75,7 +75,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		user.setToApprove(list);
 		user.getToApprove().getClaims().get(0).setComment("great");
 		claim.setComment("Great");
-		assertEquals("comment got set", claim.getStatus(), "Great");		
+		assertEquals("comment got set", claim.getComment(), "Great");		
 	}
 
 //	US08.07.01
@@ -92,8 +92,8 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		list.add(claim);
 		user.setToApprove(list);
 		user.getToApprove().approveClaim(claim, name);
-		assertTrue("Status = Returned?",claim.getStatus().equals("Returned"));
-		assertTrue("Name is set?",claim.getStatus().equals("Returned"));
+		assertTrue("Status = Approved?",claim.getStatus().equals("Approved"));
+		assertTrue("Name is set?",claim.getApprovers().contains(name));
 	}
 
 //	US08.08.01
@@ -110,8 +110,8 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		list.add(claim);
 		user.setToApprove(list);
 		user.getToApprove().returnClaim(claim, name);
-		assertTrue("Status = Approved?",claim.getStatus().equals("Approved"));
-		assertTrue("Name is set?",claim.getStatus().equals("Returned"));
+		assertTrue("Status = returned?",claim.getStatus().equals("Returned"));
+		assertTrue("Name is set?",claim.getApprovers().contains(name));
 	}
 
 //	US08.09.01 added 2015-02-12
@@ -120,11 +120,10 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		boolean thrown1 = false;
 		boolean thrown2 = false;
 		String approver = "Sarah";
-		String claimant= "Leah";
 		User user = new User(approver);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", claimant);
+		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", approver);
 		ClaimList list = new ClaimList();
 		list.add(claim);
 		user.setToApprove(list);
@@ -138,10 +137,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		} catch (CantApproveOwnClaimException e) {
 			thrown2 = true;
 		}
-		assertTrue("exception thrown", thrown1 == true);
-		assertTrue("exception thrown", thrown2 == true);
-		
-		
-		
+		assertTrue("exception thrown", thrown1);
+		assertTrue("exception thrown", thrown2);
 	}
 }

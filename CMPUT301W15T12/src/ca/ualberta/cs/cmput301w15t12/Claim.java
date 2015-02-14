@@ -23,6 +23,7 @@ public class Claim {
 	
 	public Claim(String name, Date startDate, Date endDate, String description, String Status, String Claimant){
 		this.Name = name;
+		this.Claimant = Claimant;
 		this.Status = Status;
 		this.startDate = startDate; 
 		this.endDate = endDate;
