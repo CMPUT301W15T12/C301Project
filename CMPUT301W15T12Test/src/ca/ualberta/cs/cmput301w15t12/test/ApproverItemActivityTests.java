@@ -1,7 +1,6 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import ca.ualberta.cs.cmput301w15t12.ApproverItemActivity;
-import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
 
 import android.content.Intent;
