@@ -19,6 +19,7 @@ public class Claim {
 	private TotalList total;
 	private ExpenseList expenseItems;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+	private static ArrayList<Tags> tagList;
 	//still needs tags list
 	
 	public Claim(String name, Date startDate, Date endDate, String description, String Status, String Claimant){
@@ -32,7 +33,45 @@ public class Claim {
 		this.approvers = new ArrayList<String>();
 		this.total = new TotalList();
 		this.expenseItems = new ExpenseList();
+		this.tagList = new ArrayList<Tags>();
 	}
+	
+	//start of add Tag Methods
+	public static ArrayList<Tags> getTags(){
+		if (tagList == null){
+			tagList = new ArrayList<Tags>();
+		}
+		return tagList;
+		
+	}
+	
+	public static void addTag(Tags tag) {
+		if (!isPresent(tag)){
+			tagList.add(tag);
+		}
+		
+	}
+	
+	public static boolean isPresent(Tags tag){
+		return tagList.contains(tag);
+	}
+
+	public static ArrayList<Tags> getTagList() {
+
+		return tagList;
+	}
+
+	public static void removeTag(int pos) {
+		tagList.remove(pos);
+		
+	}
+
+	public static void addTagAt(int i, Tags tag) {
+		if (!isPresent(tag)){
+			tagList.add(i, tag);
+		}
+	}
+	//END OF TAG METHODS
 	
 	public String toStringClaimantList() {
 		String ds = df.format(startDate);

@@ -14,22 +14,22 @@ public class TagActivity extends Activity{
 		return true;
 	}
 	public void addTag(Tags tag) {
-		TagListController.addTag(tag);
+		ClaimListController.addTag(tag);
 		
 	}
 	public ArrayList<Tags> getTagList() {
-		ArrayList<Tags> tagList = TagListController.getTagList();
+		ArrayList<Tags> tagList = ClaimListController.getTagList();
 		return tagList;
 	}
 	public boolean checkTag(Tags three) {
-		return TagListController.checkTags(three);
+		return ClaimListController.checkTags(three);
 		
 	}
 	public void removeTag(int pos) {
-		TagListController.rmTag(pos);
+		ClaimListController.rmTag(pos);
 		
 	}
 	public void addTagAt(int i, Tags tag) {
-		TagListController.addTagAt(i, tag);
+		ClaimListController.addTagAt(i, tag);
 	}
 }
