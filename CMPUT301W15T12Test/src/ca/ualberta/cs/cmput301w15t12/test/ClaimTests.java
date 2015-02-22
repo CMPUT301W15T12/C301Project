@@ -35,15 +35,9 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		assertNotNull("Name not initialized", claim.getName());
 		assertNotNull("Start Date not initialized", claim.getStartDate());
 		assertNotNull("End Date not initialized", claim.getEndDate());
-
-	}
-	
-	public void testDestination(){
-		Date date1 = new Date();
-		Date date2 = new Date();
-		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Leah");
 		assertNotNull("Destination not initialized", claim.getDestination());
 	}
+	
 	
 	//US01.03.01 - view an expense claim and its details
 	public void testViewClaim(){
