@@ -29,6 +29,7 @@ public class TagTest extends ActivityInstrumentationTestCase2<TagActivity> {
 				ClaimList.addFiltered(claim);
 			}
 		}
+		assertTrue("added failed", ClaimList.getFiltered().size()>0);
 	}
 
 	public void testAddTag(){

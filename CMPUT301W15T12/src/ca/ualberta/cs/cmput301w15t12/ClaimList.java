@@ -21,7 +21,7 @@ public class ClaimList {
 		FilteredClaims.add(claim);
 	}
 	
-	public ArrayList<Claim> getFiltered(){
+	public static ArrayList<Claim> getFiltered(){
 		return FilteredClaims;
 	}
 	public void clearFilter(){
