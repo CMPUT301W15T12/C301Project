@@ -5,16 +5,27 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class ClaimList {
-	public ArrayList<Claim> Claims;
+	public static ArrayList<Claim> Claims;
 	public ArrayList<Listener> listeners;
+	public static ArrayList<Claim> FilteredClaims;
 
 	public ClaimList() {
 		this.Claims = new ArrayList<Claim>();	
 		this.listeners = new ArrayList<Listener>();
 	}
 
-	public ArrayList<Claim> getClaims() {
+	public static ArrayList<Claim> getClaims() {
 		return Claims;
+	}
+	public static void addFiltered(Claim claim){
+		FilteredClaims.add(claim);
+	}
+	
+	public ArrayList<Claim> getFiltered(){
+		return FilteredClaims;
+	}
+	public void clearFilter(){
+		FilteredClaims.clear();
 	}
 	
 	public void returnClaim(Claim claim, String approver) throws CantApproveOwnClaimException

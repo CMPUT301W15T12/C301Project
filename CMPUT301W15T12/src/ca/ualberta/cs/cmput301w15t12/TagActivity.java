@@ -10,26 +10,36 @@ public class TagActivity extends Activity{
 	public ArrayList<Tags> getTags(){
 		return null;
 	}
+	
 	public boolean isPresentTag(){
 		return true;
 	}
-	public void addTag(Tags tag) {
-		ClaimListController.addTag(tag);
+	
+	public void addTag(Claim claim, Tags tag) {
+		ClaimListController.addTag(claim,tag);
 		
 	}
-	public ArrayList<Tags> getTagList() {
-		ArrayList<Tags> tagList = ClaimListController.getTagList();
+	public ArrayList<Tags> getTagList(Claim claim) {
+		ArrayList<Tags> tagList = ClaimListController.getTagList(claim);
 		return tagList;
 	}
-	public boolean checkTag(Tags three) {
-		return ClaimListController.checkTags(three);
+	public boolean checkTag(Claim claim, Tags three) {
+		return ClaimListController.checkTags(claim, three);
 		
 	}
-	public void removeTag(int pos) {
-		ClaimListController.rmTag(pos);
+	public void removeTag(Claim claim, int pos) {
+		ClaimListController.rmTag(claim, pos);
 		
 	}
-	public void addTagAt(int i, Tags tag) {
-		ClaimListController.addTagAt(i, tag);
+	public void addTagAt(Claim claim, int i, Tags tag) {
+		ClaimListController.addTagAt(claim, i, tag);
+	}
+	public void addListTag(Claim claim,Tags three) {
+		TagListController.addTag(three);
+		
+	}
+	public ArrayList<Tags> getTagListList() {
+		ArrayList<Tags> tagList = TagListController.getTagList();
+		return tagList;
 	}
 }
