@@ -2,6 +2,90 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <Button
+        android:id="@+id/buttonEditItemDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/Done" />
+
+    <EditText
+        android:id="@+id/editAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editItemDescription"
+        android:ems="10"
+        android:hint="@string/Enter_Amount"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/editCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editAmount"
+        android:ems="10"
+        android:hint="@string/Enter_Currency" />
+
+    <Button
+        android:id="@+id/buttonAddImage"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonEditItemDone"
+        android:layout_below="@+id/editCurrency"
+        android:layout_centerHorizontal="true"
+        android:text="@string/Add_Image" />
+
+    <EditText
+        android:id="@+id/editItemDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editDate"
+        android:layout_marginTop="29dp"
+        android:ems="10"
+        android:hint="@string/Enter_Description"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/editCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editItemName"
+        android:ems="10"
+        android:hint="@string/Enter_Category" />
+
+    <EditText
+        android:id="@+id/editDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editCategory"
+        android:layout_weight=".5"
+        android:ems="10"
+        android:focusableInTouchMode="false"
+        android:hint="@string/Enter_Date"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/editItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="@string/Enter_Expense_Name" />
 
 </RelativeLayout>
