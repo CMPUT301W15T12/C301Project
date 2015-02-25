@@ -2,9 +2,6 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.util.ArrayList;
 
-import ca.ualberta.cs.cmput301w15t12.TagListController;
-import ca.ualberta.cs.cmput301w15t12.Tags;
-
 import android.app.Activity;
 import android.os.Bundle;
 

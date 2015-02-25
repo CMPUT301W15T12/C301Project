@@ -67,5 +67,7 @@
     <string name="title_activity_approver_list">ApproverListActivity</string>
     <string name="title_activity_new_account">NewAccountActivity</string>
     <string name="title_activity_see_comments">SeeCommentsActivity</string>
-
+    <string name="comments">Comments</string>
+    <string name="add_comments">Add Comments</string>
+    <string name="approvers">Approvers</string>
 </resources>

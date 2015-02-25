@@ -4,25 +4,20 @@ import java.util.ArrayList;
 
 public class ClaimListController {
 	
-	public static void addTag(Claim claim, Tags tag) {
+	public static void addTag(Claim claim, String tag) {
 		claim.addTag(tag);
 	}
 
-	public static ArrayList<Tags> getTagList(Claim claim) {
-		return claim.getTags();
+	public static ArrayList<String> getTagList(Claim claim) {
+		return claim.getTagList();
 		
 	}
 
-	public static boolean checkTags(Claim claim, Tags tag) {
-		return claim.isPresent(tag);
+	public static boolean checkTags(Claim claim, String tag) {
+		return claim.containsTag(tag);
 	}
 
 	public static void rmTag(Claim claim, int pos) {
 		claim.removeTag(pos);
-	}
-
-	public static void addTagAt(Claim claim, int i, Tags tag) {
-		claim.addTagAt(i, tag);
-		
 	}
 }
