@@ -6,9 +6,9 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
-import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
 import ca.ualberta.cs.cmput301w15t12.User;
+import ca.ualberta.cs.cmput301w15t12.Activities.ClaimActivity;
 
 public class ClaimActivityTests extends
 		ActivityInstrumentationTestCase2<ClaimActivity> {

@@ -31,6 +31,7 @@
     <string name="Expense_Item">Expense Item</string>
     <string name="Category">Category</string>
     <string name="Amount">Amount</string>
+    <string name="receipt_photo">Receipt Photo</string>
     <string name="ACurrency">Amount CUR</string>
     <string name="title_activity_expense_item">ExpenseItemActivity</string>
     <string name="edit">Edit</string>

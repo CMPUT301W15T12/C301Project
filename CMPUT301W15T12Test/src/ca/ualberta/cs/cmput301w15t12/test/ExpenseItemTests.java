@@ -10,8 +10,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
-import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
+import ca.ualberta.cs.cmput301w15t12.Activities.ExpenseItemActivity;
 
 
 

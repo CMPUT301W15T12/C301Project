@@ -2,6 +2,8 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cs.cmput301w15t12.Exceptions.AlreadyExistsException;
+
 
 public class UserList
 {

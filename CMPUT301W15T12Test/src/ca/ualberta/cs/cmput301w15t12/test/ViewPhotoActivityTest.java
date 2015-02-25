@@ -5,7 +5,6 @@
  */
 package ca.ualberta.cs.cmput301w15t12.test;
 
-import ca.ualberta.cs.cmput301w15t12.ViewPhotoActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +12,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.ImageView;
 import ca.ualberta.cs.cmput301w15t12.R;
+import ca.ualberta.cs.cmput301w15t12.Activities.ViewPhotoActivity;
 
 public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<ViewPhotoActivity> {
 

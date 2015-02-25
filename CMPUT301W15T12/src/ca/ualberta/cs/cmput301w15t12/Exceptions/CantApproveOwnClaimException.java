@@ -1,4 +1,4 @@
-package ca.ualberta.cs.cmput301w15t12;
+package ca.ualberta.cs.cmput301w15t12.Exceptions;
 
 
 public class CantApproveOwnClaimException extends Exception

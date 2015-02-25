@@ -4,51 +4,42 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textStarttoEndDate"
+        android:id="@+id/textApproverStarttoEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textClaimName"
+        android:layout_below="@+id/textApproverClaimName"
         android:gravity="center"
         android:text="@string/Date_Date"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000" />
 
     <ListView
-        android:id="@+id/listExpenseItems"
+        android:id="@+id/ApproverlistExpenseItems"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
-        android:layout_above="@+id/buttonAddItem"
+        android:layout_above="@+id/buttonAddComment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/listTotalSum"
+        android:layout_below="@+id/ApproverlistTotalSum"
         android:visibility="visible" >
 
     </ListView>
 
     <ListView
-        android:id="@+id/listTotalSum"
+        android:id="@+id/ApproverlistTotalSum"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textClaimDescription"
+        android:layout_below="@+id/textApproverClaimDestinations"
         android:visibility="visible" >
     </ListView>
 
-    <Button
-        android:id="@+id/buttonAddItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/Add_Expense_Item" />
-
     <TextView
-        android:id="@+id/textClaimName"
+        android:id="@+id/textApproverClaimName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -62,16 +53,52 @@
         android:textColor="#000" />
 
     <TextView
-        android:id="@+id/textClaimDescription"
+        android:id="@+id/textApproverClaimDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textStarttoEndDate"
+        android:layout_below="@+id/textApproverStarttoEndDate"
         android:gravity="center"
         android:text="@string/Description"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000" />
+
+    <Button
+        android:id="@+id/buttonApproverApprove"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/approverApprove" />
+
+    <Button
+        android:id="@+id/buttonApproverReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/buttonApproverApprove"
+        android:text="@string/approverReturn" />
+
+    <Button
+        android:id="@+id/buttonAddComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonApproverApprove"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/approverAddComment" />
+
+    <TextView
+        android:id="@+id/textApproverClaimDestinations"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textApproverClaimDescription"
+        android:text="@string/destinations" />
 
 </RelativeLayout>

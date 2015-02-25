@@ -11,7 +11,8 @@ public class ExpenseItem{
 	private String name;
 	private String category;
 	private String description;
-	private Amt_Cur AC;
+	private BigDecimal Amount;
+	private String Currency;
 	private Date date;
 	private boolean flag;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
@@ -21,18 +22,24 @@ public class ExpenseItem{
 		this.name = name;
 		this.category = category;
 		this.description = description;
-		this.AC = new Amt_Cur(amount, currency);
+		this.Amount = amount;
+		this.Currency = currency;
 		this.date = date;
 		this.flag = flag;
-		
 	}
 	
+	//for printing the list of expense items
 	public String toStringList() {
 		String d = df.format(date);
-		String block = "["+d+"] "+name+"\n"+category+" - "+AC.getAmount()+" "+AC.getCurrency()+"\n"+description;
+		String block = "["+d+"] "+name+"\n"+category+" - "+Amount+" "+Currency+"\n"+description;
 		return block;
 	}
+	//returns string format of Amount and Currency --> for printing the total List
+	public String toACString() {
+		return Amount.toString()+"  "+this.Currency;
+	}
 	
+	//getters and setters for the attributes
 	public String getName() {
 		return name;
 	}
@@ -51,31 +58,32 @@ public class ExpenseItem{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Amt_Cur getAmt_Cur() {
-		return AC;
-	}
-	public String getCurrency() {
-		return AC.getCurrency();
-	}
-	public void setCurrency(String currency) {
-		this.AC.setCurrency(currency);
-	}
-	public BigDecimal getAmount() {
-		return AC.getAmount();
-	}
-	public void setAmount(BigDecimal amount) {
-		this.AC.setAmount(amount);
-	}
 	public Date getDate() {
 		return date;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public boolean isFlag() {
+	public boolean getFlag() {
 		return flag;
 	}
 	public void setFlag(boolean flag) {
 		this.flag = flag;
+	}
+	
+	public BigDecimal getAmount() {
+		return Amount;
+	}
+	
+	public void setAmount(BigDecimal amount) {
+		this.Amount = amount;
+	}
+	
+	public String getCurrency() {
+		return Currency;
+	}
+	
+	public void setCurrency(String currency){
+		this.Currency = currency;
 	}
 }

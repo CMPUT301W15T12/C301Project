@@ -1,18 +1,34 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.util.ArrayList;
+
 
 public class User
 {
-	private ClaimList toClaim;
-	private ClaimList toApprove;
 	private String UserName;
+	private ArrayList<String> tagList;
 	
 	public User(String name) {
-		toClaim = new ClaimList();
-		toApprove = new ClaimList();
 		this.UserName = name;
+		this.tagList = new ArrayList<String>();
+		
 	}
 	
+	public ArrayList<String> getAvailable(){
+		//TODO
+		return new ArrayList<String>();
+	}
+	
+	//add/remove
+	public void addTag(String tag){
+		tagList.add(tag);
+	}
+	
+	public ArrayList<String> getTags() {
+		return tagList;
+	}
+	
+	//getters and setters
 	public String getUserName() {
 		return UserName;
 	}
@@ -22,25 +38,12 @@ public class User
 	}
 
 	
-	public ClaimList getToClaim(){
-		return toClaim;
+	public ArrayList<String> getTagList(){
+		return tagList;
 	}
 
-	
-	public void setToClaim(ClaimList toClaim){
-		this.toClaim = toClaim;
+	public void setTagList(ArrayList<String> tagList){
+		this.tagList = tagList;
 	}
-
-	
-	public ClaimList getToApprove(){
-		return toApprove;
-	}
-
-	
-	public void setToApprove(ClaimList theirs){
-		this.toApprove = theirs;
-	}
-	
- 
 
 }

@@ -1,8 +1,8 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
-import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.User;
 import ca.ualberta.cs.cmput301w15t12.UserList;
+import ca.ualberta.cs.cmput301w15t12.Exceptions.AlreadyExistsException;
 
 import junit.framework.TestCase;
 //where userlist is the list of registered users

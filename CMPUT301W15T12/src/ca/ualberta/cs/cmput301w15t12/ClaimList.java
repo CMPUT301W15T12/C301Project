@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import ca.ualberta.cs.cmput301w15t12.Exceptions.AlreadyExistsException;
+import ca.ualberta.cs.cmput301w15t12.Exceptions.CantApproveOwnClaimException;
+
 public class ClaimList {
 	public static ArrayList<Claim> Claims;
 	public ArrayList<Listener> listeners;
