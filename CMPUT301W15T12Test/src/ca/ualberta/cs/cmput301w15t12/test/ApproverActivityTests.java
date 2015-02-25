@@ -1,7 +1,7 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import ca.ualberta.cs.cmput301w15t12.ApproverClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.Activities.ApproverActivity;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
@@ -9,10 +9,10 @@ import android.test.ViewAsserts;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ApproverActivityTests extends ActivityInstrumentationTestCase2<ApproverActivity> {
+public class ApproverActivityTests extends ActivityInstrumentationTestCase2<ApproverClaimActivity> {
 	
 	public ApproverActivityTests(){
-		super(ApproverActivity.class);
+		super(ApproverClaimActivity.class);
 	}
 	
 	protected void setUp() throws Exception {
@@ -24,7 +24,7 @@ public class ApproverActivityTests extends ActivityInstrumentationTestCase2<Appr
 //	which have their claim status as submitted, showing for each claim: the claimant name, 
 	//  the starting date of travel, the destination(s) of travel, the claim status, total currency amounts, and any approver name.
 	public void testclaimUI() {
-		ApproverActivity activity = startApproverActivity();
+		ApproverClaimActivity activity = startApproverActivity();
 		TextView nameView = (TextView) activity.findViewById(R.id.textApproverClaimName);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),nameView);
 		TextView dateView = (TextView) activity.findViewById(R.id.textApproverStarttoEndDate);
@@ -45,9 +45,9 @@ public class ApproverActivityTests extends ActivityInstrumentationTestCase2<Appr
 
 	}
 	
-	private ApproverActivity startApproverActivity(){
+	private ApproverClaimActivity startApproverActivity(){
 		Intent intent = new Intent();
 		setActivityIntent(intent);
-		return (ApproverActivity) getActivity();
+		return (ApproverClaimActivity) getActivity();
 	}
 }

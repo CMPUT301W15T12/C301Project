@@ -7,8 +7,8 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.widget.TextView;
 import ca.ualberta.cs.cmput301w15t12.Claim;
+import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.Activities.ClaimActivity;
 
 
 public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>

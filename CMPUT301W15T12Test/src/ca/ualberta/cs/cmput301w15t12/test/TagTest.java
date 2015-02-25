@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
+import ca.ualberta.cs.cmput301w15t12.TagActivity;
 import ca.ualberta.cs.cmput301w15t12.Tags;
-import ca.ualberta.cs.cmput301w15t12.Activities.TagActivity;
 import android.test.ActivityInstrumentationTestCase2;
 
 public class TagTest extends ActivityInstrumentationTestCase2<TagActivity> {

@@ -1,13 +1,10 @@
-package ca.ualberta.cs.cmput301w15t12.Activities;
+package ca.ualberta.cs.cmput301w15t12;
 
-import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.R.layout;
-import ca.ualberta.cs.cmput301w15t12.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class MainActivity extends Activity
+public class SeeCommentsActivity extends Activity
 {
 
 	@Override
@@ -15,7 +12,7 @@ public class MainActivity extends Activity
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.see_comments);
 	}
 
 	@Override
@@ -23,7 +20,7 @@ public class MainActivity extends Activity
 	{
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.see_comments, menu);
 		return true;
 	}
 
