@@ -44,6 +44,49 @@ public class Claim {
 	}
 	//TODO generate total fcn
 	
+	//All the toString functions
+	public String toStringApproverList() {
+		String ds= df.format(startDate);
+		String block = "["+ds+"] "+Claimant+" - "+Status+"\n"+toStringList(total)+"\n"+destinationsToString()+"\n"+toStringList(approvers);
+		return block;
+	}
+	
+	public String toStringClaimantList() {
+		String ds = df.format(startDate);
+		String block = "["+ds+"] "+Name+" - "+Status+"\n"+toStringList(total)+"\n"+destinationsToString()+"\n"+toStringList(tagList);
+		return block;
+	}
+	public String destinationsToString() {
+		String dests = "";
+		for (int i = 0; i < destinations.size(); i++) {
+			dests += destinations.get(i).toFullString()+"\n";
+		}
+		return dests;
+	}
+	public String toStringList(ArrayList<String> list) {
+		String string = "";
+		for (int i = 0; i < list.size(); i++) {
+			string += list.get(i)+"\n";
+		}
+		return string;
+	}
+	
+	public String toEmail() {
+		String ds = df.format(startDate);
+		String de = df.format(endDate);
+		String string = Name+"\n";
+		string += Status+"\n"+Description+"\n";
+		string += ds+" - "+de+"\n";
+		string += "Destinations:"+destinationsToString()+"\n";
+		string += "Total"+toStringList(total)+"\n";
+		string += "Items:";
+		for (int i = 0; i < expenseItems.size(); i++) {
+			string += expenseItems.get(i).toEmail()+"\n";
+		}
+		return string;
+	}
+	// end toString functions
+	
 	//all the adds/removes/contains for the lists
 	public void removeItem(int pos) {
 		expenseItems.remove(pos);
@@ -90,32 +133,6 @@ public class Claim {
 		return tagList.contains(tag);	
 	}
 	//end add/remove/contains
-	
-	//All the toString functions
-	public String toStringApproverList() {
-		String ds= df.format(startDate);
-		String block = "["+ds+"] "+Claimant+" - "+Status+"\n"+toStringList(total)+"\n"+destinationsToString()+"\n"+toStringList(approvers);
-		return block;
-	}
-	
-	public String toStringClaimantList() {
-		String ds = df.format(startDate);
-		String block = "["+ds+"] "+Name+" - "+Status+"\n"+toStringList(total)+"\n"+destinationsToString()+"\n"+toStringList(tagList);
-		return block;
-	}
-	public String destinationsToString() {
-		String dests = "";
-		//TODO
-		return dests;
-	}
-	public String toStringList(ArrayList<String> list) {
-		String string = "";
-		for (int i = 0; i < list.size(); i++) {
-			string += list.get(i);
-		}
-		return string;
-	}
-	// end toString functions
 	
 	//All the getters and setters
 	public DateFormat getDf() {

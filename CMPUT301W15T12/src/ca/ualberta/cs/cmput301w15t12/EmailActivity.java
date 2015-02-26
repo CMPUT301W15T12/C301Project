@@ -15,10 +15,6 @@ public class EmailActivity extends Activity
 	private EditText recipient;
 	private EditText subject;
 	private EditText body;
-	public String claim;
-	public String item;
-	public String total;
-	public String text;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -30,22 +26,14 @@ public class EmailActivity extends Activity
 		recipient = (EditText) findViewById(R.id.recipient);
 		subject = (EditText) findViewById(R.id.subject);
 		body = (EditText) findViewById(R.id.body);
-		text = "";
 		
 		//gets the correct Claim info
+		//Claim Claim = ...
 		
-		//TODO get Claim String
-		text += claim; 
-		text += "\n";
+		//TODO get String format of Claim info
+		//String text = Claim.toEmail();
 		
-		//TODO get Total String
-		text += total;
-		text += "\n";
-		
-		//TODO get Items String
-		text += item;
-		
-		body.setText(text);
+		//body.setText(text);
 		
 		Button sendBtn = (Button) findViewById(R.id.sendEmail);
 		sendBtn.setOnClickListener(new View.OnClickListener() {

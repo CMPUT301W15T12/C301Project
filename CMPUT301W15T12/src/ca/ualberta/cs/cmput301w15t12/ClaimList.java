@@ -31,6 +31,17 @@ public class ClaimList {
 		FilteredClaims.clear();
 	}
 	
+	//gets the list of claims that have been submitted
+	public ArrayList<Claim> getSubmittedClaims() {
+		ArrayList<Claim> list = new ArrayList<Claim>();
+		for (int i = 0; i < Claims.size(); i++){
+			if (Claims.get(i).getStatus().equals("Submitted")) {
+				list.add(Claims.get(i));
+			}
+		}
+		return list;
+	}
+	
 	public void returnClaim(Claim claim, String approver) throws CantApproveOwnClaimException
 	{
 		if (approver.equals(claim.getClaimant())){
