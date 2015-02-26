@@ -29,8 +29,8 @@
         android:layout_below="@+id/EnterStartDate"
         android:layout_marginTop="15dp"
         android:layout_weight=".5"
-        android:focusableInTouchMode="false"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:hint="@string/Enter_End_Date"
         android:inputType="date" />
 

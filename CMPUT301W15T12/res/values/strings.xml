@@ -69,4 +69,5 @@
     <string name="comments">Comments</string>
     <string name="add_comments">Add Comments</string>
     <string name="approvers">Approvers</string>
+    <string name="title_claim_page">Claim Page</string>
 </resources>
