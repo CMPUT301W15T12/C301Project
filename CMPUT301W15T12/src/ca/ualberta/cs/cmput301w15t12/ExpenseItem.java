@@ -37,15 +37,14 @@ public class ExpenseItem{
 	
 	public String toEmail() {
 		String ds = df.format(date);
-		String amt = Amount.toString();
 		String string = name+"\n";
 		string += category+"\n"+description+"\n";
-		string += ds+"\n"+amt+" "+Currency+"\n";
+		string += ds+"\n"+toACString()+"\n";
 		return string;
 	}
 	//returns string format of Amount and Currency --> for printing the total List
 	public String toACString() {
-		return Amount.toString()+"  "+this.Currency;
+		return Amount.toString()+" "+this.Currency;
 	}
 	
 	//getters and setters for the attributes

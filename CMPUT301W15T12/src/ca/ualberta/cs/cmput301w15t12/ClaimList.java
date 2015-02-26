@@ -13,7 +13,7 @@ public class ClaimList {
 	public static ArrayList<Claim> FilteredClaims;
 
 	public ClaimList() {
-		this.Claims = new ArrayList<Claim>();	
+		ClaimList.Claims = new ArrayList<Claim>();	
 		this.listeners = new ArrayList<Listener>();
 	}
 
@@ -31,6 +31,11 @@ public class ClaimList {
 		FilteredClaims.clear();
 	}
 	
+	public void setSelected(Claim claim) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	//gets the list of claims that have been submitted
 	public ArrayList<Claim> getSubmittedClaims() {
 		ArrayList<Claim> list = new ArrayList<Claim>();
@@ -42,43 +47,34 @@ public class ClaimList {
 		return list;
 	}
 	
-	public void returnClaim(Claim claim, String approver) throws CantApproveOwnClaimException
+	public void returnClaim(Claim claim, String approver) throws CantApproveOwnClaimException, AlreadyExistsException
 	{
 		if (approver.equals(claim.getClaimant())){
 			throw new CantApproveOwnClaimException();
 		}
 		claim.setStatus("Returned");
 		claim.addApprover(approver);
-		
-		//TODO add back to other list, remove from this list
 	}
 	
-	public void approveClaim(Claim claim, String approver) throws CantApproveOwnClaimException{
+	public void approveClaim(Claim claim, String approver) throws CantApproveOwnClaimException, AlreadyExistsException{
 		if (approver.equals(claim.getClaimant())){
 			throw new CantApproveOwnClaimException();
 		}
 		claim.setStatus("Approved");
 		claim.addApprover(approver);
-		//TODO add back to other list, remove from this list
 	}
-	
-	public void remove(Claim claim) {
-		//TODO
+
+	//sorts by the start date of a claim
+	public void sort() {
+		Collections.sort(Claims, new Comparator<Claim>() {
+			@Override
+			public int compare(Claim lhs, Claim rhs){
+				return lhs.getStartDate().compareTo(rhs.getStartDate());
+			}
+		});
 	}
-	
-	public void add(Claim claim){
-		//TODO check for name duplicates
-		Claims.add(claim);
-	}
-	
-	private ArrayList<Listener> getListeners() {
-		if (listeners == null) {
-			listeners = new ArrayList<Listener>();
-		}
-		return listeners;
-	}
-	
-	public void addClaim(Claim claim) throws AlreadyExistsException {
+	//add/remove/contains/size functions
+	public void add(Claim claim) throws AlreadyExistsException {
 		for (int i = 0; i < Claims.size(); i++) {
 			if (Claims.get(i).getName().equals(claim.getName())){
 				throw new AlreadyExistsException();
@@ -88,7 +84,7 @@ public class ClaimList {
 		notifyListeners();
 	}
 	
-	public void removeClaim (String claimname){
+	public void remove(String claimname){
 		for (int i = 0; i < Claims.size() ; i++) {
 			if (Claims.get(i).getName() == claimname) {
 				Claims.remove(i);
@@ -101,11 +97,17 @@ public class ClaimList {
 		return Claims.contains(claim);
 	}
 	
-	public int size()
-	{
+	public int size() {
 		return Claims.size();
 	}
 	
+	//ALL Listener functions
+	private ArrayList<Listener> getListeners() {
+		if (listeners == null) {
+			listeners = new ArrayList<Listener>();
+		}
+		return listeners;
+	}
 	public void addListener(Listener l) {
 		getListeners().add(l);
 	}
@@ -118,21 +120,6 @@ public class ClaimList {
 	
 	public void removeListener(Listener l) {
 	 	getListeners().remove(l);
-	}
-
-	//sorts by the start date of a claim
-	public void sort() {
-		Collections.sort(Claims, new Comparator<Claim>() {
-			@Override
-			public int compare(Claim lhs, Claim rhs){
-				return lhs.getStartDate().compareTo(rhs.getStartDate());
-			}
-		});
-	}
-
-	public void setSelected(Claim claim) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

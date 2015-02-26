@@ -1,32 +1,34 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import ca.ualberta.cs.cmput301w15t12.Exceptions.AlreadyExistsException;
+
 public class Claim {
 	private User Claimant;
 	private User Approver;
-	
+
 	private String Comment;
-	
+
 	private String Name;
 	private Date startDate;
 	private Date endDate;
 	private String Description;
 	private String Status;
-	
+
 	private ArrayList<Destination> destinations;
 	private ArrayList<String> approvers;
-	private ArrayList<String> total;
 	private ArrayList<ExpenseItem> expenseItems;
 	private ArrayList<String> tagList;
 	protected transient ArrayList<Listener> listeners = null;
-	
+
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-	
+
 	public Claim(String name, Date startDate, Date endDate, String description, String Status, User Claimant){
 		this.Name = name;
 		this.Claimant = Claimant;
@@ -36,24 +38,23 @@ public class Claim {
 		this.Description = description;
 		this.destinations = new ArrayList<Destination>();
 		this.approvers = new ArrayList<String>();
-		this.total = new ArrayList<String>();
 		this.expenseItems = new ArrayList<ExpenseItem>();
 		this.tagList = new ArrayList<String>();
 		this.listeners = new ArrayList<Listener>();
 		this.Approver = null;
 	}
-	//TODO generate total fcn
-	
+
+
 	//All the toString functions
 	public String toStringApproverList() {
 		String ds= df.format(startDate);
-		String block = "["+ds+"] "+Claimant+" - "+Status+"\n"+toStringList(total)+"\n"+destinationsToString()+"\n"+toStringList(approvers);
+		String block = "["+ds+"] "+Claimant+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(approvers);
 		return block;
 	}
-	
+
 	public String toStringClaimantList() {
 		String ds = df.format(startDate);
-		String block = "["+ds+"] "+Name+" - "+Status+"\n"+toStringList(total)+"\n"+destinationsToString()+"\n"+toStringList(tagList);
+		String block = "["+ds+"] "+Name+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(tagList);
 		return block;
 	}
 	public String destinationsToString() {
@@ -70,7 +71,7 @@ public class Claim {
 		}
 		return string;
 	}
-	
+
 	public String toEmail() {
 		String ds = df.format(startDate);
 		String de = df.format(endDate);
@@ -78,7 +79,7 @@ public class Claim {
 		string += Status+"\n"+Description+"\n";
 		string += ds+" - "+de+"\n";
 		string += "Destinations:"+destinationsToString()+"\n";
-		string += "Total"+toStringList(total)+"\n";
+		string += "Total"+toStringList(getTotal())+"\n";
 		string += "Items:";
 		for (int i = 0; i < expenseItems.size(); i++) {
 			string += expenseItems.get(i).toEmail()+"\n";
@@ -86,54 +87,66 @@ public class Claim {
 		return string;
 	}
 	// end toString functions
-	
+
 	//all the adds/removes/contains for the lists
 	public void removeItem(int pos) {
 		expenseItems.remove(pos);
 		notifyListeners();
 	}
 
-	public void addItem(ExpenseItem Item) {
-		//TODO check for duplicates
-		expenseItems.add(Item);
-		notifyListeners();
+	public void addItem(ExpenseItem Item) throws AlreadyExistsException {
+		if (!expenseItems.contains(Item)) {
+			expenseItems.add(Item);
+			notifyListeners();
+		} else {
+			throw new AlreadyExistsException();
+		}
+
 	}
 	public boolean containsItem(ExpenseItem Item){
 		return expenseItems.contains(Item);	
 	}
-	public void addApprover(String name) {
-		//TODO check for duplicates
-		approvers.add(name);
+	public void addApprover(String name) throws AlreadyExistsException {
+		if(!approvers.contains(name)){
+			approvers.add(name);
+		} else {
+			throw new AlreadyExistsException();
+		}
 	}
 	public void removeApprover(String name) {
-		//TODO
+		approvers.remove(Approver);
 	}
-	public void containsApprover(User Approver) {
-		//TODO
+	public boolean containsApprover(String Approver) {
+		return approvers.contains(Approver);
 	}
-	public void addDestination (Destination destination) {
-		//TODO check for duplicates
-		destinations.add(destination);
+	public void addDestination (Destination destination) throws AlreadyExistsException {
+		if (!destinations.contains(destination)){
+			destinations.add(destination);
+		} else {
+			throw new AlreadyExistsException();
+		}
 	}
-	public void removeDestination(String Destination) {
-		//TODO
+	public void removeDestination(int i) {
+		destinations.remove(i);
 	}
-	public void containsDestination(String Destination) {
-		//TODO
+	public boolean containsDestination(Destination Destination) {
+		return destinations.contains(Destination);
 	}
 	public void removeTag(int pos) {
 		tagList.remove(pos);
 	}
-
-	public void addTag(String tag) {
-		//TODO check for duplicates
-		tagList.add(tag);
+	public void addTag(String tag) throws AlreadyExistsException {
+		if (!tagList.contains(tag)){
+			tagList.add(tag);
+		} else {
+			throw new AlreadyExistsException();
+		}
 	}
 	public boolean containsTag(String tag){
 		return tagList.contains(tag);	
 	}
 	//end add/remove/contains
-	
+
 	//All the getters and setters
 	public DateFormat getDf() {
 		return df;
@@ -217,8 +230,58 @@ public class Claim {
 		}
 		return tagList;
 	}
+	//gets the total
+	public ArrayList<String> getTotal() {
+		BigDecimal cad = new BigDecimal(0);
+		BigDecimal usd = new BigDecimal(0);
+		BigDecimal eur = new BigDecimal(0);
+		BigDecimal gbp = new BigDecimal(0);
+		BigDecimal chf = new BigDecimal(0);
+		BigDecimal jpy = new BigDecimal(0);
+		BigDecimal cny = new BigDecimal(0);
+		ArrayList<String> total = new ArrayList<String>();
+		for (int i = 0; i < expenseItems.size(); i++) {
+			if(expenseItems.get(i).getCurrency().equals("CAD")) {
+				cad.add(expenseItems.get(i).getAmount());
+			} else if (expenseItems.get(i).getCurrency().equals("USD")) {
+				usd.add(expenseItems.get(i).getAmount());
+			} else if (expenseItems.get(i).getCurrency().equals("EUR")) {
+				eur.add(expenseItems.get(i).getAmount());
+			} else if (expenseItems.get(i).getCurrency().equals("GBP")) {
+				gbp.add(expenseItems.get(i).getAmount());
+			} else if (expenseItems.get(i).getCurrency().equals("CHF")) {
+				chf.add(expenseItems.get(i).getAmount());
+			} else if (expenseItems.get(i).getCurrency().equals("JPY")) {
+				jpy.add(expenseItems.get(i).getAmount());
+			} else {
+				cny.add(expenseItems.get(i).getAmount());
+			}
+		}
+		if (!cad.equals(0)){
+			total.add(cad.toString()+" "+"CAD"+"\n");
+		}
+		if (!usd.equals(0)){
+			total.add(usd.toString()+" "+"USD"+"\n");
+		}
+		if (!eur.equals(0)){
+			total.add(eur.toString()+" "+"EUR"+"\n");
+		}
+		if (!gbp.equals(0)){
+			total.add(gbp.toString()+" "+"GBP"+"\n");
+		}
+		if (!chf.equals(0)){
+			total.add(chf.toString()+" "+"CHF"+"\n");
+		}
+		if (!jpy.equals(0)){
+			total.add(jpy.toString()+" "+"JPY"+"\n");
+		}
+		if (!cny.equals(0)){
+			total.add(cny.toString()+" "+"CNY"+"\n");
+		}
+		return total;
+	}
 	//end getters and setters
-	
+
 	//All Listener Functions
 	private ArrayList<Listener> getListeners() {
 		if (listeners == null ) {
@@ -238,3 +301,4 @@ public class Claim {
 		getListeners().remove(l);
 	}
 }
+

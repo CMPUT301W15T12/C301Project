@@ -14,11 +14,6 @@ public class User
 		
 	}
 	
-	public ArrayList<String> getAvailable(){
-		//TODO
-		return new ArrayList<String>();
-	}
-	
 	//add/remove
 	public void addTag(String tag){
 		tagList.add(tag);

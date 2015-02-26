@@ -1,11 +1,11 @@
 package ca.ualberta.cs.cmput301w15t12;
 
-
 public class Destination
 {
 	private String Destination;
 	private String Description;
 
+	//for printing the list of destinations
 	public String toFullString()
 	{
 		String string = Destination+": "+Description+"\n";
