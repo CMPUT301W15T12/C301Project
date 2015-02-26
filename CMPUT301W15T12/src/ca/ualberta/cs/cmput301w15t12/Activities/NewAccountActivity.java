@@ -1,10 +1,13 @@
-package ca.ualberta.cs.cmput301w15t12;
+package ca.ualberta.cs.cmput301w15t12.Activities;
 
+import ca.ualberta.cs.cmput301w15t12.R;
+import ca.ualberta.cs.cmput301w15t12.R.layout;
+import ca.ualberta.cs.cmput301w15t12.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class SeeCommentsActivity extends Activity
+public class NewAccountActivity extends Activity
 {
 
 	@Override
@@ -12,7 +15,7 @@ public class SeeCommentsActivity extends Activity
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.see_comments);
+		setContentView(R.layout.new_account);
 	}
 
 	@Override
@@ -20,7 +23,7 @@ public class SeeCommentsActivity extends Activity
 	{
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.see_comments, menu);
+		getMenuInflater().inflate(R.menu.new_account, menu);
 		return true;
 	}
 
