@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import ca.ualberta.cs.cmput301w15t12.Exceptions.AlreadyExistsException;
 
 public class Claim {
 	private User Claimant;

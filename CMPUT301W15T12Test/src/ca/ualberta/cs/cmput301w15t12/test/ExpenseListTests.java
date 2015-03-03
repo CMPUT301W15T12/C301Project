@@ -1,9 +1,9 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseList;
-import ca.ualberta.cs.cmput301w15t12.Exceptions.AlreadyExistsException;
 
 import java.math.BigDecimal;
 import java.util.Date;

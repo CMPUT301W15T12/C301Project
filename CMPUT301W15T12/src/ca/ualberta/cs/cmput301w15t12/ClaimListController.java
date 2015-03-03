@@ -19,7 +19,6 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.io.IOException;
 
-import ca.ualberta.cs.cmput301w15t12.Exceptions.AlreadyExistsException;
 
 //static way to call the data stored by the claimlist manager
 public class ClaimListController

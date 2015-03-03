@@ -1,4 +1,4 @@
-package ca.ualberta.cs.cmput301w15t12.Exceptions;
+package ca.ualberta.cs.cmput301w15t12;
 
 
 public class AlreadyExistsException extends Exception
