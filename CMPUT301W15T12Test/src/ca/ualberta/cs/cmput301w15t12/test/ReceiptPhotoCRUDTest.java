@@ -4,8 +4,8 @@
  */
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.Activities.ExpenseItemActivity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;

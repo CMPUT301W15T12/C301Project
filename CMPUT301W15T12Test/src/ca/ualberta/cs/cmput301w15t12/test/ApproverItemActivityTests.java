@@ -1,7 +1,7 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import ca.ualberta.cs.cmput301w15t12.ApproverItemActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.Activities.ApproverItemActivity;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;

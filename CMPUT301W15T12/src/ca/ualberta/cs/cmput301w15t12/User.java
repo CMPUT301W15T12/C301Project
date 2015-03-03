@@ -14,6 +14,13 @@ public class User
 		
 	}
 	
+	public boolean authenticate(String password) {
+		//TODO
+		return false;
+	}
+	
+	//TODO equals function
+	
 	//add/remove
 	public void addTag(String tag){
 		tagList.add(tag);

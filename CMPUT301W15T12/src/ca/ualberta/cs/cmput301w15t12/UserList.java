@@ -15,7 +15,7 @@ public class UserList
 
 	public void add(User user) throws AlreadyExistsException{
 		for (int i = 0; i < users.size(); i++ ) {
-			if (users.get(i).equals(user)) {
+			if (users.get(i).equals(user)) { 
 				throw new AlreadyExistsException();
 			}
 		}

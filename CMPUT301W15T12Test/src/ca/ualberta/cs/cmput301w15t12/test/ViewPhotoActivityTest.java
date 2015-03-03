@@ -12,7 +12,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.ImageView;
 import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.Activities.ViewPhotoActivity;
+import ca.ualberta.cs.cmput301w15t12.ViewPhotoActivity;
 
 public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<ViewPhotoActivity> {
 

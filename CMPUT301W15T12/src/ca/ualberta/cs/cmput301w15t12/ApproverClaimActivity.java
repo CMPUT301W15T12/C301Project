@@ -1,4 +1,4 @@
-package ca.ualberta.cs.cmput301w15t12.Activities;
+package ca.ualberta.cs.cmput301w15t12;
 
 import ca.ualberta.cs.cmput301w15t12.R;
 import ca.ualberta.cs.cmput301w15t12.R.layout;
@@ -7,23 +7,18 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class NewAccountActivity extends Activity
-{
+public class ApproverClaimActivity extends Activity {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.new_account);
+		setContentView(R.layout.approver_claim_page);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.new_account, menu);
+		getMenuInflater().inflate(R.menu.approver, menu);
 		return true;
 	}
 

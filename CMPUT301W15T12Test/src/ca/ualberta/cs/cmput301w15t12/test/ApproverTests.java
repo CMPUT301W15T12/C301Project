@@ -9,8 +9,8 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
+import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.User;
-import ca.ualberta.cs.cmput301w15t12.Activities.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.Exceptions.CantApproveOwnClaimException;
 
 public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity>

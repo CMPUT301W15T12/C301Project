@@ -1,4 +1,4 @@
-package ca.ualberta.cs.cmput301w15t12.Activities;
+package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
