@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -30,7 +30,7 @@
         </activity>
         <activity
             android:name="ca.ualberta.cs.cmput30ca.ualberta.cs.cmput301w15t12.ClaimActivity"
-            android:label="@string/title_claim_page">
+            android:label="@string/title_claim_page" >
         </activity>
         <activity
             android:name="ca.ualberta.cs.cmput301w15t12.ApproverClaimActivity"
@@ -40,11 +40,9 @@
             android:name="ca.ualberta.cs.cmput301w15t12.ApproverItemActivity"
             android:label="@string/title_activity_approver_item" >
         </activity>
-        <activity 
-            android:name="ca.ualberta.cs.cmput301w15t12.AddItemActivity" >
+        <activity android:name="ca.ualberta.cs.cmput301w15t12.AddItemActivity" >
         </activity>
-        <activity 
-            android:name="ca.ualberta.cs.cmput301w15t12.AddClaimActivity" >
+        <activity android:name="ca.ualberta.cs.cmput301w15t12.AddClaimActivity" >
         </activity>
         <activity
             android:name="ca.ualberta.cs.cmput301w15t12.AddCommentsActivity"
@@ -65,6 +63,18 @@
         <activity
             android:name="ca.ualberta.cs.cmput301w15t12.SeeCommentsActivity"
             android:label="@string/title_activity_see_comments" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cs.cmput301w15t12.EditClaimActivity"
+            android:label="@string/title_activity_edit_clam" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cs.cmput301w15t12.EditItemActivity"
+            android:label="@string/title_activity_edit_item" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cs.cmput301w15t12.ChooseListActivity"
+            android:label="@string/title_activity_choose_list" >
         </activity>
     </application>
 

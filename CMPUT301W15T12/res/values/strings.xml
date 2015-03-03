@@ -70,4 +70,9 @@
     <string name="add_comments">Add Comments</string>
     <string name="approvers">Approvers</string>
     <string name="title_claim_page">Claim Page</string>
+    <string name="title_activity_edit_clam">EditClamActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_choose_list">ChooseListActivity</string>
+    <string name="choose_claimant">See Your Claims</string>
+    <string name="choose_approver">See Claims Waiting for Approval</string>
 </resources>
