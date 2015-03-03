@@ -63,7 +63,8 @@
             android:label="@string/title_activity_new_account" >
         </activity>
         <activity
-            android:name="ca.ualberta.cs.cmput30ca.ualberta.cs.cmput301w15t12.SeeCommentsActivitylabel="@string/title_activity_see_comments" >
+            android:name="ca.ualberta.cs.cmput301w15t12.SeeCommentsActivity"
+            android:label="@string/title_activity_see_comments" >
         </activity>
     </application>
 
