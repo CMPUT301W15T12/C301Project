@@ -15,18 +15,22 @@ public class ExpenseItem{
 	private String Currency;
 	private Date date;
 	private boolean flag;
+	private boolean receipt;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	
 	public ExpenseItem(String name,String category, String description, String currency, 
-			BigDecimal amount, Date date, boolean flag){
+			BigDecimal amount, Date date){
 		this.name = name;
 		this.category = category;
 		this.description = description;
 		this.Amount = amount;
 		this.Currency = currency;
 		this.date = date;
-		this.flag = flag;
+		this.flag = false;
+		this.receipt = false;
 	}
+	
+	//TODO check if incomplete
 	
 	//for printing the list of expense items
 	public String toStringList() {
@@ -48,6 +52,12 @@ public class ExpenseItem{
 	}
 	
 	//getters and setters for the attributes
+	public boolean getReceipt(){
+		return receipt;
+	}
+	public void setReceipt(boolean receipt){
+		this.receipt = receipt;
+	}
 	public String getName() {
 		return name;
 	}
