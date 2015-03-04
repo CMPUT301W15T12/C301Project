@@ -8,25 +8,18 @@ import java.util.Comparator;
 public class ClaimList {
 	public static ArrayList<Claim> Claims;
 	public ArrayList<Listener> listeners;
-	public static ArrayList<Claim> FilteredClaims;
 
 	public ClaimList() {
 		ClaimList.Claims = new ArrayList<Claim>();	
 		this.listeners = new ArrayList<Listener>();
 	}
 
-	public static ArrayList<Claim> getClaims() {
+	public ArrayList<Claim> getClaims() {
 		return Claims;
-	}
-	public static void addFiltered(Claim claim){
-		FilteredClaims.add(claim);
-	}
-	
-	public static ArrayList<Claim> getFiltered(){
-		return FilteredClaims;
-	}
-	public void clearFilter(){
-		FilteredClaims.clear();
+	}	
+	public ArrayList<Claim> getFiltered(){
+		//TODO get some tag from search
+		return ;
 	}
 	
 	public void setSelected(Claim claim) {

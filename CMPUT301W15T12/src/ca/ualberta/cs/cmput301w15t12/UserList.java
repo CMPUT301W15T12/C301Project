@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class UserList
 {
-	public ArrayList<User> users;
+	public static ArrayList<User> users;
 	
 	public UserList() {
 		users = new ArrayList<User>();
