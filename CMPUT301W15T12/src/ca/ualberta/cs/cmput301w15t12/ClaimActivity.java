@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 public class ClaimActivity extends Activity {
 
+	public Claim claim;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -18,7 +20,7 @@ public class ClaimActivity extends Activity {
 		
 		//Claim passed on is stored in claim variable
 		final int id = getIntent().getIntExtra("claim_id", 0);
-		final Claim claim = ClaimListController.getClaimList().getClaim(id);
+		claim = ClaimListController.getClaimList().getClaim(id);
 		
 		//clickable button takes the user to the edit add item page when clicked
 		Button addbutton = (Button) findViewById(R.id.buttonAddItem);
