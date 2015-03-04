@@ -65,7 +65,7 @@ public class ClaimList {
 		});
 	}
 	//add/remove/contains/size functions
-	public void add(Claim claim) throws AlreadyExistsException {
+	public void addClaim(Claim claim) throws AlreadyExistsException {
 		for (int i = 0; i < Claims.size(); i++) {
 			if (Claims.get(i).getName().equals(claim.getName())){
 				throw new AlreadyExistsException();
@@ -75,7 +75,7 @@ public class ClaimList {
 		notifyListeners();
 	}
 	
-	public void remove(String claimname){
+	public void removeClaim(String claimname){
 		for (int i = 0; i < Claims.size() ; i++) {
 			if (Claims.get(i).getName() == claimname) {
 				Claims.remove(i);
