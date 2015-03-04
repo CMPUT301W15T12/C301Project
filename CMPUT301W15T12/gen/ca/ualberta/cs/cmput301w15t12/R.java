@@ -32,7 +32,7 @@ public final class R {
         public static final int EnterEndDate=0x7f080003;
         public static final int EnterStartDate=0x7f080000;
         public static final int EnterTags=0x7f080004;
-        public static final int action_settings=0x7f080045;
+        public static final int action_settings=0x7f080046;
         public static final int body=0x7f08002f;
         public static final int buttonAddClaim=0x7f080024;
         public static final int buttonAddComment=0x7f080015;
@@ -50,6 +50,7 @@ public final class R {
         public static final int buttonNewAccount=0x7f08003c;
         public static final int buttonNewAccountDone=0x7f08003e;
         public static final int buttonSeeCommentsDone=0x7f080042;
+        public static final int buttonViewPictureDone=0x7f080045;
         public static final int buttonitemdelete=0x7f080031;
         public static final int buttonitemedit=0x7f080032;
         public static final int buttonsaveClaim=0x7f080006;

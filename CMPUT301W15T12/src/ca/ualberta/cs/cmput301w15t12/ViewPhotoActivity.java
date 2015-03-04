@@ -1,11 +1,11 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.R.layout;
-import ca.ualberta.cs.cmput301w15t12.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;;
 
 public class ViewPhotoActivity extends Activity {
 
@@ -13,6 +13,13 @@ public class ViewPhotoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_photo);
+		
+		Button doneBtn = (Button) findViewById(R.id.buttonViewPictureDone);
+		doneBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				finish();
+			}
+		});
 	}
 
 	@Override
