@@ -28,6 +28,8 @@
     <string name="Add_Expense_Item">Add Expense Item</string>
     <string name="Choose">Choose</string>
     <string name="Date">Date</string>
+    <string name="edit_tags">Edit Tags</string>
+    <string name="search_tags">Search Tags</string>
     <string name="Expense_Item">Expense Item</string>
     <string name="Category">Category</string>
     <string name="Amount">Amount</string>

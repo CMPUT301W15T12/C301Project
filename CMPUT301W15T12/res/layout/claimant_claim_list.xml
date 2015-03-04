@@ -12,7 +12,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:hint="Search Tags" />
+        android:hint="@string/search_tags" />
 
     <Button
         android:id="@+id/buttonAddClaim"
@@ -21,16 +21,25 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="Add Claim" />
+        android:text="@string/Add_Claim" />
 
     <ListView
         android:id="@+id/listViewClaims"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonAddClaim"
+        android:layout_above="@+id/buttonEditTags"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editTextSearchTags" >
 
     </ListView>
+
+    <Button
+        android:id="@+id/buttonEditTags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonAddClaim"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/edit_tags" />
 
 </RelativeLayout>
