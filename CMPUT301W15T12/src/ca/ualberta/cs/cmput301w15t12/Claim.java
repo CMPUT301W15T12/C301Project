@@ -10,9 +10,9 @@ import java.util.Locale;
 
 public class Claim {
 	private User Claimant;
-	private User Approver;
-
 	private String Comment;
+	
+	private int Id;
 
 	private String Name;
 	private Date startDate;
@@ -29,6 +29,7 @@ public class Claim {
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
 	public Claim(String name, Date startDate, Date endDate, String description, String Status, User Claimant){
+		this.Comment = "";
 		this.Name = name;
 		this.Claimant = Claimant;
 		this.Status = Status;
@@ -40,7 +41,8 @@ public class Claim {
 		this.expenseItems = new ArrayList<ExpenseItem>();
 		this.tagList = new ArrayList<String>();
 		this.listeners = new ArrayList<Listener>();
-		this.Approver = null;
+		this.Id = ClaimListController.getClaimList().getCounter();
+		ClaimListController.getClaimList().incrementCounter();
 	}
 
 
@@ -113,7 +115,7 @@ public class Claim {
 		}
 	}
 	public void removeApprover(String name) {
-		approvers.remove(Approver);
+		approvers.remove(name);
 	}
 	public boolean containsApprover(String Approver) {
 		return approvers.contains(Approver);
@@ -147,6 +149,12 @@ public class Claim {
 	//end add/remove/contains
 
 	//All the getters and setters
+	public int getId(){
+		return Id;
+	}
+	public void setId(int id){
+		Id = id;
+	}
 	public DateFormat getDf() {
 		return df;
 	}
@@ -216,12 +224,6 @@ public class Claim {
 	}
 	public ArrayList<ExpenseItem> getExpenses() {
 		return expenseItems;
-	}
-	public void setApprover(User approver) {
-		this.Approver = approver;
-	}
-	public User getApprover(){
-		return Approver;
 	}
 	public ArrayList<String> getTagList(){
 		if (tagList == null){

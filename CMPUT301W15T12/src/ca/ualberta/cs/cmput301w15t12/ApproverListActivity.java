@@ -28,7 +28,7 @@ public class ApproverListActivity extends Activity
 		super.onResume();
 		
 		ListView lv = (ListView) findViewById(R.id.listApproverClaimList);
-		ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedClaims();
+		final ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedClaims();
 		ArrayList<String> sclaims = new ArrayList<String>();
 		
 		for (int i = 0; i < claims.size(); i++){
@@ -58,7 +58,9 @@ public class ApproverListActivity extends Activity
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3)
 			{
+				int id = claims.get(arg2).getId();
 				Intent intent = new Intent(ApproverListActivity.this, ApproverClaimActivity.class);
+				intent.putExtra("claim_id",id);
 				startActivity(intent);
 			}
 		});

@@ -90,7 +90,6 @@ public class ExpenseItem{
 	public String getCurrency() {
 		return Currency;
 	}
-	
 	public void setCurrency(String currency){
 		this.Currency = currency;
 	}

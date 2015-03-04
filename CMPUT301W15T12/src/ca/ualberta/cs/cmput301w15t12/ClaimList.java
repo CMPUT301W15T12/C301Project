@@ -8,25 +8,46 @@ import java.util.Comparator;
 public class ClaimList {
 	public static ArrayList<Claim> Claims;
 	public ArrayList<Listener> listeners;
+	public int Counter;
 
 	public ClaimList() {
 		ClaimList.Claims = new ArrayList<Claim>();	
 		this.listeners = new ArrayList<Listener>();
+		this.Counter = 0;
+	}
+	
+	public Claim getClaim(int id){
+		for (int i = 0; i < Claims.size(); i++) {
+			if (Claims.get(i).getId() == id){
+				return Claims.get(i);
+			}
+		}
+		return Claims.get(0); //TODO what to return if claim not found?
 	}
 
 	public ArrayList<Claim> getClaims() {
 		return Claims;
 	}	
-	public ArrayList<Claim> getFiltered(){
-		//TODO get some tag from search
-		return ;
-	}
+//	public ArrayList<Claim> getFiltered(){
+//		//TODO get some tag from search
+//		return ;
+//	}
 	
 	public void setSelected(Claim claim) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	public void incrementCounter() {
+		Counter += 1;
+	}
+	public int getCounter(){
+		return Counter;
+	}
+	public void setCounter(int id_counter){
+		this.Counter = id_counter;
+	}
+
 	//gets the list of claims that have been submitted
 	public ArrayList<Claim> getSubmittedClaims() {
 		ArrayList<Claim> list = new ArrayList<Claim>();
@@ -92,7 +113,7 @@ public class ClaimList {
 		return Claims.size();
 	}
 	
-	//ALL Listener functions
+	//All Listener functions
 	private ArrayList<Listener> getListeners() {
 		if (listeners == null) {
 			listeners = new ArrayList<Listener>();

@@ -2,14 +2,17 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.util.ArrayList;
 
-
-
 public class UserList
 {
 	public static ArrayList<User> users;
 	
 	public UserList() {
 		users = new ArrayList<User>();
+	}
+	
+	public boolean authenticateUser(String UserName){
+		//TODO
+		return false;
 	}
 
 	public void add(User user) throws AlreadyExistsException{

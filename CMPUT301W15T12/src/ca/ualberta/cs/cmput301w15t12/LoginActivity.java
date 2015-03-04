@@ -1,9 +1,6 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.R.id;
-import ca.ualberta.cs.cmput301w15t12.R.layout;
-import ca.ualberta.cs.cmput301w15t12.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -32,6 +29,7 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(LoginActivity.this, NewAccountActivity.class);
+				intent.putExtra("username", name);
 				startActivity(intent);
 			}
 		});
@@ -43,10 +41,13 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				//TODO check that userlist contains name
-				
-				Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(LoginActivity.this, ClaimListActivity.class);
-				startActivity(intent);
+				if (!userlist.authenticateUser(name)) {
+					Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
+				} else {
+					Intent intent = new Intent(LoginActivity.this, ChooseListActivity.class);
+					intent.putExtra("username", name);
+					startActivity(intent);
+				}
 			}
 		});
 	}

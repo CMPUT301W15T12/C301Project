@@ -1,9 +1,6 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import ca.ualberta.cs.cmput301w15t12.R;
-import ca.ualberta.cs.cmput301w15t12.R.id;
-import ca.ualberta.cs.cmput301w15t12.R.layout;
-import ca.ualberta.cs.cmput301w15t12.R.menu;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
@@ -31,20 +28,19 @@ public class EmailActivity extends Activity
 		subject = (EditText) findViewById(R.id.subject);
 		body = (EditText) findViewById(R.id.body);
 		
-		//gets the correct Claim info
-		//Claim Claim = ...
+		final int id = getIntent().getIntExtra("claim_id", 0);
+		Claim Claim = ClaimListController.getClaimList().getClaim(id);
 		
-		//TODO get String format of Claim info
-		//String text = Claim.toEmail();
+		String text = Claim.toEmail();
 		
-		//body.setText(text);
+		body.setText(text);
 		
 		Button sendBtn = (Button) findViewById(R.id.sendEmail);
 		sendBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				sendEmail();
 				Toast.makeText(EmailActivity.this,"Email sent", Toast.LENGTH_SHORT).show();
-				//TODO go back to Claim page
+				finish();
 			}
 		});
 	}
