@@ -45,6 +45,13 @@ public class Claim {
 		ClaimListController.getClaimList().incrementCounter();
 	}
 
+	public boolean editable() {
+		if (Status.equals("In Progress")||Status.equals("Returned")){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	//All the toString functions
 	public String toStringApproverList() {

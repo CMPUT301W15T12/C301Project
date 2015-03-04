@@ -22,6 +22,7 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int radialgradientback=0x7f020001;
     }
     public static final class id {
         public static final int ApproverlistExpenseItems=0x7f080014;
@@ -42,8 +43,8 @@ public final class R {
         public static final int buttonApproverApprove=0x7f080019;
         public static final int buttonApproverImage=0x7f080020;
         public static final int buttonApproverReturn=0x7f08001a;
-        public static final int buttonChooseApprover=0x7f080022;
-        public static final int buttonChooseClaimant=0x7f080021;
+        public static final int buttonChooseApprover=0x7f080021;
+        public static final int buttonChooseClaimant=0x7f080022;
         public static final int buttonEditItemDone=0x7f080009;
         public static final int buttonImage=0x7f080033;
         public static final int buttonLogin=0x7f08003d;

@@ -11,6 +11,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -31,6 +32,21 @@ public class EditItemActivity extends Activity
         Date.setInputType(InputType.TYPE_NULL);
 		
         setDateTimeField();
+		//clickable button creates Item and takes the user back to the claim list page
+		Button donebutton = (Button) findViewById(R.id.buttonEditItemDone);
+		donebutton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v) {
+				editItem();
+				finish();
+			}
+		});
+		
+	}
+	
+	public void editItem() {
+		//TODO
 	}
 
 	@Override

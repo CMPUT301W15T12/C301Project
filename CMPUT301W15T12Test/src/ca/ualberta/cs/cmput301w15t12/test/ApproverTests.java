@@ -68,16 +68,15 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	US08.06.01
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the
 //	claim was returned or provide accounting details for a payment.
-	public void testaddComment() throws ParseException {
+	public void testaddComment() throws ParseException, AlreadyExistsException {
 		String name = "Sarah";
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", "Leah");
+		Claim claim = new Claim("c1", d1, d2, "Blah", user);
+		claim.setStatus("Submitted");
 		ClaimList list = new ClaimList();
-		list.add(claim);
-		user.setToApprove(list);
-		user.getToApprove().getClaims().get(0).setComment("great");
+		list.addClaim(claim);
 		claim.setComment("Great");
 		assertEquals("comment got set", claim.getComment(), "Great");		
 	}
@@ -91,9 +90,9 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", n);
+		Claim claim = new Claim("c1", d1, d2, "Blah", user);
 		ClaimList list = new ClaimList();
-		list.add(claim);
+		list.addClaim(claim);
 		user.setToApprove(list);
 		user.getToApprove().approveClaim(claim, name);
 		assertTrue("Status = Approved?",claim.getStatus().equals("Approved"));
@@ -109,7 +108,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", n);
+		Claim claim = new Claim("c1", d1, d2, "Blah", user);
 		ClaimList list = new ClaimList();
 		list.add(claim);
 		user.setToApprove(list);
@@ -127,7 +126,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		User user = new User(approver);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim = new Claim("c1", d1, d2, "Blah", "Submitted", approver);
+		Claim claim = new Claim("c1", d1, d2, "Blah", user);
 		ClaimList list = new ClaimList();
 		list.add(claim);
 		user.setToApprove(list);
