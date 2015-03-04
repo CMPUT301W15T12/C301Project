@@ -3,10 +3,14 @@ package ca.ualberta.cs.cmput301w15t12.test;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import android.graphics.SumPathEffect;
 import android.test.ActivityInstrumentationTestCase2;
 
+import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.CantApproveOwnClaimException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
@@ -26,27 +30,30 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	US08.02.01
 //	As an approver, I want the list of submitted expense claims to be sorted by starting date of travel, 
 //	in order from oldest to most recent, so that older claims are considered first.
-	public void testsortItem() throws ParseException {
+	public void testsortItem() throws ParseException, AlreadyExistsException {
 		String approver = "Sarah";
 		User user = new User(approver);
 		Date d1 = format.parse("01-02-1232");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim1 = new Claim("c1", d1, d2, "Blah", "Submitted","Leah");
+		Claim claim1 = new Claim("c1", d1, d2, "Blah",user);
 		Date d3 = format.parse("01-02-1233");
 		Date d4 = format.parse("01-02-2134");
-		Claim claim2 = new Claim("c1", d3, d4, "Blah", "Submitted","Leah");
+		Claim claim2 = new Claim("c1", d3, d4, "Blah", user);
 		Date d5 = format.parse("01-02-1234");
 		Date d6 = format.parse("01-02-2134");
-		Claim claim3 = new Claim("c1", d5, d6, "Blah", "Submitted","Leah");
+		Claim claim3 = new Claim("c1", d5, d6, "Blah", user);
+		claim1.setStatus("Submitted");
+		claim3.setStatus("Submitted");
+		claim2.setStatus("Submitted");
 		ClaimList list = new ClaimList();
-		list.add(claim3);
-		list.add(claim1);
-		list.add(claim2);
-		user.setToApprove(list);
-		user.getToApprove().sort();
-		assertTrue("first item is claim 1",user.getToApprove().getClaims().get(0).equals(claim1));
-		assertTrue("first item is claim 2",user.getToApprove().getClaims().get(1).equals(claim2));
-		assertTrue("first item is claim 3",user.getToApprove().getClaims().get(2).equals(claim3));
+		list.addClaim(claim3);
+		list.addClaim(claim1);
+		list.addClaim(claim2);
+		ArrayList<Claim> s = list.getSubmittedClaims();
+		ArrayList<Claim> submittedClaims = list.sort(s);
+		assertTrue("first item is claim 1",submittedClaims.get(0).equals(claim1));
+		assertTrue("first item is claim 2",submittedClaims.get(1).equals(claim2));
+		assertTrue("first item is claim 3",submittedClaims.get(2).equals(claim3));
 	}
 
 //	US08.03.01 - see ApproverActivityTests

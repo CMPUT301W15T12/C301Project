@@ -28,7 +28,7 @@ public class Claim {
 
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
-	public Claim(String name, Date startDate, Date endDate, String description, String Status, User Claimant){
+	public Claim(String name, Date startDate, Date endDate, String description, User Claimant){
 		this.Comment = "";
 		this.Name = name;
 		this.Claimant = Claimant;

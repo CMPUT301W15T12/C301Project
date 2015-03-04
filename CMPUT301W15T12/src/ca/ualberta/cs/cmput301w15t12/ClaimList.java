@@ -77,13 +77,14 @@ public class ClaimList {
 	}
 
 	//sorts by the start date of a claim
-	public void sort() {
-		Collections.sort(Claims, new Comparator<Claim>() {
+	public ArrayList<Claim> sort(ArrayList<Claim> list) {
+		Collections.sort(list, new Comparator<Claim>() {
 			@Override
 			public int compare(Claim lhs, Claim rhs){
 				return lhs.getStartDate().compareTo(rhs.getStartDate());
 			}
 		});
+		return list;
 	}
 	//add/remove/contains/size functions
 	public void addClaim(Claim claim) throws AlreadyExistsException {
