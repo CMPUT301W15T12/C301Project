@@ -26,15 +26,15 @@ public class NewAccountActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
-				//TODO check that userlist contains name
+				//TODO get userlist
 				EditText username = (EditText) findViewById(R.id.editNewUserName);
-				if (userlist.authenticateUser(username.getText().toString())) {
-					Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
-				} else {
-					Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
-					intent.putExtra("username", username.getText().toString());
-					startActivity(intent);
-				}
+//				if (userlist.authenticateUser(username.getText().toString())) {
+//					Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
+//				} else {
+//					Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
+//					intent.putExtra("username", username.getText().toString());
+//					startActivity(intent);
+//				}
 			}
 		});
 	}

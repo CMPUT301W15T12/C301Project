@@ -40,14 +40,14 @@ public class LoginActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
-				//TODO check that userlist contains name
-				if (!userlist.authenticateUser(name)) {
-					Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
-				} else {
-					Intent intent = new Intent(LoginActivity.this, ChooseListActivity.class);
-					intent.putExtra("username", name);
-					startActivity(intent);
-				}
+				//TODO get userlist contains name
+//				if (!userlist.authenticateUser(name)) {
+//					Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
+//				} else {
+//					Intent intent = new Intent(LoginActivity.this, ChooseListActivity.class);
+//					intent.putExtra("username", name);
+//					startActivity(intent);
+//				}
 			}
 		});
 	}
