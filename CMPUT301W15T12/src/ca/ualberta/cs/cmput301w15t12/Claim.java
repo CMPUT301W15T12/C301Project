@@ -32,7 +32,7 @@ public class Claim {
 		this.Comment = "";
 		this.Name = name;
 		this.Claimant = Claimant;
-		this.Status = Status;
+		this.Status = "In Progress";
 		this.startDate = startDate; 
 		this.endDate = endDate;
 		this.Description = description;

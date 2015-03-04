@@ -37,14 +37,9 @@ public class ClaimListController
 		try {
 			ClaimListManager.getManager().saveClaimList(getClaimList());
 		} catch (IOException e) {
-			//TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new RuntimeException("Could not deserialize ClaimList from ClaimListManager");
 		}
-	}
-	
-	public void sort() {
-		getClaimList().sort();
 	}
 
 	public void addClaim(Claim claim) throws AlreadyExistsException {

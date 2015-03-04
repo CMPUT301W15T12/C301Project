@@ -16,15 +16,12 @@ public class Destination
 	public String getDestination(){
 		return Destination;
 	}
-
 	public void setDestination(String destination){
 		Destination = destination;
-	}
-	
+	}	
 	public String getDescription(){
 		return Description;
 	}
-
 	public void setDescription(String description){
 		Description = description;
 	}

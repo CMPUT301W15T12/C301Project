@@ -28,10 +28,28 @@ public class ClaimList {
 	public ArrayList<Claim> getClaims() {
 		return Claims;
 	}	
-//	public ArrayList<Claim> getFiltered(){
-//		//TODO get some tag from search
-//		return ;
-//	}
+	
+	//filtered returns a sublist of from the list claims that have the specified tag
+	public ArrayList<Claim> getFiltered(ArrayList<Claim> claims, String tag){
+		ArrayList<Claim> filtered = new ArrayList<Claim>();
+		for (int i = 0; i < claims.size(); i++) {
+			if (claims.get(i).containsTag(tag)){
+				filtered.add(claims.get(i));
+			}
+		}
+		return filtered;
+	}
+	
+	//given a username, returns a list of claims with that username
+	public ArrayList<Claim> getUserClaims(String Username){
+		ArrayList<Claim> claims = new ArrayList<Claim>();
+		for (int i = 0; i <Claims.size(); i++) {
+			if (Claims.get(i).getClaimant().getUserName().equals(Username)) {
+				claims.add(Claims.get(i));
+			}
+		}
+		return claims;
+	}
 	
 	public void setSelected(Claim claim) {
 		// TODO Auto-generated method stub
