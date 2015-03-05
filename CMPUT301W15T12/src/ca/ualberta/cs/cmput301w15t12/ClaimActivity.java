@@ -8,8 +8,12 @@ import java.util.Locale;
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,6 +23,7 @@ import android.widget.Toast;
 
 public class ClaimActivity extends Activity {
 
+	public int id;
 	public Claim claim;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	
@@ -88,6 +93,65 @@ public class ClaimActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.claim, menu);
 		return true;
+	}
+	
+	//menu item delete claim
+	public void deleteClaim(MenuItem menu) {
+		AlertDialog.Builder adb = new AlertDialog.Builder(ClaimActivity.this);
+		adb.setMessage("Return this Claim?");
+		adb.setCancelable(true);
+		adb.setPositiveButton("Return", new OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				//TODO delete claim
+				finish();
+			}
+		});
+		adb.setNegativeButton("Cancel", new OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		adb.show();
+	}
+	
+	//menu item edit claim
+	public void editClaim(MenuItem menu) {
+		Intent intent = new Intent(ClaimActivity.this, EditClaimActivity.class);
+		intent.putExtra("claim_id", id);
+		startActivity(intent);
+	}
+	
+	//menu item submitClaim
+	public void submitClaim(MenuItem menu) {
+		AlertDialog.Builder adb = new AlertDialog.Builder(ClaimActivity.this);
+		adb.setMessage("Submit this Claim?");
+		adb.setCancelable(true);
+		adb.setPositiveButton("Submit", new OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				claim.setStatus("Submitted");
+				finish();
+			}
+		});
+		adb.setNegativeButton("Cancel", new OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		adb.show();
+	}
+	
+	//menu item email claim	
+	public void emailClaim(MenuItem menu) {
+		Intent intent = new Intent(ClaimActivity.this, EmailActivity.class);
+		intent.putExtra("claim_id", id);
+		startActivity(intent);
+	}
+	
+	//menu item see comments
+	public void seeComments(MenuItem menu) {
+		Intent intent = new Intent(ClaimActivity.this, SeeCommentsActivity.class);
+		intent.putExtra("claim_id", id);
+		startActivity(intent);
 	}
 
 	public void showSelectedClaim() {
