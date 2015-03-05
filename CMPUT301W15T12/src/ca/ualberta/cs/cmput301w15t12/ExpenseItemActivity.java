@@ -1,29 +1,63 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ExpenseItemActivity extends Activity {
-	
+
 	public ExpenseItem Item;
+	public SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.item_page);
-		
+
+		//gets the id for the claim and the index for the item
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		Claim Claim = ClaimListController.getClaimList().getClaim(id);
 		final int index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
 
+
+		//clickable button, confirms delete choice
+		Button deletebutton = (Button) findViewById(R.id.buttonitemdelete);
+		deletebutton.setOnClickListener(new View.OnClickListener() {
+			//checks that deleting is what you want
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
+				adb.setMessage("Delete this Item?");
+				adb.setCancelable(true);
+				adb.setPositiveButton("Delete", new OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//TODO delete item
+					}
+				});
+				adb.setNegativeButton("Cancel", new OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+				adb.show();
+			}
+		});
+
+		//clickable button, if photo exists takes user to View photo page
 		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
 		viewbutton.setOnClickListener(new View.OnClickListener()
 		{
@@ -42,6 +76,31 @@ public class ExpenseItemActivity extends Activity {
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+
+		//all the textviews
+		TextView Name = (TextView) findViewById(R.id.textItemName);
+		TextView Date = (TextView) findViewById(R.id.textDate);
+		TextView Category = (TextView) findViewById(R.id.textCategory);
+		TextView Description = (TextView) findViewById(R.id.textItemDescription);
+		TextView AC = (TextView) findViewById(R.id.textItemCurrency);
+
+		//date to string
+		String date = df.format(Item.getDate());
+
+		//setting the textviews with existing information
+		Name.setText(Item.getName());
+		Date.setText(date);
+		Category.setText(Item.getCategory());
+		Description.setText(Item.getDescription());
+		AC.setText(Item.toACString());
+
+
+
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.expense_item, menu);
@@ -50,7 +109,7 @@ public class ExpenseItemActivity extends Activity {
 
 	public void deleteReceiptPhoto() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Bitmap getReceiptPhoto() {

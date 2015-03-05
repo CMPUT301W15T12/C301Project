@@ -23,7 +23,7 @@ public class AddClaimActivity extends Activity
     private EditText endDate;
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
-    private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+    private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

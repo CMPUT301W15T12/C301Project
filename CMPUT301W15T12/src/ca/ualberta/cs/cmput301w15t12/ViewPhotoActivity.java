@@ -9,10 +9,19 @@ import android.widget.Button;;
 
 public class ViewPhotoActivity extends Activity {
 
+	public ExpenseItem Item;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_photo);
+		
+		final int id = getIntent().getIntExtra("claim_id", 0);
+		Claim Claim = ClaimListController.getClaimList().getClaim(id);
+		final int index = getIntent().getIntExtra("item_index", 0);
+		Item = Claim.getExpenseItems().get(index);
+		
+		//TODO get photo and place it in the image box
 		
 		Button doneBtn = (Button) findViewById(R.id.buttonViewPictureDone);
 		doneBtn.setOnClickListener(new View.OnClickListener() {

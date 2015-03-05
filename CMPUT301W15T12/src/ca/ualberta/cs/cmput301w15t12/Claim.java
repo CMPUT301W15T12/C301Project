@@ -45,6 +45,20 @@ public class Claim {
 		ClaimListController.getClaimList().incrementCounter();
 	}
 
+	public void returnClaim(String name) {
+		if (!approvers.contains(name)) {
+			approvers.add(name);
+		}
+		setStatus("Returned");
+	}
+	
+	public void approveClaim(String name) {
+		if (!approvers.contains(name)) {
+			approvers.add(name);
+		}
+		setStatus("Approved");
+	}
+	
 	public boolean editable() {
 		if (Status.equals("In Progress")||Status.equals("Returned")){
 			return true;
