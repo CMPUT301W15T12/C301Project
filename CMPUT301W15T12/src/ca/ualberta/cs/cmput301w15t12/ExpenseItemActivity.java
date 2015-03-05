@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +86,7 @@ public class ExpenseItemActivity extends Activity {
 		TextView Category = (TextView) findViewById(R.id.textCategory);
 		TextView Description = (TextView) findViewById(R.id.textItemDescription);
 		TextView AC = (TextView) findViewById(R.id.textItemCurrency);
+		CheckBox flag = (CheckBox) findViewById(R.id.checkBox1);
 
 		//date to string
 		String date = df.format(Item.getDate());
@@ -95,6 +97,7 @@ public class ExpenseItemActivity extends Activity {
 		Category.setText(Item.getCategory());
 		Description.setText(Item.getDescription());
 		AC.setText(Item.toACString());
+		flag.setChecked(Item.getFlag());
 
 
 
@@ -115,6 +118,18 @@ public class ExpenseItemActivity extends Activity {
 	public Bitmap getReceiptPhoto() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	//checkbox function for checkBox1 (in item_page) when pressed by user
+	public void onCheckBoxClicked(View view){
+		boolean checked = ((CheckBox) view).isChecked();
+		if (checked){
+			//expense item has a flag
+			Item.setFlag(true);
+		} else{
+			//expense item doesn't have a flag
+			Item.setFlag(false);
+		}
+		
 	}
 
 }
