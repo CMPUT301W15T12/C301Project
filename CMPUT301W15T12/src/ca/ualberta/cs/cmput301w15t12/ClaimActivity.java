@@ -1,5 +1,9 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -7,11 +11,13 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ClaimActivity extends Activity {
 
 	public Claim claim;
+	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,25 @@ public class ClaimActivity extends Activity {
 			}
 		});
 		
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		//gets the textviews
+		TextView name = (TextView) findViewById(R.id.textClaimName);
+		TextView description = (TextView) findViewById(R.id.textClaimDescription);
+		TextView dates = (TextView) findViewById(R.id.textStarttoEndDate);
+		TextView destinations = (TextView) findViewById(R.id.textClaimDestinations);
+		
+		//sets the textviews
+		name.setText(claim.getName()+" - "+claim.getStatus());
+		description.setText(claim.getDescription());
+		String sd = df.format(claim.getStartDate());
+		String ed = df.format(claim.getEndDate());
+		dates.setText(sd+" - "+ed);
+		destinations.setText(claim.destinationsToString());
 	}
 
 	@Override
