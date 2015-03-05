@@ -11,6 +11,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="deleteButton"
         android:text="@string/delete" />
 
     <Button
@@ -20,6 +21,7 @@
         android:layout_above="@+id/buttonitemdelete"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="editButton"
         android:text="@string/edit" />
 
     <Button
