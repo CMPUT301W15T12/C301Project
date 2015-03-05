@@ -2,9 +2,8 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
-
-import org.w3c.dom.Text;
 
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
@@ -15,7 +14,9 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ApproverClaimActivity extends Activity {
@@ -110,7 +111,19 @@ public class ApproverClaimActivity extends Activity {
 		dates.setText(sd+" - "+ed);
 		destinations.setText(Claim.destinationsToString());
 		
-		
+		//total list
+		ListView lv = (ListView) findViewById(R.id.listTotalSum);
+		final ArrayList<String> total = Claim.getTotal();
+		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
+		lv.setAdapter(totalAdapter);
+		ClaimListController.getClaimList().addListener(new Listener() {
+			@Override
+			public void update() {
+				total.clear();
+				ArrayList<String> total = Claim.getTotal();
+				totalAdapter.notifyDataSetChanged();
+			}
+		});
 		
 		
 	}

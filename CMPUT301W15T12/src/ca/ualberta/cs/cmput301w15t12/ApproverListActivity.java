@@ -28,7 +28,7 @@ public class ApproverListActivity extends Activity
 		super.onResume();
 		
 		ListView lv = (ListView) findViewById(R.id.listApproverClaimList);
-		final ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedClaims();
+		final ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedclaims();
 		ArrayList<String> sclaims = new ArrayList<String>();
 		
 		for (int i = 0; i < claims.size(); i++){
@@ -41,7 +41,7 @@ public class ApproverListActivity extends Activity
 		ClaimListController.getClaimList().addListener(new Listener() {
 			@Override
 			public void update() {
-				ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedClaims();
+				ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedclaims();
 				ArrayList<String> sclaims = new ArrayList<String>();
 				
 				for (int i = 0; i < claims.size(); i++){

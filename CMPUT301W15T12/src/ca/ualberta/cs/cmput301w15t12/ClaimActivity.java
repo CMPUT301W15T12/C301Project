@@ -2,6 +2,7 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import ca.ualberta.cs.cmput301w15t12.R;
@@ -10,7 +11,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +66,21 @@ public class ClaimActivity extends Activity {
 		String ed = df.format(claim.getEndDate());
 		dates.setText(sd+" - "+ed);
 		destinations.setText(claim.destinationsToString());
+		
+		//total list
+		ListView lv = (ListView) findViewById(R.id.listTotalSum);
+		final ArrayList<String> total = claim.getTotal();
+		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
+		lv.setAdapter(totalAdapter);
+		ClaimListController.getClaimList().addListener(new Listener() {
+			@Override
+			public void update() {
+				total.clear();
+				ArrayList<String> total = claim.getTotal();
+				totalAdapter.notifyDataSetChanged();
+			}
+		});
+		
 	}
 
 	@Override
