@@ -2,19 +2,22 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
-import ca.ualberta.cs.cmput301w15t12.R;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddClaimActivity extends Activity
 {
@@ -53,7 +56,28 @@ public class AddClaimActivity extends Activity
 	}
 	
 	public void addClaim() {
-		//TODO
+		//Initializing variables
+		String name = new String();
+		Destination destination = new Destination();
+		String status = new String();
+		//what do I initialize claimant to?
+		User claimant = null;
+		Date startDate = new Date();
+		Date endDate = new Date();
+		Context context = this.getApplicationContext();
+		//XML Inputs
+		EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
+		name = editTextName.getText().toString();
+		CharSequence toastText;
+		Toast toast = null;
+		//create claim
+		Claim claim = new Claim(name, startDate, endDate,status,claimant);
+		//still need to save claim
+		toastText = "Claim Saved.";
+		toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
+		toast.show();	
+		Intent intent = new Intent(this, ClaimListActivity.class);
+		startActivity(intent);
 	}
 
 	@Override

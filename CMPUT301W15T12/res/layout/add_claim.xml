@@ -96,6 +96,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="@string/Done" />
+        android:text="@string/Done"
+        android:onClick="addClaim" />
 
 </RelativeLayout>
