@@ -29,7 +29,6 @@ public final class R {
         public static final int receipt=0x7f020005;
     }
     public static final class id {
-        public static final int ApproverlistExpenseItems=0x7f080014;
         public static final int ApproverlistTotalSum=0x7f080016;
         public static final int EnterClaimName=0x7f080001;
         public static final int EnterDescription=0x7f080002;
@@ -73,6 +72,7 @@ public final class R {
         public static final int editTextSearchTags=0x7f080023;
         public static final int img=0x7f08003b;
         public static final int listApproverClaimList=0x7f080011;
+        public static final int listApproverlistExpenseItems=0x7f080014;
         public static final int listExpenseItems=0x7f080029;
         public static final int listTotalSum=0x7f08002b;
         public static final int listViewClaims=0x7f080025;

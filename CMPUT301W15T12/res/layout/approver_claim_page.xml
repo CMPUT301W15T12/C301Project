@@ -17,7 +17,7 @@
         android:textColor="#000" />
 
     <ListView
-        android:id="@+id/ApproverlistExpenseItems"
+        android:id="@+id/listApproverlistExpenseItems"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:layout_above="@+id/buttonAddComment"
