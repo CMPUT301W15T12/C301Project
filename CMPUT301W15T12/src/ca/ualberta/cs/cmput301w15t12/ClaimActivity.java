@@ -86,6 +86,14 @@ public class ClaimActivity extends Activity {
 			}
 		});
 		
+		ArrayList<String> eitems = new ArrayList<String>();
+		final ArrayList<ExpenseItem> Items = claim.getExpenseItems();
+		Integer[] imageId = new Integer[Items.size()];
+		for (int i = 0; i < Items.size(); i++) {
+			//TODO
+		}
+		CustomList adapter = new CustomList(ClaimActivity.this, eitems, imageId);
+		
 	}
 
 	@Override
