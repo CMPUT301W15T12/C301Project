@@ -27,6 +27,7 @@ public class ApproverListActivity extends Activity
 	public void onResume() {
 		super.onResume();
 		
+		//lists all the submitted claims for the approver to approve
 		ListView lv = (ListView) findViewById(R.id.listApproverClaimList);
 		final ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedclaims();
 		ArrayList<String> sclaims = new ArrayList<String>();
@@ -38,6 +39,7 @@ public class ApproverListActivity extends Activity
 		final ArrayAdapter<String> SubClaimAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sclaims);
 		lv.setAdapter(SubClaimAdapter);
 		
+		//adds a listener to the list
 		ClaimListController.getClaimList().addListener(new Listener() {
 			@Override
 			public void update() {
@@ -52,6 +54,7 @@ public class ApproverListActivity extends Activity
 			}
 		});
 		
+		//takes user to claim page when clicked
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{ 
 			@Override

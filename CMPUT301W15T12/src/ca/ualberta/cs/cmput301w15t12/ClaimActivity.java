@@ -103,7 +103,7 @@ public class ClaimActivity extends Activity {
 				imageId[i] = R.drawable.none;
 			}
 		}
-		CustomList adapter = new CustomList(ClaimActivity.this, eitems, imageId);
+		final CustomList adapter = new CustomList(ClaimActivity.this, eitems, imageId);
 		ListView list = (ListView) findViewById(R.id.listExpenseItems);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -119,6 +119,29 @@ public class ClaimActivity extends Activity {
 			}
 		});
 
+		//adds a listener to the expense item list
+		ClaimListController.getClaimList().addListener(new Listener() {
+			@Override
+			public void update() {
+				ArrayList<String> eitems = new ArrayList<String>();
+				final ArrayList<ExpenseItem> Items = claim.getExpenseItems();
+				Integer[] imageId = new Integer[Items.size()];
+				for (int i = 0; i < Items.size(); i++) {
+					eitems.add(Items.get(i).toStringList());
+					if (Items.get(i).getFlag() && Items.get(i).getReceipt()) {
+						imageId[i] = R.drawable.both;
+					} else if (Items.get(i).getFlag()) {
+						imageId[i] = R.drawable.flagged;
+					} else if (Items.get(i).getReceipt()) {
+						imageId[i] = R.drawable.receipt;
+					} else {
+						imageId[i] = R.drawable.none;
+					}
+				}
+
+				adapter.notifyDataSetChanged();
+			}
+		});
 	}
 
 	@Override

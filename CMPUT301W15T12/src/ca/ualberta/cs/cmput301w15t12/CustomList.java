@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+//SARAH worked on this - its for the expense item List. It adds a picture icon thing into the list view. 
+
 public class CustomList extends ArrayAdapter<String>{
 	private final Activity context;
 	private final ArrayList<String> web;
