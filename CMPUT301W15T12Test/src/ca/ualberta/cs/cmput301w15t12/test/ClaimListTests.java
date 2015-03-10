@@ -70,8 +70,8 @@ public class ClaimListTests extends TestCase
 		ClaimList claimList = new ClaimList();
 		Date date1 = new Date();
 		Date date2 = new Date();
-		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
-		claimList.add(claim);
+		Claim claim = new Claim("name1",  date1, date2, "description1", "Tag", "Megan");
+		claimList.addClaim(claim);
 	}
 		
 	//US02.02.01 - list of expense claims to be sorted by starting date of travel, in order from most recent to oldest
@@ -80,17 +80,17 @@ public class ClaimListTests extends TestCase
 		User user = new User(claimant);
 		Date d1 = format.parse("01-02-1232");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim1 = new Claim("c1", d1, d2, "Blah", "Submitted","Leah");
+		Claim claim1 = new Claim("c1", d1, d2, "Blah", "Tag","Leah");
 		Date d3 = format.parse("01-02-1233");
 		Date d4 = format.parse("01-02-2134");
-		Claim claim2 = new Claim("c1", d3, d4, "Blah", "Submitted","Leah");
+		Claim claim2 = new Claim("c1", d3, d4, "Blah", "Tag","Leah");
 		Date d5 = format.parse("01-02-1234");
 		Date d6 = format.parse("01-02-2134");
-		Claim claim3 = new Claim("c1", d5, d6, "Blah", "Submitted","Leah");
+		Claim claim3 = new Claim("c1", d5, d6, "Blah", "Tag","Leah");
 		ClaimList list = new ClaimList();
-		list.add(claim3);
-		list.add(claim1);
-		list.add(claim2);
+		list.addClaim(claim3);
+		list.addClaim(claim1);
+		list.addClaim(claim2);
 		user.setToClaim(list);
 		user.getToClaim().sort();
 		assertTrue("first item is claim 1",user.getToApprove().getClaims().get(0).equals(claim1));

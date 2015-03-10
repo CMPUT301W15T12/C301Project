@@ -1,5 +1,7 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,9 +21,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddClaimActivity extends Activity
+public class AddClaimActivity extends Activity implements Serializable
 {
 	//Date field variables
+	private static final long serialVersionUID = 7526472295622776147L;
     private EditText startDate;
     private EditText endDate;
     private DatePickerDialog fromDatePickerDialog;
@@ -50,24 +53,30 @@ public class AddClaimActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
-				addClaim();
+				try {
+					addClaim();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				finish();
 			}
 		});
 		
 	}
 	
-	public void addClaim() {
+	public void addClaim() throws ParseException  {
 		//Initializing variables
+		Date sdate = df.parse(startDate.getText().toString());
+		Date edate = df.parse(endDate.getText().toString());
 		String name = new String();
+		//need to add destination to claim
 		Destination destination = new Destination();
 		String tags = new String();
-		//what do I initialize claimant to?
 		String user = getIntent().getExtras().getString("username");
 		User username = UserListController.getUserList().getUser(user);
-		Date startDate = new Date();
-		Date endDate = new Date();
 		Context context = this.getApplicationContext();
+		
 		//XML Inputs
 		EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
 		name = editTextName.getText().toString();
@@ -75,12 +84,18 @@ public class AddClaimActivity extends Activity
 		tags = editTextTags.getText().toString();
 		CharSequence toastText;
 		Toast toast = null;
+		
 		//create claim
-		Claim claim = new Claim(name, startDate, endDate,tags , username);
+		Claim claim = new Claim(name, sdate, edate,tags , username);
+		//ClaimListController.getClaimList().addClaim(claim);
 		//still need to save claim
+		
+		//toast finished
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
 		toast.show();	
+		
+		//go to main page
 		Intent intent = new Intent(this, ClaimListActivity.class);
 		startActivity(intent);
 	}

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
+import ca.ualberta.cs.cmput301w15t12.User;
 
 
 public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
@@ -21,6 +22,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 	public void testEquals(){
 		Date date1 = new Date();
 		Date date2 = new Date();
+		User user = new user;
 		Claim claim1 = new Claim("name1",  date1, date2, "description1", "Approved", "Leah");
 		Claim claim2 = new Claim("name1",  date1, date2, "description1", "Approved", "Leah");
 		assertTrue("names are not the same", claim1.getName().equals(claim2.getName()));

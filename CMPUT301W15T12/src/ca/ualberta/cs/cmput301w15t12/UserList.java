@@ -17,7 +17,7 @@ public class UserList implements Serializable
 	//returns true if UserName in users
 	public boolean authenticateUser(String UserName){
 		//TODO
-		return false;
+		return true;
 	}
 
 	public void addUser(User user) throws AlreadyExistsException{
