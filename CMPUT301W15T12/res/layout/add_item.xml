@@ -21,7 +21,7 @@
         android:layout_below="@+id/editItemDescription"
         android:ems="10"
         android:hint="@string/Enter_Amount"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal|numberSigned" />
 
     <EditText
         android:id="@+id/editCurrency"

@@ -40,27 +40,27 @@ public class ExpenseItemActivity extends Activity {
 
 
 		//clickable button, confirms delete choice
-		Button deletebutton = (Button) findViewById(R.id.buttonitemdelete);
-		deletebutton.setOnClickListener(new View.OnClickListener() {
-			//checks that deleting is what you want
-			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
-				adb.setMessage("Delete this Item?");
-				adb.setCancelable(true);
-				adb.setPositiveButton("Delete", new OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						//TODO delete item
-					}
-				});
-				adb.setNegativeButton("Cancel", new OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-					}
-				});
-				adb.show();
-			}
-		});
+//		Button deletebutton = (Button) findViewById(R.id.buttonitemdelete);
+//		deletebutton.setOnClickListener(new View.OnClickListener() {
+//			//checks that deleting is what you want
+//			@Override
+//			public void onClick(View v) {
+//				AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
+//				adb.setMessage("Delete this Item?");
+//				adb.setCancelable(true);
+//				adb.setPositiveButton("Delete", new OnClickListener(){
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						//TODO delete item
+//					}
+//				});
+//				adb.setNegativeButton("Cancel", new OnClickListener() {
+//					public void onClick(DialogInterface dialog, int which) {
+//					}
+//				});
+//				adb.show();
+//			}
+//		});
 
 		//clickable button, if photo exists takes user to View photo page
 		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);

@@ -7,14 +7,18 @@ import java.util.Locale;
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class AddItemActivity extends Activity
 {
@@ -50,7 +54,31 @@ public class AddItemActivity extends Activity
 	}
 	
 	public void addItem() {
-		//TODO
+		//TODO checks all user input and creates expense item based off of it,
+		//and adds the appropriate flag
+	}
+	
+	public void currencyOnClick(){
+		//open currency dialog
+		String[] currencies = {"CAD", "USD", "EUR", "CHF", "JPY", "CHY", "GBP"};
+		AlertDialog.Builder adb = new AlertDialog.Builder(AddItemActivity.this);
+		adb.setMessage("Select a currency");
+		adb.setItems(currencies, new OnClickListener(){
+			public void onClick(DialogInterface dialog,int which){
+				TextView currency = (TextView) findViewById(R.id.editCurrency);
+				//not sure if this is correct
+				currency.setText(which);
+			}
+		});
+		adb.setNegativeButton("Cancel",new OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which){
+			}
+		});
+	}
+	
+	public void categoryOnClick(){
+		//TODO open category dialog
 	}
 
 	@Override
