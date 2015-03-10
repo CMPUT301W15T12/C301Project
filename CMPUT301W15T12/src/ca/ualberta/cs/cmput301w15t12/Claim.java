@@ -122,6 +122,9 @@ public class Claim implements Serializable {
 	// end toString functions
 
 	public boolean equals(Claim claim) {
+		if (claim == null) {
+			return false;
+		}
 		return (Id == claim.getId());
 	}
 	
