@@ -43,8 +43,8 @@ public class UserList implements Serializable
 	}
 	public User getUser(String Username) {
 		for (int i = 0; i < size(); i++) {
-			if (users.get(i).getUserName().equals(Username)) {
-				return users.get(i);
+			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
+				return UserListController.getUserList().get(i);
 			}
 		}
 		throw new RuntimeException();
