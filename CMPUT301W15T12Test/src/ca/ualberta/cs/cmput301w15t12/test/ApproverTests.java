@@ -6,14 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-
-import android.graphics.SumPathEffect;
 import android.test.ActivityInstrumentationTestCase2;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.CantApproveOwnClaimException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
-import ca.ualberta.cs.cmput301w15t12.ClaimList;
+import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.User;
 
@@ -45,12 +43,11 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		claim1.setStatus("Submitted");
 		claim3.setStatus("Submitted");
 		claim2.setStatus("Submitted");
-		ClaimList list = new ClaimList();
-		list.addClaim(claim3);
-		list.addClaim(claim1);
-		list.addClaim(claim2);
-		ArrayList<Claim> s = list.getSubmittedClaims();
-		ArrayList<Claim> submittedClaims = list.sort(s);
+		ClaimListController.addClaim(claim3);
+		ClaimListController.addClaim(claim2);
+		ClaimListController.addClaim(claim1);
+		ClaimListController.getClaimList().sort();
+		ArrayList<Claim> submittedClaims = ClaimListController.getClaimList().getSubmittedclaims();
 		assertTrue("first item is claim 1",submittedClaims.get(0).equals(claim1));
 		assertTrue("first item is claim 2",submittedClaims.get(1).equals(claim2));
 		assertTrue("first item is claim 3",submittedClaims.get(2).equals(claim3));
@@ -75,51 +72,48 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", user);
 		claim.setStatus("Submitted");
-		ClaimList list = new ClaimList();
-		list.addClaim(claim);
-		claim.setComment("Great");
-		assertEquals("comment got set", claim.getComment(), "Great");		
+		ClaimListController.addClaim(claim);
+		ClaimListController.getClaimList().getClaim(0).setComment("Great");
+		assertEquals("comment got set", ClaimListController.getClaimList().getClaim(0).getComment(), "Great");		
 	}
 
 //	US08.07.01
 //	As an approver, I want to return a submitted expense claim that was not approved, denoting the claim 
 //	status as returned and setting my name as the approver for the expense claim.
-	public void testapproveClaim() throws ParseException, CantApproveOwnClaimException {
+	public void testapproveClaim() throws ParseException, CantApproveOwnClaimException, AlreadyExistsException {
 		String n = "leah";
 		String name = "Sarah";
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", user);
-		ClaimList list = new ClaimList();
-		list.addClaim(claim);
-		user.setToApprove(list);
-		user.getToApprove().approveClaim(claim, name);
-		assertTrue("Status = Approved?",claim.getStatus().equals("Approved"));
-		assertTrue("Name is set?",claim.getApprovers().contains(name));
+		claim.setStatus("Submitted");
+		ClaimListController.addClaim(claim);
+		ClaimListController.getClaimList().getClaim(0).approveClaim(n);
+		assertTrue("Status = Approved?",ClaimListController.getClaimList().getClaim(0).getStatus().equals("Approved"));
+		assertTrue("Name is set?",ClaimListController.getClaimList().getClaim(0).getApprovers().contains(name));
 	}
 
 //	US08.08.01
 //	As an approver, I want to approve a submitted expense claim that was approved, denoting the claim status 
 //	as approved and setting my name as the approver for the expense claim.
-	public void testreturnClaim() throws ParseException, CantApproveOwnClaimException {
+	public void testreturnClaim() throws ParseException, CantApproveOwnClaimException, AlreadyExistsException {
 		String n = "leah";
 		String name = "Sarah";
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", user);
-		ClaimList list = new ClaimList();
-		list.add(claim);
-		user.setToApprove(list);
-		user.getToApprove().returnClaim(claim, name);
-		assertTrue("Status = returned?",claim.getStatus().equals("Returned"));
-		assertTrue("Name is set?",claim.getApprovers().contains(name));
+		claim.setStatus("Submitted");
+		ClaimListController.addClaim(claim);
+		ClaimListController.getClaimList().getClaim(0).returnClaim(n);
+		assertTrue("Status = returned?",ClaimListController.getClaimList().getClaim(0).getStatus().equals("Returned"));
+		assertTrue("Name is set?",ClaimListController.getClaimList().getClaim(0).getApprovers().contains(name));
 	}
 
 //	US08.09.01 added 2015-02-12
 //	As an approver, I want to ensure I cannot return or approve an expense claim for which I am the claimant.
-	public void testrestrictions() throws ParseException, CantApproveOwnClaimException{
+	public void testrestrictions() throws ParseException, CantApproveOwnClaimException, AlreadyExistsException{
 		boolean thrown1 = false;
 		boolean thrown2 = false;
 		String approver = "Sarah";
@@ -127,16 +121,15 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim = new Claim("c1", d1, d2, "Blah", user);
-		ClaimList list = new ClaimList();
-		list.add(claim);
-		user.setToApprove(list);
+		claim.setStatus("Submitted");
+		ClaimListController.addClaim(claim);
 		try {
-			user.getToApprove().returnClaim(claim, approver);
+			ClaimListController.getClaimList().getClaim(0).returnClaim(approver);
 		} catch (CantApproveOwnClaimException e) {
 			thrown1 = true;
 		}
 		try {
-			user.getToApprove().approveClaim(claim, approver);
+			ClaimListController.getClaimList().getClaim(0).approveClaim(approver);;
 		} catch (CantApproveOwnClaimException e) {
 			thrown2 = true;
 		}

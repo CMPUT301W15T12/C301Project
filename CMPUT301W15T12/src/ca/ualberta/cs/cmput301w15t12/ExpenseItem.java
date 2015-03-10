@@ -103,4 +103,5 @@ public class ExpenseItem{
 	public void setCurrency(String currency){
 		this.Currency = currency;
 	}
+	
 }

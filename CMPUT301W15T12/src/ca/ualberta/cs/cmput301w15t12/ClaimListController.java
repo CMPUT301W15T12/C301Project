@@ -42,7 +42,7 @@ public class ClaimListController
 		}
 	}
 
-	public void addClaim(Claim claim) throws AlreadyExistsException {
+	public static void addClaim(Claim claim) throws AlreadyExistsException {
 		getClaimList().addClaim(claim);
 	}
 }

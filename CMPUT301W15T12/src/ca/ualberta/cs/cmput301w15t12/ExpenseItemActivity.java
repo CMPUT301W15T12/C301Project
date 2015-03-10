@@ -23,6 +23,7 @@ public class ExpenseItemActivity extends Activity {
 	public ExpenseItem Item;
 	public SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 	public Claim Claim;
+	public int index;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,32 +35,32 @@ public class ExpenseItemActivity extends Activity {
 		//gets the id for the claim and the index for the item
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		Claim = ClaimListController.getClaimList().getClaim(id);
-		final int index = getIntent().getIntExtra("item_index", 0);
+		index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
 
 
 		//clickable button, confirms delete choice
-		Button deletebutton = (Button) findViewById(R.id.buttonitemdelete);
-		deletebutton.setOnClickListener(new View.OnClickListener() {
-			//checks that deleting is what you want
-			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
-				adb.setMessage("Delete this Item?");
-				adb.setCancelable(true);
-				adb.setPositiveButton("Delete", new OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						//TODO delete item
-					}
-				});
-				adb.setNegativeButton("Cancel", new OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-					}
-				});
-				adb.show();
-			}
-		});
+//		Button deletebutton = (Button) findViewById(R.id.buttonitemdelete);
+//		deletebutton.setOnClickListener(new View.OnClickListener() {
+//			//checks that deleting is what you want
+//			@Override
+//			public void onClick(View v) {
+//				AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
+//				adb.setMessage("Delete this Item?");
+//				adb.setCancelable(true);
+//				adb.setPositiveButton("Delete", new OnClickListener(){
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						//TODO delete item
+//					}
+//				});
+//				adb.setNegativeButton("Cancel", new OnClickListener() {
+//					public void onClick(DialogInterface dialog, int which) {
+//					}
+//				});
+//				adb.show();
+//			}
+//		});
 
 		//clickable button, if photo exists takes user to View photo page
 		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
@@ -151,7 +152,8 @@ public class ExpenseItemActivity extends Activity {
 		adb.setPositiveButton("Delete", new OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which){
-				//delete the expense item
+				Claim.removeItem(index);
+				finish();
 			}
 		});
 		adb.setNegativeButton("Cancel",new OnClickListener(){

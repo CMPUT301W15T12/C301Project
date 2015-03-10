@@ -11,7 +11,7 @@ import java.util.Locale;
 public class Claim {
 	private User Claimant;
 	private String Comment;
-	
+
 	private int Id;
 
 	private String Name;
@@ -45,20 +45,29 @@ public class Claim {
 		ClaimListController.getClaimList().incrementCounter();
 	}
 
-	public void returnClaim(String name) {
-		if (!approvers.contains(name)) {
+	public void returnClaim(String name) throws CantApproveOwnClaimException {
+		if (name.equals(Claimant)) {
+			throw new CantApproveOwnClaimException();
+		} else {
+			if (!approvers.contains(name)) {
+			}
 			approvers.add(name);
 		}
 		setStatus("Returned");
 	}
-	
-	public void approveClaim(String name) {
-		if (!approvers.contains(name)) {
-			approvers.add(name);
+
+	public void approveClaim(String name) throws CantApproveOwnClaimException {
+		if (name.equals(Claimant)) {
+			throw new CantApproveOwnClaimException();
+		} else {
+			if (!approvers.contains(name)) {
+				approvers.add(name);
+			}
+			setStatus("Approved");
 		}
-		setStatus("Approved");
+
 	}
-	
+
 	public boolean editable() {
 		if (Status.equals("In Progress")||Status.equals("Returned")){
 			return true;

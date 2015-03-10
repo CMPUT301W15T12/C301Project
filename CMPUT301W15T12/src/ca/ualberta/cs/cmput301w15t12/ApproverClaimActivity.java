@@ -18,38 +18,44 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ApproverClaimActivity extends Activity {
 
 	public Claim Claim;
 	public String approver;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.approver_claim_page);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
-		
+
 		//initialize claim variable
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		Claim = ClaimListController.getClaimList().getClaim(id);
 
 		//initialize approver variable
 		approver = getIntent().getExtras().getString("username");
-		
+
 		//return claim button, asks for confirmation then returns
 		Button commentBtn = (Button) findViewById(R.id.buttonAddComment);
 		commentBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				Intent intent = new Intent(ApproverClaimActivity.this, AddCommentsActivity.class);
-				intent.putExtra("claim_id", id);
-				intent.putExtra("username", approver);
-				startActivity(intent);
+				if (Claim.getClaimant().equals(approver)) {
+					Toast.makeText(ApproverClaimActivity.this, "Not Allowed to Comment Own Claim", Toast.LENGTH_LONG).show();
+				} else {
+					Intent intent = new Intent(ApproverClaimActivity.this, AddCommentsActivity.class);
+					intent.putExtra("claim_id", id);
+					intent.putExtra("username", approver);
+					startActivity(intent);
+				}
 			}
+
 		});
-		
+
 		//approve claim button - asks for confirmation then approves
 		Button approveBtn = (Button) findViewById(R.id.buttonApproverApprove);
 		approveBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +66,14 @@ public class ApproverClaimActivity extends Activity {
 				adb.setPositiveButton("Approve", new OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Claim.approveClaim(approver);
-						finish();
+						try
+						{
+							Claim.approveClaim(approver);
+							finish();
+						} catch (CantApproveOwnClaimException e)
+						{
+							Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+						}
 					}
 				});
 				adb.setNegativeButton("Cancel", new OnClickListener() {
@@ -82,8 +94,14 @@ public class ApproverClaimActivity extends Activity {
 				adb.setPositiveButton("Return", new OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Claim.returnClaim(approver);
-						finish();
+						try
+						{
+							Claim.returnClaim(approver);
+							finish();
+						} catch (CantApproveOwnClaimException e)
+						{
+							Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Return Own Claim", Toast.LENGTH_LONG).show();
+						}
 					}
 				});
 				adb.setNegativeButton("Cancel", new OnClickListener() {
@@ -94,18 +112,18 @@ public class ApproverClaimActivity extends Activity {
 			}
 		});
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		
+
 		//gets the textviews
 		TextView name = (TextView) findViewById(R.id.textApproverClaimName);
 		TextView description = (TextView) findViewById(R.id.textApproverClaimDescription);
 		TextView dates = (TextView) findViewById(R.id.textApproverStarttoEndDate);
 		TextView destinations = (TextView) findViewById(R.id.textApproverClaimDestinations);
-		
-		
+
+
 		//sets the textviews
 		name.setText(Claim.getName()+" - "+Claim.getStatus());
 		description.setText(Claim.getDescription());
@@ -113,7 +131,7 @@ public class ApproverClaimActivity extends Activity {
 		String ed = df.format(Claim.getEndDate());
 		dates.setText(sd+" - "+ed);
 		destinations.setText(Claim.destinationsToString());
-		
+
 		//total list
 		ListView lv = (ListView) findViewById(R.id.listTotalSum);
 		final ArrayList<String> total = Claim.getTotal();
@@ -127,8 +145,6 @@ public class ApproverClaimActivity extends Activity {
 				totalAdapter.notifyDataSetChanged();
 			}
 		});
-		
-		
 	}
 
 	@Override

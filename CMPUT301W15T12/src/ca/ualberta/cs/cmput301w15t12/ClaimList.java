@@ -104,7 +104,6 @@ public class ClaimList implements List<Claim>{
 		}
 	}
 	
-	@Override
 	public void sort() {
 		Collections.sort(claims, new Comparator<Claim>() {
 			
