@@ -2,18 +2,19 @@ package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cs.cmput301w15t12.AddClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
 import ca.ualberta.cs.cmput301w15t12.TagActivity;
 import ca.ualberta.cs.cmput301w15t12.Tags;
 import android.test.ActivityInstrumentationTestCase2;
 
-public class TagTest extends ActivityInstrumentationTestCase2<TagActivity> {
+public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> {
 	//This code is for testing
-	TagActivity activity;
+	AddClaimActivity activity;
 	
 	public TagTest() {
-		super(TagActivity.class);
+		super(AddClaimActivity.class);
 	}
 
 	protected void setUp() throws Exception {
