@@ -252,9 +252,6 @@ public class Claim {
 	public void setApprovers(ArrayList<String> apps) {
 		this.approvers = apps;
 	}
-	public ArrayList<ExpenseItem> getExpenses() {
-		return expenseItems;
-	}
 	public ArrayList<String> getTagList(){
 		if (tagList == null){
 			tagList = new ArrayList<String>();

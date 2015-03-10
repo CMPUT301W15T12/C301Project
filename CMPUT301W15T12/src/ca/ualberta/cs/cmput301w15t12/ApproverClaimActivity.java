@@ -145,6 +145,30 @@ public class ApproverClaimActivity extends Activity {
 				totalAdapter.notifyDataSetChanged();
 			}
 		});
+		
+		ListView list = (ListView) findViewById(R.id.listApproverlistExpenseItems);
+		final ArrayList<ExpenseItem> EItems = Claim.getExpenseItems();
+		ArrayList<String> items = new ArrayList<String>();
+		for (int i = 0; i < EItems.size(); i++) {
+			items.add(EItems.get(i).toStringList());
+		}
+		final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
+		list.setAdapter(listAdapter);
+		ClaimListController.getClaimList().addListener(new Listener()
+		{
+			
+			@Override
+			public void update()
+			{
+				final ArrayList<ExpenseItem> EItems = Claim.getExpenseItems();
+				ArrayList<String> items = new ArrayList<String>();
+				for (int i = 0; i < EItems.size(); i++) {
+					items.add(EItems.get(i).toStringList());
+				}
+				
+				listAdapter.notifyDataSetChanged();
+			}
+		});
 	}
 
 	@Override
