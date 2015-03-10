@@ -7,11 +7,11 @@ public class UserList implements Serializable
 {
 	private static final long serialVersionUID = -654637474874722866L;
 	public static ArrayList<User> users;
-	private ArrayList<Listener> listeners;
+	protected transient ArrayList<Listener> listeners = null;
 	
 	public UserList() {
 		users = new ArrayList<User>();
-		this.listeners = new ArrayList<Listener>();
+		listeners = new ArrayList<Listener>();
 	}
 	
 	//returns true if UserName in users
@@ -30,8 +30,8 @@ public class UserList implements Serializable
 		notifyListeners();
 	}
 	
-	public void size() {
-		users.size();
+	public int size() {
+		return users.size();
 	}
 	
     public boolean contains(User user){
@@ -40,6 +40,7 @@ public class UserList implements Serializable
 	
 	public void remove(int i){
 		users.remove(i);
+		notifyListeners();
 	}
 
 	public ArrayList<User> getUsers() {
@@ -56,7 +57,7 @@ public class UserList implements Serializable
 		return false;		
 	}
 	
-	public ArrayList<Listener> getListeners() {
+	private ArrayList<Listener> getListeners() {
 		if (listeners == null) {
 			listeners = new ArrayList<Listener>();
 		}
@@ -64,7 +65,7 @@ public class UserList implements Serializable
 	}
 
 	public void addListener(Listener listener) {
-		listeners.add(listener);		
+		getListeners().add(listener);		
 	}
 
 	public void removeListener(Listener listener) {

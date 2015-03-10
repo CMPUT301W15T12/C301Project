@@ -21,10 +21,10 @@ public class UserListController
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				throw new RuntimeException("Could not deserialize UserList from ClaimListManager");
+				throw new RuntimeException("Could not deserialize UserList from UserListManager");
 			} catch (IOException e) {
 				e.printStackTrace();
-				throw new RuntimeException("Could not deserialize UserList from ClaimListManager");
+				throw new RuntimeException("Could not deserialize UserList from UserListManager");
 			}
 		}
 		return userlist;
@@ -35,7 +35,7 @@ public class UserListController
 			UserListManager.getManager().saveUserList(getUserList());
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new RuntimeException("Could not deserialize ClaimList from ClaimListManager");
+			throw new RuntimeException("Could not deserialize UserList from UserListManager");
 		}
 	}
 
