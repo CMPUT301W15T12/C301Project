@@ -88,14 +88,16 @@ public class AddClaimActivity extends Activity
 		//create claim
 		Claim claim = new Claim(name, sdate, edate,description, username);
 		ClaimListController.getClaimList().addClaim(claim);
+		ClaimListController.saveClaimList();
 		
 		//put this back         android:focusableInTouchMode="false"
 		//and this         android:focusableInTouchMode="false"
 		
 		//toast finished
 		toastText = "Claim Saved.";
-		toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
+		toast = Toast.makeText(context,toastText, Toast.LENGTH_SHORT);
 		toast.show();	
+		
 	}
 
 	@Override

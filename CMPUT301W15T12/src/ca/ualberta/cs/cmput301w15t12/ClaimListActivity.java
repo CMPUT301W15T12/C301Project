@@ -73,6 +73,19 @@ public class ClaimListActivity extends Activity {
 			}
 
 		});
+		
+		ClaimListController.getClaimList().addListener(new Listener() {
+			
+			@Override
+			public void update() {
+				final ArrayList<Claim> claims2 = ClaimListController.getClaimList().getUserClaims(Username);
+				ArrayList<String> claims = new ArrayList<String>();
+				for (int i = 0; i < claims2.size(); i++) {
+					claims.add(claims2.get(i).toStringClaimantList());
+				}
+				claimAdapter.notifyDataSetChanged();
+			}
+		});
 
 	}
 
