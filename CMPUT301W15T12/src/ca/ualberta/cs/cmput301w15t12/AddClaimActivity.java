@@ -70,6 +70,7 @@ public class AddClaimActivity extends Activity implements Serializable
 		Date sdate = df.parse(startDate.getText().toString());
 		Date edate = df.parse(endDate.getText().toString());
 		String name = new String();
+		String description = new String();
 		//need to add destination to claim
 		Destination destination = new Destination();
 		String tags = new String();
@@ -84,11 +85,15 @@ public class AddClaimActivity extends Activity implements Serializable
 		tags = editTextTags.getText().toString();
 		CharSequence toastText;
 		Toast toast = null;
+		EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);
+		description = editTextDescription.getText().toString();
 		
 		//create claim
-		Claim claim = new Claim(name, sdate, edate,tags , username);
-		//ClaimListController.getClaimList().addClaim(claim);
-		//still need to save claim
+		Claim claim = new Claim(name, sdate, edate,description, username);
+		ClaimListController.getClaimList().addClaim(claim);
+		
+		//put this back         android:focusableInTouchMode="false"
+		//and this         android:focusableInTouchMode="false"
 		
 		//toast finished
 		toastText = "Claim Saved.";
