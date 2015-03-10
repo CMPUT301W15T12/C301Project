@@ -57,8 +57,7 @@ public class AddClaimActivity extends Activity
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				finish();
-			}
+				finish();			}
 		});
 		
 	}
@@ -97,10 +96,6 @@ public class AddClaimActivity extends Activity
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
 		toast.show();	
-		
-		//go to main page
-		Intent intent = new Intent(this, ClaimListActivity.class);
-		startActivity(intent);
 	}
 
 	@Override
