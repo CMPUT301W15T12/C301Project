@@ -77,6 +77,15 @@ public class ClaimList implements List<Claim>{
 		notifyListeners();
 	}
 	
+	public void removeClaim(int id) {
+		for (int i = 0; i < claims.size() ; i++) {
+			if (claims.get(i).getId() == id) {
+				claims.remove(i);
+			}
+		}
+		notifyListeners();
+	}
+	
 	public void removeClaim(String claimname){
 		for (int i = 0; i < claims.size() ; i++) {
 			if (claims.get(i).getName() == claimname) {
