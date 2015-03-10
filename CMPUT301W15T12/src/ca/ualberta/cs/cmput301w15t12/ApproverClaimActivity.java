@@ -164,8 +164,7 @@ public class ApproverClaimActivity extends Activity {
 				ArrayList<String> items = new ArrayList<String>();
 				for (int i = 0; i < EItems.size(); i++) {
 					items.add(EItems.get(i).toStringList());
-				}
-				
+				}				
 				listAdapter.notifyDataSetChanged();
 			}
 		});
