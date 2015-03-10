@@ -161,7 +161,7 @@ public class ClaimActivity extends Activity {
 		adb.setPositiveButton("Return", new OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				//TODO delete claim
+				ClaimListController.getClaimList().removeClaim(id);
 				finish();
 			}
 		});
