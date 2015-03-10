@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class ApproverListActivity extends Activity
 {
@@ -36,6 +37,10 @@ public class ApproverListActivity extends Activity
 		
 		for (int i = 0; i < claims.size(); i++){
 			sclaims.add(claims.get(i).toStringApproverList());
+		}
+		
+		if (claims.size() == 0) {
+			Toast.makeText(this, "No Submitted Claims", Toast.LENGTH_SHORT).show();
 		}
 		
 		final ArrayAdapter<String> SubClaimAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sclaims);

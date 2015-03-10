@@ -20,13 +20,14 @@ public class UserList implements Serializable
 		return false;
 	}
 
-	public void add(User user) throws AlreadyExistsException{
+	public void addUser(User user) throws AlreadyExistsException{
 		for (int i = 0; i < users.size(); i++ ) {
 			if (users.get(i).equals(user)) { 
 				throw new AlreadyExistsException();
 			}
 		}
-		users.add(user);		
+		users.add(user);	
+		notifyListeners();
 	}
 	
 	public void size() {
@@ -36,10 +37,6 @@ public class UserList implements Serializable
     public boolean contains(User user){
     	return users.contains(user);
     }
-	
-	public void addUser(User user) {
-		users.add(user);
-	}
 	
 	public void remove(int i){
 		users.remove(i);
