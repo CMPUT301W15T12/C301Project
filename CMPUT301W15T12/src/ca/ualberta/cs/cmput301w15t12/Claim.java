@@ -1,5 +1,6 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -8,7 +9,8 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class Claim {
+public class Claim implements Serializable {
+	private static final long serialVersionUID = -5134662718035435990L;
 	private User Claimant;
 	private String Comment;
 
@@ -91,7 +93,7 @@ public class Claim {
 	public String destinationsToString() {
 		String dests = "";
 		for (int i = 0; i < destinations.size(); i++) {
-			dests += destinations.get(i).toFullString()+"\n";
+			dests += destinations.get(i).toString()+"\n";
 		}
 		return dests;
 	}
@@ -119,6 +121,13 @@ public class Claim {
 	}
 	// end toString functions
 
+	public boolean equals(Claim claim) {
+		if (claim == null) {
+			return false;
+		}
+		return (Id == claim.getId());
+	}
+	
 	//all the adds/removes/contains for the lists
 	public void removeItem(int pos) {
 		expenseItems.remove(pos);
