@@ -1,6 +1,5 @@
 package ca.ualberta.cs.cmput301w15t12;
 
-import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +18,7 @@ public class LoginActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_main);
+		UserListManager.initManager(this.getApplicationContext());
 		EditText username = (EditText) findViewById(R.id.editLoginUserName);
 		final String name = username.getText().toString();
 		
@@ -41,13 +41,13 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				//TODO get userlist contains name
-//				if (!userlist.authenticateUser(name)) {
-//					Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
-//				} else {
-//					Intent intent = new Intent(LoginActivity.this, ChooseListActivity.class);
-//					intent.putExtra("username", name);
-//					startActivity(intent);
-//				}
+				if (!UserListController.getUserList().authenticateUser(name)) {
+					Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
+				} else {
+					Intent intent = new Intent(LoginActivity.this, ChooseListActivity.class);
+					intent.putExtra("username", name);
+					startActivity(intent);
+				}
 			}
 		});
 	}

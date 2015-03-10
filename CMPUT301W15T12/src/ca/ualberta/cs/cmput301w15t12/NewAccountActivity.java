@@ -19,6 +19,7 @@ public class NewAccountActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_account);
+		UserListManager.initManager(this.getApplicationContext());
 
 		//clickable create account button creates new user and takes user to choose claim list page
 		Button createbutton = (Button) findViewById(R.id.buttonNewAccountDone);
