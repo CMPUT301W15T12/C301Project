@@ -15,13 +15,13 @@ public class ClaimListController
 			try {
 				claimlist = ClaimListManager.getManager().loadClaimList();
 				claimlist.addListener(new Listener() {
-					
+
 					@Override
 					public void update() {
 						saveClaimList();
 					}
 				});
-				
+
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 				throw new RuntimeException("Could not deserialize ClaimList from ClaimListManager");
@@ -32,7 +32,7 @@ public class ClaimListController
 		}
 		return claimlist;
 	}
-	
+
 	static public void saveClaimList() {
 		try {
 			ClaimListManager.getManager().saveClaimList(getClaimList());

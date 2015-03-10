@@ -1,10 +1,13 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class User
+
+public class User implements Serializable
 {
+	private static final long serialVersionUID = -4565159790415717846L;
 	private String UserName;
 	private ArrayList<String> tagList;
 	
@@ -12,6 +15,11 @@ public class User
 		this.UserName = name;
 		this.tagList = new ArrayList<String>();
 		
+	}
+	
+	public boolean equals(){
+		//TODO
+		return false;
 	}
 	
 	public boolean authenticate(String password) {

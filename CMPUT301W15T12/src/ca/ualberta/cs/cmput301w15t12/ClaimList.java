@@ -66,24 +66,6 @@ public class ClaimList implements List<Claim>{
 		return list;
 	}
 	
-	//not necessary
-//	public void returnClaim(Claim claim, String approver) throws CantApproveOwnClaimException, AlreadyExistsException
-//	{
-//		if (approver.equals(claim.getClaimant())){
-//			throw new CantApproveOwnClaimException();
-//		}
-//		claim.setStatus("Returned");
-//		claim.addApprover(approver);
-//	}
-//	
-//	public void approveClaim(Claim claim, String approver) throws CantApproveOwnClaimException, AlreadyExistsException{
-//		if (approver.equals(claim.getClaimant())){
-//			throw new CantApproveOwnClaimException();
-//		}
-//		claim.setStatus("Approved");
-//		claim.addApprover(approver);
-//	}
-	
 	//add/remove/contains/size functions
 	public void addClaim(Claim claim) throws AlreadyExistsException {
 		for (int i = 0; i < claims.size(); i++) {

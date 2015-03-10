@@ -19,7 +19,7 @@ public class NewAccountActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_account);
-		
+
 		//clickable create account button creates new user and takes user to choose claim list page
 		Button createbutton = (Button) findViewById(R.id.buttonNewAccountDone);
 		createbutton.setOnClickListener(new View.OnClickListener()
@@ -28,24 +28,26 @@ public class NewAccountActivity extends Activity
 			public void onClick(View v) {
 				//TODO get userlist
 				EditText username = (EditText) findViewById(R.id.editNewUserName);
-//				if (userlist.authenticateUser(username.getText().toString())) {
-//					Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
-//				} else {
-//					Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
-//					intent.putExtra("username", username.getText().toString());
-//					startActivity(intent);
-//				}
+				try {
+					UserListController.getUserList().add(new User(username.getText().toString()));
+					Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
+					intent.putExtra("username", username.getText().toString());
+					startActivity(intent);
+				} catch (AlreadyExistsException e) {
+					Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				}
 			}
-		});
-	}
+	});
+}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+@Override
+public boolean onCreateOptionsMenu(Menu menu)
+{
 
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.new_account, menu);
-		return true;
-	}
+	// Inflate the menu; this adds items to the action bar if it is present.
+	getMenuInflater().inflate(R.menu.new_account, menu);
+	return true;
+}
 
 }
