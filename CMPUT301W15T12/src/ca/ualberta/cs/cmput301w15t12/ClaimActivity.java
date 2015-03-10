@@ -32,6 +32,8 @@ public class ClaimActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.claimant_claim_page);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
 
 		//Claim passed on is stored in claim variable
 		final int id = getIntent().getIntExtra("claim_id", 0);

@@ -27,6 +27,8 @@ public class EditItemActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_item);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
 	    
         Date = (EditText) findViewById(R.id.editItemDate);    
         Date.setInputType(InputType.TYPE_NULL);

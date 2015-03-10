@@ -15,6 +15,8 @@ public class ViewPhotoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_photo);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
 		
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		Claim Claim = ClaimListController.getClaimList().getClaim(id);

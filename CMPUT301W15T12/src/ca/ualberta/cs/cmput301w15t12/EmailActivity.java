@@ -22,6 +22,8 @@ public class EmailActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.email);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
 		
 		recipient = (EditText) findViewById(R.id.recipient);
 		subject = (EditText) findViewById(R.id.subject);

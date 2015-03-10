@@ -15,6 +15,9 @@ public class AddCommentsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_comments);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
+		
         //gets the claim id
         final int id = getIntent().getIntExtra("claim_id", 0);
         

@@ -22,6 +22,8 @@ public class ApproverItemActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.approver_expense_item);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
 
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		Claim Claim = ClaimListController.getClaimList().getClaim(id);

@@ -34,6 +34,8 @@ public class AddClaimActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_claim);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
 		
 		//initializes the date fields
 		startDate = (EditText) findViewById(R.id.EnterStartDate);

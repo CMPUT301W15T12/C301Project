@@ -19,6 +19,7 @@ public class LoginActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_main);
 		UserListManager.initManager(this.getApplicationContext());
+		
 		EditText username = (EditText) findViewById(R.id.editLoginUserName);
 		final String name = username.getText().toString();
 		

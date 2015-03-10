@@ -16,6 +16,9 @@ public class ChooseListActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choose_list);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
+		
 		final String username = getIntent().getExtras().getString("username");
 		
 		Button claimBtn = (Button) findViewById(R.id.buttonChooseClaimant);

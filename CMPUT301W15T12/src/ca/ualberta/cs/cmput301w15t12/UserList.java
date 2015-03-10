@@ -7,10 +7,11 @@ public class UserList implements Serializable
 {
 	private static final long serialVersionUID = -654637474874722866L;
 	public static ArrayList<User> users;
-	private static ArrayList<Listener> listeners;
+	private ArrayList<Listener> listeners;
 	
 	public UserList() {
 		users = new ArrayList<User>();
+		this.listeners = new ArrayList<Listener>();
 	}
 	
 	//returns true if UserName in users
@@ -28,11 +29,16 @@ public class UserList implements Serializable
 		users.add(user);		
 	}
 	
-	public void addUser(User user)
-	{
-
-		// TODO Auto-generated method stub
-		
+	public void size() {
+		users.size();
+	}
+	
+    public boolean contains(User user){
+    	return users.contains(user);
+    }
+	
+	public void addUser(User user) {
+		users.add(user);
 	}
 	
 	public void remove(int i){
@@ -64,8 +70,8 @@ public class UserList implements Serializable
 		listeners.add(listener);		
 	}
 
-	public void rmListener(Listener listener) {
-		listeners.remove(listener);
+	public void removeListener(Listener listener) {
+		getListeners().remove(listener);
 	}
 
 	public void notifyListeners() {

@@ -17,6 +17,9 @@ public class SeeCommentsActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.see_comments);
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
+		
 		//gets the id of the claim whose comments are being viewed
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		
