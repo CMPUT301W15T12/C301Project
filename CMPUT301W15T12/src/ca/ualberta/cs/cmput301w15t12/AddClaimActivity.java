@@ -64,8 +64,7 @@ public class AddClaimActivity extends Activity
 		String tags = new String();
 		//what do I initialize claimant to?
 		String user = getIntent().getExtras().getString("username");
-		UserListController userList;
-		userList.getUserList().getUser(user);
+		User username = UserListController.getUserList().getUser(user);
 		Date startDate = new Date();
 		Date endDate = new Date();
 		Context context = this.getApplicationContext();
@@ -77,7 +76,7 @@ public class AddClaimActivity extends Activity
 		CharSequence toastText;
 		Toast toast = null;
 		//create claim
-		Claim claim = new Claim(name, startDate, endDate,tags , userList);
+		Claim claim = new Claim(name, startDate, endDate,tags , username);
 		//still need to save claim
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
