@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class UserList implements Serializable
 {
 	private static final long serialVersionUID = -654637474874722866L;
-	public static ArrayList<User> users;
+	public static ArrayList<User> users = null;
 	protected transient ArrayList<Listener> listeners = null;
 	
 	public UserList() {
@@ -41,6 +41,14 @@ public class UserList implements Serializable
 	public void remove(int i){
 		users.remove(i);
 		notifyListeners();
+	}
+	public User getUser(String Username) {
+		for (int i = 0; i < size(); i++) {
+			if (users.get(i).getUserName().equals(Username)) {
+				return users.get(i);
+			}
+		}
+		throw new RuntimeException();
 	}
 	
 	public void removeUser(User user){

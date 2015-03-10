@@ -14,6 +14,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ public class ApproverClaimActivity extends Activity {
 
 	public Claim Claim;
 	public String approver;
+	public int id;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
 	@Override
@@ -34,7 +36,7 @@ public class ApproverClaimActivity extends Activity {
 		ClaimListManager.initManager(this.getApplicationContext());
 
 		//initialize claim variable
-		final int id = getIntent().getIntExtra("claim_id", 0);
+		id = getIntent().getIntExtra("claim_id", 0);
 		Claim = ClaimListController.getClaimList().getClaim(id);
 
 		//initialize approver variable
@@ -154,6 +156,20 @@ public class ApproverClaimActivity extends Activity {
 		}
 		final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
 		list.setAdapter(listAdapter);
+		
+		list.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3)
+			{
+				Intent intent = new Intent(ApproverClaimActivity.this, ExpenseItemActivity.class);
+				intent.putExtra("claim_id", id);
+				intent.putExtra("item_index", position);
+				startActivity(intent);
+			}
+		});
+		
 		ClaimListController.getClaimList().addListener(new Listener()
 		{
 			
