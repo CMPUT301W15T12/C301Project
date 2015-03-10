@@ -22,7 +22,7 @@ public class UserList implements Serializable
 
 	public void addUser(User user) throws AlreadyExistsException{
 		for (int i = 0; i < users.size(); i++ ) {
-			if (users.get(i).equals(user)) { 
+			if (users.get(i).getUserName().equals(user.getUserName())) { 
 				throw new AlreadyExistsException();
 			}
 		}
@@ -55,6 +55,10 @@ public class UserList implements Serializable
 			}
 		}
 		return false;		
+	}
+	
+	public User get(int i) {
+		return users.get(i);
 	}
 	
 	private ArrayList<Listener> getListeners() {
