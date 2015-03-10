@@ -42,7 +42,10 @@ public class UserList implements Serializable
 		users.remove(i);
 		notifyListeners();
 	}
-
+	
+	public void removeUser(User user){
+		users.remove(user);
+	}
 	public ArrayList<User> getUsers() {
 		return users;
 	}

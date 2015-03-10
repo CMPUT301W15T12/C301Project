@@ -42,4 +42,8 @@ public class UserListController
 	public void addUser(User user) throws AlreadyExistsException {
 		getUserList().addUser(user);
 	}
+	
+	public static void removeUser(User user){
+		getUserList().removeUser(user);
+	}
 }
