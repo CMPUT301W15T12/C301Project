@@ -29,7 +29,7 @@ public class ClaimListActivity extends Activity {
 		try {
 			Username = getIntent().getExtras().getString("username");
 		} catch (NullPointerException e) {
-			Toast.makeText(this, "nope", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, ClaimListController.getClaimList().getClaim(0).getName(), Toast.LENGTH_LONG).show();
 		}
 
 		//clickable button takes the user to the add claim page when clicked
@@ -53,7 +53,7 @@ public class ClaimListActivity extends Activity {
 
 		ListView listViewClaims = (ListView) findViewById(R.id.listViewClaims);
 		final ArrayList<Claim> claims2 = ClaimListController.getClaimList().getUserClaims(Username);
-		ArrayList<String> claims = new ArrayList<String>();
+		final ArrayList<String> claims = new ArrayList<String>();
 		for (int i = 0; i < claims2.size(); i++) {
 			claims.add(claims2.get(i).toStringClaimantList());
 		}
@@ -78,11 +78,13 @@ public class ClaimListActivity extends Activity {
 			
 			@Override
 			public void update() {
-				final ArrayList<Claim> claims2 = ClaimListController.getClaimList().getUserClaims(Username);
-				ArrayList<String> claims = new ArrayList<String>();
-				for (int i = 0; i < claims2.size(); i++) {
-					claims.add(claims2.get(i).toStringClaimantList());
-				}
+				claims2.clear();
+				ArrayList<Claim> claims = ClaimListController.getClaimList().getUserClaims(Username);
+				claims2.addAll(claims);
+//				for (int i = 0; i < claims2.size(); i++) {
+//					claims.add(claims2.get(i).toStringClaimantList());
+//				}
+				
 				claimAdapter.notifyDataSetChanged();
 			}
 		});

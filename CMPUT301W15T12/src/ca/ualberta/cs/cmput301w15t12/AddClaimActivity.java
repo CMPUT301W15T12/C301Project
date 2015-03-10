@@ -97,6 +97,7 @@ public class AddClaimActivity extends Activity
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_SHORT);
 		toast.show();	
+		Toast.makeText(this, ClaimListController.getClaimList().getClaim(0).getName(), Toast.LENGTH_LONG).show();
 		
 	}
 
