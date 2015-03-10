@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ClaimListActivity extends Activity {
 
@@ -25,8 +26,11 @@ public class ClaimListActivity extends Activity {
 		ClaimListManager.initManager(this.getApplicationContext());
 		
 		//username of user passed along from list choice activity
-		Username = getIntent().getExtras().getString("username");
-
+		try {
+			Username = getIntent().getExtras().getString("username");
+		} catch (NullPointerException e) {
+			Toast.makeText(this, "nope", Toast.LENGTH_LONG).show();
+		}
 
 		//clickable button takes the user to the add claim page when clicked
 		//passes along the username so that user can be added when claim is created
@@ -48,9 +52,12 @@ public class ClaimListActivity extends Activity {
 		super.onResume();
 
 		ListView listViewClaims = (ListView) findViewById(R.id.listViewClaims);
-		final ArrayList<Claim> claims = ClaimListController.getClaimList().getUserClaims(Username);
-		final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>
-		(this, android.R.layout.simple_list_item_1, claims);
+		final ArrayList<Claim> claims2 = ClaimListController.getClaimList().getUserClaims(Username);
+		ArrayList<String> claims = new ArrayList<String>();
+		for (int i = 0; i < claims2.size(); i++) {
+			claims.add(claims2.get(i).toStringClaimantList());
+		}
+		final ArrayAdapter<String> claimAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, claims);
 		listViewClaims.setAdapter(claimAdapter);
 
 		listViewClaims.setOnItemClickListener(new OnItemClickListener()
@@ -59,7 +66,7 @@ public class ClaimListActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3)
 			{
-				int id = claims.get(arg2).getId();
+				int id = claims2.get(arg2).getId();
 				Intent intent = new Intent(ClaimListActivity.this, ClaimActivity.class);
 				intent.putExtra("claim_id", id);
 				startActivity(intent);

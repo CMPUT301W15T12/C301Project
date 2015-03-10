@@ -11,17 +11,12 @@ public class ClaimList implements List<Claim>, Serializable{
 	 * ClaimList serialization ID
 	 */
 	private static final long serialVersionUID = -1934058274962718746L;
-	private static ArrayList<Claim> claims;
+	private static ArrayList<Claim> claims = new ArrayList<Claim>();
 	private static ArrayList<Listener> listeners;
-	private static int counter;
+	private static int counter = 0;
 	
 	public ClaimList() {
-		// not already initialized
-		if (claims == null) {
-			claims = new ArrayList<Claim>();
-			listeners = new ArrayList<Listener>();
-			counter = 0;
-		}
+		listeners = new ArrayList<Listener>();
 	}
 	
 	//filtered returns a sublist of from the list claims that have the specified tag
