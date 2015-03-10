@@ -1,6 +1,5 @@
 package ca.ualberta.cs.cmput301w15t12;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,10 +20,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddClaimActivity extends Activity implements Serializable
+public class AddClaimActivity extends Activity
 {
 	//Date field variables
-	private static final long serialVersionUID = 7526472295622776147L;
     private EditText startDate;
     private EditText endDate;
     private DatePickerDialog fromDatePickerDialog;

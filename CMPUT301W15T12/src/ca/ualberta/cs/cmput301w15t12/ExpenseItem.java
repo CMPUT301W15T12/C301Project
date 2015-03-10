@@ -1,13 +1,18 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class ExpenseItem{
-	
+public class ExpenseItem implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2552967637419002646L;
 	private String name;
 	private String category;
 	private String description;
@@ -102,6 +107,13 @@ public class ExpenseItem{
 	}
 	public void setCurrency(String currency){
 		this.Currency = currency;
+	}
+	
+	public boolean equals(ExpenseItem expense){
+		if (expense == null){
+			return false;
+		}
+		return getName().equals(expense.getName());
 	}
 	
 }

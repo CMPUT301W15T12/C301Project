@@ -1,11 +1,16 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 
-public class ClaimList implements List<Claim>{
+public class ClaimList implements List<Claim>, Serializable{
+	/**
+	 * ClaimList serialization ID
+	 */
+	private static final long serialVersionUID = -1934058274962718746L;
 	private static ArrayList<Claim> claims;
 	private static ArrayList<Listener> listeners;
 	private static int counter;
