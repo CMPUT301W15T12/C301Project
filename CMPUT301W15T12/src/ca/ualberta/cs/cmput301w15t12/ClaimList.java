@@ -67,12 +67,7 @@ public class ClaimList implements List<Claim>{
 	}
 	
 	//add/remove/contains/size functions
-	public void addClaim(Claim claim) throws AlreadyExistsException {
-		for (int i = 0; i < claims.size(); i++) {
-			if (claims.get(i).getName().equals(claim.getName())){
-				throw new AlreadyExistsException();
-			}
-		}
+	public void addClaim(Claim claim){
 		claims.add(claim);
 		notifyListeners();
 	}
