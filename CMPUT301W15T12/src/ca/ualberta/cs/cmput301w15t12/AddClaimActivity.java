@@ -61,19 +61,23 @@ public class AddClaimActivity extends Activity
 		//Initializing variables
 		String name = new String();
 		Destination destination = new Destination();
-		String status = new String();
+		String tags = new String();
 		//what do I initialize claimant to?
-		User claimant = null;
+		String user = getIntent().getExtras().getString("username");
+		UserListController userList;
+		userList.getUserList().getUser(user);
 		Date startDate = new Date();
 		Date endDate = new Date();
 		Context context = this.getApplicationContext();
 		//XML Inputs
 		EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
 		name = editTextName.getText().toString();
+		EditText editTextTags = (EditText) findViewById(R.id.EnterTags);
+		tags = editTextTags.getText().toString();
 		CharSequence toastText;
 		Toast toast = null;
 		//create claim
-		Claim claim = new Claim(name, startDate, endDate,status,claimant);
+		Claim claim = new Claim(name, startDate, endDate,tags , userList);
 		//still need to save claim
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
