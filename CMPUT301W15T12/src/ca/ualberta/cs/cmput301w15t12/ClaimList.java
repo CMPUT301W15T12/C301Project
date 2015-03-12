@@ -1,77 +1,44 @@
 package ca.ualberta.cs.cmput301w15t12;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Date;
 
 
-public class ClaimList implements List<Claim>, Serializable{
-	/**
-	 * ClaimList serialization ID
-	 */
-	private static final long serialVersionUID = -1934058274962718746L;
+public class ClaimList{
+
 	private static ArrayList<Claim> claims;
 	private static ArrayList<Listener> listeners;
-	private static int counter;
+	private static int nextUnassignedId;
 	
 	public ClaimList() {
-		claims = new ArrayList<Claim>();
-		listeners = new ArrayList<Listener>();
-		counter = 0;
-	}
-	
-	//filtered returns a sublist of from the list claims that have the specified tag
-	public ArrayList<Claim> getFiltered(ArrayList<Claim> claims, String tag){
-		ArrayList<Claim> filtered = new ArrayList<Claim>();
-		for (int i = 0; i < claims.size(); i++) {
-			if (claims.get(i).containsTag(tag)){
-				filtered.add(claims.get(i));
-			}
+		if (ClaimList.claims==null){
+			claims = new ArrayList<Claim>();
+			listeners = new ArrayList<Listener>();
+			ClaimList.nextUnassignedId = 0;
 		}
-		return filtered;
 	}
 	
-	//given a username, returns a list of claims with that username
-	public ArrayList<Claim> getUserClaims(String Username) {
-		ArrayList<Claim> claims = new ArrayList<Claim>();
-		for (int i = 0; i < claims.size(); i++) {
-			if (claims.get(i).getClaimant().getUserName().equals(Username)) {
-				claims.add(claims.get(i));
-			}
-		}
-		return claims;
-	}
-		
-	public void setSelected(Claim claim) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	//==================Get/Add/Remove/Contains/Size==================
 	public Claim getClaim(int id) {
 		for (int i = 0; i < claims.size(); i++) {
 			if (claims.get(i).getId() == id) {
 				return claims.get(i);
 			}
 		}
-		return claims.get(0); // TODO what to return if claim not found?
-	}
-
-	//gets the list of claims that have been submitted
-	public ArrayList<Claim> getSubmittedclaims() {
-		ArrayList<Claim> list = new ArrayList<Claim>();
-		for (int i = 0; i < claims.size(); i++){
-			if (claims.get(i).getStatus().equals("Submitted")) {
-				list.add(claims.get(i));
-			}
-		}
-		return list;
+		return null; //return null if not found
 	}
 	
-	//add/remove/contains/size functions
-	public void addClaim(Claim claim){
-		claims.add(claim);
+	public ArrayList<Claim> getAllClaims(){
+		return ClaimList.claims;
+	}
+	
+	public int addClaim(String name, Date startDate, Date endDate, String description, User Claimant){
+		int id = getNextUnassignedId();
+		incrementeNextUnassignedId(); //important
+		Claim aNewClaim = new Claim(name,startDate,endDate, description, Claimant, id);
+		claims.add(aNewClaim);
 		notifyListeners();
+		return id;		//return the id of the newly created claim
 	}
 	
 	public void removeClaim(int id) {
@@ -83,114 +50,72 @@ public class ClaimList implements List<Claim>, Serializable{
 		notifyListeners();
 	}
 	
-	public void removeClaim(String claimname){
-		for (int i = 0; i < claims.size() ; i++) {
-			if (claims.get(i).getName() == claimname) {
-				claims.remove(i);
-			}
-		}
-		notifyListeners();
-	}	
-	
-	// TODO: Change Compare for different types of filtering
-	@Override
-	public int Compare(Claim item1, Claim item2) {
-		if (item1.getStartDate().compareTo(item2.getStartDate()) != 0) {
-			// Compare by startDates
-			return item1.getStartDate().compareTo(item2.getStartDate());
-		} else if (item1.getEndDate().compareTo(item2.getEndDate()) != 0) {
-			// startDates are the same, compare by endDates
-			return item1.getEndDate().compareTo(item2.getEndDate());
-		} else if (item1.getName().compareTo(item2.getName()) != 0){
-			// endDates are the same as well, compare by names
-			return item1.getName().compareTo(item2.getName());
-		} else {
-			// names are the same as well, compare by Description
-			return item1.getDescription().compareTo(item2.getDescription());
-		}
-	}
-	
-	public void sort() {
-		Collections.sort(claims, new Comparator<Claim>() {
-			
-			@Override
-			public int compare(Claim lhs, Claim rhs){
-				return Compare(lhs,rhs);
-			}
-			
-		});
-		
-		notifyListeners();
-	}
-
-	@Override
-	public ArrayList<Claim> getList() {
-		return claims;
-	}
-
-	@Override
-	public void setList(ArrayList<Claim> list) {
-		claims = list;
-		sort();
-	}
-
-	@Override
 	public boolean contains(Claim claim) {
 		return claims.contains(claim);
 	}
 	
-	@Override
-	public void addItem(Claim item) {
-		claims.add(item);
-		sort();
+	public int size() {
+		return claims.size();
 	}
 
-	@Override
-	public void rmItem(Claim item) {
-		claims.remove(item);
-		sort();
-	}
-
-	@Override
-	public ArrayList<Listener> getListeners() {
-		if (listeners == null) {
-			listeners = new ArrayList<Listener>();
+	//==================Filters==================
+	public ArrayList<Claim> filterByClaimant(User claimant) {
+		ArrayList<Claim> filteredClaimList = new ArrayList<Claim>();
+		for (int i = 0; i < ClaimList.claims.size(); i++) {
+			if (ClaimList.claims.get(i).getClaimant().equals(claimant)) {
+				filteredClaimList.add(ClaimList.claims.get(i));
+			}
 		}
-		return listeners;
-	}
-
-	@Override
-	public void addListener(Listener listener) {
-		listeners.add(listener);		
+		return filteredClaimList;
 	}
 	
-	@Override
-	public void rmListener(Listener listener) {
+	public ArrayList<Claim> filterByStatus(String status) {
+		ArrayList<Claim> filteredClaimList = new ArrayList<Claim>();
+		for (int i = 0; i < ClaimList.claims.size(); i++){
+			if (ClaimList.claims.get(i).getStatus().equals(status)) {
+				filteredClaimList.add(ClaimList.claims.get(i));
+			}
+		}
+		return filteredClaimList;
+	}
+
+	public ArrayList<Claim> filterByTag(String tag){
+		ArrayList<Claim> filteredClaimList = new ArrayList<Claim>();
+		for (int i = 0; i < ClaimList.claims.size(); i++) {
+			if (ClaimList.claims.get(i).containsTag(tag)){
+				filteredClaimList.add(ClaimList.claims.get(i));
+			}
+		}
+		return filteredClaimList;
+	}
+	
+	//==================Listener==================
+	public ArrayList<Listener> getListeners() {
+		return ClaimList.listeners;
+	}
+
+	public void addListener(Listener listener) {
+		ClaimList.listeners.add(listener);		
+	}
+	
+	public void removeListener(Listener listener) {
 		listeners.remove(listener);
 	}
 
-	@Override
+	
 	public void notifyListeners() {
 		for (Listener listener : listeners) {
 			listener.update();
 		}
 	}
 	
-	public void incrementCounter() {
-		counter += 1;
+	//==================Private==================
+	private int getNextUnassignedId(){
+		return ClaimList.nextUnassignedId;
 	}
-	
-	public int getCounter(){
-		return counter;
+	private void incrementeNextUnassignedId() {
+		ClaimList.nextUnassignedId += 1;
 	}
-	
-	public void setCounter(int id_counter){
-		counter = id_counter;
-	}
-	
-	@Override
-	public int size() {
-		return claims.size();
-	}
+
 
 }

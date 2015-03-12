@@ -1,6 +1,5 @@
 package ca.ualberta.cs.cmput301w15t12;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,14 +8,15 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class Claim implements Serializable {
-	private static final long serialVersionUID = -5134662718035435990L;
+public class Claim {
+	//static key work on dataFormat ensures all instances of the Claim class are going to have a consistent dateformat. 
+	//This is a design decision, talk to Jim if this doesn't suit your needs
+	static private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+
 	private User Claimant;
-	private String Comment;
-
-	private int Id;
-
-	private String Name;
+	private String comment;
+	private int id;
+	private String name;
 	private Date startDate;
 	private Date endDate;
 	private String Description;
@@ -26,13 +26,11 @@ public class Claim implements Serializable {
 	private ArrayList<String> approvers;
 	private ArrayList<ExpenseItem> expenseItems;
 	private ArrayList<String> tagList;
-	protected transient ArrayList<Listener> listeners = null;
+	private ArrayList<Listener> listeners;
 
-	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-
-	public Claim(String name, Date startDate, Date endDate, String description, User Claimant){
-		this.Comment = "";
-		this.Name = name;
+	public Claim(String name, Date startDate, Date endDate, String description, User Claimant, int id){
+		this.comment = "";
+		this.name = name;
 		this.Claimant = Claimant;
 		this.Status = "In Progress";
 		this.startDate = startDate; 
@@ -43,8 +41,7 @@ public class Claim implements Serializable {
 		this.expenseItems = new ArrayList<ExpenseItem>();
 		this.tagList = new ArrayList<String>();
 		this.listeners = new ArrayList<Listener>();
-		this.Id = ClaimListController.getClaimList().getCounter();
-		ClaimListController.getClaimList().incrementCounter();
+		this.id = id;
 	}
 
 	public void returnClaim(String name) throws CantApproveOwnClaimException {
@@ -67,7 +64,6 @@ public class Claim implements Serializable {
 			}
 			setStatus("Approved");
 		}
-
 	}
 
 	public boolean editable() {
@@ -80,14 +76,14 @@ public class Claim implements Serializable {
 
 	//All the toString functions
 	public String toStringApproverList() {
-		String ds= df.format(startDate);
+		String ds= dateFormat.format(startDate);
 		String block = "["+ds+"] "+Claimant+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(approvers);
 		return block;
 	}
 
 	public String toStringClaimantList() {
-		String ds = df.format(startDate);
-		String block = "["+ds+"] "+Name+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(tagList);
+		String ds = dateFormat.format(startDate);
+		String block = "["+ds+"] "+name+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(tagList);
 		return block;
 	}
 	public String destinationsToString() {
@@ -106,9 +102,9 @@ public class Claim implements Serializable {
 	}
 
 	public String toEmail() {
-		String ds = df.format(startDate);
-		String de = df.format(endDate);
-		String string = Name+"\n";
+		String ds = dateFormat.format(startDate);
+		String de = dateFormat.format(endDate);
+		String string = name+"\n";
 		string += Status+"\n"+Description+"\n";
 		string += ds+" - "+de+"\n";
 		string += "Destinations:"+destinationsToString()+"\n";
@@ -125,12 +121,12 @@ public class Claim implements Serializable {
 		if (claim == null) {
 			return false;
 		}
-		return (Id == claim.getId());
+		return (id == claim.getId());
 	}
 	
 	//all the adds/removes/contains for the lists
-	public void removeItem(int pos) {
-		expenseItems.remove(pos);
+	public void removeItem(int i) {
+		expenseItems.remove(i);
 		notifyListeners();
 	}
 
@@ -189,16 +185,7 @@ public class Claim implements Serializable {
 
 	//All the getters and setters
 	public int getId(){
-		return Id;
-	}
-	public void setId(int id){
-		Id = id;
-	}
-	public DateFormat getDf() {
-		return df;
-	}
-	public void setDf(DateFormat df) {
-		this.df = df;
+		return id;
 	}
 	public ArrayList<ExpenseItem> getExpenseItems() {
 		return expenseItems;
@@ -207,10 +194,10 @@ public class Claim implements Serializable {
 		this.expenseItems = expenseItems;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		this.Name = name;
+		this.name = name;
 	}	
 	public User getClaimant() {
 		return Claimant;
@@ -219,10 +206,10 @@ public class Claim implements Serializable {
 		this.Claimant = name;
 	}	
 	public String getComment() {
-		return Comment;
+		return comment;
 	}
 	public void setComment(String comment) {
-		this.Comment = comment;
+		this.comment = comment;
 	}	
 	public String getDescription() {
 		return Description;

@@ -1,48 +1,63 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 
 
-//static way to call the data stored by the claimlist manager
-public class ClaimListController
-{
+public class ClaimListController{
 
-	private static ClaimList claimlist = null;
-
-	static public ClaimList getClaimList() {
-		if (claimlist == null) {
-			try {
-				claimlist = ClaimListManager.getManager().loadClaimList();
-				claimlist.addListener(new Listener() {
-
-					@Override
-					public void update() {
-						saveClaimList();
-					}
-				});
-
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				throw new RuntimeException("Could not deserialize ClaimList from ClaimListManager");
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw new RuntimeException("Could not deserialize ClaimList from ClaimListManager");
-			}
-		}
-		return claimlist;
+	private ClaimList claimList;
+	
+	public ClaimListController(){
+		this.claimList = new ClaimList();
 	}
-
-	static public void saveClaimList() {
-		try {
-			ClaimListManager.getManager().saveClaimList(getClaimList());
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Could not deserialize ClaimList from ClaimListManager");
-		}
+	
+	//==================Get/Add/Remove/Contains/Size==================
+	public Claim getClaim(int id){
+		return this.claimList.getClaim(id);
 	}
-
-	public static void addClaim(Claim claim) throws AlreadyExistsException {
-		getClaimList().addClaim(claim);
+	
+	public ArrayList<Claim> getAllClaims(){
+		return this.claimList.getAllClaims();
+	}
+	
+	//return the id of the newly created claim
+	public int addClaim(String name, Date startDate, Date endDate, String description, User Claimant){
+		return this.claimList.addClaim(name, startDate, endDate, description, Claimant);
+	}
+	
+	public void removeClaim(int id){
+		this.claimList.removeClaim(id);
+	}
+	
+	public boolean contains(Claim claim){
+		return this.claimList.contains(claim);
+	}
+	
+	public int size(){
+		return this.claimList.size();
+	}
+	
+	//==================Filters==================
+	public ArrayList<Claim> filterByClaimant(User claimant) {
+		return this.claimList.filterByClaimant(claimant); 
+	}
+	
+	public ArrayList<Claim> filterByStatus(String status) {
+		return this.claimList.filterByStatus(status);
+	}
+	
+	public ArrayList<Claim> filterByTag(String tag){
+		return this.claimList.filterByTag(tag);
+	}
+	
+	//==================Listener==================
+	public void addListener(Listener listener) {
+		this.claimList.addListener(listener);
+	}
+	
+	public void removeListener(Listener listener) {
+		this.claimList.removeListener(listener);
 	}
 }
