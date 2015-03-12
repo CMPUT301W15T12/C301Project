@@ -27,6 +27,7 @@ public class ClaimActivity extends Activity {
 	public int id;
 	public Claim claim;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+	public ClaimListController CLC = new ClaimListController();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class ClaimActivity extends Activity {
 
 		//Claim passed on is stored in claim variable
 		final int id = getIntent().getIntExtra("claim_id", 0);
-		claim = ClaimListController.getClaimList().getClaim(id);
+		claim = CLC.getClaim(id);
 
 		//clickable button takes the user to the edit add item page when clicked
 		Button addbutton = (Button) findViewById(R.id.buttonAddItem);
@@ -80,7 +81,7 @@ public class ClaimActivity extends Activity {
 		final ArrayList<String> total = claim.getTotal();
 		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
 		lv.setAdapter(totalAdapter);
-		ClaimListController.getClaimList().addListener(new Listener() {
+		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
 				total.clear();
@@ -122,7 +123,7 @@ public class ClaimActivity extends Activity {
 		});
 
 		//adds a listener to the expense item list
-		ClaimListController.getClaimList().addListener(new Listener() {
+		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
 				ArrayList<String> eitems = new ArrayList<String>();
@@ -161,7 +162,7 @@ public class ClaimActivity extends Activity {
 		adb.setPositiveButton("Return", new OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				ClaimListController.getClaimList().removeClaim(id);
+				CLC.removeClaim(id);
 				finish();
 			}
 		});

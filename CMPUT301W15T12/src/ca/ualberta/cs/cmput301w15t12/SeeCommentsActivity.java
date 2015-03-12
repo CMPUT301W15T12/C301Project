@@ -28,7 +28,8 @@ public class SeeCommentsActivity extends Activity
 		EditText Approvers = (EditText) findViewById(R.id.textSeeCommentsApprovers);
 		
 		//gets the correct claim
-		Claim claim = ClaimListController.getClaimList().getClaim(id);
+		ClaimListController CLC = new ClaimListController();
+		Claim claim = CLC.getClaim(id);
 		
 		//sets text fields
 		Comments.setText(claim.getComment());

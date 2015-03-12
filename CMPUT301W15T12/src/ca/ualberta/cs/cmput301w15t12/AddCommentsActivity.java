@@ -22,7 +22,8 @@ public class AddCommentsActivity extends Activity {
         final int id = getIntent().getIntExtra("claim_id", 0);
         
         //get the correct claim
-        final Claim claim = ClaimListController.getClaimList().getClaim(id);
+        ClaimListController CLC = new ClaimListController();
+        final Claim claim = CLC.getClaim(id);
         
         //gets the edit text for the comments and fills in existing comments
         final EditText comments = (EditText) findViewById(R.id.editAddComments);

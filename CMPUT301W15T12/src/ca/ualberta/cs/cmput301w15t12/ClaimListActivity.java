@@ -17,6 +17,8 @@ import android.widget.Toast;
 public class ClaimListActivity extends Activity {
 
 	public String Username;
+	public ClaimListController CLC = new ClaimListController();
+	public User user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +31,16 @@ public class ClaimListActivity extends Activity {
 		try {
 			Username = getIntent().getExtras().getString("username");
 		} catch (NullPointerException e) {
-			Toast.makeText(this, ClaimListController.getClaimList().getClaim(0).getName(), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, CLC.getClaim(0).getName(), Toast.LENGTH_LONG).show();
 		}
-
+		
+		//gets the use corresponding to the UserName
+		for (int i = 0; i < UserListController.getUserList().size(); i++) {
+			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
+				user = UserListController.getUserList().get(i);
+			}
+		}
+		
 		//clickable button takes the user to the add claim page when clicked
 		//passes along the username so that user can be added when claim is created
 		Button addbutton = (Button) findViewById(R.id.buttonAddClaim);
@@ -52,7 +61,7 @@ public class ClaimListActivity extends Activity {
 		super.onResume();
 
 		ListView listViewClaims = (ListView) findViewById(R.id.listViewClaims);
-		final ArrayList<Claim> claims2 = ClaimListController.getClaimList().getUserClaims(Username);
+		final ArrayList<Claim> claims2 = CLC.filterByClaimant(user);
 		final ArrayList<String> claims = new ArrayList<String>();
 		for (int i = 0; i < claims2.size(); i++) {
 			claims.add(claims2.get(i).toStringClaimantList());
@@ -74,16 +83,16 @@ public class ClaimListActivity extends Activity {
 
 		});
 		
-		ClaimListController.getClaimList().addListener(new Listener() {
+		CLC.addListener(new Listener() {
 			
 			@Override
 			public void update() {
 				claims2.clear();
-				ArrayList<Claim> claims = ClaimListController.getClaimList().getUserClaims(Username);
-				claims2.addAll(claims);
-//				for (int i = 0; i < claims2.size(); i++) {
-//					claims.add(claims2.get(i).toStringClaimantList());
-//				}
+				claims.clear();
+				ArrayList<Claim> claims2 = CLC.filterByClaimant(user);
+				for (int i = 0; i < claims2.size(); i++) {
+					claims.add(claims2.get(i).toStringClaimantList());
+				}
 				
 				claimAdapter.notifyDataSetChanged();
 			}

@@ -16,6 +16,7 @@ public class EmailActivity extends Activity
 	private EditText recipient;
 	private EditText subject;
 	private EditText body;
+	public ClaimListController CLC = new ClaimListController();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -30,7 +31,7 @@ public class EmailActivity extends Activity
 		body = (EditText) findViewById(R.id.body);
 		
 		final int id = getIntent().getIntExtra("claim_id", 0);
-		Claim Claim = ClaimListController.getClaimList().getClaim(id);
+		Claim Claim = CLC.getClaim(id);
 		
 		String text = Claim.toEmail();
 		

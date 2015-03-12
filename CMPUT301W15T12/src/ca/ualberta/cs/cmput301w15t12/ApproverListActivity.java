@@ -16,7 +16,8 @@ import android.widget.Toast;
 
 public class ApproverListActivity extends Activity
 {
-
+	public ClaimListController CLC = new ClaimListController();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -32,7 +33,7 @@ public class ApproverListActivity extends Activity
 		
 		//lists all the submitted claims for the approver to approve
 		ListView lv = (ListView) findViewById(R.id.listApproverClaimList);
-		final ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedclaims();
+		final ArrayList<Claim> claims = CLC.filterByStatus("Submitted");
 		ArrayList<String> sclaims = new ArrayList<String>();
 		
 		for (int i = 0; i < claims.size(); i++){
@@ -47,10 +48,10 @@ public class ApproverListActivity extends Activity
 		lv.setAdapter(SubClaimAdapter);
 		
 		//adds a listener to the list
-		ClaimListController.getClaimList().addListener(new Listener() {
+		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
-				ArrayList<Claim> claims = ClaimListController.getClaimList().getSubmittedclaims();
+				ArrayList<Claim> claims = CLC.filterByStatus("Submitted");
 				ArrayList<String> sclaims = new ArrayList<String>();
 				
 				for (int i = 0; i < claims.size(); i++){

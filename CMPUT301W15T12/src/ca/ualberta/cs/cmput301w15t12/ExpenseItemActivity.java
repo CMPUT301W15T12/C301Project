@@ -24,6 +24,7 @@ public class ExpenseItemActivity extends Activity {
 	public SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 	public Claim Claim;
 	public int index;
+	public ClaimListController CLC = new ClaimListController();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class ExpenseItemActivity extends Activity {
 
 		//gets the id for the claim and the index for the item
 		final int id = getIntent().getIntExtra("claim_id", 0);
-		Claim = ClaimListController.getClaimList().getClaim(id);
+		Claim = CLC.getClaim(id);
 		index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
 

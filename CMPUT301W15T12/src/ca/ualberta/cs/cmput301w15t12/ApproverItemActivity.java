@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 public class ApproverItemActivity extends Activity {
 
+	public ClaimListController CLC = new ClaimListController();
 	public ExpenseItem Item;
 	public SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
@@ -26,7 +27,7 @@ public class ApproverItemActivity extends Activity {
 		ClaimListManager.initManager(this.getApplicationContext());
 
 		final int id = getIntent().getIntExtra("claim_id", 0);
-		Claim Claim = ClaimListController.getClaimList().getClaim(id);
+		Claim Claim = CLC.getClaim(id);
 		final int index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
 

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 public class ApproverClaimActivity extends Activity {
 
+	public ClaimListController CLC = new ClaimListController();
 	public Claim Claim;
 	public String approver;
 	public int id;
@@ -37,7 +38,7 @@ public class ApproverClaimActivity extends Activity {
 
 		//initialize claim variable
 		id = getIntent().getIntExtra("claim_id", 0);
-		Claim = ClaimListController.getClaimList().getClaim(id);
+		Claim = CLC.getClaim(id);
 
 		//initialize approver variable
 		approver = getIntent().getExtras().getString("username");
@@ -139,7 +140,7 @@ public class ApproverClaimActivity extends Activity {
 		final ArrayList<String> total = Claim.getTotal();
 		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
 		lv.setAdapter(totalAdapter);
-		ClaimListController.getClaimList().addListener(new Listener() {
+		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
 				total.clear();
@@ -170,7 +171,7 @@ public class ApproverClaimActivity extends Activity {
 			}
 		});
 		
-		ClaimListController.getClaimList().addListener(new Listener()
+		CLC.addListener(new Listener()
 		{
 			
 			@Override

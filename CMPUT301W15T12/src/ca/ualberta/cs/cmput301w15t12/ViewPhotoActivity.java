@@ -10,6 +10,7 @@ import android.widget.Button;;
 public class ViewPhotoActivity extends Activity {
 
 	public ExpenseItem Item;
+	public ClaimListController CLC = new ClaimListController();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,7 @@ public class ViewPhotoActivity extends Activity {
 		ClaimListManager.initManager(this.getApplicationContext());
 		
 		final int id = getIntent().getIntExtra("claim_id", 0);
-		Claim Claim = ClaimListController.getClaimList().getClaim(id);
+		Claim Claim = CLC.getClaim(id);
 		final int index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
 		
