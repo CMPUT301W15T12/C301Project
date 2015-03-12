@@ -19,13 +19,13 @@ public class UserList implements Serializable
 		return true;
 	}
 
-	public void addUser(User user) throws AlreadyExistsException{
+	public void addUser(String string) throws AlreadyExistsException{
 		for (int i = 0; i < users.size(); i++ ) {
-			if (users.get(i).getUserName().equals(user.getUserName())) { 
+			if (users.get(i).getUserName().equals(string)) { 
 				throw new AlreadyExistsException();
 			}
 		}
-		users.add(user);	
+		users.add(new User(string));	
 		notifyListeners();
 	}
 	
@@ -33,8 +33,8 @@ public class UserList implements Serializable
 		return users.size();
 	}
 	
-    public boolean contains(User user){
-    	return users.contains(user);
+    public boolean contains(String string){
+    	return users.contains(string);
     }
 	
 	public void remove(int i){
@@ -42,16 +42,16 @@ public class UserList implements Serializable
 		notifyListeners();
 	}
 	
-	public User getUser(User user) {
-		if (users.contains(user)){
-			User returnUser = users.get(users.indexOf(user));
-			return returnUser;
+	public User getUser(String username) {
+		for (int i = 0; i < users.size(); ++i){
+			if (users.get(i).getUserName() .equals(username));
+			return users.get(i);
 		}
 		throw new RuntimeException();
 		}
 	
-	public void editUserName(User user, String string) {
-		users.get(users.indexOf(user)).setUserName(string);
+	public void editUserName(String string1, String string2) {
+		users.get(users.indexOf(string1)).setUserName(string2);
 		
 	}
 	public void removeUser(User user){
