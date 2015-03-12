@@ -42,12 +42,13 @@ public class ApproverClaimActivity extends Activity {
 
 		//initialize approver variable
 		approver = getIntent().getExtras().getString("username");
+		Toast.makeText(this, approver, Toast.LENGTH_SHORT).show();
 
 		//return claim button, asks for confirmation then returns
 		Button commentBtn = (Button) findViewById(R.id.buttonAddComment);
 		commentBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				if (Claim.getClaimant().equals(approver)) {
+				if (Claim.getClaimant().getUserName().equals(approver)) {
 					Toast.makeText(ApproverClaimActivity.this, "Not Allowed to Comment Own Claim", Toast.LENGTH_LONG).show();
 				} else {
 					Intent intent = new Intent(ApproverClaimActivity.this, AddCommentsActivity.class);

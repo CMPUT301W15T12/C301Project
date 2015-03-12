@@ -45,7 +45,7 @@ public class Claim {
 	}
 
 	public void returnClaim(String name) throws CantApproveOwnClaimException {
-		if (name.equals(Claimant)) {
+		if (name.equals(Claimant.getUserName())) {
 			throw new CantApproveOwnClaimException();
 		} else {
 			if (!approvers.contains(name)) {
@@ -56,7 +56,7 @@ public class Claim {
 	}
 
 	public void approveClaim(String name) throws CantApproveOwnClaimException {
-		if (name.equals(Claimant)) {
+		if (name.equals(Claimant.getUserName())) {
 			throw new CantApproveOwnClaimException();
 		} else {
 			if (!approvers.contains(name)) {
