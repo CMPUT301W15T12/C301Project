@@ -60,8 +60,6 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	showing for each expense item: the date the expense was incurred, the category, the textual description, amount spent, unit of currency, and whether there is a photographic receipt.
 
 
-//  US08.07.1 - see ViewPhotoActivityTest
-
 //	US08.06.01
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the
 //	claim was returned or provide accounting details for a payment.
