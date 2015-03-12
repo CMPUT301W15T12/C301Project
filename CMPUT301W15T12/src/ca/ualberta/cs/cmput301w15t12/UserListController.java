@@ -38,8 +38,9 @@ public class UserListController
 		}
 	}
 	public boolean authenticateUser(String UserName){
-		return getUserList().authenticateUser(UserName)
+		return getUserList().authenticateUser(UserName);
 	}
+	
 	public void addUser(String string) throws AlreadyExistsException {
 		getUserList().addUser(string);
 	}

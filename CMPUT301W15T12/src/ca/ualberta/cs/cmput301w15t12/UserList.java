@@ -19,7 +19,9 @@ public class UserList implements Serializable
 			if (users.get(i).getUserName() .equals(UserName)){
 				return true;
 			}
+		}
 			return false;
+		
 	}
 
 	public void addUser(String string) throws AlreadyExistsException{
