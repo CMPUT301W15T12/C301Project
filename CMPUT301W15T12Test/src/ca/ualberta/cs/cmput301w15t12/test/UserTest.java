@@ -28,5 +28,14 @@ public class UserTest extends TestCase {
 		assertTrue("removed the only user",UserListController.getUserList().size() == 0);
 		assertTrue("incorrect userList size", UserListController.getUserList().size() <1);
 	}
+	
+	public void testEditUserName() throws AlreadyExistsException{
+		User user = new User("Test_user");
+		UserListController usrc = new UserListController();
+		usrc.addUser(user);
+		assertTrue("username incorrect", UserListController.getUserList().getUser(user).getUserName() == "Test_user");
+		UserListController.editUserName(user, "change=True");
+		assertTrue("Username did not change", UserListController.getUserList().getUser(user).getUserName() == "change=True");
+	}
 
 }

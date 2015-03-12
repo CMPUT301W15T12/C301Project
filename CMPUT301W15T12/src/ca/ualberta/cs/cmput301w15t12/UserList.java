@@ -41,30 +41,24 @@ public class UserList implements Serializable
 		users.remove(i);
 		notifyListeners();
 	}
-	public User getUser(String Username) {
-		for (int i = 0; i < size(); i++) {
-			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
-				return UserListController.getUserList().get(i);
-			}
+	
+	public User getUser(User user) {
+		if (users.contains(user)){
+			User returnUser = users.get(users.indexOf(user));
+			return returnUser;
 		}
 		throw new RuntimeException();
-	}
+		}
 	
+	public void editUserName(User user, String string) {
+		users.get(users.indexOf(user)).setUserName(string);
+		
+	}
 	public void removeUser(User user){
 		users.remove(user);
 	}
 	public ArrayList<User> getUsers() {
 		return users;
-	}
-	
-	public boolean contains(String user)
-	{
-		for (int i = 0; i < users.size(); i++ ) {
-			if (users.get(i).equals(user)) {
-				return true;
-			}
-		}
-		return false;		
 	}
 	
 	public User get(int i) {
@@ -91,4 +85,6 @@ public class UserList implements Serializable
 			listener.update();
 		}
 	}
+
+	
 }
