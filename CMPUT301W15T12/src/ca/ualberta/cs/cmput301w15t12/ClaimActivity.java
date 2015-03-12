@@ -201,9 +201,8 @@ public class ClaimActivity extends Activity {
 		if (!claim.editable()) {
 			Toast.makeText(ClaimActivity.this, "No edits allowed", Toast.LENGTH_LONG).show();
 		} else if (claim.incomplete()){
-			Toast.makeText(ClaimActivity.this, "There are incomplete fields", Toast.LENGTH_LONG).show();
 			AlertDialog.Builder adb = new AlertDialog.Builder(ClaimActivity.this);
-			adb.setMessage("Submit this Claim?");
+			adb.setMessage("Submit this Claim? There are Incomplete Fields.");
 			adb.setCancelable(true);
 			adb.setPositiveButton("Submit", new OnClickListener(){
 				@Override
