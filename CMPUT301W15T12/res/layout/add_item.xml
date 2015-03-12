@@ -31,7 +31,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/editAmount"
         android:ems="10"
-        android:hint="@string/Enter_Currency" />
+        android:hint="@string/Enter_Currency"
+        android:onClick="currencyOnClick" />
 
     <Button
         android:id="@+id/buttonAddImage"
@@ -62,7 +63,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/editItemName"
         android:ems="10"
-        android:hint="@string/Enter_Category" />
+        android:hint="@string/Enter_Category"
+        android:onClick="categoryOnClick" />
 
     <EditText
         android:id="@+id/editItemDate"

@@ -1,8 +1,11 @@
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Date;
 
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.text.InputType;
 import android.view.Menu;
@@ -25,6 +29,8 @@ public class AddItemActivity extends Activity
     private EditText Date;
     private DatePickerDialog DatePickerDialog;
     private SimpleDateFormat df =new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+    private Claim claim;
+    private int claim_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +40,11 @@ public class AddItemActivity extends Activity
 		setContentView(R.layout.add_item);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
+		
+		Intent intent = getIntent();
+		claim_id = intent.getIntExtra("claim_id", 0);
+		ClaimListController clc = new ClaimListController();
+		claim = clc.getClaim(claim_id);
 	    
         Date = (EditText) findViewById(R.id.editItemDate);    
         Date.setInputType(InputType.TYPE_NULL);
@@ -46,39 +57,70 @@ public class AddItemActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
-				addItem();
+				EditText editName = (EditText) findViewById(R.id.editItemName );
+				EditText editCategory = (EditText) findViewById(R.id.editCategory);
+				EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
+				EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
+				EditText editAmount = (EditText) findViewById(R.id.editAmount);
+				EditText editDate = (EditText) findViewById(R.id.editItemDate);
+				
+				BigDecimal amount = new BigDecimal(editAmount.getText().toString());
+				
+				Date date;
+				try {
+					date = df.parse(editDate.getText().toString());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					date = null;
+				}
+				
+				ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
+						editDescription.getText().toString(), editCurrency.getText().toString(),amount, date);
+				
+				try {
+					claim.addItem(expenseItem);
+				} catch (AlreadyExistsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				finish();
 			}
 		});
 		
 	}
 	
-	public void addItem() {
+	public void addItem(ExpenseItem expenseitem) throws AlreadyExistsException {
 		//TODO checks all user input and creates expense item based off of it,
 		//and adds the appropriate flag
+		claim.addItem(expenseitem);
 	}
 	
-	public void currencyOnClick(){
+	public void currencyOnClick(View view){
 		//open currency dialog
 		String[] currencies = {"CAD", "USD", "EUR", "CHF", "JPY", "CHY", "GBP"};
 		AlertDialog.Builder adb = new AlertDialog.Builder(AddItemActivity.this);
 		adb.setMessage("Select a currency");
-		adb.setItems(currencies, new OnClickListener(){
-			public void onClick(DialogInterface dialog,int which){
-				TextView currency = (TextView) findViewById(R.id.editCurrency);
-				//not sure if this is correct
-				currency.setText(which);
-			}
-		});
-		adb.setNegativeButton("Cancel",new OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which){
-			}
-		});
+//		adb.setItems(currencies, new OnClickListener(){
+//			@Override
+//			public void onClick(DialogInterface dialog,int which){
+//				TextView currency = (TextView) findViewById(R.id.editCurrency);
+//				//not sure if this is correct
+//				currency.setText(which);
+//			}
+//		});
+//		adb.setNegativeButton("Cancel",new OnClickListener(){
+//			@Override
+//			public void onClick(DialogInterface dialog, int which){
+//			}
+//		});
+		adb.show();
 	}
 	
-	public void categoryOnClick(){
+	public void categoryOnClick(View view){
 		//TODO open category dialog
+		String[] categories = {"Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
+				"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"};
 	}
 
 	@Override
