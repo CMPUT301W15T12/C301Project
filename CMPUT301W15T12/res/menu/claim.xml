@@ -5,5 +5,30 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/deleteClaimItem"
+        android:onClick="deleteClaim"
+        android:title="@string/Delete_Claim">
+    </item>
+    <item
+        android:id="@+id/editClaimItem"
+        android:onClick="editClaim"
+        android:title="@string/Edit_Claim">
+    </item>
+    <item
+        android:id="@+id/submitClaimItem"
+        android:onClick="seeComments"
+        android:title="@string/Submit_Claim">
+    </item>
+    <item
+        android:id="@+id/emailClaimItem"
+        android:onClick="emailClaim"
+        android:title="@string/Email_Claim">
+    </item>
+    <item
+        android:id="@+id/seeCommentsItem"
+        android:onClick="seeComments"
+        android:title="@string/SeeComments">
+    </item>
 
 </menu>

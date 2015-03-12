@@ -31,7 +31,7 @@ public class ClaimListActivity extends Activity {
 		try {
 			Username = getIntent().getExtras().getString("username");
 		} catch (NullPointerException e) {
-			Toast.makeText(this, CLC.getClaim(0).getName(), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, Username, Toast.LENGTH_LONG).show();
 		}
 		
 		//gets the use corresponding to the UserName
@@ -78,6 +78,7 @@ public class ClaimListActivity extends Activity {
 				int id = claims2.get(arg2).getId();
 				Intent intent = new Intent(ClaimListActivity.this, ClaimActivity.class);
 				intent.putExtra("claim_id", id);
+				intent.putExtra("username", Username);
 				startActivity(intent);
 			}
 

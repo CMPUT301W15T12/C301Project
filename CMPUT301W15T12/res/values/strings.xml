@@ -8,7 +8,11 @@
     <string name="title_activity_item_view">ItemViewActivity</string>
     <string name="New_Claim">New Claim</string>
     <string name="Edit_Item">Edit Item</string>
+    <string name="Email_Claim">Email Claim</string>
     <string name="Edit_Claim">Edit Claim</string>
+    <string name="Submit_Claim">Submit Claim</string>
+    <string name="Delete_Claim">Delete Claim</string>
+    <string name="SeeComments">See Comments</string>
     <string name="Enter_Claim_Name">Enter Claim Name</string>
     <string name="Enter_Status">Enter Status</string>
     <string name="Enter_End_Date">End Date</string>
@@ -77,4 +81,5 @@
     <string name="title_activity_choose_list">ChooseListActivity</string>
     <string name="choose_claimant">See Your Claims</string>
     <string name="choose_approver">See Claims Waiting for Approval</string>
+
 </resources>

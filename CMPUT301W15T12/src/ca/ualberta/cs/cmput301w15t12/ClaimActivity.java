@@ -28,6 +28,7 @@ public class ClaimActivity extends Activity {
 	public Claim claim;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	public ClaimListController CLC = new ClaimListController();
+	public String Username;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,15 @@ public class ClaimActivity extends Activity {
 		setContentView(R.layout.claimant_claim_page);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
-
+		
+		try {
+			Username = getIntent().getExtras().getString("username");
+		} catch (NullPointerException e) {
+			Toast.makeText(this, "nope", Toast.LENGTH_LONG).show();
+		}
+		
+		
+		Toast.makeText(this, Username, Toast.LENGTH_LONG).show();
 		//Claim passed on is stored in claim variable
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		claim = CLC.getClaim(id);
@@ -156,6 +165,7 @@ public class ClaimActivity extends Activity {
 
 	//menu item delete claim
 	public void deleteClaim(MenuItem menu) {
+		Toast.makeText(this, "Delete Claim", Toast.LENGTH_SHORT).show();
 		AlertDialog.Builder adb = new AlertDialog.Builder(ClaimActivity.this);
 		adb.setMessage("Return this Claim?");
 		adb.setCancelable(true);
@@ -175,6 +185,7 @@ public class ClaimActivity extends Activity {
 
 	//menu item edit claim
 	public void editClaim(MenuItem menu) {
+		Toast.makeText(this, "Edit Claim", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(ClaimActivity.this, EditClaimActivity.class);
 		intent.putExtra("claim_id", id);
 		startActivity(intent);
@@ -182,6 +193,7 @@ public class ClaimActivity extends Activity {
 
 	//menu item submitClaim
 	public void submitClaim(MenuItem menu) {
+		Toast.makeText(this, "Submit Claim", Toast.LENGTH_SHORT).show();
 		AlertDialog.Builder adb = new AlertDialog.Builder(ClaimActivity.this);
 		adb.setMessage("Submit this Claim?");
 		adb.setCancelable(true);
@@ -201,6 +213,7 @@ public class ClaimActivity extends Activity {
 
 	//menu item email claim	
 	public void emailClaim(MenuItem menu) {
+		Toast.makeText(this, "Email Claim", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(ClaimActivity.this, EmailActivity.class);
 		intent.putExtra("claim_id", id);
 		startActivity(intent);
@@ -208,6 +221,7 @@ public class ClaimActivity extends Activity {
 
 	//menu item see comments
 	public void seeComments(MenuItem menu) {
+		Toast.makeText(this, "See Comments", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(ClaimActivity.this, SeeCommentsActivity.class);
 		intent.putExtra("claim_id", id);
 		startActivity(intent);

@@ -256,6 +256,7 @@ public class Claim {
 	}
 	//gets the total
 	public ArrayList<String> getTotal() {
+		BigDecimal zero = new BigDecimal(0);
 		BigDecimal cad = new BigDecimal(0);
 		BigDecimal usd = new BigDecimal(0);
 		BigDecimal eur = new BigDecimal(0);
@@ -281,25 +282,25 @@ public class Claim {
 				cny.add(expenseItems.get(i).getAmount());
 			}
 		}
-		if (!cad.equals(0)){
+		if (!cad.equals(zero)){
 			total.add(cad.toString()+" "+"CAD"+"\n");
 		}
-		if (!usd.equals(0)){
+		if (!usd.equals(zero)){
 			total.add(usd.toString()+" "+"USD"+"\n");
 		}
-		if (!eur.equals(0)){
+		if (!eur.equals(zero)){
 			total.add(eur.toString()+" "+"EUR"+"\n");
 		}
-		if (!gbp.equals(0)){
+		if (!gbp.equals(zero)){
 			total.add(gbp.toString()+" "+"GBP"+"\n");
 		}
-		if (!chf.equals(0)){
+		if (!chf.equals(zero)){
 			total.add(chf.toString()+" "+"CHF"+"\n");
 		}
-		if (!jpy.equals(0)){
+		if (!jpy.equals(zero)){
 			total.add(jpy.toString()+" "+"JPY"+"\n");
 		}
-		if (!cny.equals(0)){
+		if (!cny.equals(zero)){
 			total.add(cny.toString()+" "+"CNY"+"\n");
 		}
 		return total;
