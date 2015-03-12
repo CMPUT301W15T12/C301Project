@@ -15,8 +15,11 @@ public class UserList implements Serializable
 	
 	//returns true if UserName in users
 	public boolean authenticateUser(String UserName){
-		//TODO
-		return true;
+		for (int i = 0; i < users.size(); ++i){
+			if (users.get(i).getUserName() .equals(UserName)){
+				return true;
+			}
+			return false;
 	}
 
 	public void addUser(String string) throws AlreadyExistsException{

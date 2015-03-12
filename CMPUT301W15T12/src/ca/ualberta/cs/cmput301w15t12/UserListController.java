@@ -37,7 +37,9 @@ public class UserListController
 			throw new RuntimeException("Could not deserialize UserList from UserListManager");
 		}
 	}
-
+	public boolean authenticateUser(String UserName){
+		return getUserList().authenticateUser(UserName)
+	}
 	public void addUser(String string) throws AlreadyExistsException {
 		getUserList().addUser(string);
 	}
