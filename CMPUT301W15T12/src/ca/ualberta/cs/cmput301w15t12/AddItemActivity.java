@@ -90,10 +90,10 @@ public class AddItemActivity extends Activity
 		
 	}
 	
-	public void addItem() {
+	public void addItem(ExpenseItem expenseitem) throws AlreadyExistsException {
 		//TODO checks all user input and creates expense item based off of it,
 		//and adds the appropriate flag
-		addItem();
+		claim.addItem(expenseitem);
 	}
 	
 	public void currencyOnClick(View view){
