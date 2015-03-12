@@ -28,7 +28,10 @@ public class AddClaimActivity extends Activity
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
     private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-
+    public ClaimListController CLC = new ClaimListController();
+    public User user;
+    public String Username;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -37,6 +40,16 @@ public class AddClaimActivity extends Activity
 		setContentView(R.layout.add_claim);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
+		
+		//username of user passed along from list choice activity
+		Username = getIntent().getExtras().getString("username");
+		
+		//gets the use corresponding to the UserName
+		for (int i = 0; i < UserListController.getUserList().size(); i++) {
+			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
+				user = UserListController.getUserList().get(i);
+			}
+		}
 		
 		//initializes the date fields
 		startDate = (EditText) findViewById(R.id.EnterStartDate);
@@ -71,8 +84,6 @@ public class AddClaimActivity extends Activity
 		//need to add destination to claim
 		Destination destination = new Destination();
 		String tags = new String();
-		String user = getIntent().getExtras().getString("username");
-		User username = UserListController.getUserList().getUser(user);
 		Context context = this.getApplicationContext();
 		
 		//XML Inputs
@@ -86,9 +97,9 @@ public class AddClaimActivity extends Activity
 		description = editTextDescription.getText().toString();
 		
 		//create claim
-		Claim claim = new Claim(name, sdate, edate,description, username);
-		ClaimListController.getClaimList().addClaim(claim);
-		ClaimListController.saveClaimList();
+		CLC.addClaim(name, sdate, edate, description, this.user);
+		
+		//TODO tags, destinations are added separately!
 		
 		//put this back         android:focusableInTouchMode="false"
 		//and this         android:focusableInTouchMode="false"
@@ -97,7 +108,7 @@ public class AddClaimActivity extends Activity
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_SHORT);
 		toast.show();	
-		Toast.makeText(this, ClaimListController.getClaimList().getClaim(0).getName(), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, CLC.getClaim(0).getName(), Toast.LENGTH_LONG).show();
 		
 	}
 
