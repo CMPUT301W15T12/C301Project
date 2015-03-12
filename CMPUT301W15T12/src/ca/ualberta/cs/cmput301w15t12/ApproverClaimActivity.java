@@ -115,6 +115,8 @@ public class ApproverClaimActivity extends Activity {
 			}
 		});
 	}
+	
+	private ArrayAdapter<String> totalAdapter;
 
 	@Override
 	public void onResume() {
@@ -136,14 +138,14 @@ public class ApproverClaimActivity extends Activity {
 		destinations.setText(Claim.destinationsToString());
 
 		//total list
-		ListView lv = (ListView) findViewById(R.id.listTotalSum);
-		final ArrayList<String> total = Claim.getTotal();
-		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
+		ListView lv = (ListView) findViewById(R.id.ApproverlistTotalSum);
+		
+		ArrayList<String> total = Claim.getTotal();
+		totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
 		lv.setAdapter(totalAdapter);
 		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
-				total.clear();
 				ArrayList<String> total = Claim.getTotal();
 				totalAdapter.notifyDataSetChanged();
 			}

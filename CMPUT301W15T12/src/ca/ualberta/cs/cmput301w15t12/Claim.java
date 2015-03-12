@@ -90,7 +90,7 @@ public class Claim {
 	//All the toString functions
 	public String toStringApproverList() {
 		String ds= dateFormat.format(startDate);
-		String block = "["+ds+"] "+Claimant+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(approvers);
+		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(approvers);
 		return block;
 	}
 
