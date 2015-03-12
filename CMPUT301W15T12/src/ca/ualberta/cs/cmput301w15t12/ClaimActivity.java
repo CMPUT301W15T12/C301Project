@@ -22,6 +22,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author msumner
+ *
+ */
+/**
+ * @author msumner
+ *
+ */
 public class ClaimActivity extends Activity {
 
 	public int id;

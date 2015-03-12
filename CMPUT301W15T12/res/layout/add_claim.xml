@@ -60,7 +60,8 @@
         android:ems="10"
         android:hint="@string/tags"
         android:layout_weight=".5"
-
+        android:focusableInTouchMode="false"
+        android:onClick="onClickTags"
         android:inputType="textMultiLine" />
 
     <EditText
