@@ -73,6 +73,19 @@ public class Claim {
 			return false;
 		}
 	}
+	
+	public boolean incomplete() {
+		for (int i = 0; i < expenseItems.size(); i++) {
+			expenseItems.get(i).incomplete();
+			if (expenseItems.get(i).getFlag()){
+				return true;
+			}
+		}
+		if (name == null || startDate == null || endDate == null ||Description == null ||destinations.size() == 0) { 
+			return true;
+		}
+		return false;
+	}
 
 	//All the toString functions
 	public String toStringApproverList() {

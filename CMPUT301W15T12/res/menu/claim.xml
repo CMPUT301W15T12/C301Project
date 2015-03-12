@@ -17,7 +17,7 @@
     </item>
     <item
         android:id="@+id/submitClaimItem"
-        android:onClick="seeComments"
+        android:onClick="submitClaim"
         android:title="@string/Submit_Claim">
     </item>
     <item

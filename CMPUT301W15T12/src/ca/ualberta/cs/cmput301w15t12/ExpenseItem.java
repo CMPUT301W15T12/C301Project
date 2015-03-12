@@ -35,7 +35,11 @@ public class ExpenseItem implements Serializable{
 		this.receipt = false;
 	}
 	
-	//TODO check if incomplete
+	public void incomplete() {
+		if (name == null || category == null || description == null || Amount == null || Currency == null || date == null){
+			flag = true;
+		}
+	}
 	
 	//for printing the list of expense items
 	public String toStringList() {
