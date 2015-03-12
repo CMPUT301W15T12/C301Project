@@ -12,7 +12,6 @@ public class UserListController
 			try {
 				userlist = UserListManager.getManager().loadUserList();
 				userlist.addListener(new Listener() {
-
 					@Override
 					public void update() {
 						saveUserList();
@@ -39,16 +38,16 @@ public class UserListController
 		}
 	}
 
-	public void addUser(User user) throws AlreadyExistsException {
-		getUserList().addUser(user);
+	public void addUser(String string) throws AlreadyExistsException {
+		getUserList().addUser(string);
 	}
 	
 	public static void removeUser(User user){
 		getUserList().removeUser(user);
 	}
 
-	public static void editUserName(User user, String string) {
-		getUserList().editUserName(user, string);
+	public static void editUserName(String string1, String string2) {
+		getUserList().editUserName(string1, string2);
 		
 	}
 }
