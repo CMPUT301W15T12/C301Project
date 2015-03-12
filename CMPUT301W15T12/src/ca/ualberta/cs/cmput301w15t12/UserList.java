@@ -15,17 +15,22 @@ public class UserList implements Serializable
 	
 	//returns true if UserName in users
 	public boolean authenticateUser(String UserName){
-		//TODO
-		return true;
+		for (int i = 0; i < users.size(); ++i){
+			if (users.get(i).getUserName() .equals(UserName)){
+				return true;
+			}
+		}
+			return false;
+		
 	}
 
-	public void addUser(User user) throws AlreadyExistsException{
+	public void addUser(String string) throws AlreadyExistsException{
 		for (int i = 0; i < users.size(); i++ ) {
-			if (users.get(i).getUserName().equals(user.getUserName())) { 
+			if (users.get(i).getUserName().equals(string)) { 
 				throw new AlreadyExistsException();
 			}
 		}
-		users.add(user);	
+		users.add(new User(string));	
 		notifyListeners();
 	}
 	
@@ -33,38 +38,32 @@ public class UserList implements Serializable
 		return users.size();
 	}
 	
-    public boolean contains(User user){
-    	return users.contains(user);
+    public boolean contains(String string){
+    	return users.contains(string);
     }
 	
 	public void remove(int i){
 		users.remove(i);
 		notifyListeners();
 	}
-	public User getUser(String Username) {
-		for (int i = 0; i < size(); i++) {
-			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
-				return UserListController.getUserList().get(i);
-			}
+	
+	public User getUser(String username) {
+		for (int i = 0; i < users.size(); ++i){
+			if (users.get(i).getUserName() .equals(username));
+			return users.get(i);
 		}
 		throw new RuntimeException();
-	}
+		}
 	
+	public void editUserName(String string1, String string2) {
+		users.get(users.indexOf(string1)).setUserName(string2);
+		
+	}
 	public void removeUser(User user){
 		users.remove(user);
 	}
 	public ArrayList<User> getUsers() {
 		return users;
-	}
-	
-	public boolean contains(String user)
-	{
-		for (int i = 0; i < users.size(); i++ ) {
-			if (users.get(i).equals(user)) {
-				return true;
-			}
-		}
-		return false;		
 	}
 	
 	public User get(int i) {
@@ -91,4 +90,6 @@ public class UserList implements Serializable
 			listener.update();
 		}
 	}
+
+	
 }

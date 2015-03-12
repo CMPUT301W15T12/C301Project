@@ -30,8 +30,7 @@ public class NewAccountActivity extends Activity
 				EditText username = (EditText) findViewById(R.id.editNewUserName);
 				try {
 					String un = username.getText().toString();
-					User user = new User(un);
-					UserListController.getUserList().addUser(user);
+					UserListController.getUserList().addUser(un);
 					UserListController.saveUserList();
 					Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
 					intent.putExtra("username", un);

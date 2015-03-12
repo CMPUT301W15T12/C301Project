@@ -42,12 +42,13 @@ public class ApproverClaimActivity extends Activity {
 
 		//initialize approver variable
 		approver = getIntent().getExtras().getString("username");
+		Toast.makeText(this, approver, Toast.LENGTH_SHORT).show();
 
 		//return claim button, asks for confirmation then returns
 		Button commentBtn = (Button) findViewById(R.id.buttonAddComment);
 		commentBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				if (Claim.getClaimant().equals(approver)) {
+				if (Claim.getClaimant().getUserName().equals(approver)) {
 					Toast.makeText(ApproverClaimActivity.this, "Not Allowed to Comment Own Claim", Toast.LENGTH_LONG).show();
 				} else {
 					Intent intent = new Intent(ApproverClaimActivity.this, AddCommentsActivity.class);
@@ -63,27 +64,32 @@ public class ApproverClaimActivity extends Activity {
 		Button approveBtn = (Button) findViewById(R.id.buttonApproverApprove);
 		approveBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
-				adb.setMessage("Approve this Claim?");
-				adb.setCancelable(true);
-				adb.setPositiveButton("Approve", new OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						try
-						{
-							Claim.approveClaim(approver);
-							finish();
-						} catch (CantApproveOwnClaimException e)
-						{
-							Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+				if (approver.equals(Claim.getClaimant().getUserName())){
+					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+				} else {
+
+					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
+					adb.setMessage("Approve this Claim?");
+					adb.setCancelable(true);
+					adb.setPositiveButton("Approve", new OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							try
+							{
+								Claim.approveClaim(approver);
+								finish();
+							} catch (CantApproveOwnClaimException e)
+							{
+								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+							}
 						}
-					}
-				});
-				adb.setNegativeButton("Cancel", new OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-					}
-				});
-				adb.show();
+					});
+					adb.setNegativeButton("Cancel", new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					});
+					adb.show();
+				}
 			}
 		});
 
@@ -91,30 +97,36 @@ public class ApproverClaimActivity extends Activity {
 		Button returnBtn = (Button) findViewById(R.id.buttonApproverReturn);
 		returnBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
-				adb.setMessage("Return this Claim?");
-				adb.setCancelable(true);
-				adb.setPositiveButton("Return", new OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						try
-						{
-							Claim.returnClaim(approver);
-							finish();
-						} catch (CantApproveOwnClaimException e)
-						{
-							Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Return Own Claim", Toast.LENGTH_LONG).show();
+				if (approver.equals(Claim.getClaimant().getUserName())){
+					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Return Own Claim", Toast.LENGTH_LONG).show();
+				} else{
+					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
+					adb.setMessage("Return this Claim?");
+					adb.setCancelable(true);
+					adb.setPositiveButton("Return", new OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							try
+							{
+								Claim.returnClaim(approver);
+								finish();
+							} catch (CantApproveOwnClaimException e)
+							{
+								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Return Own Claim", Toast.LENGTH_LONG).show();
+							}
 						}
-					}
-				});
-				adb.setNegativeButton("Cancel", new OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-					}
-				});
-				adb.show();
+					});
+					adb.setNegativeButton("Cancel", new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					});
+					adb.show();
+				}
 			}
 		});
 	}
+
+	private ArrayAdapter<String> totalAdapter;
 
 	@Override
 	public void onResume() {
@@ -136,19 +148,19 @@ public class ApproverClaimActivity extends Activity {
 		destinations.setText(Claim.destinationsToString());
 
 		//total list
-		ListView lv = (ListView) findViewById(R.id.listTotalSum);
-		final ArrayList<String> total = Claim.getTotal();
-		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
+		ListView lv = (ListView) findViewById(R.id.ApproverlistTotalSum);
+
+		ArrayList<String> total = Claim.getTotal();
+		totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
 		lv.setAdapter(totalAdapter);
 		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
-				total.clear();
 				ArrayList<String> total = Claim.getTotal();
 				totalAdapter.notifyDataSetChanged();
 			}
 		});
-		
+
 		ListView list = (ListView) findViewById(R.id.listApproverlistExpenseItems);
 		final ArrayList<ExpenseItem> EItems = Claim.getExpenseItems();
 		ArrayList<String> items = new ArrayList<String>();
@@ -157,7 +169,7 @@ public class ApproverClaimActivity extends Activity {
 		}
 		final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
 		list.setAdapter(listAdapter);
-		
+
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
@@ -170,10 +182,10 @@ public class ApproverClaimActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		
+
 		CLC.addListener(new Listener()
 		{
-			
+
 			@Override
 			public void update()
 			{

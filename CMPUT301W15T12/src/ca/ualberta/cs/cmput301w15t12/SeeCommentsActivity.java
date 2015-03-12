@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 public class SeeCommentsActivity extends Activity
 {
@@ -24,8 +24,8 @@ public class SeeCommentsActivity extends Activity
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		
 		//gets the edit text ids
-		EditText Comments = (EditText) findViewById(R.id.textComments);
-		EditText Approvers = (EditText) findViewById(R.id.textSeeCommentsApprovers);
+		TextView Comments = (TextView) findViewById(R.id.textComments);
+		TextView Approvers = (TextView) findViewById(R.id.textSeeCommentsApprovers);
 		
 		//gets the correct claim
 		ClaimListController CLC = new ClaimListController();

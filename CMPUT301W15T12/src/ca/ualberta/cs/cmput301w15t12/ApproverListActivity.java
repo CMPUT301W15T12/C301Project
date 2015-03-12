@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class ApproverListActivity extends Activity
 {
 	public ClaimListController CLC = new ClaimListController();
+	public String approver;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -26,6 +27,8 @@ public class ApproverListActivity extends Activity
 		setContentView(R.layout.approver_claim_list);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
+		
+		approver = getIntent().getExtras().getString("username");
 	}
 	
 	public void onResume() {
@@ -72,6 +75,7 @@ public class ApproverListActivity extends Activity
 				int id = claims.get(arg2).getId();
 				Intent intent = new Intent(ApproverListActivity.this, ApproverClaimActivity.class);
 				intent.putExtra("claim_id",id);
+				intent.putExtra("username", approver);
 				startActivity(intent);
 			}
 		});

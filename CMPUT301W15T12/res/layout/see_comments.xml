@@ -10,7 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:gravity="center"
+        android:gravity="left"
         android:text="@string/comments" />
 
     <Button
@@ -30,7 +30,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textComments"
-        android:gravity="center"
+        android:gravity="left"
         android:text="@string/approvers" />
 
 </RelativeLayout>

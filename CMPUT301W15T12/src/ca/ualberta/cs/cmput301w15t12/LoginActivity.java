@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity
 {
+	public UserListController ULC;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -19,6 +20,7 @@ public class LoginActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_main);
 		UserListManager.initManager(this.getApplicationContext());
+		UserListController ULC = new UserListController();
 		
 		//clickable create account button takes user to create account page
 		Button newaccountbutton = (Button) findViewById(R.id.buttonNewAccount);
@@ -39,7 +41,7 @@ public class LoginActivity extends Activity
 			public void onClick(View v) {
 				EditText username = (EditText) findViewById(R.id.editLoginUserName);
 				String name = username.getText().toString();
-				if (!UserListController.getUserList().authenticateUser(name)) {
+				if (!ULC.authenticateUser(name)) {
 					Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(LoginActivity.this, name, Toast.LENGTH_SHORT).show();

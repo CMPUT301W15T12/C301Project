@@ -45,7 +45,7 @@ public class Claim {
 	}
 
 	public void returnClaim(String name) throws CantApproveOwnClaimException {
-		if (name.equals(Claimant)) {
+		if (name.equals(Claimant.getUserName())) {
 			throw new CantApproveOwnClaimException();
 		} else {
 			if (!approvers.contains(name)) {
@@ -56,7 +56,7 @@ public class Claim {
 	}
 
 	public void approveClaim(String name) throws CantApproveOwnClaimException {
-		if (name.equals(Claimant)) {
+		if (name.equals(Claimant.getUserName())) {
 			throw new CantApproveOwnClaimException();
 		} else {
 			if (!approvers.contains(name)) {
@@ -90,7 +90,7 @@ public class Claim {
 	//All the toString functions
 	public String toStringApproverList() {
 		String ds= dateFormat.format(startDate);
-		String block = "["+ds+"] "+Claimant+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(approvers);
+		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(approvers);
 		return block;
 	}
 
