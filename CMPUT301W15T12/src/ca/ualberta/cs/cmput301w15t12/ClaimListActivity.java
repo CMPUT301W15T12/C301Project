@@ -12,7 +12,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ClaimListActivity extends Activity {
 
@@ -31,7 +30,6 @@ public class ClaimListActivity extends Activity {
 		try {
 			Username = getIntent().getExtras().getString("username");
 		} catch (NullPointerException e) {
-			Toast.makeText(this, Username, Toast.LENGTH_LONG).show();
 		}
 		
 		//gets the use corresponding to the UserName
@@ -98,7 +96,6 @@ public class ClaimListActivity extends Activity {
 				claimAdapter.notifyDataSetChanged();
 			}
 		});
-
 	}
 
 	@Override
