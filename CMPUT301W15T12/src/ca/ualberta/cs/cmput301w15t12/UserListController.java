@@ -45,8 +45,8 @@ public class UserListController
 		getUserList().addUser(string);
 	}
 	
-	public static void removeUser(User user){
-		getUserList().removeUser(user);
+	public static void removeUser(String string){
+		getUserList().removeUser(string);
 	}
 
 	public static void editUserName(String string1, String string2) {

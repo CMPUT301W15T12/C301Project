@@ -39,7 +39,11 @@ public class UserList implements Serializable
 	}
 	
     public boolean contains(String string){
-    	return users.contains(string);
+    	boolean contains = false;
+    	for (int i = 0; i < users.size(); i++ ) {
+			contains = users.get(i).getUserName().equals(string);
+    	}
+    	return contains;
     }
 	
 	public void remove(int i){
@@ -59,9 +63,14 @@ public class UserList implements Serializable
 		users.get(users.indexOf(string1)).setUserName(string2);
 		
 	}
-	public void removeUser(User user){
-		users.remove(user);
-	}
+	public void removeUser(String string){
+		for (int i = 0; i < users.size(); ++i){
+			if (users.get(i).getUserName() .equals(string)){
+				users.remove(i);
+			}
+		}
+		}
+	
 	public ArrayList<User> getUsers() {
 		return users;
 	}
