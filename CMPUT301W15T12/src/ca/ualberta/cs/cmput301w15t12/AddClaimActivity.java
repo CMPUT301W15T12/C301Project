@@ -108,7 +108,6 @@ public class AddClaimActivity extends Activity
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_SHORT);
 		toast.show();	
-		Toast.makeText(this, CLC.getClaim(0).getName(), Toast.LENGTH_LONG).show();
 		
 	}
 

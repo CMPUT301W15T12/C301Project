@@ -33,7 +33,6 @@ public class ClaimListActivity extends Activity {
 		try {
 			Username = getIntent().getExtras().getString("username");
 		} catch (NullPointerException e) {
-			Toast.makeText(this,Username,Toast.LENGTH_SHORT).show();
 		}
 		
 		//gets the use corresponding to the UserName
