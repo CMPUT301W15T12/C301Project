@@ -98,29 +98,45 @@ public class AddItemActivity extends Activity
 	
 	public void currencyOnClick(View view){
 		//open currency dialog
-		String[] currencies = {"CAD", "USD", "EUR", "CHF", "JPY", "CHY", "GBP"};
+		final String[] currencies = {"CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CHY"};
 		AlertDialog.Builder adb = new AlertDialog.Builder(AddItemActivity.this);
-		adb.setMessage("Select a currency");
-//		adb.setItems(currencies, new OnClickListener(){
-//			@Override
-//			public void onClick(DialogInterface dialog,int which){
-//				TextView currency = (TextView) findViewById(R.id.editCurrency);
-//				//not sure if this is correct
-//				currency.setText(which);
-//			}
-//		});
-//		adb.setNegativeButton("Cancel",new OnClickListener(){
-//			@Override
-//			public void onClick(DialogInterface dialog, int which){
-//			}
-//		});
+		adb.setTitle("Select a currency");
+		adb.setItems(currencies, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog,int which){
+				TextView currency = (TextView) findViewById(R.id.editCurrency);
+				String selection = currencies[which];
+				currency.setText(selection);
+			}
+		});
+		adb.setNegativeButton("Cancel",new OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which){
+			}
+		});
 		adb.show();
 	}
 	
 	public void categoryOnClick(View view){
 		//TODO open category dialog
-		String[] categories = {"Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
+		final String[] categories = {"Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
 				"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"};
+		AlertDialog.Builder adb = new AlertDialog.Builder(AddItemActivity.this);
+		adb.setTitle("Select a category");
+		adb.setItems(categories, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog,int which){
+				TextView currency = (TextView) findViewById(R.id.editCurrency);
+				String selection = categories[which];
+				currency.setText(selection);
+			}
+		});
+		adb.setNegativeButton("Cancel",new OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which){
+			}
+		});
+		adb.show();
 	}
 
 	@Override
