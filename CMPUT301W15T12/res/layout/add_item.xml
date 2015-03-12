@@ -32,7 +32,8 @@
         android:layout_below="@+id/editAmount"
         android:ems="10"
         android:hint="@string/Enter_Currency"
-        android:onClick="currencyOnClick" />
+        android:onClick="currencyOnClick"
+        android:focusableInTouchMode="false" />
 
     <Button
         android:id="@+id/buttonAddImage"
@@ -64,7 +65,8 @@
         android:layout_below="@+id/editItemName"
         android:ems="10"
         android:hint="@string/Enter_Category"
-        android:onClick="categoryOnClick" />
+        android:onClick="categoryOnClick" 
+        android:focusableInTouchMode="false"/>
 
     <EditText
         android:id="@+id/editItemDate"
