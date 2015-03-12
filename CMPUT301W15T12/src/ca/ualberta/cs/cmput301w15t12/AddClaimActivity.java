@@ -2,15 +2,18 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
@@ -98,11 +101,8 @@ public class AddClaimActivity extends Activity
 		
 		//create claim
 		CLC.addClaim(name, sdate, edate, description, this.user);
-		
 		//TODO tags, destinations are added separately!
 		
-		//put this back         android:focusableInTouchMode="false"
-		//and this         android:focusableInTouchMode="false"
 		
 		//toast finished
 		toastText = "Claim Saved.";
@@ -119,6 +119,46 @@ public class AddClaimActivity extends Activity
 		getMenuInflater().inflate(R.menu.add_claim, menu);
 		return true;
 	}
+	
+	/**
+	 * @param view
+	 */
+	public void onClickTags(View view){
+		final ArrayList tagList = new ArrayList();
+		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
+		ArrayList<String> tags = this.user.getTagList();
+		String[] userTags = new String[tagList.size()];
+		userTags = (String[]) tagList.toArray(userTags);
+		builder.setTitle("Choose Tags");
+		builder.setMultiChoiceItems(userTags, null,
+				new DialogInterface.OnMultiChoiceClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+				if (isChecked) {
+					// If the user checked the item, add it to the selected items
+					tagList.add(which);
+				} else if (tagList.contains(which)) {
+					// Else, if the item is already in the array, remove it 
+					tagList.remove(Integer.valueOf(which));
+				}
+			}
+		});
+		builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				// User clicked OK, so save the mSelectedItems results somewhere
+				// or return them to the component that opened the dialog
+				//need a controller function that can add tag
+				//CLC.getClaim().addTag();
+			}
+		});
+		builder.show();
+
+	}
+
+
+	
+	
 	
 	//initialize calendar view
     private void setDateTimeField() {
