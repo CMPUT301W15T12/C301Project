@@ -20,9 +20,6 @@ public class LoginActivity extends Activity
 		setContentView(R.layout.login_main);
 		UserListManager.initManager(this.getApplicationContext());
 		
-		EditText username = (EditText) findViewById(R.id.editLoginUserName);
-		final String name = username.getText().toString();
-		
 		//clickable create account button takes user to create account page
 		Button newaccountbutton = (Button) findViewById(R.id.buttonNewAccount);
 		newaccountbutton.setOnClickListener(new View.OnClickListener()
@@ -30,7 +27,6 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(LoginActivity.this, NewAccountActivity.class);
-				intent.putExtra("username", name);
 				startActivity(intent);
 			}
 		});
@@ -41,10 +37,12 @@ public class LoginActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
-				//TODO get userlist contains name
+				EditText username = (EditText) findViewById(R.id.editLoginUserName);
+				String name = username.getText().toString();
 				if (!UserListController.getUserList().authenticateUser(name)) {
 					Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
 				} else {
+					Toast.makeText(LoginActivity.this, name, Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(LoginActivity.this, ChooseListActivity.class);
 					intent.putExtra("username", name);
 					startActivity(intent);

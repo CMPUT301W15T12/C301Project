@@ -43,8 +43,6 @@ public class ClaimActivity extends Activity {
 			Toast.makeText(this, "nope", Toast.LENGTH_LONG).show();
 		}
 		
-		
-		Toast.makeText(this, Username, Toast.LENGTH_LONG).show();
 		//Claim passed on is stored in claim variable
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		claim = CLC.getClaim(id);

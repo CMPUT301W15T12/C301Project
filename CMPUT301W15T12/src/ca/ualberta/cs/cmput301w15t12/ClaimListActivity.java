@@ -12,12 +12,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ClaimListActivity extends Activity {
 
 	public String Username;
 	public ClaimListController CLC = new ClaimListController();
-	public User user;
+	public User user = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +27,25 @@ public class ClaimListActivity extends Activity {
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
 		
-		//username of user passed along from list choice activity
+		//username of user passed along from list choice activity - null pointer 
+		//is returned when coming back from the add claim activity put it doesnt
+		//overwrite the previous info so its ok!
 		try {
 			Username = getIntent().getExtras().getString("username");
 		} catch (NullPointerException e) {
+			Toast.makeText(this,Username,Toast.LENGTH_SHORT).show();
 		}
 		
 		//gets the use corresponding to the UserName
-		for (int i = 0; i < UserListController.getUserList().size(); i++) {
+		for (int i = 0; i < UserListController.getUserList().getUsers().size(); i++) {
 			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
 				user = UserListController.getUserList().get(i);
 			}
 		}
+		if (user == null) {
+			Toast.makeText(this, "no User found", Toast.LENGTH_SHORT).show();
+		}
+
 		
 		//clickable button takes the user to the add claim page when clicked
 		//passes along the username so that user can be added when claim is created
