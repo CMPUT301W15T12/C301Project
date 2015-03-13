@@ -11,11 +11,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -159,7 +159,7 @@ public class AddClaimActivity extends Activity
 		builder.setPositiveButton("Add New", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				
+				addTagDialog();
 			}
 			
 		});
@@ -173,7 +173,18 @@ public class AddClaimActivity extends Activity
 
 	}
 
+	protected void addTagDialog(){
+		LayoutInflater layoutInflater = LayoutInflater.from(AddClaimActivity.this);
+		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddClaimActivity.this);
+		alertDialogBuilder.setView(promptView);
 
+		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTag);
+		
+		alertDialogBuilder.setCancelable(false);
+		AlertDialog alert = alertDialogBuilder.create();
+		alert.show();
+	}
 	
 	
 	
