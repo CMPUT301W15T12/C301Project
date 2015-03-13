@@ -11,6 +11,7 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
@@ -24,6 +25,9 @@ public class EditItemActivity extends Activity
     private EditText Date;
     private DatePickerDialog DatePickerDialog;
     private SimpleDateFormat df =new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+    private int expenseItemId;
+    private ExpenseItem expenseItem;
+    private int claimIndex;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -39,22 +43,12 @@ public class EditItemActivity extends Activity
 		
         setDateTimeField();
         
-        //set fields to claim details
-        EditText editName = (EditText) findViewById(R.id.editItemName );
-		EditText editCategory = (EditText) findViewById(R.id.editCategory);
-		EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
-		EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
-		EditText editAmount = (EditText) findViewById(R.id.editAmount);
-		EditText editDate = (EditText) findViewById(R.id.editItemDate);
-		
-		
-		//keep index, delete and create new item and then insert at that index.
-//		editName.setText(text);
-//		editCategory.setText(text);
-//		editDescription.setText(text);
-//		editCurrency.setText(text);
-//		editAmount.setText(text);
-//		editDate.setText(text);
+		Intent intent = getIntent();
+		expenseItemId = intent.getIntExtra("item_index", 0);
+		claimIndex = intent.getIntExtra("claim_id", 0);
+		ClaimListController clc = new ClaimListController();
+		expenseItem = clc.getClaim(claimIndex).getExpenseItems().get(expenseItemId);
+        
         
 		//clickable button creates Item and takes the user back to the claim list page
 		Button donebutton = (Button) findViewById(R.id.buttonEditItemDone);
@@ -67,6 +61,28 @@ public class EditItemActivity extends Activity
 			}
 		});
 		
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		
+        //set fields to claim details
+        EditText editName = (EditText) findViewById(R.id.editItemName );
+		EditText editCategory = (EditText) findViewById(R.id.editCategory);
+		EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
+		EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
+		EditText editAmount = (EditText) findViewById(R.id.editAmount);
+		EditText editDate = (EditText) findViewById(R.id.editItemDate);
+		
+		
+		//keep index, delete and create new item and then insert at that index.
+		editName.setText(expenseItem.getName());
+		editCategory.setText(expenseItem.getCategory());
+		editDescription.setText(expenseItem.getDescription());
+		editCurrency.setText(expenseItem.getCurrency());	
+		editAmount.setText(expenseItem.getAmount().toString());
+		editDate.setText(expenseItem.getDate().toString());
 	}
 	
 	public void editItem() {
