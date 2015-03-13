@@ -37,6 +37,7 @@ public class AddClaimActivity extends Activity
     public String Username;
     public ArrayList tagsArrayList = new ArrayList();
     public Integer id;
+    public Claim claim;
 	final Destination destination = new Destination();
     
 	@Override
@@ -52,25 +53,27 @@ public class AddClaimActivity extends Activity
 		Username = getIntent().getExtras().getString("username");
 		final String option = getIntent().getExtras().getString("option");
 		
-		if (option.equals("Edit")){
-			//TODO get claim id 
-			//fill in fields
-			
-		}
-		
-		//gets the use corresponding to the UserName
-		for (int i = 0; i < UserListController.getUserList().size(); i++) {
-			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
-				user = UserListController.getUserList().get(i);
-			}
-		}
-		
 		//initializes the date fields
 		startDate = (EditText) findViewById(R.id.EnterStartDate);
 		endDate = (EditText) findViewById(R.id.EnterEndDate);
 		endDate.setInputType(InputType.TYPE_NULL);
 		startDate.setInputType(InputType.TYPE_NULL);
 		setDateTimeField();
+		
+		if (option.equals("Edit")){
+			int id = getIntent().getIntExtra("claim_id",1000000);
+			claim = CLC.getClaim(id);
+			//TODO fill in existing fields
+			
+		}
+		
+		//gets the user corresponding to the UserName
+		for (int i = 0; i < UserListController.getUserList().size(); i++) {
+			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
+				user = UserListController.getUserList().get(i);
+			}
+		}
+
 		
 		//clickable button creates claim and takes the user back to the claim list page
 		Button donebutton = (Button) findViewById(R.id.buttonsaveClaim);
@@ -85,7 +88,6 @@ public class AddClaimActivity extends Activity
 						editClaim(); 
 					}
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				finish();			}
@@ -94,15 +96,12 @@ public class AddClaimActivity extends Activity
 	}
 	
 	public void editClaim() {
-        int positionClaim = getIntent().getExtras().getInt("position");
-		ClaimListController claimController = new ClaimListController();
-		Claim claim = claimController.getClaim(positionClaim);
 		String status = claim.getStatus();
     	Context context = this.getApplicationContext();
 
 		//edit Claim
-		if (status.equals("Returned") || (status.equals("In Progress"))){
-			Claim prevClaim = claimController.getClaim(positionClaim);
+		if (claim.editable()){
+			Claim prevClaim = claim;
 			
 	    	String name = new String();
 	    	Date startDate = new Date();
@@ -112,29 +111,29 @@ public class AddClaimActivity extends Activity
 	    	EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
 	    	EditText editTextStartDate = (EditText) findViewById(R.id.EnterStartDate);
 	    	EditText editTextEndDate = (EditText) findViewById(R.id.EnterEndDate);
-	    	EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);
+	    	EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);	    	
 	    	
-	    	//Convert XML to String
-	    	name = editTextName.getText().toString();
-	    	//startDate = editTextStartDate.getDate().toString();
-	    	//endDate = editTextEndDate.getText().toString();
-	    	description = editTextDescription.getText().toString();
-	    	CharSequence toastText;
-	    	Toast toast = null;
-
-	    	if (name.equals("")){
-	    		name = prevClaim.getName();
-	    	}
-	    	if (startDate.equals("")){
-	    		startDate = prevClaim.getStartDate();
-	    	}
-	    	if (endDate.equals("")){
-	    		endDate = prevClaim.getEndDate();
-	    	}
-	    	claimController.addClaim(name, startDate, endDate, description, this.user);
-			claimController.removeClaim(positionClaim);
-	    	toastText = "Claim Updated";
-	    	toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
+	    	////Shouldn't Use this method - We would lose any existing expense items, comments, or approvers!!
+//	    	//Convert XML to String
+//	    	name = editTextName.getText().toString();
+//	    	//startDate = editTextStartDate.getDate().toString();
+//	    	//endDate = editTextEndDate.getText().toString();
+//	    	description = editTextDescription.getText().toString();
+//
+//	    	if (name.equals("")){
+//	    		name = prevClaim.getName();
+//	    	}
+//	    	if (startDate.equals("")){
+//	    		startDate = prevClaim.getStartDate();
+//	    	}
+//	    	if (endDate.equals("")){
+//	    		endDate = prevClaim.getEndDate();
+//	    	}
+//	    	claimController.addClaim(name, startDate, endDate, description, this.user);
+//			claimController.removeClaim(positionClaim);
+			
+	    	String toastText = "Claim Updated";
+	    	Toast toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
 	    	toast.show();	
 		}
 		
@@ -147,9 +146,7 @@ public class AddClaimActivity extends Activity
 			Toast toast = Toast.makeText(context, text, duration);
 			toast.show();
 			
-		}
-   	 	Intent intent = new Intent(this, ClaimListActivity.class);
-   	 	startActivity(intent);		
+		}	
 	}
 	
 	public void addClaim() throws ParseException  {

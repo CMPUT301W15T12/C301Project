@@ -125,13 +125,14 @@ public class EditItemActivity extends Activity
 		EditText editAmount = (EditText) findViewById(R.id.editAmount);
 		EditText editDate = (EditText) findViewById(R.id.editItemDate);
 		
+		editName.requestFocus();
 		
 		editName.setText(expenseItem.getName());
 		editCategory.setText(expenseItem.getCategory());
 		editDescription.setText(expenseItem.getDescription());
 		editCurrency.setText(expenseItem.getCurrency());	
 		editAmount.setText(expenseItem.getAmount().toString());
-		editDate.setText(expenseItem.getDate().toString());
+		editDate.setText(df.format(expenseItem.getDate()));
 	}
 	
 	public void editItem(ExpenseItem ei) throws AlreadyExistsException {

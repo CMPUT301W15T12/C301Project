@@ -91,5 +91,6 @@
         android:layout_marginTop="14dp"
         android:ems="10"
         android:hint="@string/Enter_Expense_Name" />
+    <requestFocus />
 
 </RelativeLayout>

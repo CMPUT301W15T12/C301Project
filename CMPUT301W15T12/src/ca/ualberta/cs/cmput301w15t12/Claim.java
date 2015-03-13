@@ -45,10 +45,8 @@ public class Claim {
 	}
 
 	public void returnClaim(String name) throws Exception {
-		for (int i = 0; i < UserListController.getUserList().getUsers().size() ;i++) {
-			if (UserListController.getUserList().getUsers().get(i).getUserName().equals(name)) {
-				throw new Exception();
-			}
+		if (Claimant.getUserName().equals(name)) {
+			throw new Exception();
 		}
 		User user =  UserListController.getUserList().getUser(name);
 		setApprover(user);
@@ -56,10 +54,8 @@ public class Claim {
 	}
 
 	public void approveClaim(String name) throws Exception {
-		for (int i = 0; i < UserListController.getUserList().getUsers().size() ;i++) {
-			if (UserListController.getUserList().getUsers().get(i).getUserName().equals(name)) {
-				throw new Exception();
-			}
+		if (Claimant.getUserName().equals(name)) {
+			throw new Exception();
 		}
 		User user =  UserListController.getUserList().getUser(name);
 		setApprover(user);
