@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditItemActivity extends Activity
 {
@@ -37,6 +38,7 @@ public class EditItemActivity extends Activity
     private int expenseItemId;
     private ExpenseItem expenseItem;
     private int claimIndex;
+    private Claim claim;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -57,6 +59,7 @@ public class EditItemActivity extends Activity
 		claimIndex = intent.getIntExtra("claim_id", 0);
 		ClaimListController clc = new ClaimListController();
 		expenseItem = clc.getClaim(claimIndex).getExpenseItems().get(expenseItemId);
+		claim = clc.getClaim(claimIndex);
         
         
 		//clickable button creates Item and takes the user back to the claim list page
@@ -79,9 +82,27 @@ public class EditItemActivity extends Activity
 				String amount = editAmount.getText().toString();
 				String date = editDate.getText().toString();
 				
+				Date dfDate = null;
 				try {
-					editItem(name, category, description, currency, amount, date);
-				} catch (ParseException e) {
+					dfDate = df.parse(date);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				DecimalFormat deF = new DecimalFormat("0.00");
+				deF.setParseBigDecimal(true);
+				BigDecimal bdAmount = null;
+				try {
+					bdAmount = (BigDecimal) deF.parse(amount);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				ExpenseItem ei = new ExpenseItem(name,category, description, currency, bdAmount, dfDate);
+				try {
+					editItem(ei);
+				} catch (AlreadyExistsException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -113,23 +134,13 @@ public class EditItemActivity extends Activity
 		editDate.setText(expenseItem.getDate().toString());
 	}
 	
-	public void editItem(String name, String category, String description,
-			String currency, String amount, String date) throws ParseException {
+	public void editItem(ExpenseItem ei) throws AlreadyExistsException {
 		//TODO keep index, delete and create new item and then insert at that index.
 		//pass on index and attributes
-		
-		
-		Date dfDate = df.parse(date);
-		DecimalFormat deF = new DecimalFormat("0.00");
-		deF.setParseBigDecimal(true);
-		BigDecimal bdAmount = (BigDecimal) deF.parse(amount);
-		
-		expenseItem.setName(name);
-		expenseItem.setCategory(category);
-		expenseItem.setDescription(description);
-		expenseItem.setCurrency(currency);
-		expenseItem.setAmount(bdAmount);
-		expenseItem.setDate(dfDate);
+		//need a function to add at an index
+		Toast.makeText(EditItemActivity.this, "here", Toast.LENGTH_SHORT).show();
+		claim.addItem(ei);
+		claim.removeItem(expenseItemId);
 	}
 	
 	@Override

@@ -30,8 +30,8 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		Date date2 = new Date();
 		BigDecimal amount1 = new BigDecimal(45.50);
 		BigDecimal amount2 = new BigDecimal(50.00);
-		ExpenseItem expenseItem1 = new ExpenseItem("name1","air fare","description1","USD",amount1,date1,false);
-		ExpenseItem expenseItem2 = new ExpenseItem("name2","registration","description2","JPY",amount2,date2,false);
+		ExpenseItem expenseItem1 = new ExpenseItem("name1","air fare","description1","USD",amount1,date1);
+		ExpenseItem expenseItem2 = new ExpenseItem("name2","registration","description2","JPY",amount2,date2);
 		boolean i = false;
 		if (expenseItem1.getName().equals(expenseItem2.getName())){
 			i=true;
@@ -43,7 +43,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testExpenseItem(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
 		assertNotNull("date not initialized",expenseItem.getDate());
 		assertNotNull("category not initialized",expenseItem.getCategory());
 		assertNotNull("description not initialized",expenseItem.getDescription());
@@ -57,7 +57,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testCategory(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
 		boolean i = false;
 		if (expenseItem.getCategory().equals("air fare") || 
 				expenseItem.getCategory().equals("round transport") || 
@@ -78,7 +78,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testCurrency(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
 		boolean i = false;
 		if (expenseItem.getCurrency().equals("CAD") || 
 				expenseItem.getCurrency().equals("USD") || 
@@ -96,12 +96,12 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testFlag(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
 		//passes if item has a flag
-		assertFalse("Item does have a flag",expenseItem.isFlag());
+		assertEquals("Item does have a flag", true, expenseItem.getFlag());
 		
 		//passes if item does not have a flag
-		//assertTrue("Item does not have a flag",expenseItem.isFlag());
+		//assertEquals("Item does not have a flag", false, expenseItem.getFlag());
 	}
 	
 	//US04.05.01 - able to view an expense item and its details
@@ -119,16 +119,14 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		TextView dateView = (TextView) activity.findViewById(R.id.textDate);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),dateView);
 		CheckBox flagView = (CheckBox) activity.findViewById(R.id.checkBox1);
-		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),flagView);
-		
-		
+		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),flagView);	
 	}
 	
 	//US04.06.01 - able to edit an expense item when allowed - setters
 	public void testEditItem(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date,false);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
 		Date date2 = new Date();
 		BigDecimal amount2 = new BigDecimal(800.23);
 		expenseItem.setName("name2");
