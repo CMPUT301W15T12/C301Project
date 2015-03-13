@@ -78,6 +78,12 @@
             android:name="ca.ualberta.cs.cmput301w15t12.ChooseListActivity"
             android:label="@string/title_activity_choose_list" >
         </activity>
+        
+        <activity
+            android:name="ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity"
+            android:label="@string/title_activity_expense_item" >
+        </activity>
+        
     </application>
 
 </manifest>
