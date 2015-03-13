@@ -197,8 +197,10 @@ public class ClaimActivity extends Activity {
 		if (!claim.editable()) {
 			Toast.makeText(ClaimActivity.this, "No edits allowed", Toast.LENGTH_LONG).show();
 		} else {
-			Intent intent = new Intent(ClaimActivity.this, EditClaimActivity.class);
+			Intent intent = new Intent(ClaimActivity.this, TabClaimActivity.class);
 			intent.putExtra("claim_id", id);
+			intent.putExtra("option", "Edit");
+			intent.putExtra("username", Username);
 			startActivity(intent);
 		}
 	}

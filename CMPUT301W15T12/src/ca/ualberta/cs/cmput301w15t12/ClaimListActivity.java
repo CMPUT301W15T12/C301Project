@@ -55,6 +55,7 @@ public class ClaimListActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(ClaimListActivity.this, TabClaimActivity.class);
 				intent.putExtra("username", Username);
+				intent.putExtra("option", "Add");
 				startActivity(intent);
 			}
 		});

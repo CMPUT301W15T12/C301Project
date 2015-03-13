@@ -19,28 +19,55 @@ public class TabClaimActivity extends TabActivity
 		setContentView(R.layout.tab_host);
 
 		String username = getIntent().getExtras().getString("username");
+		String option = getIntent().getExtras().getString("option");
 
 		TabHost tabHost = getTabHost();
 
-		// Claim tab
-		Intent intentClaim = new Intent().setClass(this, AddClaimActivity.class);
-		intentClaim.putExtra("username", username);
-		TabSpec tabSpecClaim = tabHost
-				.newTabSpec("addClaim")
-				.setIndicator("Basic Info")
-				.setContent(intentClaim);
+		if (option.equals("Add")) {
+			// Claim tab
+			Intent intentClaim = new Intent().setClass(this, AddClaimActivity.class);
+			intentClaim.putExtra("username", username);
+			TabSpec tabSpecClaim = tabHost
+					.newTabSpec("addClaim")
+					.setIndicator("Basic Info")
+					.setContent(intentClaim);
 
-		// Approver tab
-		Intent intentApprover = new Intent().setClass(this, AddDestinationsActivity.class);
-		intentApprover.putExtra("username", username);
-		TabSpec tabSpecApprover = tabHost
-				.newTabSpec("destinations")
-				.setIndicator("Destinations")
-				.setContent(intentApprover);
+			// Approver tab
+			Intent intentDestinations = new Intent().setClass(this, AddDestinationsActivity.class);
+			intentDestinations.putExtra("username", username);
+			TabSpec tabSpecDestinations = tabHost
+					.newTabSpec("destinations")
+					.setIndicator("Destinations")
+					.setContent(intentDestinations);
 
-		tabHost.addTab(tabSpecClaim);
-		tabHost.addTab(tabSpecApprover);
+			tabHost.addTab(tabSpecClaim);
+			tabHost.addTab(tabSpecDestinations);
 
+		} else {
+			int claim_id = getIntent().getIntExtra("claim_id", 0);
+
+			// Claim tab
+			Intent intentClaim = new Intent().setClass(this, AddClaimActivity.class);
+			intentClaim.putExtra("username", username);
+			intentClaim.putExtra("claim_id", claim_id);
+			TabSpec tabSpecClaim = tabHost
+					.newTabSpec("addClaim")
+					.setIndicator("Basic Info")
+					.setContent(intentClaim);
+
+			// Approver tab
+			Intent intentDestinations = new Intent().setClass(this, AddDestinationsActivity.class);
+			intentDestinations.putExtra("username", username);
+			intentDestinations.putExtra("claim_id", claim_id);
+			TabSpec tabSpecDestinations = tabHost
+					.newTabSpec("destinations")
+					.setIndicator("Destinations")
+					.setContent(intentDestinations);
+
+
+			tabHost.addTab(tabSpecClaim);
+			tabHost.addTab(tabSpecDestinations);
+		}
 		tabHost.setCurrentTab(0);
 	}
 
