@@ -44,13 +44,23 @@ public class Claim {
 		this.id = id;
 	}
 
-	public void returnClaim(String name) {
+	public void returnClaim(String name) throws Exception {
+		for (int i = 0; i < UserListController.getUserList().getUsers().size() ;i++) {
+			if (UserListController.getUserList().getUsers().get(i).getUserName().equals(name)) {
+				throw new Exception();
+			}
+		}
 		User user =  UserListController.getUserList().getUser(name);
 		setApprover(user);
 		setStatus("Returned");
 	}
 
-	public void approveClaim(String name) {
+	public void approveClaim(String name) throws Exception {
+		for (int i = 0; i < UserListController.getUserList().getUsers().size() ;i++) {
+			if (UserListController.getUserList().getUsers().get(i).getUserName().equals(name)) {
+				throw new Exception();
+			}
+		}
 		User user =  UserListController.getUserList().getUser(name);
 		setApprover(user);
 		setStatus("Approved");
