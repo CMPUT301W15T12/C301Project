@@ -20,7 +20,7 @@ public class LoginActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_main);
 		UserListManager.initManager(this.getApplicationContext());
-		UserListController ULC = new UserListController();
+		ULC = new UserListController();
 		
 		//clickable create account button takes user to create account page
 		Button newaccountbutton = (Button) findViewById(R.id.buttonNewAccount);
