@@ -20,33 +20,34 @@ public class ChooseListActivity extends FragmentActivity
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tab_host);
+		setContentView(R.layout.choose_list);
+		//setContentView(R.layout.tab_host);
 		
-		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-		mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+		//mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+		//mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 		
-//		UserListManager.initManager(this.getApplicationContext());
-//		ClaimListManager.initManager(this.getApplicationContext());
-//		
-//		final String username = getIntent().getExtras().getString("username");
-//		
-//		Button claimBtn = (Button) findViewById(R.id.buttonChooseClaimant);
-//		claimBtn.setOnClickListener(new View.OnClickListener() {
-//			public void onClick(View view) {
-//				Intent intent = new Intent(ChooseListActivity.this, ClaimListActivity.class);
-//				intent.putExtra("username", username);
-//				startActivity(intent);
-//			}
-//		});
-//		
-//		Button approverBtn = (Button) findViewById(R.id.buttonChooseApprover);
-//		approverBtn.setOnClickListener(new View.OnClickListener() {
-//			public void onClick(View view) {
-//				Intent intent = new Intent(ChooseListActivity.this, ApproverListActivity.class);
-//				intent.putExtra("username", username);
-//				startActivity(intent);
-//			}
-//		});
+		UserListManager.initManager(this.getApplicationContext());
+		ClaimListManager.initManager(this.getApplicationContext());
+		
+		final String username = getIntent().getExtras().getString("username");
+		
+		Button claimBtn = (Button) findViewById(R.id.buttonChooseClaimant);
+		claimBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				Intent intent = new Intent(ChooseListActivity.this, ClaimListActivity.class);
+				intent.putExtra("username", username);
+				startActivity(intent);
+			}
+		});
+		
+		Button approverBtn = (Button) findViewById(R.id.buttonChooseApprover);
+		approverBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				Intent intent = new Intent(ChooseListActivity.this, ApproverListActivity.class);
+				intent.putExtra("username", username);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override

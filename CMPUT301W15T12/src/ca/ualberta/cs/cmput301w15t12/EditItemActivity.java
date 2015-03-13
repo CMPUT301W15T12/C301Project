@@ -1,8 +1,17 @@
+/* EditItemActivity is responsible for allowing a selected expense item to be edited.
+ * It displays the current information about the expense item, and allows changes to be made.
+ * A user may then accept their changes and the expense item is updated.
+ */
+
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Date;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -56,7 +65,26 @@ public class EditItemActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
-				editItem();
+		        EditText editName = (EditText) findViewById(R.id.editItemName );
+				EditText editCategory = (EditText) findViewById(R.id.editCategory);
+				EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
+				EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
+				EditText editAmount = (EditText) findViewById(R.id.editAmount);
+				EditText editDate = (EditText) findViewById(R.id.editItemDate);
+				
+				String name = editName.getText().toString();
+				String category = editCategory.getText().toString();
+				String description = editDescription.getText().toString();
+				String currency = editCurrency.getText().toString();
+				String amount = editAmount.getText().toString();
+				String date = editDate.getText().toString();
+				
+				try {
+					editItem(name, category, description, currency, amount, date);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				finish();
 			}
 		});
@@ -64,6 +92,7 @@ public class EditItemActivity extends Activity
 	}
 	
 	@Override
+	//will this affect the dialogs? - instead be in onCreate?
 	public void onResume(){
 		super.onResume();
 		
@@ -76,7 +105,6 @@ public class EditItemActivity extends Activity
 		EditText editDate = (EditText) findViewById(R.id.editItemDate);
 		
 		
-		//keep index, delete and create new item and then insert at that index.
 		editName.setText(expenseItem.getName());
 		editCategory.setText(expenseItem.getCategory());
 		editDescription.setText(expenseItem.getDescription());
@@ -85,8 +113,23 @@ public class EditItemActivity extends Activity
 		editDate.setText(expenseItem.getDate().toString());
 	}
 	
-	public void editItem() {
-		//TODO
+	public void editItem(String name, String category, String description,
+			String currency, String amount, String date) throws ParseException {
+		//TODO keep index, delete and create new item and then insert at that index.
+		//pass on index and attributes
+		
+		
+		Date dfDate = df.parse(date);
+		DecimalFormat deF = new DecimalFormat("0.00");
+		deF.setParseBigDecimal(true);
+		BigDecimal bdAmount = (BigDecimal) deF.parse(amount);
+		
+		expenseItem.setName(name);
+		expenseItem.setCategory(category);
+		expenseItem.setDescription(description);
+		expenseItem.setCurrency(currency);
+		expenseItem.setAmount(bdAmount);
+		expenseItem.setDate(dfDate);
 	}
 	
 	@Override
