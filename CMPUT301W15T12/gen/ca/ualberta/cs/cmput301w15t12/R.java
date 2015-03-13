@@ -78,6 +78,7 @@ public final class R {
         public static final int listExpenseItems=0x7f080029;
         public static final int listTotalSum=0x7f08002b;
         public static final int listViewClaims=0x7f080025;
+        public static final int realtabcontent=0x01010000;
         public static final int receiptImageView=0x7f080047;
         public static final int recipient=0x7f08002e;
         public static final int seeCommentsItem=0x7f08004e;
@@ -124,7 +125,8 @@ public final class R {
         public static final int login_main=0x7f03000c;
         public static final int new_account=0x7f03000d;
         public static final int see_comments=0x7f03000e;
-        public static final int view_photo=0x7f03000f;
+        public static final int tab_host=0x7f03000f;
+        public static final int view_photo=0x7f030010;
     }
     public static final class menu {
         public static final int add_claim=0x7f070000;
