@@ -44,13 +44,13 @@ public class Claim {
 		this.id = id;
 	}
 
-	public void returnClaim(String name) throws CantApproveOwnClaimException {
+	public void returnClaim(String name) {
 		User user =  UserListController.getUserList().getUser(name);
 		setApprover(user);
 		setStatus("Returned");
 	}
 
-	public void approveClaim(String name) throws CantApproveOwnClaimException {
+	public void approveClaim(String name) {
 		User user =  UserListController.getUserList().getUser(name);
 		setApprover(user);
 		setStatus("Approved");

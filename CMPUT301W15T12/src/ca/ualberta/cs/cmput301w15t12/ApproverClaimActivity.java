@@ -67,21 +67,14 @@ public class ApproverClaimActivity extends Activity {
 				if (approver.equals(Claim.getClaimant().getUserName())){
 					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
 				} else {
-
 					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
 					adb.setMessage("Approve this Claim?");
 					adb.setCancelable(true);
 					adb.setPositiveButton("Approve", new OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							try
-							{
-								Claim.approveClaim(approver);
-								finish();
-							} catch (CantApproveOwnClaimException e)
-							{
-								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
-							}
+							Claim.approveClaim(approver);
+							finish();
 						}
 					});
 					adb.setNegativeButton("Cancel", new OnClickListener() {
@@ -106,14 +99,8 @@ public class ApproverClaimActivity extends Activity {
 					adb.setPositiveButton("Return", new OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							try
-							{
-								Claim.returnClaim(approver);
-								finish();
-							} catch (CantApproveOwnClaimException e)
-							{
-								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Return Own Claim", Toast.LENGTH_LONG).show();
-							}
+							Claim.returnClaim(approver);
+							finish();
 						}
 					});
 					adb.setNegativeButton("Cancel", new OnClickListener() {
