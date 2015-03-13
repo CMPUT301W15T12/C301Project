@@ -23,7 +23,7 @@ public class ChooseListActivity extends FragmentActivity
 		setContentView(R.layout.tab_host);
 		
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-		mTabHost.setup(this, getSupportFragmentManager(), R.id.);
+		mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 		
 //		UserListManager.initManager(this.getApplicationContext());
 //		ClaimListManager.initManager(this.getApplicationContext());
