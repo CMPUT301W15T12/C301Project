@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -18,7 +19,8 @@ public class ApproverListActivity extends Activity
 {
 	public ClaimListController CLC = new ClaimListController();
 	public String approver;
-	
+	public Context c;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

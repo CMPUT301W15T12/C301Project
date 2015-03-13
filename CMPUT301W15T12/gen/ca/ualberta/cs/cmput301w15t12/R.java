@@ -78,7 +78,6 @@ public final class R {
         public static final int listExpenseItems=0x7f080029;
         public static final int listTotalSum=0x7f08002b;
         public static final int listViewClaims=0x7f080025;
-        public static final int realtabcontent=0x01010000;
         public static final int receiptImageView=0x7f080047;
         public static final int recipient=0x7f08002e;
         public static final int seeCommentsItem=0x7f08004e;
