@@ -8,13 +8,16 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 @SuppressWarnings("deprecation")
-public class ChooseListActivity extends TabActivity
+public class TabClaimActivity extends TabActivity
 {
 
+	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
 
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.tab_host);
+		
 		setContentView(R.layout.tab_host);
 		String username = getIntent().getExtras().getString("username");
 
@@ -40,16 +43,14 @@ public class ChooseListActivity extends TabActivity
 		tabHost.addTab(tabSpecApprover);
 
 		tabHost.setCurrentTab(0);
-
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.choose_list, menu);
+		getMenuInflater().inflate(R.menu.tab_claim, menu);
 		return true;
 	}
 

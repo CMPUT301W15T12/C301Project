@@ -8,6 +8,7 @@ import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
+import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.User;
 
 public class ClaimActivityTests extends
@@ -24,18 +25,17 @@ public class ClaimActivityTests extends
 	// US07.01.01 - Submission of claim, allowing no edits thereafter
 	public void testSubmitStatus() throws AlreadyExistsException {
 		// Make new claim and add to claims list
-		ClaimList claimList = new ClaimList();
+		ClaimListController claimList = new ClaimListController();
 		Date date1 = new Date();
 		Date date2 = new Date();
-		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
-		claimList.addClaim(claim);
+		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
 		
 		// Note: setStatus automatically handles valid changes to status
 		// If a call is not valid, nothing happens, and the status remains the same
 		
 		// Set status to submitted
-		claim.setStatus("Submitted");
-		assertTrue("Status was not changed to submitted", claim.getStatus() == "Submitted");
+		claimList.getClaim(0).setStatus("Submitted");
+		assertTrue("Status was not changed to submitted", claimList.getClaim(0).getStatus() == "Submitted");
 		
 		// Select the claim via controller
 		claimList.setSelected(claim);
@@ -82,17 +82,12 @@ public class ClaimActivityTests extends
 		// Make new claim and add to claims list
 		Date date1 = new Date();
 		Date date2 = new Date();
-		ClaimList claimList = new ClaimList();
-		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
-		claimList.addClaim(claim);
-		
-		// Make sure claim is in submitted status
-		claim.setStatus("Submitted");
-		assertTrue("Status was not changed to submitted", claim.getStatus() == "Submitted");
+		ClaimListController claimList = new ClaimListController();
+		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
 		
 		// Set status to returned
-		claim.setStatus("Returned");
-		assertTrue("Status was not changed to returned", claim.getStatus() == "Returned");
+		claimList.getClaim(0).setStatus("Returned");
+		assertTrue("Status was not changed to returned", claimList.getClaim(0).getStatus() == "Returned");
 		
 		// Select the claim via controller
 		claimList.setSelected(claim);
@@ -119,9 +114,9 @@ public class ClaimActivityTests extends
 		// Make new claim and add to claims list
 		Date date1 = new Date();
 		Date date2 = new Date();
-		ClaimList claimList = new ClaimList();
-		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
-		claimList.addClaim(claim);
+		ClaimListController claimList = new ClaimListController();
+		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
+		Claim claim = claimList.getClaim(0);
 		
 		// Make sure claim is in submitted status
 		claim.setStatus("Submitted");
@@ -153,7 +148,9 @@ public class ClaimActivityTests extends
 		// Make new claim
 		Date date1 = new Date();
 		Date date2 = new Date();
-		Claim claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
+		ClaimListController claimList = new ClaimListController();
+		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
+		Claim claim = claimList.getClaim(0);
 		
 		// Make new user who will act as approver, and his comments
 		User approver = new User("Megan");

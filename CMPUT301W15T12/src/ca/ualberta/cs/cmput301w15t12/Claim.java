@@ -44,13 +44,23 @@ public class Claim {
 		this.id = id;
 	}
 
-	public void returnClaim(String name) {
+	public void returnClaim(String name) throws Exception {
+		for (int i = 0; i < UserListController.getUserList().getUsers().size() ;i++) {
+			if (UserListController.getUserList().getUsers().get(i).getUserName().equals(name)) {
+				throw new Exception();
+			}
+		}
 		User user =  UserListController.getUserList().getUser(name);
 		setApprover(user);
 		setStatus("Returned");
 	}
 
-	public void approveClaim(String name) {
+	public void approveClaim(String name) throws Exception {
+		for (int i = 0; i < UserListController.getUserList().getUsers().size() ;i++) {
+			if (UserListController.getUserList().getUsers().get(i).getUserName().equals(name)) {
+				throw new Exception();
+			}
+		}
 		User user =  UserListController.getUserList().getUser(name);
 		setApprover(user);
 		setStatus("Approved");
@@ -80,13 +90,29 @@ public class Claim {
 	//All the toString functions
 	public String toStringApproverList() {
 		String ds= dateFormat.format(startDate);
-		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+approver.getUserName();
+		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status;
+		if(!(getTotal().size() == 0)) {
+			block += "\n"+toStringList(getTotal());
+		}
+		if(!(destinations.size() == 0)) {
+			block += "\n"+destinationsToString();
+		}
+		if (!(approver == null)) {
+			block += "\n"+approver.getUserName();
+		}
 		return block;
 	}
 
 	public String toStringClaimantList() {
 		String ds = dateFormat.format(startDate);
-		String block = "["+ds+"] "+name+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(tagList);
+		String block = "["+ds+"] "+name+" - "+Status;
+		if(!(getTotal().size() == 0)) {
+			block += "\n"+toStringList(getTotal());
+		} if(!(destinations.size() == 0)) {
+			block += "\n"+destinationsToString();
+		} if (!(tagList.size() == 0)) {
+			block += "\n"+toStringList(tagList);
+		}
 		return block;
 	}
 	public String destinationsToString() {

@@ -42,7 +42,6 @@ public class ApproverClaimActivity extends Activity {
 
 		//initialize approver variable
 		approver = getIntent().getExtras().getString("username");
-		Toast.makeText(this, approver, Toast.LENGTH_SHORT).show();
 
 		//return claim button, asks for confirmation then returns
 		Button commentBtn = (Button) findViewById(R.id.buttonAddComment);
@@ -73,7 +72,11 @@ public class ApproverClaimActivity extends Activity {
 					adb.setPositiveButton("Approve", new OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Claim.approveClaim(approver);
+							try{
+								Claim.approveClaim(approver);
+							} catch (Exception e){
+								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+							}
 							finish();
 						}
 					});
@@ -99,7 +102,11 @@ public class ApproverClaimActivity extends Activity {
 					adb.setPositiveButton("Return", new OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Claim.returnClaim(approver);
+							try {
+								Claim.returnClaim(approver);
+							} catch (Exception e) {
+								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+							}
 							finish();
 						}
 					});

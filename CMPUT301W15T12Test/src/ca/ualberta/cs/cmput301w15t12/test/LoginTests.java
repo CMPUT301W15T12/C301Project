@@ -13,11 +13,11 @@ public class LoginTests extends TestCase
 	//[DC01.02]
 	public void testaddAccount() throws AlreadyExistsException{
 		boolean thrown = false;
-		User user = new User("Sarah");
-		UserListController.getUserList().addUser(user);
-		assertTrue("User Added", UserListController.getUserList().get(0).getUserName().equals(user));
+
+		UserListController.getUserList().addUser("Sarah");
+		assertTrue("User Added", UserListController.getUserList().get(0).getUserName().equals("Sarah"));
 		try {
-			UserListController.getUserList().addUser(user);
+			UserListController.getUserList().addUser("Sarah");
 		} catch (AlreadyExistsException e){
 			thrown = true;
 		}
@@ -27,6 +27,6 @@ public class LoginTests extends TestCase
 	//[DC01.01]
 	public void testlogin() throws AlreadyExistsException {
 		User user = new User("Sarah");
-		assertTrue("Can retrieve accounts", UserListController.getUserList().contains(user));
+		assertTrue("Can retrieve accounts", UserListController.getUserList().getUsers().contains(user));
 	}
 }
