@@ -2,18 +2,23 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class EditClaimActivity extends Activity
 {
@@ -46,16 +51,14 @@ public class EditClaimActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
-				editClaim();
+				//editClaim();
 				finish();
 			}
 		});
 		
 	}
 	
-	public void editClaim() {
-		//TODO
-	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

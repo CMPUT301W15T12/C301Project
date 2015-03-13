@@ -13,6 +13,7 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -49,6 +50,13 @@ public class AddClaimActivity extends Activity
 		
 		//username of user passed along from list choice activity
 		Username = getIntent().getExtras().getString("username");
+		final String option = getIntent().getExtras().getString("option");
+		
+		if (option.equals("Edit")){
+			//TODO get claim id 
+			//fill in fields
+			
+		}
 		
 		//gets the use corresponding to the UserName
 		for (int i = 0; i < UserListController.getUserList().size(); i++) {
@@ -71,7 +79,11 @@ public class AddClaimActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				try {
-					addClaim();
+					if (option.equals("Add")){
+						addClaim();
+					} else {
+						editClaim(); 
+					}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -79,6 +91,65 @@ public class AddClaimActivity extends Activity
 				finish();			}
 		});
 		
+	}
+	
+	public void editClaim() {
+        int positionClaim = getIntent().getExtras().getInt("position");
+		ClaimListController claimController = new ClaimListController();
+		Claim claim = claimController.getClaim(positionClaim);
+		String status = claim.getStatus();
+    	Context context = this.getApplicationContext();
+
+		//edit Claim
+		if (status.equals("Returned") || (status.equals("In Progress"))){
+			Claim prevClaim = claimController.getClaim(positionClaim);
+			
+	    	String name = new String();
+	    	Date startDate = new Date();
+	    	Date endDate = new Date();
+	    	String description = new String();
+	    	
+	    	EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
+	    	EditText editTextStartDate = (EditText) findViewById(R.id.EnterStartDate);
+	    	EditText editTextEndDate = (EditText) findViewById(R.id.EnterEndDate);
+	    	EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);
+	    	
+	    	//Convert XML to String
+	    	name = editTextName.getText().toString();
+	    	//startDate = editTextStartDate.getDate().toString();
+	    	//endDate = editTextEndDate.getText().toString();
+	    	description = editTextDescription.getText().toString();
+	    	CharSequence toastText;
+	    	Toast toast = null;
+
+	    	if (name.equals("")){
+	    		name = prevClaim.getName();
+	    	}
+	    	if (startDate.equals("")){
+	    		startDate = prevClaim.getStartDate();
+	    	}
+	    	if (endDate.equals("")){
+	    		endDate = prevClaim.getEndDate();
+	    	}
+	    	claimController.addClaim(name, startDate, endDate, description, this.user);
+			claimController.removeClaim(positionClaim);
+	    	toastText = "Claim Updated";
+	    	toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
+	    	toast.show();	
+		}
+		
+		//TOAST http://developer.android.com/guide/topics/ui/notifiers/toasts.html
+		//Can't edit Claim
+		else {
+			CharSequence text = "No edits allowed";
+			int duration = Toast.LENGTH_LONG;
+			
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+			
+		}
+   	 	Intent intent = new Intent(this, ClaimListActivity.class);
+   	 	startActivity(intent);		
 	}
 	
 	public void addClaim() throws ParseException  {
