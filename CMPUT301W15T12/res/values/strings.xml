@@ -81,5 +81,6 @@
     <string name="title_activity_choose_list">ChooseListActivity</string>
     <string name="choose_claimant">See Your Claims</string>
     <string name="choose_approver">See Claims Waiting for Approval</string>
+    <string name="title_activity_tab_claim">TabClaimActivity</string>
 
 </resources>

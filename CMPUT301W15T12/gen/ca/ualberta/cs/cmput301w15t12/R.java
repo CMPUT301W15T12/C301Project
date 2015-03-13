@@ -146,7 +146,8 @@ public final class R {
         public static final int main=0x7f07000d;
         public static final int new_account=0x7f07000e;
         public static final int see_comments=0x7f07000f;
-        public static final int view_photo=0x7f070010;
+        public static final int tab_claim=0x7f070010;
+        public static final int view_photo=0x7f070011;
     }
     public static final class string {
         public static final int ACurrency=0x7f050025;
@@ -228,6 +229,7 @@ public final class R {
         public static final int title_activity_item_view=0x7f050004;
         public static final int title_activity_new_account=0x7f050045;
         public static final int title_activity_see_comments=0x7f050046;
+        public static final int title_activity_tab_claim=0x7f050050;
         public static final int title_claim_page=0x7f05004a;
     }
     public static final class style {
