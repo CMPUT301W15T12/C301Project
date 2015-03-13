@@ -23,7 +23,7 @@ public class UserList implements Serializable
 			return false;
 		
 	}
-
+	//add user by string
 	public void addUser(String string) throws AlreadyExistsException{
 		for (int i = 0; i < users.size(); i++ ) {
 			if (users.get(i).getUserName().equals(string)) { 
