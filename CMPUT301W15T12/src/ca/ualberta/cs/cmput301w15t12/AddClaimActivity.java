@@ -36,6 +36,7 @@ public class AddClaimActivity extends Activity
     public String Username;
     public ArrayList tagsArrayList = new ArrayList();
     public Integer id;
+	final Destination destination = new Destination();
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -129,16 +130,35 @@ public class AddClaimActivity extends Activity
 		return true;
 	}
 	
-	public void onClickDestination(View view){
-	}
+//	public void onClickDestination(View view){
+//		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
+//		builder.setTitle("Add Destination");
+//		LayoutInflater inflater = LayoutInflater.from(AddClaimActivity.this);
+//		View promptView = inflater.inflate(R.layout.destination_dialog, null);
+//		builder.setView(promptView);
+//		final EditText editTextDestination = (EditText) promptView.findViewById(R.id.editTextDestination);
+//		final EditText editTextDescription = (EditText) promptView.findViewById(R.id.editTextDescription);
+//		builder.setCancelable(false)
+//			.setPositiveButton("Save", new DialogInterface.OnClickListener(){
+//				@Override
+//				public void onClick(DialogInterface dialog, int id){
+//					destination.setDestination(editTextDestination.getText().toString());
+//					destination.setDescription(editTextDescription.getText().toString());
+//				}
+//			})
+//			.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+//				public void onClick(DialogInterface dialog, int id){
+//				}
+//			});
+//	}
 	
-	/**
+	
+	/** 
 	 * @param view
 	 */
 	public void onClickTags(View view){
-		final ArrayList tagList = new ArrayList();
+		final ArrayList<String> tagList = new ArrayList<String>();
 		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
-		ArrayList<String> tags = this.user.getTagList();
 		String[] userTags = new String[tagList.size()];
 		userTags = (String[]) tagList.toArray(userTags);
 		final String[] finalUserTags = userTags;

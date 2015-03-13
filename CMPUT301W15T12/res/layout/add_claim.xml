@@ -74,6 +74,8 @@
         android:layout_weight=".5"
         android:ems="10"
         android:hint="@string/destinations"
+        android:onClick="onClickDestination"
+        android:focusableInTouchMode="false"
         android:inputType="textMultiLine" />
 
     <EditText
