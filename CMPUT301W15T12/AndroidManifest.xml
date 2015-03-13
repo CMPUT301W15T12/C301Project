@@ -86,6 +86,10 @@
             android:name="ca.ualberta.cs.cmput301w15t12.TabClaimActivity"
             android:label="@string/title_activity_tab_claim" >
         </activity>
+        <activity
+            android:name="ca.ualberta.cs.cmput301w15t12.AddDestinationsActivity"
+            android:label="@string/title_activity_add_destinations" >
+        </activity>
     </application>
 
 </manifest>

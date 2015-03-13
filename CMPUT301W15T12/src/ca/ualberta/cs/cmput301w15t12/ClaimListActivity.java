@@ -53,7 +53,7 @@ public class ClaimListActivity extends Activity {
 		{
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(ClaimListActivity.this, AddClaimActivity.class);
+				Intent intent = new Intent(ClaimListActivity.this, TabClaimActivity.class);
 				intent.putExtra("username", Username);
 				startActivity(intent);
 			}

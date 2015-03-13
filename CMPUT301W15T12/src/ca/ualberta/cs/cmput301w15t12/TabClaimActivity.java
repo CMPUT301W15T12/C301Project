@@ -17,26 +17,25 @@ public class TabClaimActivity extends TabActivity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab_host);
-		
-		setContentView(R.layout.tab_host);
+
 		String username = getIntent().getExtras().getString("username");
 
 		TabHost tabHost = getTabHost();
 
 		// Claim tab
-		Intent intentClaim = new Intent().setClass(this, ClaimListActivity.class);
+		Intent intentClaim = new Intent().setClass(this, AddClaimActivity.class);
 		intentClaim.putExtra("username", username);
 		TabSpec tabSpecClaim = tabHost
-				.newTabSpec("Claim")
-				.setIndicator("Your Claims")
+				.newTabSpec("addClaim")
+				.setIndicator("Basic Info")
 				.setContent(intentClaim);
 
 		// Approver tab
-		Intent intentApprover = new Intent().setClass(this, ApproverListActivity.class);
+		Intent intentApprover = new Intent().setClass(this, AddDestinationsActivity.class);
 		intentApprover.putExtra("username", username);
 		TabSpec tabSpecApprover = tabHost
-				.newTabSpec("Approver")
-				.setIndicator("Submitted Claims")
+				.newTabSpec("destinations")
+				.setIndicator("Destinations")
 				.setContent(intentApprover);
 
 		tabHost.addTab(tabSpecClaim);
