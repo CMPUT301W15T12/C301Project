@@ -87,7 +87,7 @@ public class Claim {
 		if(!(destinations.size() == 0)) {
 			block += "\n"+destinationsToString();
 		}
-		if (!(approver.getUserName() == null)) {
+		if (!(approver == null)) {
 			block += "\n"+approver.getUserName();
 		}
 		return block;

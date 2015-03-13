@@ -93,13 +93,12 @@ public class ClaimActivity extends Activity {
 
 		//total list
 		ListView lv = (ListView) findViewById(R.id.listTotalSum);
-		final ArrayList<String> total = claim.getTotal();
+		ArrayList<String> total = claim.getTotal();
 		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
 		lv.setAdapter(totalAdapter);
 		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
-				total.clear();
 				ArrayList<String> total = claim.getTotal();
 				totalAdapter.notifyDataSetChanged();
 			}
