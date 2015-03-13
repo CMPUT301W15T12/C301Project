@@ -79,7 +79,7 @@ public class AddItemActivity extends Activity
 						editDescription.getText().toString(), editCurrency.getText().toString(),amount, date);
 				
 				try {
-					claim.addItem(expenseItem);
+					addItem(expenseItem);
 				} catch (AlreadyExistsException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
