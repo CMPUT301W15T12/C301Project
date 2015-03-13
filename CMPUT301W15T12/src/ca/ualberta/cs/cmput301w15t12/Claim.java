@@ -87,7 +87,10 @@ public class Claim {
 		if(!(destinations.size() == 0)) {
 			block += "\n"+destinationsToString();
 		}
-		return block += "\n"+approver.getUserName();
+		if (!(approver.getUserName() == null)) {
+			block += "\n"+approver.getUserName();
+		}
+		return block;
 	}
 
 	public String toStringClaimantList() {
