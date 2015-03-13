@@ -42,7 +42,6 @@ public class ApproverClaimActivity extends Activity {
 
 		//initialize approver variable
 		approver = getIntent().getExtras().getString("username");
-		Toast.makeText(this, approver, Toast.LENGTH_SHORT).show();
 
 		//return claim button, asks for confirmation then returns
 		Button commentBtn = (Button) findViewById(R.id.buttonAddComment);
