@@ -2,15 +2,18 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
@@ -31,6 +34,8 @@ public class AddClaimActivity extends Activity
     public ClaimListController CLC = new ClaimListController();
     public User user;
     public String Username;
+    public ArrayList tagsArrayList = new ArrayList();
+    public Integer id;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -97,13 +102,17 @@ public class AddClaimActivity extends Activity
 		description = editTextDescription.getText().toString();
 		
 		//create claim
-		CLC.addClaim(name, sdate, edate, description, this.user);
+		id = CLC.addClaim(name, sdate, edate, description, this.user);
 		
-		//TODO tags, destinations are added separately!
-		
-		//put this back         android:focusableInTouchMode="false"
-		//and this         android:focusableInTouchMode="false"
-		
+		//add Tag to Claim
+		for (int i = 0; i<  tagsArrayList.size(); i++){
+			try {
+				CLC.addTagToClaim(id, tagsArrayList.get(i).toString());
+			} catch (AlreadyExistsException e) {
+				e.printStackTrace();
+			}
+		}
+
 		//toast finished
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_SHORT);
@@ -119,6 +128,54 @@ public class AddClaimActivity extends Activity
 		getMenuInflater().inflate(R.menu.add_claim, menu);
 		return true;
 	}
+	
+	public void onClickDestination(View view){
+	}
+	
+	/**
+	 * @param view
+	 */
+	public void onClickTags(View view){
+		final ArrayList tagList = new ArrayList();
+		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
+		ArrayList<String> tags = this.user.getTagList();
+		String[] userTags = new String[tagList.size()];
+		userTags = (String[]) tagList.toArray(userTags);
+		final String[] finalUserTags = userTags;
+		builder.setTitle("Choose Tags");
+		builder.setMultiChoiceItems(userTags, null,
+				new DialogInterface.OnMultiChoiceClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+				if (isChecked) {
+					// If the user checked the item, add it to the selected items
+					tagList.add(finalUserTags[which]);
+				} else if (tagList.contains(finalUserTags[which])) {
+					// Else, if the item is already in the array, remove it 
+					tagList.remove(finalUserTags[which]);
+				}
+			}
+		});
+		builder.setPositiveButton("Add New", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				
+			}
+			
+		});
+		builder.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				tagsArrayList.addAll(tagList);
+			}
+		});
+		builder.show();
+
+	}
+
+
+	
+	
 	
 	//initialize calendar view
     private void setDateTimeField() {

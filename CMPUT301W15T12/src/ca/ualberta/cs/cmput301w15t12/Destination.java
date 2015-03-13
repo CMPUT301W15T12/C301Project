@@ -1,12 +1,14 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Destination implements Serializable
 {
 	private static final long serialVersionUID = -7586457957887443944L;
 	private String Destination;
 	private String Description;
+	
 
 	//for printing the list of destinations
 	public String toString()

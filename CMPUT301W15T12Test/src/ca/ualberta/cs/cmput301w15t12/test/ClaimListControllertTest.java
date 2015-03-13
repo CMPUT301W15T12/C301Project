@@ -106,8 +106,32 @@ public class ClaimListControllertTest extends TestCase {
 		} catch (AlreadyExistsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}	
+	}	
+	
+	public void testTagGetterSetter(){
+		ClaimListController claimListController = new ClaimListController();	
+		String tag1 = "tag1";
+		String tag2 = "tag2";
+		String unusedTag = "unused tag";
+		int claimId = claimListController.addClaim(	"Claim 1", 
+				new GregorianCalendar().getTime(),
+				new GregorianCalendar().getTime(),
+				"description",
+				new User("Jim"));	
+		try {
+			claimListController.addTagToClaim(claimId, tag1);
+			claimListController.addTagToClaim(claimId, tag2);
+
+			ArrayList<String> tagList = claimListController.getTagListFromClaim(claimId);
+			assertTrue("Wrong number of tags inside taglist",tagList.size()==2);
+			assertTrue("tag1 is not added",tagList.contains(tag1));
+			assertTrue("tag2 is not added",tagList.contains(tag2));
+			assertFalse("unusedTag should not be inside the taglist",tagList.contains(unusedTag));
+
+		} catch (AlreadyExistsException e) {
+			//tag already existed. Do nothing
 		}
 		
-			
-	}	
+	}
 }

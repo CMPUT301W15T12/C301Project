@@ -6,7 +6,6 @@ import ca.ualberta.cs.cmput301w15t12.UserListController;
 import junit.framework.TestCase;
 
 public class UserTest extends TestCase {
-	User user1 = new User("Omar");
 	public UserTest(String name) {
 		super(name);
 	}
@@ -25,7 +24,7 @@ public class UserTest extends TestCase {
 	}
 	
 	public void testDeleteUser(){
-		UserListController.removeUser(user1);
+		UserListController.removeUser("user1");
 		assertTrue("removed the only user",UserListController.getUserList().size() == 0);
 		assertTrue("incorrect userList size", UserListController.getUserList().size() <1);
 	}

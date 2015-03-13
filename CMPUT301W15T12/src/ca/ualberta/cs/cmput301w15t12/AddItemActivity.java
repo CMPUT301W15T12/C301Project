@@ -118,7 +118,7 @@ public class AddItemActivity extends Activity
 	}
 	
 	public void categoryOnClick(View view){
-		//TODO open category dialog
+		//open category dialog
 		final String[] categories = {"Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
 				"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"};
 		AlertDialog.Builder adb = new AlertDialog.Builder(AddItemActivity.this);
@@ -126,7 +126,7 @@ public class AddItemActivity extends Activity
 		adb.setItems(categories, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog,int which){
-				TextView currency = (TextView) findViewById(R.id.editCurrency);
+				TextView currency = (TextView) findViewById(R.id.editCategory);
 				String selection = categories[which];
 				currency.setText(selection);
 			}

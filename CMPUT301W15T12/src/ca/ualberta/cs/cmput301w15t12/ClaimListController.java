@@ -38,6 +38,14 @@ public class ClaimListController{
 	public int size(){
 		return this.claimList.size();
 	}
+	//==================Stable Claim Getter/Setter==================
+	public void addTagToClaim(int claimId, String tag) throws AlreadyExistsException{
+		Claim tagetClaim = this.claimList.getClaim(claimId);
+		tagetClaim.addTag(tag);
+	}
+	public ArrayList<String> getTagListFromClaim(int claimId){
+		return this.claimList.getClaim(claimId).getTagList();
+	}
 	
 	//==================Filters==================
 	public ArrayList<Claim> filterByClaimant(User claimant) {
