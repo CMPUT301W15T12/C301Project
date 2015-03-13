@@ -63,22 +63,23 @@ public class ExpenseItemActivity extends Activity {
 //			}
 //		});
 
+		
 		//clickable button, if photo exists takes user to View photo page
-		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
-		viewbutton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v) {
-				if (!Item.getReceipt()){
-					Toast.makeText(ExpenseItemActivity.this, "No Photo", Toast.LENGTH_SHORT).show();
-				} else {
-					Intent intent = new Intent(ExpenseItemActivity.this,ViewPhotoActivity.class);
-					intent.putExtra("claim_id", id);
-					intent.putExtra("intem_index", index);
-					startActivity(intent);
-				}
-			}
-		});
+//		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
+//		viewbutton.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View v) {
+//				if (!Item.getReceipt()){
+//					Toast.makeText(ExpenseItemActivity.this, "No Photo", Toast.LENGTH_SHORT).show();
+//				} else {
+//					Intent intent = new Intent(ExpenseItemActivity.this,ViewPhotoActivity.class);
+//					intent.putExtra("claim_id", id);
+//					intent.putExtra("intem_index", index);
+//					startActivity(intent);
+//				}
+//			}
+//		});
 	}
 
 	@Override
@@ -147,22 +148,26 @@ public class ExpenseItemActivity extends Activity {
 	}
 	
 	public void deleteButton(View view){
-		AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
-		adb.setMessage("Delete "+Item.getName().toString()+"?");
-		adb.setCancelable(true);
-		adb.setPositiveButton("Delete", new OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which){
-				Claim.removeItem(index);
-				finish();
-			}
-		});
-		adb.setNegativeButton("Cancel",new OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which){
-			}
-		});
-		adb.show();
+		if (Claim.editable()){
+			AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
+			adb.setMessage("Delete "+Item.getName().toString()+"?");
+			adb.setCancelable(true);
+			adb.setPositiveButton("Delete", new OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog, int which){
+					Claim.removeItem(index);
+					finish();
+				}
+			});
+			adb.setNegativeButton("Cancel",new OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog, int which){
+				}
+			});
+			adb.show();
+		} else {
+			Toast.makeText(ExpenseItemActivity.this, "No edits allowed", Toast.LENGTH_LONG).show();
+		}
 	}
 
 }
