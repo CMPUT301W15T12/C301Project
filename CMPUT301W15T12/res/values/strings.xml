@@ -12,6 +12,7 @@
     <string name="Edit_Claim">Edit Claim</string>
     <string name="Submit_Claim">Submit Claim</string>
     <string name="Delete_Claim">Delete Claim</string>
+    <string name="new_destinations">Add New Destination</string>
     <string name="SeeComments">See Comments</string>
     <string name="Enter_Claim_Name">Enter Claim Name</string>
     <string name="Enter_Status">Enter Status</string>

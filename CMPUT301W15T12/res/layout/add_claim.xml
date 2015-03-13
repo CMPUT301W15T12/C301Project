@@ -56,26 +56,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/EnterEndDate"
+        android:layout_above="@+id/buttonsaveClaim"
         android:layout_marginTop="38dp"
         android:ems="10"
         android:hint="@string/tags"
         android:layout_weight=".5"
         android:focusableInTouchMode="false"
         android:onClick="onClickTags"
-        android:inputType="textMultiLine" />
-
-    <EditText
-        android:id="@+id/EnterDestinations"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonsaveClaim"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_weight=".5"
-        android:ems="10"
-        android:hint="@string/destinations"
-        android:onClick="onClickDestination"
-        android:focusableInTouchMode="false"
         android:inputType="textMultiLine" />
 
     <EditText
