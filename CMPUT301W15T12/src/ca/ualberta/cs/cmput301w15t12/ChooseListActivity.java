@@ -25,7 +25,7 @@ public class ChooseListActivity extends TabActivity
 		intentClaim.putExtra("username", username);
 		TabSpec tabSpecClaim = tabHost
 				.newTabSpec("Claim")
-				.setIndicator("Submitted Claims")
+				.setIndicator("Your Claims")
 				.setContent(intentClaim);
 
 		// Approver tab
@@ -33,7 +33,7 @@ public class ChooseListActivity extends TabActivity
 		intentApprover.putExtra("username", username);
 		TabSpec tabSpecApprover = tabHost
 				.newTabSpec("Approver")
-				.setIndicator("Your Claims")
+				.setIndicator("Submitted Claims")
 				.setContent(intentApprover);
 
 		tabHost.addTab(tabSpecClaim);
