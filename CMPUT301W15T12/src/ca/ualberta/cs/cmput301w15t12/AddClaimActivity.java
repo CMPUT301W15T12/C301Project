@@ -180,8 +180,20 @@ public class AddClaimActivity extends Activity
 		alertDialogBuilder.setView(promptView);
 
 		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTag);
-		
-		alertDialogBuilder.setCancelable(false);
+
+		alertDialogBuilder.setCancelable(false)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				tagsArrayList.add(editText.getText().toString());
+				user.addTag(editText.getText().toString());
+			}
+		})
+		.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
 		AlertDialog alert = alertDialogBuilder.create();
 		alert.show();
 	}
