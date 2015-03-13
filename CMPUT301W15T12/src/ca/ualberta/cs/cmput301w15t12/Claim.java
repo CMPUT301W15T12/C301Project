@@ -14,6 +14,7 @@ public class Claim {
 	static private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
 	private User Claimant;
+	private User approver;
 	private String comment;
 	private int id;
 	private String name;
@@ -23,7 +24,6 @@ public class Claim {
 	private String Status;
 
 	private ArrayList<Destination> destinations;
-	private ArrayList<String> approvers;
 	private ArrayList<ExpenseItem> expenseItems;
 	private ArrayList<String> tagList;
 	private ArrayList<Listener> listeners;
@@ -32,12 +32,12 @@ public class Claim {
 		this.comment = "";
 		this.name = name;
 		this.Claimant = Claimant;
+		this.approver = null;
 		this.Status = "In Progress";
 		this.startDate = startDate; 
 		this.endDate = endDate;
 		this.Description = description;
 		this.destinations = new ArrayList<Destination>();
-		this.approvers = new ArrayList<String>();
 		this.expenseItems = new ArrayList<ExpenseItem>();
 		this.tagList = new ArrayList<String>();
 		this.listeners = new ArrayList<Listener>();
@@ -45,25 +45,15 @@ public class Claim {
 	}
 
 	public void returnClaim(String name) throws CantApproveOwnClaimException {
-		if (name.equals(Claimant.getUserName())) {
-			throw new CantApproveOwnClaimException();
-		} else {
-			if (!approvers.contains(name)) {
-			}
-			approvers.add(name);
-		}
+		User user =  UserListController.getUserList().getUser(name);
+		setApprover(user);
 		setStatus("Returned");
 	}
 
 	public void approveClaim(String name) throws CantApproveOwnClaimException {
-		if (name.equals(Claimant.getUserName())) {
-			throw new CantApproveOwnClaimException();
-		} else {
-			if (!approvers.contains(name)) {
-				approvers.add(name);
-			}
-			setStatus("Approved");
-		}
+		User user =  UserListController.getUserList().getUser(name);
+		setApprover(user);
+		setStatus("Approved");
 	}
 
 	public boolean editable() {
@@ -90,7 +80,7 @@ public class Claim {
 	//All the toString functions
 	public String toStringApproverList() {
 		String ds= dateFormat.format(startDate);
-		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(approvers);
+		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+approver.getUserName();
 		return block;
 	}
 
@@ -154,19 +144,6 @@ public class Claim {
 	}
 	public boolean containsItem(ExpenseItem Item){
 		return expenseItems.contains(Item);	
-	}
-	public void addApprover(String name) throws AlreadyExistsException {
-		if(!approvers.contains(name)){
-			approvers.add(name);
-		} else {
-			throw new AlreadyExistsException();
-		}
-	}
-	public void removeApprover(String name) {
-		approvers.remove(name);
-	}
-	public boolean containsApprover(String Approver) {
-		return approvers.contains(Approver);
 	}
 	public void addDestination (Destination destination) throws AlreadyExistsException {
 		if (!destinations.contains(destination)){
@@ -255,11 +232,11 @@ public class Claim {
 	public void setDestination(ArrayList<Destination> destination) {
 		this.destinations = destination;
 	}
-	public ArrayList<String> getApprovers() {
-		return approvers;
+	public User getApprover() {
+		return approver;
 	}
-	public void setApprovers(ArrayList<String> apps) {
-		this.approvers = apps;
+	public void setApprover(User app) {
+		this.approver = app;
 	}
 	public ArrayList<String> getTagList(){
 		if (tagList == null){
