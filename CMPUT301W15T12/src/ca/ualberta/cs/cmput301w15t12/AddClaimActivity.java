@@ -34,6 +34,8 @@ public class AddClaimActivity extends Activity
     public ClaimListController CLC = new ClaimListController();
     public User user;
     public String Username;
+    public ArrayList tagsArrayList = new ArrayList();
+    public Integer id;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -100,10 +102,17 @@ public class AddClaimActivity extends Activity
 		description = editTextDescription.getText().toString();
 		
 		//create claim
-		CLC.addClaim(name, sdate, edate, description, this.user);
-		//TODO tags, destinations are added separately!
+		id = CLC.addClaim(name, sdate, edate, description, this.user);
 		
-		
+		//add Tag to Claim
+		for (int i = 0; i<  tagsArrayList.size(); i++){
+			try {
+				CLC.addTagToClaim(id, tagsArrayList.get(i).toString());
+			} catch (AlreadyExistsException e) {
+				e.printStackTrace();
+			}
+		}
+
 		//toast finished
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_SHORT);
@@ -120,6 +129,9 @@ public class AddClaimActivity extends Activity
 		return true;
 	}
 	
+	public void onClickDestination(View view){
+	}
+	
 	/**
 	 * @param view
 	 */
@@ -129,6 +141,7 @@ public class AddClaimActivity extends Activity
 		ArrayList<String> tags = this.user.getTagList();
 		String[] userTags = new String[tagList.size()];
 		userTags = (String[]) tagList.toArray(userTags);
+		final String[] finalUserTags = userTags;
 		builder.setTitle("Choose Tags");
 		builder.setMultiChoiceItems(userTags, null,
 				new DialogInterface.OnMultiChoiceClickListener() {
@@ -136,20 +149,24 @@ public class AddClaimActivity extends Activity
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 				if (isChecked) {
 					// If the user checked the item, add it to the selected items
-					tagList.add(which);
-				} else if (tagList.contains(which)) {
+					tagList.add(finalUserTags[which]);
+				} else if (tagList.contains(finalUserTags[which])) {
 					// Else, if the item is already in the array, remove it 
-					tagList.remove(Integer.valueOf(which));
+					tagList.remove(finalUserTags[which]);
 				}
 			}
 		});
-		builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton("Add New", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				// User clicked OK, so save the mSelectedItems results somewhere
-				// or return them to the component that opened the dialog
-				//need a controller function that can add tag
-				//CLC.getClaim().addTag();
+				
+			}
+			
+		});
+		builder.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				tagsArrayList.addAll(tagList);
 			}
 		});
 		builder.show();
