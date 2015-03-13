@@ -27,6 +27,7 @@ public class TabClaimActivity extends TabActivity
 			// Claim tab
 			Intent intentClaim = new Intent().setClass(this, AddClaimActivity.class);
 			intentClaim.putExtra("username", username);
+			intentClaim.putExtra("option", "Add");
 			TabSpec tabSpecClaim = tabHost
 					.newTabSpec("addClaim")
 					.setIndicator("Basic Info")
@@ -35,6 +36,7 @@ public class TabClaimActivity extends TabActivity
 			// Approver tab
 			Intent intentDestinations = new Intent().setClass(this, AddDestinationsActivity.class);
 			intentDestinations.putExtra("username", username);
+			intentDestinations.putExtra("option", "Add");
 			TabSpec tabSpecDestinations = tabHost
 					.newTabSpec("destinations")
 					.setIndicator("Destinations")
@@ -50,6 +52,7 @@ public class TabClaimActivity extends TabActivity
 			Intent intentClaim = new Intent().setClass(this, AddClaimActivity.class);
 			intentClaim.putExtra("username", username);
 			intentClaim.putExtra("claim_id", claim_id);
+			intentClaim.putExtra("option", "Edit");
 			TabSpec tabSpecClaim = tabHost
 					.newTabSpec("addClaim")
 					.setIndicator("Basic Info")
@@ -59,6 +62,7 @@ public class TabClaimActivity extends TabActivity
 			Intent intentDestinations = new Intent().setClass(this, AddDestinationsActivity.class);
 			intentDestinations.putExtra("username", username);
 			intentDestinations.putExtra("claim_id", claim_id);
+			intentDestinations.putExtra("option", "Edit");
 			TabSpec tabSpecDestinations = tabHost
 					.newTabSpec("destinations")
 					.setIndicator("Destinations")
