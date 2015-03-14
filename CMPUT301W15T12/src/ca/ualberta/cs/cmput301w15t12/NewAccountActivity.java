@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class NewAccountActivity extends Activity
 {
-
+	UserListController ULC;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -30,7 +30,7 @@ public class NewAccountActivity extends Activity
 				EditText username = (EditText) findViewById(R.id.editNewUserName);
 				try {
 					String un = username.getText().toString();
-					UserListController.getUserList().addUser(un);
+					ULC.addUser(un);
 					UserListController.saveUserList();
 					Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
 					intent.putExtra("username", un);

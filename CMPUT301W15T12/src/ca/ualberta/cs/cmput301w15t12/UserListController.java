@@ -42,15 +42,15 @@ public class UserListController
 	}
 	
 	public void addUser(String string) throws AlreadyExistsException {
-		getUserList().addUser(string);
+		getUserList().addUser(new User(string));
 	}
 	
 	public static void removeUser(String string){
 		getUserList().removeUser(string);
 	}
 
-	public static void editUserName(String string1, String string2) {
-		getUserList().editUserName(string1, string2);
+	public static void editUserName(User user, String string2) {
+		getUserList().editUserName(user, string2);
 		
 	}
 }

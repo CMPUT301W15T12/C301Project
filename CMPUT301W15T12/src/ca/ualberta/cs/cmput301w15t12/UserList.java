@@ -24,13 +24,11 @@ public class UserList implements Serializable
 		
 	}
 	//add user by string
-	public void addUser(String string) throws AlreadyExistsException{
-		for (int i = 0; i < users.size(); i++ ) {
-			if (users.get(i).getUserName().equals(string)) { 
-				throw new AlreadyExistsException();
-			}
-		}
-		users.add(new User(string));	
+	public void addUser(User user) throws AlreadyExistsException{
+		if (contains(user)) { 
+			throw new AlreadyExistsException();
+	}
+		users.add(user);	
 		notifyListeners();
 	}
 	
@@ -38,10 +36,10 @@ public class UserList implements Serializable
 		return users.size();
 	}
 	
-    public boolean contains(String string){
+    public boolean contains(User user){
     	boolean contains = false;
     	for (int i = 0; i < users.size(); i++ ) {
-			contains = users.get(i).getUserName().equals(string);
+			contains = users.get(i).getUserName().equals(user);
     	}
     	return contains;
     }
@@ -59,8 +57,8 @@ public class UserList implements Serializable
 		throw new RuntimeException();
 		}
 	
-	public void editUserName(String string1, String string2) {
-		users.get(users.indexOf(string1)).setUserName(string2);
+	public void editUserName(User user, String string2) {
+		users.get(users.indexOf(user)).setUserName(string2);
 		
 	}
 	public void removeUser(String string){
