@@ -41,13 +41,12 @@ public class UserList implements Serializable
 	}
 	
     public static boolean contains(String string){
-    	boolean contains = false;
     	for (int i = 0; i < users.size(); ++i){
 			if (users.get(i).getUserName() .equals(string)){
-				contains = true;
+				return true;
 			}
     	}
-    	return contains;
+    	return false;
     }
 	
 	public void remove(int i){
