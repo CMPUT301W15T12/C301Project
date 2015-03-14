@@ -2,7 +2,7 @@
 A travel app that allows users to maintain, sort, and manage travel claims and expense items for themselves, submit them for approval to other users, and in turn evaluate claims that are awaiting approval.
 
 ##License
-Copyright 2015[Team Name??]
+Copyright 2015[CMPUT301W15T12]
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
