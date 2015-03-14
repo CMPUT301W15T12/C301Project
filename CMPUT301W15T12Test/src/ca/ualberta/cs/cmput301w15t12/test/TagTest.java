@@ -1,4 +1,4 @@
-package ca.ualberta.cs.cmput301w15t12.test;
+/*package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.ArrayList;
 
@@ -89,3 +89,4 @@ public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> 
 		assertTrue("not there any more????", activity.getTagList(claim).size() == not_there-1);
 	}
 }
+*/

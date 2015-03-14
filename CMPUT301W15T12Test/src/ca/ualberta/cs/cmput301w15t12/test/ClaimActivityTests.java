@@ -1,4 +1,4 @@
-package ca.ualberta.cs.cmput301w15t12.test;
+/*package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.Date;
 
@@ -191,5 +191,5 @@ public class ClaimActivityTests extends
 		assertTrue("Not the right approver", claim.getApprovers().equals(approver));
 		assertTrue("Comment is not correct", claim.getComment().matches(comment));
 	}
-}
+}*/
 

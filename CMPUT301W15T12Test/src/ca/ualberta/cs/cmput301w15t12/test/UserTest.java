@@ -15,10 +15,9 @@ public class UserTest extends TestCase {
 	}
 	
 	public void testNewUser() throws AlreadyExistsException{
-		
 		UserListController usrc = new UserListController();
 		usrc.addUser("user1");
-		assertTrue("Userlist not containing corrent number of users", UserListController.getUserList().size() == 1);
+		//assertTrue("Userlist not containing corrent number of users", usrc.contains("user1"));
 		assertTrue("wrong number", UserListController.getUserList().size() > 0);
 		assertTrue("not correct user", UserListController.getUserList().contains("user1"));
 	}

@@ -25,21 +25,27 @@ public class UserList implements Serializable
 	}
 	//add user by string
 	public void addUser(User user) throws AlreadyExistsException{
-		if (contains(user)) { 
+		if (haveUser(user)) { 
 			throw new AlreadyExistsException();
 	}
 		users.add(user);	
 		notifyListeners();
 	}
 	
+	public static boolean haveUser(User user){
+		return users.contains(user);
+	}
+	
 	public int size() {
 		return users.size();
 	}
 	
-    public boolean contains(User user){
+    public static boolean contains(String string){
     	boolean contains = false;
-    	for (int i = 0; i < users.size(); i++ ) {
-			contains = users.get(i).getUserName().equals(user);
+    	for (int i = 0; i < users.size(); ++i){
+			if (users.get(i).getUserName() .equals(string)){
+				contains = true;
+			}
     	}
     	return contains;
     }
@@ -51,22 +57,27 @@ public class UserList implements Serializable
 	
 	public User getUser(String username) {
 		for (int i = 0; i < users.size(); ++i){
-			if (users.get(i).getUserName() .equals(username));
+			if (users.get(i).getUserName() .equals(username)){
 			return users.get(i);
+			}
 		}
 		throw new RuntimeException();
 		}
 	
-	public void editUserName(User user, String string2) {
-		users.get(users.indexOf(user)).setUserName(string2);
-		
-	}
-	public void removeUser(String string){
+	public void editUserName(String user, String string2) {
 		for (int i = 0; i < users.size(); ++i){
-			if (users.get(i).getUserName() .equals(string)){
-				users.remove(i);
+			if (users.get(i).getUserName() .equals(user)){
+				users.get(i).setUserName(string2);
 			}
 		}
+		
+	}
+	public void removeUser(String user_name){
+		for (int i = 0; i < users.size(); ++i){
+			if (users.get(i).getUserName() .equals(user_name)){
+			users.remove(users.get(i));
+			}
+			}
 		}
 	
 	public ArrayList<User> getUsers() {

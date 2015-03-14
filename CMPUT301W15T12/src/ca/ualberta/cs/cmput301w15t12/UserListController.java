@@ -9,7 +9,9 @@ public class UserListController
 
 	static public UserList getUserList() {
 		if (userlist == null) {
-			try {
+			userlist = new UserList();
+		}
+			/*try {
 				userlist = UserListManager.getManager().loadUserList();
 				userlist.addListener(new Listener() {
 					@Override
@@ -25,7 +27,7 @@ public class UserListController
 				e.printStackTrace();
 				throw new RuntimeException("Could not deserialize UserList from UserListManager");
 			}
-		}
+		}*/
 		return userlist;
 	}
 
@@ -45,12 +47,20 @@ public class UserListController
 		getUserList().addUser(new User(string));
 	}
 	
-	public static void removeUser(String string){
-		getUserList().removeUser(string);
+	public static void removeUser(String user){
+		getUserList().removeUser(user);
 	}
 
-	public static void editUserName(User user, String string2) {
+	public static void editUserName(String user, String string2) {
 		getUserList().editUserName(user, string2);
 		
+	}
+	
+	public boolean containsUser(User user){
+		return UserList.haveUser(user);
+	}
+	
+	public boolean contains(String user){
+		return UserList.contains(user);
 	}
 }

@@ -1,4 +1,4 @@
-package ca.ualberta.cs.cmput301w15t12.test;
+/*package ca.ualberta.cs.cmput301w15t12.test;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.User;
@@ -30,3 +30,4 @@ public class LoginTests extends TestCase
 		assertTrue("Can retrieve accounts", UserListController.getUserList().getUsers().contains(user));
 	}
 }
+*/
