@@ -22,9 +22,13 @@ public class UserTest extends TestCase {
 		assertTrue("not correct user", UserListController.getUserList().contains("user1"));
 	}
 	
-	public void testDeleteUser(){
-		UserListController.removeUser("user1");
+	public void testDeleteUser() throws AlreadyExistsException{
+		UserListController usrc = new UserListController();
+		usrc.addUser("usertodelete");
+		assertTrue("fail add", usrc.contains("usertodelete"));
+		UserListController.removeUser("usertodelete");
 		assertTrue("removed the only user",UserListController.getUserList().size() == 0);
+		assertFalse("deleted the user.", usrc.contains("usertodelete"));
 		assertTrue("incorrect userList size", UserListController.getUserList().size() <1);
 	}
 	
