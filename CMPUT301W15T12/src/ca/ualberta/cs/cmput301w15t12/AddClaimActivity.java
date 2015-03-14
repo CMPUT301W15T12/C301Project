@@ -1,3 +1,23 @@
+/**
+ * This  Activity allows a user to add or edit a given claim
+ * 
+ *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
+ *   licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *   
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *   @author vanbelle
+*/
+
+
+
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.ParseException;
@@ -11,11 +31,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +55,10 @@ public class AddClaimActivity extends Activity
     public ClaimListController CLC = new ClaimListController();
     public User user;
     public String Username;
+    public ArrayList tagsArrayList = new ArrayList();
+    public Integer id;
+    public Claim claim;
+	final Destination destination = new Destination();
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -46,13 +71,7 @@ public class AddClaimActivity extends Activity
 		
 		//username of user passed along from list choice activity
 		Username = getIntent().getExtras().getString("username");
-		
-		//gets the use corresponding to the UserName
-		for (int i = 0; i < UserListController.getUserList().size(); i++) {
-			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
-				user = UserListController.getUserList().get(i);
-			}
-		}
+		final String option = getIntent().getExtras().getString("option");
 		
 		//initializes the date fields
 		startDate = (EditText) findViewById(R.id.EnterStartDate);
@@ -61,6 +80,21 @@ public class AddClaimActivity extends Activity
 		startDate.setInputType(InputType.TYPE_NULL);
 		setDateTimeField();
 		
+		if (option.equals("Edit")){
+			int id = getIntent().getIntExtra("claim_id",1000000);
+			claim = CLC.getClaim(id);
+			//TODO fill in existing fields
+			
+		}
+		
+		//gets the user corresponding to the UserName
+		for (int i = 0; i < UserListController.getUserList().size(); i++) {
+			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
+				user = UserListController.getUserList().get(i);
+			}
+		}
+
+		
 		//clickable button creates claim and takes the user back to the claim list page
 		Button donebutton = (Button) findViewById(R.id.buttonsaveClaim);
 		donebutton.setOnClickListener(new View.OnClickListener()
@@ -68,14 +102,71 @@ public class AddClaimActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				try {
-					addClaim();
+					if (option.equals("Add")){
+						addClaim();
+					} else {
+						editClaim(); 
+					}
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				finish();			}
 		});
 		
+	}
+	
+	public void editClaim() {
+		String status = claim.getStatus();
+    	Context context = this.getApplicationContext();
+
+		//edit Claim
+		if (claim.editable()){
+			Claim prevClaim = claim;
+			
+	    	String name = new String();
+	    	Date startDate = new Date();
+	    	Date endDate = new Date();
+	    	String description = new String();
+	    	
+	    	EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
+	    	EditText editTextStartDate = (EditText) findViewById(R.id.EnterStartDate);
+	    	EditText editTextEndDate = (EditText) findViewById(R.id.EnterEndDate);
+	    	EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);	    	
+	    	
+	    	////Shouldn't Use this method - We would lose any existing expense items, comments, or approvers!!
+//	    	//Convert XML to String
+//	    	name = editTextName.getText().toString();
+//	    	//startDate = editTextStartDate.getDate().toString();
+//	    	//endDate = editTextEndDate.getText().toString();
+//	    	description = editTextDescription.getText().toString();
+//
+//	    	if (name.equals("")){
+//	    		name = prevClaim.getName();
+//	    	}
+//	    	if (startDate.equals("")){
+//	    		startDate = prevClaim.getStartDate();
+//	    	}
+//	    	if (endDate.equals("")){
+//	    		endDate = prevClaim.getEndDate();
+//	    	}
+//	    	claimController.addClaim(name, startDate, endDate, description, this.user);
+//			claimController.removeClaim(positionClaim);
+			
+	    	String toastText = "Claim Updated";
+	    	Toast toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
+	    	toast.show();	
+		}
+		
+		//TOAST http://developer.android.com/guide/topics/ui/notifiers/toasts.html
+		//Can't edit Claim
+		else {
+			CharSequence text = "No edits allowed";
+			int duration = Toast.LENGTH_LONG;
+			
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+			
+		}	
 	}
 	
 	public void addClaim() throws ParseException  {
@@ -100,10 +191,17 @@ public class AddClaimActivity extends Activity
 		description = editTextDescription.getText().toString();
 		
 		//create claim
-		CLC.addClaim(name, sdate, edate, description, this.user);
-		//TODO tags, destinations are added separately!
+		id = CLC.addClaim(name, sdate, edate, description, this.user);
 		
-		
+		//add Tag to Claim
+		for (int i = 0; i<  tagsArrayList.size(); i++){
+			try {
+				CLC.addTagToClaim(id, tagsArrayList.get(i).toString());
+			} catch (AlreadyExistsException e) {
+				e.printStackTrace();
+			}
+		}
+
 		//toast finished
 		toastText = "Claim Saved.";
 		toast = Toast.makeText(context,toastText, Toast.LENGTH_SHORT);
@@ -120,15 +218,38 @@ public class AddClaimActivity extends Activity
 		return true;
 	}
 	
-	/**
+//	public void onClickDestination(View view){
+//		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
+//		builder.setTitle("Add Destination");
+//		LayoutInflater inflater = LayoutInflater.from(AddClaimActivity.this);
+//		View promptView = inflater.inflate(R.layout.destination_dialog, null);
+//		builder.setView(promptView);
+//		final EditText editTextDestination = (EditText) promptView.findViewById(R.id.editTextDestination);
+//		final EditText editTextDescription = (EditText) promptView.findViewById(R.id.editTextDescription);
+//		builder.setCancelable(false)
+//			.setPositiveButton("Save", new DialogInterface.OnClickListener(){
+//				@Override
+//				public void onClick(DialogInterface dialog, int id){
+//					destination.setDestination(editTextDestination.getText().toString());
+//					destination.setDescription(editTextDescription.getText().toString());
+//				}
+//			})
+//			.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+//				public void onClick(DialogInterface dialog, int id){
+//				}
+//			});
+//	}
+	
+	
+	/** 
 	 * @param view
 	 */
 	public void onClickTags(View view){
-		final ArrayList tagList = new ArrayList();
+		final ArrayList<String> tagList = new ArrayList<String>();
 		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
-		ArrayList<String> tags = this.user.getTagList();
 		String[] userTags = new String[tagList.size()];
 		userTags = (String[]) tagList.toArray(userTags);
+		final String[] finalUserTags = userTags;
 		builder.setTitle("Choose Tags");
 		builder.setMultiChoiceItems(userTags, null,
 				new DialogInterface.OnMultiChoiceClickListener() {
@@ -136,27 +257,54 @@ public class AddClaimActivity extends Activity
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 				if (isChecked) {
 					// If the user checked the item, add it to the selected items
-					tagList.add(which);
-				} else if (tagList.contains(which)) {
+					tagList.add(finalUserTags[which]);
+				} else if (tagList.contains(finalUserTags[which])) {
 					// Else, if the item is already in the array, remove it 
-					tagList.remove(Integer.valueOf(which));
+					tagList.remove(finalUserTags[which]);
 				}
 			}
 		});
-		builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton("Add New", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				// User clicked OK, so save the mSelectedItems results somewhere
-				// or return them to the component that opened the dialog
-				//need a controller function that can add tag
-				//CLC.getClaim().addTag();
+				addTagDialog();
+			}
+			
+		});
+		builder.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				tagsArrayList.addAll(tagList);
 			}
 		});
 		builder.show();
 
 	}
 
+	protected void addTagDialog(){
+		LayoutInflater layoutInflater = LayoutInflater.from(AddClaimActivity.this);
+		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddClaimActivity.this);
+		alertDialogBuilder.setView(promptView);
 
+		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTag);
+
+		alertDialogBuilder.setCancelable(false)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				tagsArrayList.add(editText.getText().toString());
+				user.addTag(editText.getText().toString());
+			}
+		})
+		.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = alertDialogBuilder.create();
+		alert.show();
+	}
 	
 	
 	

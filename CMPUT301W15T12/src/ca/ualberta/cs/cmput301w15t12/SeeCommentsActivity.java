@@ -33,7 +33,7 @@ public class SeeCommentsActivity extends Activity
 		
 		//sets text fields
 		Comments.setText(claim.getComment());
-		Approvers.setText(claim.toStringList(claim.getApprovers()));
+		Approvers.setText(claim.getApprover().getUserName());
 		
 		Button doneBtn = (Button) findViewById(R.id.buttonSeeCommentsDone);
 		doneBtn.setOnClickListener(new View.OnClickListener() {

@@ -29,7 +29,6 @@
         android:layout_above="@+id/buttonSeeCommentsDone"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textComments"
         android:gravity="left"
         android:text="@string/approvers" />
 

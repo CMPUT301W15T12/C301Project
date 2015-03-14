@@ -1,11 +1,15 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.test.ActivityInstrumentationTestCase2;
+import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
+import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.User;
 
 
@@ -50,6 +54,50 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		Claim claim = new Claim(oldName,  startDate, endDate, description,user,id);
 		claim.setName(newName);
 		assertEquals("Name is not updated", newName, claim.getName());
+	}
+	
+	public void testAddExpenseItemToClaim(){
+		String name = "my expense";
+		String category = "hotel";
+		String description = "description";
+		String currency = "CAD";
+		BigDecimal amount = new BigDecimal(10.0);
+		Date date = new GregorianCalendar().getTime(); //Default to now when no input is supplied
+
+		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
+		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim"),0);
+		
+		try {
+			claim.addItem(expenseItem);
+			assertTrue("Wrong number of expenseItem returned",claim.getExpenseItems().size()==1);
+		} catch (AlreadyExistsException e) {
+			fail("Expense already exist. This should not happend with the current testing data");
+		}
+	}
+	
+	public void testGetTotal(){
+		String name = "my expense";
+		String category = "hotel";
+		String description = "description";
+		String currency = "CAD";
+		BigDecimal amount = new BigDecimal(10);
+		Date date = new GregorianCalendar().getTime(); //Default to now when no input is supplied
+
+		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
+		ExpenseItem expenseItem2 = new ExpenseItem("TEST",category, description, currency, amount, date);
+
+		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim"),0);
+		
+		try {
+			claim.addItem(expenseItem);
+			claim.addItem(expenseItem2);
+		} catch (AlreadyExistsException e) {
+			fail("Expense already exist. This should not happend with the current testing data");
+		}
+		
+		assertTrue("Wrong total amount returned",claim.getTotal().size()==1);
+		assertEquals("Wrong sum value",claim.getTotal().get(0),"20 CAD\n");
+
 	}
 	
 	//US01.06.01 - entered information to be remembered, so that I do not lose data

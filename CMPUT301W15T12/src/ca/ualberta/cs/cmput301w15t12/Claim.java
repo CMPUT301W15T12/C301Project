@@ -1,3 +1,22 @@
+/**
+ * This data model models all the behaviour relating to a particular claim, 
+ * and stores information regardng expense items, tags, and destinations.
+ * 
+ *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
+ *   licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *   
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *   @author vanbelle
+*/
+
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.math.BigDecimal;
@@ -5,6 +24,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -14,6 +34,7 @@ public class Claim {
 	static private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
 	private User Claimant;
+	private User approver;
 	private String comment;
 	private int id;
 	private String name;
@@ -23,7 +44,6 @@ public class Claim {
 	private String Status;
 
 	private ArrayList<Destination> destinations;
-	private ArrayList<String> approvers;
 	private ArrayList<ExpenseItem> expenseItems;
 	private ArrayList<String> tagList;
 	private ArrayList<Listener> listeners;
@@ -32,38 +52,34 @@ public class Claim {
 		this.comment = "";
 		this.name = name;
 		this.Claimant = Claimant;
+		this.approver = null;
 		this.Status = "In Progress";
 		this.startDate = startDate; 
 		this.endDate = endDate;
 		this.Description = description;
 		this.destinations = new ArrayList<Destination>();
-		this.approvers = new ArrayList<String>();
 		this.expenseItems = new ArrayList<ExpenseItem>();
 		this.tagList = new ArrayList<String>();
 		this.listeners = new ArrayList<Listener>();
 		this.id = id;
 	}
 
-	public void returnClaim(String name) throws CantApproveOwnClaimException {
-		if (name.equals(Claimant.getUserName())) {
-			throw new CantApproveOwnClaimException();
-		} else {
-			if (!approvers.contains(name)) {
-			}
-			approvers.add(name);
+	public void returnClaim(String name) throws Exception {
+		if (Claimant.getUserName().equals(name)) {
+			throw new Exception();
 		}
+		User user =  UserListController.getUserList().getUser(name);
+		setApprover(user);
 		setStatus("Returned");
 	}
 
-	public void approveClaim(String name) throws CantApproveOwnClaimException {
-		if (name.equals(Claimant.getUserName())) {
-			throw new CantApproveOwnClaimException();
-		} else {
-			if (!approvers.contains(name)) {
-				approvers.add(name);
-			}
-			setStatus("Approved");
+	public void approveClaim(String name) throws Exception {
+		if (Claimant.getUserName().equals(name)) {
+			throw new Exception();
 		}
+		User user =  UserListController.getUserList().getUser(name);
+		setApprover(user);
+		setStatus("Approved");
 	}
 
 	public boolean editable() {
@@ -90,13 +106,29 @@ public class Claim {
 	//All the toString functions
 	public String toStringApproverList() {
 		String ds= dateFormat.format(startDate);
-		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(approvers);
+		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status;
+		if(!(getTotal().size() == 0)) {
+			block += "\n"+toStringList(getTotal());
+		}
+		if(!(destinations.size() == 0)) {
+			block += "\n"+destinationsToString();
+		}
+		if (!(approver == null)) {
+			block += "\n"+approver.getUserName();
+		}
 		return block;
 	}
 
 	public String toStringClaimantList() {
 		String ds = dateFormat.format(startDate);
-		String block = "["+ds+"] "+name+" - "+Status+"\n"+toStringList(getTotal())+"\n"+destinationsToString()+"\n"+toStringList(tagList);
+		String block = "["+ds+"] "+name+" - "+Status;
+		if(!(getTotal().size() == 0)) {
+			block += "\n"+toStringList(getTotal());
+		} if(!(destinations.size() == 0)) {
+			block += "\n"+destinationsToString();
+		} if (!(tagList.size() == 0)) {
+			block += "\n"+toStringList(tagList);
+		}
 		return block;
 	}
 	public String destinationsToString() {
@@ -154,19 +186,6 @@ public class Claim {
 	}
 	public boolean containsItem(ExpenseItem Item){
 		return expenseItems.contains(Item);	
-	}
-	public void addApprover(String name) throws AlreadyExistsException {
-		if(!approvers.contains(name)){
-			approvers.add(name);
-		} else {
-			throw new AlreadyExistsException();
-		}
-	}
-	public void removeApprover(String name) {
-		approvers.remove(name);
-	}
-	public boolean containsApprover(String Approver) {
-		return approvers.contains(Approver);
 	}
 	public void addDestination (Destination destination) throws AlreadyExistsException {
 		if (!destinations.contains(destination)){
@@ -255,11 +274,11 @@ public class Claim {
 	public void setDestination(ArrayList<Destination> destination) {
 		this.destinations = destination;
 	}
-	public ArrayList<String> getApprovers() {
-		return approvers;
+	public User getApprover() {
+		return approver;
 	}
-	public void setApprovers(ArrayList<String> apps) {
-		this.approvers = apps;
+	public void setApprover(User app) {
+		this.approver = app;
 	}
 	public ArrayList<String> getTagList(){
 		if (tagList == null){
@@ -269,54 +288,24 @@ public class Claim {
 	}
 	//gets the total
 	public ArrayList<String> getTotal() {
-		BigDecimal zero = new BigDecimal(0);
-		BigDecimal cad = new BigDecimal(0);
-		BigDecimal usd = new BigDecimal(0);
-		BigDecimal eur = new BigDecimal(0);
-		BigDecimal gbp = new BigDecimal(0);
-		BigDecimal chf = new BigDecimal(0);
-		BigDecimal jpy = new BigDecimal(0);
-		BigDecimal cny = new BigDecimal(0);
-		ArrayList<String> total = new ArrayList<String>();
-		for (int i = 0; i < expenseItems.size(); i++) {
-			if(expenseItems.get(i).getCurrency().equals("CAD")) {
-				cad.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("USD")) {
-				usd.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("EUR")) {
-				eur.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("GBP")) {
-				gbp.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("CHF")) {
-				chf.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("JPY")) {
-				jpy.add(expenseItems.get(i).getAmount());
-			} else {
-				cny.add(expenseItems.get(i).getAmount());
-			}
+		HashMap <String,BigDecimal> costDictionary = new HashMap<String, BigDecimal>();
+		ArrayList<String> formatedStringList = new ArrayList<String>();
+		for (int i=0; i<this.expenseItems.size();i++){
+			ExpenseItem expense = expenseItems.get(i);
+			String currency = expense.getCurrency();
+			
+			if (costDictionary.containsKey(currency)){	//there is already an item with the same currency
+				costDictionary.put(currency,costDictionary.get(currency).add(expense.getAmount()));
+			}else{
+				costDictionary.put(currency,expense.getAmount());
+			}	
 		}
-		if (!cad.equals(zero)){
-			total.add(cad.toString()+" "+"CAD"+"\n");
+		
+		for (String currency : costDictionary.keySet()) {
+			BigDecimal amount = costDictionary.get(currency);
+			formatedStringList.add(amount.toString()+" "+currency+"\n");
 		}
-		if (!usd.equals(zero)){
-			total.add(usd.toString()+" "+"USD"+"\n");
-		}
-		if (!eur.equals(zero)){
-			total.add(eur.toString()+" "+"EUR"+"\n");
-		}
-		if (!gbp.equals(zero)){
-			total.add(gbp.toString()+" "+"GBP"+"\n");
-		}
-		if (!chf.equals(zero)){
-			total.add(chf.toString()+" "+"CHF"+"\n");
-		}
-		if (!jpy.equals(zero)){
-			total.add(jpy.toString()+" "+"JPY"+"\n");
-		}
-		if (!cny.equals(zero)){
-			total.add(cny.toString()+" "+"CNY"+"\n");
-		}
-		return total;
+		return formatedStringList;
 	}
 	//end getters and setters
 

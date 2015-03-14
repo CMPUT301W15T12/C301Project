@@ -10,7 +10,7 @@
 *.class
 
 # Generated files
-bin/
+bin/  
 gen/
 
 # Gradle files

@@ -1,3 +1,22 @@
+/**
+ * This  Activity displays a submitted claim which a reviewer can inspect, 
+ * add comments to, return, or approve. 
+ * 
+ *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
+ *   licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *   
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *   @author vanbelle
+*/
+
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.DateFormat;
@@ -42,7 +61,6 @@ public class ApproverClaimActivity extends Activity {
 
 		//initialize approver variable
 		approver = getIntent().getExtras().getString("username");
-		Toast.makeText(this, approver, Toast.LENGTH_SHORT).show();
 
 		//return claim button, asks for confirmation then returns
 		Button commentBtn = (Button) findViewById(R.id.buttonAddComment);
@@ -67,21 +85,18 @@ public class ApproverClaimActivity extends Activity {
 				if (approver.equals(Claim.getClaimant().getUserName())){
 					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
 				} else {
-
 					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
 					adb.setMessage("Approve this Claim?");
 					adb.setCancelable(true);
 					adb.setPositiveButton("Approve", new OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							try
-							{
+							try{
 								Claim.approveClaim(approver);
-								finish();
-							} catch (CantApproveOwnClaimException e)
-							{
+							} catch (Exception e){
 								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
 							}
+							finish();
 						}
 					});
 					adb.setNegativeButton("Cancel", new OnClickListener() {
@@ -106,14 +121,12 @@ public class ApproverClaimActivity extends Activity {
 					adb.setPositiveButton("Return", new OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							try
-							{
+							try {
 								Claim.returnClaim(approver);
-								finish();
-							} catch (CantApproveOwnClaimException e)
-							{
-								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Return Own Claim", Toast.LENGTH_LONG).show();
+							} catch (Exception e) {
+								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
 							}
+							finish();
 						}
 					});
 					adb.setNegativeButton("Cancel", new OnClickListener() {

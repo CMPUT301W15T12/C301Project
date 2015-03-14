@@ -1,8 +1,17 @@
+/* EditItemActivity is responsible for allowing a selected expense item to be edited.
+ * It displays the current information about the expense item, and allows changes to be made.
+ * A user may then accept their changes and the expense item is updated.
+ */
+
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Date;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -11,6 +20,7 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
@@ -18,12 +28,17 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditItemActivity extends Activity
 {
     private EditText Date;
     private DatePickerDialog DatePickerDialog;
     private SimpleDateFormat df =new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+    private int expenseItemId;
+    private ExpenseItem expenseItem;
+    private int claimIndex;
+    private Claim claim;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -39,6 +54,69 @@ public class EditItemActivity extends Activity
 		
         setDateTimeField();
         
+		Intent intent = getIntent();
+		expenseItemId = intent.getIntExtra("item_index", 0);
+		claimIndex = intent.getIntExtra("claim_id", 0);
+		ClaimListController clc = new ClaimListController();
+		expenseItem = clc.getClaim(claimIndex).getExpenseItems().get(expenseItemId);
+		claim = clc.getClaim(claimIndex);
+        
+        
+		//clickable button creates Item and takes the user back to the claim list page
+		Button donebutton = (Button) findViewById(R.id.buttonEditItemDone);
+		donebutton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v) {
+		        EditText editName = (EditText) findViewById(R.id.editItemName );
+				EditText editCategory = (EditText) findViewById(R.id.editCategory);
+				EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
+				EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
+				EditText editAmount = (EditText) findViewById(R.id.editAmount);
+				EditText editDate = (EditText) findViewById(R.id.editItemDate);
+				
+				String name = editName.getText().toString();
+				String category = editCategory.getText().toString();
+				String description = editDescription.getText().toString();
+				String currency = editCurrency.getText().toString();
+				String amount = editAmount.getText().toString();
+				String date = editDate.getText().toString();
+				
+				Date dfDate = null;
+				try {
+					dfDate = df.parse(date);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				DecimalFormat deF = new DecimalFormat("0.00");
+				deF.setParseBigDecimal(true);
+				BigDecimal bdAmount = null;
+				try {
+					bdAmount = (BigDecimal) deF.parse(amount);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				ExpenseItem ei = new ExpenseItem(name,category, description, currency, bdAmount, dfDate);
+				try {
+					editItem(ei);
+				} catch (AlreadyExistsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				finish();
+			}
+		});
+		
+	}
+	
+	@Override
+	//will this affect the dialogs? - instead be in onCreate?
+	public void onResume(){
+		super.onResume();
+		
         //set fields to claim details
         EditText editName = (EditText) findViewById(R.id.editItemName );
 		EditText editCategory = (EditText) findViewById(R.id.editCategory);
@@ -47,30 +125,23 @@ public class EditItemActivity extends Activity
 		EditText editAmount = (EditText) findViewById(R.id.editAmount);
 		EditText editDate = (EditText) findViewById(R.id.editItemDate);
 		
+		editName.requestFocus();
 		
-		//keep index, delete and create new item and then insert at that index.
-//		editName.setText(text);
-//		editCategory.setText(text);
-//		editDescription.setText(text);
-//		editCurrency.setText(text);
-//		editAmount.setText(text);
-//		editDate.setText(text);
-        
-		//clickable button creates Item and takes the user back to the claim list page
-		Button donebutton = (Button) findViewById(R.id.buttonEditItemDone);
-		donebutton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v) {
-				editItem();
-				finish();
-			}
-		});
-		
+		editName.setText(expenseItem.getName());
+		editCategory.setText(expenseItem.getCategory());
+		editDescription.setText(expenseItem.getDescription());
+		editCurrency.setText(expenseItem.getCurrency());	
+		editAmount.setText(expenseItem.getAmount().toString());
+		editDate.setText(df.format(expenseItem.getDate()));
 	}
 	
-	public void editItem() {
-		//TODO
+	public void editItem(ExpenseItem ei) throws AlreadyExistsException {
+		//TODO keep index, delete and create new item and then insert at that index.
+		//pass on index and attributes
+		//need a function to add at an index
+		Toast.makeText(EditItemActivity.this, "here", Toast.LENGTH_SHORT).show();
+		claim.addItem(ei);
+		claim.removeItem(expenseItemId);
 	}
 	
 	@Override
