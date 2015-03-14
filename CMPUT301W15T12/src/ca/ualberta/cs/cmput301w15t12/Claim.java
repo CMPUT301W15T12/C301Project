@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -287,54 +288,24 @@ public class Claim {
 	}
 	//gets the total
 	public ArrayList<String> getTotal() {
-		BigDecimal zero = new BigDecimal(0);
-		BigDecimal cad = new BigDecimal(0);
-		BigDecimal usd = new BigDecimal(0);
-		BigDecimal eur = new BigDecimal(0);
-		BigDecimal gbp = new BigDecimal(0);
-		BigDecimal chf = new BigDecimal(0);
-		BigDecimal jpy = new BigDecimal(0);
-		BigDecimal cny = new BigDecimal(0);
-		ArrayList<String> total = new ArrayList<String>();
-		for (int i = 0; i < expenseItems.size(); i++) {
-			if(expenseItems.get(i).getCurrency().equals("CAD")) {
-				cad.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("USD")) {
-				usd.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("EUR")) {
-				eur.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("GBP")) {
-				gbp.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("CHF")) {
-				chf.add(expenseItems.get(i).getAmount());
-			} else if (expenseItems.get(i).getCurrency().equals("JPY")) {
-				jpy.add(expenseItems.get(i).getAmount());
-			} else {
-				cny.add(expenseItems.get(i).getAmount());
-			}
+		HashMap <String,BigDecimal> costDictionary = new HashMap<String, BigDecimal>();
+		ArrayList<String> formatedStringList = new ArrayList<String>();
+		for (int i=0; i<this.expenseItems.size();i++){
+			ExpenseItem expense = expenseItems.get(i);
+			String currency = expense.getCurrency();
+			
+			if (costDictionary.containsKey(currency)){	//there is already an item with the same currency
+				costDictionary.put(currency,costDictionary.get(currency).add(expense.getAmount()));
+			}else{
+				costDictionary.put(currency,expense.getAmount());
+			}	
 		}
-		if (!cad.equals(zero)){
-			total.add(cad.toString()+" "+"CAD"+"\n");
+		
+		for (String currency : costDictionary.keySet()) {
+			BigDecimal amount = costDictionary.get(currency);
+			formatedStringList.add(amount.toString()+" "+currency+"\n");
 		}
-		if (!usd.equals(zero)){
-			total.add(usd.toString()+" "+"USD"+"\n");
-		}
-		if (!eur.equals(zero)){
-			total.add(eur.toString()+" "+"EUR"+"\n");
-		}
-		if (!gbp.equals(zero)){
-			total.add(gbp.toString()+" "+"GBP"+"\n");
-		}
-		if (!chf.equals(zero)){
-			total.add(chf.toString()+" "+"CHF"+"\n");
-		}
-		if (!jpy.equals(zero)){
-			total.add(jpy.toString()+" "+"JPY"+"\n");
-		}
-		if (!cny.equals(zero)){
-			total.add(cny.toString()+" "+"CNY"+"\n");
-		}
-		return total;
+		return formatedStringList;
 	}
 	//end getters and setters
 
