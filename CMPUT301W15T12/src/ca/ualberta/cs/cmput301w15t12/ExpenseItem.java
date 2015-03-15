@@ -19,9 +19,7 @@ public class ExpenseItem implements Serializable{
 	private BigDecimal Amount;
 	private String Currency;
 	private Date date;
-	private boolean flag;
 	private boolean receipt;
-	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	
 	public ExpenseItem(String name,String category, String description, String currency, 
 			BigDecimal amount, Date date){
@@ -31,23 +29,19 @@ public class ExpenseItem implements Serializable{
 		this.Amount = amount;
 		this.Currency = currency;
 		this.date = date;
-		this.flag = false;
 		this.receipt = false;
 	}
 	
-	public void incomplete() {
-		if (name == null || category == null || description == null || Amount == null || Currency == null || date == null){
-			flag = true;
-		}
-	}
-	
+	/*
+	~~~ Should probably be in the controller ~~~
 	//for printing the list of expense items
 	public String toStringList() {
 		String d = df.format(date);
 		String block = "["+d+"] "+name+"\n"+category+" - "+Amount+" "+Currency+"\n"+description;
 		return block;
 	}
-	
+
+
 	public String toEmail() {
 		String ds = df.format(date);
 		String string = name+"\n";
@@ -55,10 +49,13 @@ public class ExpenseItem implements Serializable{
 		string += ds+"\n"+toACString()+"\n";
 		return string;
 	}
+
+	
 	//returns string format of Amount and Currency --> for printing the total List
 	public String toACString() {
 		return Amount.toString()+" "+this.Currency;
 	}
+	*/ 
 	
 	//getters and setters for the attributes
 	public boolean getReceipt(){
@@ -90,12 +87,6 @@ public class ExpenseItem implements Serializable{
 	}
 	public void setDate(Date date) {
 		this.date = date;
-	}
-	public boolean getFlag() {
-		return flag;
-	}
-	public void setFlag(boolean flag) {
-		this.flag = flag;
 	}
 	
 	public BigDecimal getAmount() {
