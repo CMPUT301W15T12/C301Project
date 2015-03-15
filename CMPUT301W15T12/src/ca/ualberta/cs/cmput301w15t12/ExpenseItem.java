@@ -19,6 +19,7 @@ public class ExpenseItem implements Serializable{
 	private BigDecimal Amount;
 	private String Currency;
 	private Date date;
+	private boolean flag;
 	private boolean receipt;
 	
 	public ExpenseItem(String name,String category, String description, String currency, 
@@ -29,6 +30,7 @@ public class ExpenseItem implements Serializable{
 		this.Amount = amount;
 		this.Currency = currency;
 		this.date = date;
+		this.flag = false;
 		this.receipt = false;
 	}
 	
@@ -58,33 +60,50 @@ public class ExpenseItem implements Serializable{
 	*/ 
 	
 	//getters and setters for the attributes
+	public boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+	
 	public boolean getReceipt(){
 		return receipt;
 	}
+	
 	public void setReceipt(boolean receipt){
 		this.receipt = receipt;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getCategory() {
 		return category;
 	}
+	
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public Date getDate() {
 		return date;
 	}
+	
 	public void setDate(Date date) {
 		this.date = date;
 	}
@@ -102,13 +121,6 @@ public class ExpenseItem implements Serializable{
 	}
 	public void setCurrency(String currency){
 		this.Currency = currency;
-	}
-	
-	public boolean equals(ExpenseItem expense){
-		if (expense == null){
-			return false;
-		}
-		return getName().equals(expense.getName());
 	}
 	
 }

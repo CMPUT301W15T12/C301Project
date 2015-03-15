@@ -13,8 +13,6 @@ import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.R;
 
-
-
 public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity> {
 	public ExpenseItemTests(){
 		super(ExpenseItemActivity.class);
@@ -22,21 +20,6 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-	}
-	
-	//tests for equals - name must be unique to an expense item
-	public void testEquals(){
-		Date date1 = new Date();
-		Date date2 = new Date();
-		BigDecimal amount1 = new BigDecimal(45.50);
-		BigDecimal amount2 = new BigDecimal(50.00);
-		ExpenseItem expenseItem1 = new ExpenseItem("name1","air fare","description1","USD",amount1,date1);
-		ExpenseItem expenseItem2 = new ExpenseItem("name2","registration","description2","JPY",amount2,date2);
-		boolean i = false;
-		if (expenseItem1.getName().equals(expenseItem2.getName())){
-			i=true;
-		}
-		assertFalse("Names are the same",i);
 	}
 	
 	//US04.01.01 - expense item has date, category, description, amount, currency
@@ -97,11 +80,13 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
 		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
+		
 		//passes if item has a flag
 		assertEquals("Item does have a flag", true, expenseItem.getFlag());
 		
+		expenseItem.setFlag(false);
 		//passes if item does not have a flag
-		//assertEquals("Item does not have a flag", false, expenseItem.getFlag());
+		assertEquals("Item does not have a flag", false, expenseItem.getFlag());
 	}
 	
 	//US04.05.01 - able to view an expense item and its details
@@ -150,5 +135,6 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		setActivityIntent(intent);
 		return (ExpenseItemActivity) getActivity();
 	}
+	
 	//US04.08.01 - minimal required navigation in user interface when entering an item - test manually
 }
