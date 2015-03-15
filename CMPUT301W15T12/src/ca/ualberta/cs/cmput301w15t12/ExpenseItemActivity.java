@@ -102,7 +102,7 @@ public class ExpenseItemActivity extends Activity {
 		Date.setText(date);
 		Category.setText(Item.getCategory());
 		Description.setText(Item.getDescription());
-		AC.setText(Item.toACString());
+		//AC.setText(Item.toACString());
 		flag.setChecked(Item.getFlag());
 
 
