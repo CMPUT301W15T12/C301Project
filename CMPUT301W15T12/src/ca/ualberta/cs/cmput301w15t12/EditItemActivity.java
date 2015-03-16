@@ -2,6 +2,7 @@
  * EditItemActivity is responsible for allowing a selected expense item to be edited.
  * It displays the current information about the expense item, and allows changes to be made.
  * A user may then accept their changes and the expense item is updated.
+ * issues: a photo cannot be added or changed, does not correctly show edited claim
  * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
