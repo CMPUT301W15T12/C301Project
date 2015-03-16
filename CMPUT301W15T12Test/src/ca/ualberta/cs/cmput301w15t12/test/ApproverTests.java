@@ -9,13 +9,11 @@ import java.util.Locale;
 import android.test.ActivityInstrumentationTestCase2;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
-import ca.ualberta.cs.cmput301w15t12.ApproverClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.User;
 import ca.ualberta.cs.cmput301w15t12.UserListController;
-import ca.ualberta.cs.cmput301w15t12.UserListManager;
 
 public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity>
 {
@@ -24,8 +22,6 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 	public ApproverTests() {
 		super(ExpenseItemActivity.class);
 	}
-
-//	US08.01.01 - see ApproverActivityTests
 
 //	US08.02.01
 //	As an approver, I want the list of submitted expense claims to be sorted by starting date of travel, 
@@ -37,31 +33,21 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		claimListController.clear();
 		Date d1 = format.parse("01-02-1232");
 		Date d2 = format.parse("01-02-2134");
-		Claim claim1 = new Claim("c1", d1, d2, "Blah",user,2);
 		Date d3 = format.parse("01-02-1233");
 		Date d4 = format.parse("01-02-2134");
-		Claim claim2 = new Claim("c1", d3, d4, "Blah", user,1);
 		Date d5 = format.parse("01-02-1234");
 		Date d6 = format.parse("01-02-2134");
-		Claim claim3 = new Claim("c1", d5, d6, "Blah", user,0);
 		claimListController.addClaim("c1", d5, d6, "Blah", user);
 		claimListController.addClaim("c1", d3, d4, "Blah", user);
 		claimListController.addClaim("c1", d1, d2, "Blah",user);
-		claimListController.getClaim(0).setStatus("Submitted");
-		claimListController.getClaim(1).setStatus("Submitted");
-		claimListController.getClaim(2).setStatus("Submitted");
+		for (int i = 0; i < claimListController.size(); i++) { 
+			claimListController.getAllClaims().get(i).setStatus("Submitted");
+		}
 		ArrayList<Claim> submittedClaims = claimListController.filterByStatus("Submitted");
-		//assertTrue("first item is claim 1",submittedClaims.get(0).equals(claim1));
-		assertTrue("first item is claim 2",submittedClaims.get(1).equals(claim2));
-		//assertTrue("first item is claim 3",submittedClaims.get(2).equals(claim3));
+		assertTrue("first item is claim 1",submittedClaims.get(0).getStartDate().equals(d1));
+		assertTrue("first item is claim 2",submittedClaims.get(1).getStartDate().equals(d3));
+		assertTrue("first item is claim 3",submittedClaims.get(2).getStartDate().equals(d5));
 	}
-
-//	US08.03.01 - see ApproverActivityTests
-
-//	US08.04.01 - see US05.01.01 in ExpenvseListTests
-//	As an approver, I want to list all the expense items for a submitted claim, in order of entry,
-//	showing for each expense item: the date the expense was incurred, the category, the textual description, amount spent, unit of currency, and whether there is a photographic receipt.
-
 
 //	US08.06.01
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the
