@@ -58,7 +58,7 @@ public class ExpenseItem implements Serializable{
 	}
 	
 	public void incomplete() {
-		flag = (name == null || category == null || description == null || Amount == null || Currency == null || date == null)
+		flag = (name == null || category == null || description == null || Amount == null || Currency == null || date == null);
 	}
 	
 	//getters and setters for the attributes
