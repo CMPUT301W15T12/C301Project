@@ -31,6 +31,10 @@ public class ClaimListController{
 		this.claimList = new ClaimList();
 	}
 	
+	public void clear() {
+		claimList.clear();
+	}
+	
 	//==================Get/Add/Remove/Contains/Size==================
 	public Claim getClaim(int id){
 		return this.claimList.getClaim(id);
