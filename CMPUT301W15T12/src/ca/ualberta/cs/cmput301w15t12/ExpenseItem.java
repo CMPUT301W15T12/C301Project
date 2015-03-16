@@ -21,6 +21,7 @@ public class ExpenseItem implements Serializable{
 	private Date date;
 	private boolean flag;
 	private boolean receipt;
+	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	
 	public ExpenseItem(String name,String category, String description, String currency, 
 			BigDecimal amount, Date date){
@@ -57,10 +58,7 @@ public class ExpenseItem implements Serializable{
 	}
 	
 -	public void incomplete() {
--		if (name == null || category == null || description == null || Amount == null || Currency == null || date == null){
--			flag = true;
--		}
--	}
+-		flag name = (null || category == null || description == null || Amount == null || Currency == null || date == null)-	}
 	
 	//getters and setters for the attributes
 	public boolean getFlag() {
