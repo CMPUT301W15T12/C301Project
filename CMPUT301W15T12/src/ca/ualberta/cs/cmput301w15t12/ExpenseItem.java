@@ -33,9 +33,7 @@ public class ExpenseItem implements Serializable{
 		this.flag = false;
 		this.receipt = false;
 	}
-	
-	/*
-	~~~ Should probably be in the controller ~~~
+
 	//for printing the list of expense items
 	public String toStringList() {
 		String d = df.format(date);
@@ -57,7 +55,6 @@ public class ExpenseItem implements Serializable{
 	public String toACString() {
 		return Amount.toString()+" "+this.Currency;
 	}
-	*/ 
 	
 	//getters and setters for the attributes
 	public boolean getFlag() {
