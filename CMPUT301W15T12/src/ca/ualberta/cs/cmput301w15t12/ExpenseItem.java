@@ -57,8 +57,9 @@ public class ExpenseItem implements Serializable{
 		return Amount.toString()+" "+this.Currency;
 	}
 	
--	public void incomplete() {
--		flag name = (null || category == null || description == null || Amount == null || Currency == null || date == null)-	}
+	public void incomplete() {
+		flag = (name == null || category == null || description == null || Amount == null || Currency == null || date == null)
+	}
 	
 	//getters and setters for the attributes
 	public boolean getFlag() {
