@@ -20,7 +20,10 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+
 
 
 public class ClaimList{
@@ -76,6 +79,19 @@ public class ClaimList{
 	public int size() {
 		return claims.size();
 	}
+	
+	//created by sarah - leave until after demo
+	private ArrayList<Claim> sort(ArrayList<Claim> list)
+	{
+
+		Collections.sort(list, new Comparator<Claim>() {
+			@Override
+			public int compare(Claim lhs, Claim rhs){
+				return lhs.getStartDate().compareTo(rhs.getStartDate());
+			}
+		});
+		return list;
+	}
 
 	//==================Filters==================
 	public ArrayList<Claim> filterByClaimant(User claimant) {
@@ -85,9 +101,10 @@ public class ClaimList{
 				filteredClaimList.add(ClaimList.claims.get(i));
 			}
 		}
-		return filteredClaimList;
+		//leave sort unil after demo
+		return sort(filteredClaimList);
 	}
-	
+
 	public ArrayList<Claim> filterByStatus(String status) {
 		ArrayList<Claim> filteredClaimList = new ArrayList<Claim>();
 		for (int i = 0; i < ClaimList.claims.size(); i++){
@@ -95,7 +112,8 @@ public class ClaimList{
 				filteredClaimList.add(ClaimList.claims.get(i));
 			}
 		}
-		return filteredClaimList;
+		//leave sort until after demo
+		return sort(filteredClaimList);
 	}
 
 	public ArrayList<Claim> filterByTag(String tag){
@@ -105,7 +123,8 @@ public class ClaimList{
 				filteredClaimList.add(ClaimList.claims.get(i));
 			}
 		}
-		return filteredClaimList;
+		//leave sort until after demo 
+		return sort(filteredClaimList);
 	}
 	
 	//==================Listener==================
