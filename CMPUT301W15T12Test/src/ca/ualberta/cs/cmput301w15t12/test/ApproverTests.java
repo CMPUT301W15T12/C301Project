@@ -10,14 +10,11 @@ import java.util.Locale;
 import android.test.ActivityInstrumentationTestCase2;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
-import ca.ualberta.cs.cmput301w15t12.ApproverClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.User;
-import ca.ualberta.cs.cmput301w15t12.UserListController;
-import ca.ualberta.cs.cmput301w15t12.UserListManager;
 
 public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity>
 {
@@ -36,7 +33,6 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		String approver = "Sarah";
 		User user = new User(approver);
 		ClaimListController claimListController = new ClaimListController();
-		claimListController.clear();
 		Date d1 = format.parse("01-02-1232");
 		Date d2 = format.parse("01-02-2134");
 		Claim claim1 = new Claim("c1", d1, d2, "Blah",user,2);
@@ -53,9 +49,9 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		claimListController.getClaim(1).setStatus("Submitted");
 		claimListController.getClaim(2).setStatus("Submitted");
 		ArrayList<Claim> submittedClaims = claimListController.filterByStatus("Submitted");
-		//assertTrue("first item is claim 1",submittedClaims.get(0).equals(claim1));
+		assertTrue("first item is claim 1",submittedClaims.get(0).equals(claim1));
 		assertTrue("first item is claim 2",submittedClaims.get(1).equals(claim2));
-		//assertTrue("first item is claim 3",submittedClaims.get(2).equals(claim3));
+		assertTrue("first item is claim 3",submittedClaims.get(2).equals(claim3));
 	}
 
 //	US08.03.01 - see ApproverActivityTests
@@ -63,28 +59,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	US08.04.01 - see US05.01.01 in ExpenseListTests
 //	As an approver, I want to list all the expense items for a submitted claim, in order of entry,
 //	showing for each expense item: the date the expense was incurred, the category, the textual description, amount spent, unit of currency, and whether there is a photographic receipt.
-	void testSubmittedExpenses() throws AlreadyExistsException{
-		Date date5 = new Date();
-		Date date4 = new Date();
-		User user = new User("name");
-		Claim claim = new Claim("Claim",date5,date4,"description", user,2);;
-		Date date1 = new Date();
-		BigDecimal amount1 = new BigDecimal(45.50);
-		Date date2 = new Date();
-		BigDecimal amount2 = new BigDecimal(600.34);
-		Date date3 = new Date();
-		BigDecimal amount3 = new BigDecimal(12.45);
-		ExpenseItem expenseItem1 = new ExpenseItem("name1","air fare","description1","USD",amount1,date1);
-		ExpenseItem expenseItem2 = new ExpenseItem("name2","ground transport","description2","USD",amount2,date2);
-		ExpenseItem expenseItem3 = new ExpenseItem("name3","accomodation","description3","USD",amount3,date3);
-		claim.addItem(expenseItem1);
-		claim.addItem(expenseItem2);
-		claim.addItem(expenseItem3);
 
-	assertEquals("not in order of entry",expenseItem1,claim.getExpenseItems().get(0));
-	assertEquals("not in order of entry",expenseItem2,claim.getExpenseItems().get(1));
-	assertEquals("not in order of entry",expenseItem3,claim.getExpenseItems().get(2));
-	}	
 
 
 //	US08.06.01
@@ -110,16 +85,13 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		String name = "Sarah";
 		ClaimListController claimListController = new ClaimListController();
 		User user = new User(name);
-		UserListController u = new UserListController();
-		u.addUser(n);
-		u.addUser(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
 		claimListController.getClaim(0).approveClaim(n);
 		assertTrue("Status = Approved?",claimListController.getClaim(0).getStatus().equals("Approved"));
-		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(n));
+		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(name));
 	}
 
 //	US08.08.01
@@ -127,19 +99,15 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	as approved and setting my name as the approver for the expense claim.
 	public void testreturnClaim() throws Exception {
 		ClaimListController claimListController = new ClaimListController();
-		String name = "Megan";
-		String n = "Leah";
+		String name = "Sarah";
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		UserListController u = new UserListController();
-		u.addUser(n);
-		u.addUser(name);
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
-		claimListController.getClaim(0).returnClaim(n);
+		claimListController.getClaim(0).returnClaim(name);
 		assertTrue("Status = returned?",claimListController.getClaim(0).getStatus().equals("Returned"));
-		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(n));
+		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(name));
 	}
 
 //	US08.09.01 added 2015-02-12
