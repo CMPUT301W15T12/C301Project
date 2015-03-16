@@ -38,6 +38,7 @@ public class NewAccountActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_account);
 		UserListManager.initManager(this.getApplicationContext());
+		ULC = new UserListController();
 
 		//clickable create account button creates new user and takes user to choose claim list page
 		Button createbutton = (Button) findViewById(R.id.buttonNewAccountDone);
@@ -49,11 +50,10 @@ public class NewAccountActivity extends Activity
 				try {
 					String un = username.getText().toString();
 					ULC.addUser(un);
-					UserListController.saveUserList();
 					Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
 					intent.putExtra("username", un);
 					startActivity(intent);
-				} catch (AlreadyExistsException e) {
+				} catch (Exception e) {
 					Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
 					e.printStackTrace();
 				}

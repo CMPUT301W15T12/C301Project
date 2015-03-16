@@ -64,6 +64,8 @@ public class UserListController
 	
 	public void addUser(String string) throws AlreadyExistsException {
 		getUserList().addUser(new User(string));
+		//The saving should happen in here - Sarah
+		saveUserList();
 	}
 	
 	public static void removeUser(String user){
