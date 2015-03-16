@@ -1,6 +1,8 @@
 /**
  * ViewPhotoActivity enlarges a photographed receipt for the user to view.
  * 
+ * Issues: No photo implementation, doesnt load/show picture
+ * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.

@@ -10,11 +10,14 @@ import java.util.Locale;
 import android.test.ActivityInstrumentationTestCase2;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
+import ca.ualberta.cs.cmput301w15t12.ApproverClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.User;
+import ca.ualberta.cs.cmput301w15t12.UserListController;
+import ca.ualberta.cs.cmput301w15t12.UserListManager;
 
 public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity>
 {
@@ -106,13 +109,16 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		String name = "Sarah";
 		ClaimListController claimListController = new ClaimListController();
 		User user = new User(name);
+		UserListController u = new UserListController();
+		u.addUser(n);
+		u.addUser(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
 		claimListController.getClaim(0).approveClaim(n);
 		assertTrue("Status = Approved?",claimListController.getClaim(0).getStatus().equals("Approved"));
-		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(name));
+		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(n));
 	}
 
 //	US08.08.01
@@ -120,15 +126,19 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	as approved and setting my name as the approver for the expense claim.
 	public void testreturnClaim() throws Exception {
 		ClaimListController claimListController = new ClaimListController();
-		String name = "Sarah";
+		String name = "Megan";
+		String n = "Leah";
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
+		UserListController u = new UserListController();
+		u.addUser(n);
+		u.addUser(name);
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
-		claimListController.getClaim(0).returnClaim(name);
+		claimListController.getClaim(0).returnClaim(n);
 		assertTrue("Status = returned?",claimListController.getClaim(0).getStatus().equals("Returned"));
-		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(name));
+		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(n));
 	}
 
 //	US08.09.01 added 2015-02-12

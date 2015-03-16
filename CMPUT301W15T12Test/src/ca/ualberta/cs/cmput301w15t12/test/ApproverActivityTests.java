@@ -19,9 +19,9 @@ public class ApproverActivityTests extends ActivityInstrumentationTestCase2<Appr
 		super.setUp();
 	}
 	
-//	US08.01.01
-//	As an approver, I want to view a list of all the expense claims that were submitted for approval, 
-//	which have their claim status as submitted, showing for each claim: the claimant name, 
+	//	US08.01.01
+	//	As an approver, I want to view a list of all the expense claims that were submitted for approval, 
+	//	which have their claim status as submitted, showing for each claim: the claimant name, 
 	//  the starting date of travel, the destination(s) of travel, the claim status, total currency amounts, and any approver name.
 	public void testclaimUI() {
 		ApproverClaimActivity activity = startApproverActivity();
@@ -35,13 +35,6 @@ public class ApproverActivityTests extends ActivityInstrumentationTestCase2<Appr
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),totalSumView);
 		ListView expenseView = (ListView) activity.findViewById(R.id.listApproverlistExpenseItems);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),expenseView);
-
-	}
-
-
-	//	US08.03.01
-	//As an approver, I want to view all the details of a submitted expense claim.
-	public void testitemUI() {
 
 	}
 	

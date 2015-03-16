@@ -1,6 +1,9 @@
 /**
  * NewAccountActivity creates a new user.
  * 
+ * Issues: No persistance
+ * (Could do) add a password?
+ * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.

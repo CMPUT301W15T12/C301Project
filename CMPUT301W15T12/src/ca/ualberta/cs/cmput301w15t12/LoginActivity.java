@@ -2,6 +2,8 @@
  * LoginActivity displays a textbar for a username to be submitted and authenticated, 
  * or allows the user to create a new account. 
  * 
+ *  Issues: (Could do) add a password?
+ * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.

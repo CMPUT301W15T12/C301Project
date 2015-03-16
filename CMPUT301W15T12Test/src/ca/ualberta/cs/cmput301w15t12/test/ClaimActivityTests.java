@@ -188,7 +188,7 @@ public class ClaimActivityTests extends
 		assertTrue("Status was not changed to returned", claim.getStatus() == "Returned");
 		claim2.setApprover(approver);
 		comment = "Needs some fixing...";
-		claim2.setComment(comment);
+		claim.setComment(comment);
 		
 		// Make sure approver and his comments are correct
 		assertTrue("Not the right approver", claim.getApprover().equals(approver));
