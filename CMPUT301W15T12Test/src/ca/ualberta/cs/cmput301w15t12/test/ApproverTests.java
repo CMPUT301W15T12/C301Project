@@ -13,7 +13,7 @@ import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.User;
-import ca.ualberta.cs.cmput301w15t12.UserListController;
+
 
 public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity>
 {
@@ -30,7 +30,6 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		String approver = "Sarah";
 		User user = new User(approver);
 		ClaimListController claimListController = new ClaimListController();
-		claimListController.clear();
 		Date d1 = format.parse("01-02-1232");
 		Date d2 = format.parse("01-02-2134");
 		Date d3 = format.parse("01-02-1233");
@@ -44,10 +43,15 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 			claimListController.getAllClaims().get(i).setStatus("Submitted");
 		}
 		ArrayList<Claim> submittedClaims = claimListController.filterByStatus("Submitted");
+
 		assertTrue("first item is claim 1",submittedClaims.get(0).getStartDate().equals(d1));
 		assertTrue("first item is claim 2",submittedClaims.get(1).getStartDate().equals(d3));
 		assertTrue("first item is claim 3",submittedClaims.get(2).getStartDate().equals(d5));
 	}
+
+
+
+//	US08.03.01 - see ApproverActivityTests
 
 //	US08.06.01
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the
@@ -72,16 +76,13 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		String name = "Sarah";
 		ClaimListController claimListController = new ClaimListController();
 		User user = new User(name);
-		UserListController u = new UserListController();
-		u.addUser(n);
-		u.addUser(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
 		claimListController.getClaim(0).approveClaim(n);
 		assertTrue("Status = Approved?",claimListController.getClaim(0).getStatus().equals("Approved"));
-		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(n));
+		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(name));
 	}
 
 //	US08.08.01
@@ -89,19 +90,15 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	as approved and setting my name as the approver for the expense claim.
 	public void testreturnClaim() throws Exception {
 		ClaimListController claimListController = new ClaimListController();
-		String name = "Megan";
-		String n = "Leah";
+		String name = "Sarah";
 		User user = new User(name);
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
-		UserListController u = new UserListController();
-		u.addUser(n);
-		u.addUser(name);
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
-		claimListController.getClaim(0).returnClaim(n);
+		claimListController.getClaim(0).returnClaim(name);
 		assertTrue("Status = returned?",claimListController.getClaim(0).getStatus().equals("Returned"));
-		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(n));
+		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(name));
 	}
 
 //	US08.09.01 added 2015-02-12

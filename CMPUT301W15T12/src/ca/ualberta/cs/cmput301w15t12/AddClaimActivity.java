@@ -53,10 +53,10 @@ public class AddClaimActivity extends Activity
     private DatePickerDialog toDatePickerDialog;
     private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     public ClaimListController CLC = new ClaimListController();
-    public User user;
-    public String Username;
-    public ArrayList tagsArrayList = new ArrayList();
-    public Integer id;
+    private User user;
+    private String Username;
+    private ArrayList tagsArrayList = new ArrayList();
+    private Integer id;
     public Claim claim;
 	final Destination destination = new Destination();
     

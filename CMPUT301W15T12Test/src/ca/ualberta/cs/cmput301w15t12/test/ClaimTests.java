@@ -21,7 +21,6 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 
 	
 	//US01.01.01 - expense claim that records my name, a starting date of travel, and an ending date of travel
-	//US01.02.01 - record one or more destinations of travel and an associated reason for travel to each destination
 	public void testCreatingClaim(){
 		String name = "travel to Toronto";
 		Date startDate = new GregorianCalendar().getTime(); //Default to now when no input is supplied
@@ -40,6 +39,12 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		assertNotNull("Destination not initialized", claim.getDestination());
 	}
 	
+	//US01.02.01 - record one or more destinations of travel and an associated reason for travel to each destination
+	public void testDestination(){
+		
+		
+	}
+	
 
 	//US01.04.01 - edit an expense claim while changes are allowed (setters)
 	public void testEditClaim(){
@@ -56,13 +61,14 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		assertEquals("Name is not updated", newName, claim.getName());
 	}
 	
+	
 	public void testAddExpenseItemToClaim(){
 		String name = "my expense";
 		String category = "hotel";
 		String description = "description";
 		String currency = "CAD";
 		BigDecimal amount = new BigDecimal(10.0);
-		Date date = new GregorianCalendar().getTime(); //Default to now when no input is supplied
+		Date date = new GregorianCalendar().getTime(); //Default to know when no input is supplied
 
 		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
 		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim"),0);
