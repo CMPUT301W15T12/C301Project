@@ -145,9 +145,12 @@ public class ClaimListControllertTest extends TestCase {
 		User user = new User("name");
 		clc.addClaim("Claim",date1, date2, "description", user);
 		assertEquals("claim was not added", 1,clc.size());
-
-		clc.removeClaim(0);
-		assertEquals("claim was not removed", 0, clc.size());
+		if (clc.getClaim(0).editable()){
+			clc.removeClaim(0);
+			assertEquals("claim was not removed", 0, clc.size());
+		} else {
+			//cannot remove claim, do nothing
+		}
 		
 	}
 	
