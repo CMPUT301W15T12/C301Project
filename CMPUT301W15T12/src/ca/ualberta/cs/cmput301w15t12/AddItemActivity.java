@@ -1,6 +1,8 @@
 /**
  * This  Activity allows a user to add a new Item in association with 
  * a specific claim 
+ *
+ * issues: does not allow a photo to be taken or included
  * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
