@@ -44,7 +44,7 @@ public class Claim {
 	private String Status;
 
 	private ArrayList<Destination> destinations;
-	private ArrayList<ExpenseItem> expenseItems;
+	private ExpenseList expenseList;
 	private ArrayList<String> tagList;
 	private ArrayList<Listener> listeners;
 
@@ -58,7 +58,7 @@ public class Claim {
 		this.endDate = endDate;
 		this.Description = description;
 		this.destinations = new ArrayList<Destination>();
-		this.expenseItems = new ArrayList<ExpenseItem>();
+		this.expenseList = new ExpenseList();
 		this.tagList = new ArrayList<String>();
 		this.listeners = new ArrayList<Listener>();
 		this.id = id;
@@ -91,6 +91,7 @@ public class Claim {
 	}
 	
 	public boolean incomplete() {
+		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
 		for (int i = 0; i < expenseItems.size(); i++) {
 			expenseItems.get(i).incomplete();
 			if (expenseItems.get(i).getFlag()){
@@ -147,6 +148,7 @@ public class Claim {
 	}
 
 	public String toEmail() {
+		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
 		String ds = dateFormat.format(startDate);
 		String de = dateFormat.format(endDate);
 		String string = name+"\n";
@@ -171,13 +173,14 @@ public class Claim {
 	
 	//all the adds/removes/contains for the lists
 	public void removeItem(int i) {
-		expenseItems.remove(i);
+		ExpenseItem item = this.expenseList.getList().get(i);
+		this.expenseList.rmExpenseItem(item);
 		notifyListeners();
 	}
 
-	public void addItem(ExpenseItem Item) throws AlreadyExistsException {
-		if (!expenseItems.contains(Item)) {
-			expenseItems.add(Item);
+	public void addItem(ExpenseItem item) throws AlreadyExistsException {
+		if (!this.expenseList.contains(item)) {
+			this.expenseList.addExpenseItem(item);
 			notifyListeners();
 		} else {
 			throw new AlreadyExistsException();
@@ -185,7 +188,7 @@ public class Claim {
 
 	}
 	public boolean containsItem(ExpenseItem Item){
-		return expenseItems.contains(Item);	
+		return this.expenseList.contains(Item);	
 	}
 	public void addDestination (Destination destination) throws AlreadyExistsException {
 		if (!destinations.contains(destination)){
@@ -220,10 +223,10 @@ public class Claim {
 		return id;
 	}
 	public ArrayList<ExpenseItem> getExpenseItems() {
-		return expenseItems;
+		return this.expenseList.getList();
 	}
 	public void setExpenseItems(ArrayList<ExpenseItem> expenseItems) {
-		this.expenseItems = expenseItems;
+		this.expenseList.setList(expenseItems);
 	}
 	public String getName() {
 		return name;
@@ -288,9 +291,10 @@ public class Claim {
 	}
 	//gets the total
 	public ArrayList<String> getTotal() {
+		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
 		HashMap <String,BigDecimal> costDictionary = new HashMap<String, BigDecimal>();
 		ArrayList<String> formatedStringList = new ArrayList<String>();
-		for (int i=0; i<this.expenseItems.size();i++){
+		for (int i=0; i<expenseItems.size();i++){
 			ExpenseItem expense = expenseItems.get(i);
 			String currency = expense.getCurrency();
 			
