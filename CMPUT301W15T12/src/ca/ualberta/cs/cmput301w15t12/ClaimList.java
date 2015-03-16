@@ -80,7 +80,7 @@ public class ClaimList{
 		return claims.size();
 	}
 	
-	//created by sarah - leave until after demo
+	//sort/clear created by sarah - leave until after demo
 	private ArrayList<Claim> sort(ArrayList<Claim> list)
 	{
 
@@ -91,6 +91,11 @@ public class ClaimList{
 			}
 		});
 		return list;
+	}
+	
+	public void clear()
+	{
+		claims.clear();
 	}
 
 	//==================Filters==================
