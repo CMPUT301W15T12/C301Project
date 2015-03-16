@@ -1,5 +1,6 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
+import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.User;
 
@@ -54,9 +56,31 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 
 //	US08.03.01 - see ApproverActivityTests
 
-//	US08.04.01 - see US05.01.01 in ExpenvseListTests
+//	US08.04.01 - see US05.01.01 in ExpenseListTests
 //	As an approver, I want to list all the expense items for a submitted claim, in order of entry,
 //	showing for each expense item: the date the expense was incurred, the category, the textual description, amount spent, unit of currency, and whether there is a photographic receipt.
+	void testSubmittedExpenses() throws AlreadyExistsException{
+		Date date5 = new Date();
+		Date date4 = new Date();
+		User user = new User("name");
+		Claim claim = new Claim("Claim",date5,date4,"description", user,2);;
+		Date date1 = new Date();
+		BigDecimal amount1 = new BigDecimal(45.50);
+		Date date2 = new Date();
+		BigDecimal amount2 = new BigDecimal(600.34);
+		Date date3 = new Date();
+		BigDecimal amount3 = new BigDecimal(12.45);
+		ExpenseItem expenseItem1 = new ExpenseItem("name1","air fare","description1","USD",amount1,date1);
+		ExpenseItem expenseItem2 = new ExpenseItem("name2","ground transport","description2","USD",amount2,date2);
+		ExpenseItem expenseItem3 = new ExpenseItem("name3","accomodation","description3","USD",amount3,date3);
+		claim.addItem(expenseItem1);
+		claim.addItem(expenseItem2);
+		claim.addItem(expenseItem3);
+
+	assertEquals("not in order of entry",expenseItem1,claim.getExpenseItems().get(0));
+	assertEquals("not in order of entry",expenseItem2,claim.getExpenseItems().get(1));
+	assertEquals("not in order of entry",expenseItem3,claim.getExpenseItems().get(2));
+	}	
 
 
 //	US08.06.01

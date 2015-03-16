@@ -1,4 +1,4 @@
-/*package ca.ualberta.cs.cmput301w15t12.test;
+package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.Date;
 
@@ -28,7 +28,9 @@ public class ClaimActivityTests extends
 		ClaimListController claimList = new ClaimListController();
 		Date date1 = new Date();
 		Date date2 = new Date();
-		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
+		int id;
+
+		id = claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
 		
 		// Note: setStatus automatically handles valid changes to status
 		// If a call is not valid, nothing happens, and the status remains the same
@@ -38,7 +40,7 @@ public class ClaimActivityTests extends
 		assertTrue("Status was not changed to submitted", claimList.getClaim(0).getStatus() == "Submitted");
 		
 		// Select the claim via controller
-		claimList.setSelected(claim);
+		claimList.getClaim(id);
 		
 		// Start ClaimActivity and make it output data from claim
 		ClaimActivity activity = getActivity();
@@ -50,7 +52,7 @@ public class ClaimActivityTests extends
 		
 		// Try editing the claim, should fail since claim is in submitted status
 		try {
-			claim.setDescription("Hello world!");
+			claimList.getClaim(id).setDescription("Hello world!");
 			assertTrue("Not supposed to be able to edit submitted status", false);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,15 +84,16 @@ public class ClaimActivityTests extends
 		// Make new claim and add to claims list
 		Date date1 = new Date();
 		Date date2 = new Date();
+		int id;
 		ClaimListController claimList = new ClaimListController();
-		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
+		id = claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
 		
 		// Set status to returned
 		claimList.getClaim(0).setStatus("Returned");
 		assertTrue("Status was not changed to returned", claimList.getClaim(0).getStatus() == "Returned");
 		
 		// Select the claim via controller
-		claimList.setSelected(claim);
+		claimList.getClaim(id);
 		
 		// Start ClaimActivity and make it output data from claim
 		ClaimActivity activity = getActivity();
@@ -102,7 +105,7 @@ public class ClaimActivityTests extends
 		
 		// Try editing the claim, should work since claim is in returned status
 		try {
-			claim.setDescription("Hello world!");
+			claimList.getClaim(id).setDescription("Hello world!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue("Supposed to be able to edit returned status", false);
@@ -169,27 +172,27 @@ public class ClaimActivityTests extends
 		claim.setComment(comment);
 		
 		// Make sure approver and his comments are correct
-		assertTrue("Not the right approver", claim.getApprovers().equals(approver));
+		assertTrue("Not the right approver", claim.getApprover().equals(approver));
 		assertTrue("Comment is not correct", claim.getComment().matches(comment));
 		
 		// Make new claim
-		claim = new Claim("name1",  date1, date2, "description1", "Approved", "Megan");
+		Claim claim2 = new Claim ("name1", date1, date2, "description1", new User("Megan"), 1);
 		
 		// Make sure claim is in submitted status
-		claim.setStatus("Submitted");
+		claim2.setStatus("Submitted");
 		assertTrue("Status was not changed to submitted", claim.getStatus() == "Submitted"); 
 		
 		// Claimant returns the claim
 		// Set status to returned
-		claim.setStatus("Returned");
+		claim2.setStatus("Returned");
 		assertTrue("Status was not changed to returned", claim.getStatus() == "Returned");
-		claim.setApprover(approver);
+		claim2.setApprover(approver);
 		comment = "Needs some fixing...";
-		claim.setComment(comment);
+		claim2.setComment(comment);
 		
 		// Make sure approver and his comments are correct
-		assertTrue("Not the right approver", claim.getApprovers().equals(approver));
+		assertTrue("Not the right approver", claim.getApprover().equals(approver));
 		assertTrue("Comment is not correct", claim.getComment().matches(comment));
 	}
-}*/
+}
 

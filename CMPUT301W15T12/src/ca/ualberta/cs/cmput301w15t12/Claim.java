@@ -1,6 +1,6 @@
 /**
  * This data model models all the behaviour relating to a particular claim, 
- * and stores information regardng expense items, tags, and destinations.
+ * and stores information regarding expense items, tags, and destinations.
  * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
