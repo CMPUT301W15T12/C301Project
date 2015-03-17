@@ -136,7 +136,7 @@ public class ClaimListControllertTest extends TestCase {
 		
 	}
 	
-	
+	//US01.05.01
 	public void testRemoveClaim(){
 		ClaimListController clc = new ClaimListController();
 		clc.clear();
