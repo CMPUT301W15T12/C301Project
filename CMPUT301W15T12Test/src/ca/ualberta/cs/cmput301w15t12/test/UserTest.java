@@ -44,8 +44,8 @@ public class UserTest extends TestCase {
 		UserListController usrc = new UserListController();
 		usrc.addUserWithPass("test_pass", "123");
 		assertTrue("password is good", UserListController.getUserList().getUser("test_pass").getPassword() == "123");
-		assertTrue("change password fail", UserListController.getUserList().getUser("test_pass").changePassword("123", "321"));
-		
-		
+		UserListController.getUserList().getUser("test_pass").changePassword("123", "321");
+		assertTrue("change password fail", UserListController.getUserList().getUser("test_pass").getPassword() == "321");
+
 	}
 }
