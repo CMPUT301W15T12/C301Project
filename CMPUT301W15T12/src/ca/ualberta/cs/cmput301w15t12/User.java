@@ -29,11 +29,17 @@ public class User implements Serializable
 	private static final long serialVersionUID = -4565159790415717846L;
 	private String UserName;
 	private ArrayList<String> tagList;
+	private String Password;
 
 	public User(String name) {
 		this.UserName = name;
 		this.tagList = new ArrayList<String>();
 
+	}
+	
+	public User(String name, String pass){
+		this.UserName = name;
+		this.Password = pass;
 	}
 
 	public boolean equals(Object compareUser) {
@@ -56,8 +62,21 @@ public class User implements Serializable
 		//TODO
 		return false;
 	}
-
-
+	public void setPassword(String password){
+		this.Password = password;
+	}
+	
+	public String getPassword(){
+		return Password;
+	}
+	
+	//check if the old password match, otherwise do not change it.
+	public void changePassword(String old_pass, String password){
+		if (Password.equals(old_pass)){
+			this.setPassword(password);
+		}
+	}
+	
 	//add/remove
 	public void addTag(String tag){
 		tagList.add(tag);

@@ -39,4 +39,13 @@ public class UserTest extends TestCase {
 		UserListController.editUserName("Test_user", "change=True");
 		assertTrue("Username did not change", UserListController.getUserList().getUser("change=True").getUserName() == "change=True");
 	}
+	
+	public void testPassword() throws AlreadyExistsException{
+		UserListController usrc = new UserListController();
+		usrc.addUserWithPass("test_pass", "123");
+		assertTrue("password is good", UserListController.getUserList().getUser("test_pass").getPassword() == "123");
+		assertTrue("change password fail", UserListController.getUserList().getUser("test_pass").changePassword("123", "321"));
+		
+		
+	}
 }
