@@ -1,6 +1,7 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
@@ -134,4 +135,23 @@ public class ClaimListControllertTest extends TestCase {
 		}
 		
 	}
+	
+	//US01.05.01
+	public void testRemoveClaim(){
+		ClaimListController clc = new ClaimListController();
+		clc.clear();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		User user = new User("name");
+		clc.addClaim("Claim",date1, date2, "description", user);
+		assertEquals("claim was not added", 1,clc.size());
+		if (clc.getClaim(0).editable()){
+			clc.removeClaim(0);
+			assertEquals("claim was not removed", 0, clc.size());
+		} else {
+			//cannot remove claim, do nothing
+		}
+		
+	}
+	
 }

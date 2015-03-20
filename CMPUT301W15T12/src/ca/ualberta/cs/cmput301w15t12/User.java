@@ -37,6 +37,11 @@ public class User implements Serializable
 		this.tagList = new ArrayList<String>();
 
 	}
+	
+	public User(String name, String pass){
+		this.UserName = name;
+		this.Password = pass;
+	}
 
 	public boolean equals(Object compareUser) {
 		if (compareUser != null &&
@@ -58,8 +63,21 @@ public class User implements Serializable
 		//TODO
 		return false;
 	}
-
-
+	public void setPassword(String password){
+		this.Password = password;
+	}
+	
+	public String getPassword(){
+		return Password;
+	}
+	
+	//check if the old password match, otherwise do not change it.
+	public void changePassword(String old_pass, String password){
+		if (Password.equals(old_pass)){
+			this.setPassword(password);
+		}
+	}
+	
 	//add/remove
 	public void addTag(String tag){
 		tagList.add(tag);

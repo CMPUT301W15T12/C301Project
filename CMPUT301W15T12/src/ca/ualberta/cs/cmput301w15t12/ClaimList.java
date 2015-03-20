@@ -93,9 +93,11 @@ public class ClaimList{
 		return list;
 	}
 	
+	//clears list of claims, and sets the next id to 0.
 	public void clear()
 	{
 		claims.clear();
+		ClaimList.nextUnassignedId=0;
 	}
 
 	//==================Filters==================

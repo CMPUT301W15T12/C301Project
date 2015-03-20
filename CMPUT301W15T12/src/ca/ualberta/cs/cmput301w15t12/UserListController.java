@@ -67,6 +67,10 @@ public class UserListController
 		saveUserList();
 	}
 	
+	public void addUserWithPass(String name, String pass) throws AlreadyExistsException{
+		getUserList().addUser(new User(name, pass));
+	}
+	
 	public static void removeUser(String user){
 		getUserList().removeUser(user);
 	}

@@ -2,6 +2,7 @@
  * ExpenseItemActivity lays out the interface for the expense item 
  * page, displaying all relevant information, allowing edits, and
  * displaying any photographic receipt.
+ * issues: does not display a photo yet
  * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
