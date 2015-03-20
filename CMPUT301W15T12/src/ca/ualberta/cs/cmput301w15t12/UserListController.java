@@ -19,8 +19,6 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
-import java.io.IOException;
-
 public class UserListController
 {
 
@@ -59,12 +57,12 @@ public class UserListController
 //			throw new RuntimeException("Could not deserialize UserList from UserListManager");
 //		}
 	}
-	public boolean authenticateUser(String UserName){
-		return getUserList().authenticateUser(UserName);
+	public boolean authenticateUser(String UserName, String Password){
+		return getUserList().authenticateUser(UserName, Password);
 	}
 	
-	public void addUser(String string) throws AlreadyExistsException {
-		getUserList().addUser(new User(string));
+	public void addUser(String string, String password) throws AlreadyExistsException {
+		getUserList().addUser(new User(string, password));
 		//The saving should happen in here - Sarah
 		saveUserList();
 	}

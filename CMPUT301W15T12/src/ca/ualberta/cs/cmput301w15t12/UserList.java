@@ -33,9 +33,9 @@ public class UserList implements Serializable
 	}
 	
 	//returns true if UserName in users
-	public boolean authenticateUser(String UserName){
+	public boolean authenticateUser(String UserName, String Password){
 		for (int i = 0; i < users.size(); ++i){
-			if (users.get(i).getUserName() .equals(UserName)){
+			if (users.get(i).getUserName().equals(UserName) && users.get(i).getPassword().equals(Password)){
 				return true;
 			}
 		}

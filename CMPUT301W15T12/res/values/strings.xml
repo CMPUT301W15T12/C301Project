@@ -6,7 +6,9 @@
     <string name="title_activity_add_claim">AddClaimActivity</string>
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="title_activity_item_view">ItemViewActivity</string>
-    <string name="New_Claim">New Claim</string>
+    <string name="ep">Enter Password</string>
+    <string name="cp">Confirm Password</string>      
+    <string name="New_Claim">New Claim</string>    
     <string name="Edit_Item">Edit Item</string>
     <string name="Email_Claim">Email Claim</string>
     <string name="Edit_Claim">Edit Claim</string>

@@ -61,9 +61,10 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				EditText username = (EditText) findViewById(R.id.editLoginUserName);
+				EditText password = (EditText) findViewById(R.id.editPassword);
 				String name = username.getText().toString();
-				if (!ULC.authenticateUser(name)) {
-					Toast.makeText(LoginActivity.this, "No such UserName", Toast.LENGTH_SHORT).show();
+				if (!ULC.authenticateUser(name,password.getText().toString())) {
+					Toast.makeText(LoginActivity.this, "Password or UserName is incorrect", Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(LoginActivity.this, name, Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(LoginActivity.this, ChooseListActivity.class);

@@ -17,7 +17,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 package ca.ualberta.cs.cmput301w15t12;
 
@@ -50,16 +50,23 @@ public class NewAccountActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				EditText username = (EditText) findViewById(R.id.editNewUserName);
-				try {
-					String un = username.getText().toString();
-					ULC.addUser(un);
-					Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
-					intent.putExtra("username", un);
-					startActivity(intent);
-				} catch (Exception e) {
-					Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
-					e.printStackTrace();
+				EditText p1 = (EditText) findViewById(R.id.editCreatePassword);
+				EditText p2 = (EditText) findViewById(R.id.editConfirmPassword);
+				if (!p1.getText().toString().equals(p2.getText().toString())) {
+					Toast.makeText(NewAccountActivity.this, "Passwords don't match", Toast.LENGTH_SHORT).show();
+				} else {
+					try {
+						String un = username.getText().toString();
+						ULC.addUser(un, p1.getText().toString());
+						Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
+						intent.putExtra("username", un);
+						startActivity(intent);
+					} catch (Exception e) {
+						Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
+						e.printStackTrace();
+					}
 				}
+
 			}
 		});
 	}

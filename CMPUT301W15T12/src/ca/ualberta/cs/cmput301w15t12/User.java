@@ -29,9 +29,11 @@ public class User implements Serializable
 	private static final long serialVersionUID = -4565159790415717846L;
 	private String UserName;
 	private ArrayList<String> tagList;
+	private String Password;
 
-	public User(String name) {
+	public User(String name, String Password) {
 		this.UserName = name;
+		this.Password = Password;
 		this.tagList = new ArrayList<String>();
 
 	}
@@ -83,6 +85,18 @@ public class User implements Serializable
 
 	public void setTagList(ArrayList<String> tagList){
 		this.tagList = tagList;
+	}
+	public String getPassword()
+	{
+	
+		return Password;
+	}
+
+	
+	public void setPassword(String password)
+	{
+	
+		Password = password;
 	}
 
 }

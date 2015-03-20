@@ -13,20 +13,6 @@
         android:layout_alignParentRight="true"
         android:text="@string/Done" />
 
-    <EditText
-        android:id="@+id/editNewUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textcreatenewaccount"
-        android:layout_marginTop="152dp"
-        android:ems="10"
-        android:hint="@string/User_Name" >
-
-        <requestFocus />
-    </EditText>
-
     <TextView
         android:id="@+id/textcreatenewaccount"
         android:layout_width="wrap_content"
@@ -36,5 +22,40 @@
         android:layout_marginTop="26dp"
         android:text="@string/New_Account"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editConfirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editCreatePassword"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="@string/cp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editNewUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textcreatenewaccount"
+        android:layout_marginTop="120dp"
+        android:ems="10"
+        android:hint="@string/User_Name" />
+
+    <EditText
+        android:id="@+id/editCreatePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editNewUserName"
+        android:layout_marginTop="17dp"
+        android:ems="10"
+        android:hint="@string/ep"
+        android:inputType="textPassword" />
 
 </RelativeLayout>

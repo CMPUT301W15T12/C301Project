@@ -173,22 +173,19 @@ public class AddClaimActivity extends Activity
 		//Initializing variables
 		Date sdate = df.parse(startDate.getText().toString());
 		Date edate = df.parse(endDate.getText().toString());
-		String name = new String();
-		String description = new String();
 		//need to add destination to claim
 		Destination destination = new Destination();
-		String tags = new String();
 		Context context = this.getApplicationContext();
 		
 		//XML Inputs
 		EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
-		name = editTextName.getText().toString();
+		String name = editTextName.getText().toString();
 		EditText editTextTags = (EditText) findViewById(R.id.EnterTags);
-		tags = editTextTags.getText().toString();
+		String tags = editTextTags.getText().toString();
 		CharSequence toastText;
 		Toast toast = null;
 		EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);
-		description = editTextDescription.getText().toString();
+		String description = editTextDescription.getText().toString();
 		
 		//create claim
 		id = CLC.addClaim(name, sdate, edate, description, this.user);
@@ -203,9 +200,7 @@ public class AddClaimActivity extends Activity
 		}
 
 		//toast finished
-		toastText = "Claim Saved.";
-		toast = Toast.makeText(context,toastText, Toast.LENGTH_SHORT);
-		toast.show();	
+		Toast.makeText(context,"Claim Saved.", Toast.LENGTH_SHORT).show();	
 		
 	}
 
