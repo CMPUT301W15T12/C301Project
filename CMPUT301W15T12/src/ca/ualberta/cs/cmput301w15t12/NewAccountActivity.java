@@ -57,7 +57,7 @@ public class NewAccountActivity extends Activity
 				} else {
 					try {
 						String un = username.getText().toString();
-						ULC.addUser(un, p1.getText().toString());
+						ULC.addUserWithPass(un, p1.getText().toString());
 						Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
 						intent.putExtra("username", un);
 						startActivity(intent);
