@@ -68,6 +68,10 @@ public class ClaimListController{
 	public ArrayList<String> getTagListFromClaim(int claimId){
 		return this.claimList.getClaim(claimId).getTagList();
 	}
+	public void addDestination(int claimId, String name, String desc) throws AlreadyExistsException {
+		Claim targetClaim = this.claimList.getClaim(claimId);
+		targetClaim.addDestination(new Destination(name, desc));
+	}
 	
 	//==================Filters==================
 	public ArrayList<Claim> filterByClaimant(User claimant) {

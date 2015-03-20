@@ -8,22 +8,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddDestinationsActivity" >
 
-    <Button
-        android:id="@+id/buttonDoneDestination"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/Done" />
-
     <EditText
-        android:id="@+id/editPassword"
+        android:id="@+id/editAddDestination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/buttonDoneDestination"
         android:ems="10"
         android:hint="@string/new_destinations" >
 
@@ -31,13 +21,33 @@
     </EditText>
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/listDestinations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonDoneDestination"
-        android:layout_alignLeft="@+id/editPassword"
-        android:layout_below="@+id/editPassword" >
+        android:layout_alignLeft="@+id/editAddDestination"
+        android:layout_below="@+id/editAddDestinationDescription" >
 
     </ListView>
+
+    <Button
+        android:id="@+id/buttonAddDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listDestinations"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/editAddDestination"
+        android:layout_toRightOf="@+id/editAddDestination"
+        android:text="@string/Add" />
+
+    <EditText
+        android:id="@+id/editAddDestinationDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/listDestinations"
+        android:layout_below="@+id/editAddDestination"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="@string/Description"
+        android:inputType="textMultiLine" />
 
 </RelativeLayout>

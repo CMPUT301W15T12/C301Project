@@ -33,7 +33,6 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -52,13 +51,13 @@ public class AddClaimActivity extends Activity
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
     private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-    public ClaimListController CLC = new ClaimListController();
+    private ClaimListController CLC = new ClaimListController();
     private User user;
     private String Username;
-    private ArrayList tagsArrayList = new ArrayList();
+    private ArrayList<String> tagsArrayList = new ArrayList<String>();
     private Integer id;
-    public Claim claim;
-	final Destination destination = new Destination();
+    private Claim claim;
+    private TabClaimActivity parentActivity;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -83,6 +82,7 @@ public class AddClaimActivity extends Activity
 		if (option.equals("Edit")){
 			int id = getIntent().getIntExtra("claim_id",1000000);
 			claim = CLC.getClaim(id);
+			tagsArrayList = claim.getTagList();
 			//TODO fill in existing fields
 			
 		}
@@ -93,7 +93,9 @@ public class AddClaimActivity extends Activity
 				user = UserListController.getUserList().get(i);
 			}
 		}
-
+		
+		//getparent activity
+		parentActivity = (TabClaimActivity) this.getParent();
 		
 		//clickable button creates claim and takes the user back to the claim list page
 		Button donebutton = (Button) findViewById(R.id.buttonsaveClaim);
@@ -173,22 +175,17 @@ public class AddClaimActivity extends Activity
 		//Initializing variables
 		Date sdate = df.parse(startDate.getText().toString());
 		Date edate = df.parse(endDate.getText().toString());
-		//need to add destination to claim
-		Destination destination = new Destination();
-		Context context = this.getApplicationContext();
 		
 		//XML Inputs
 		EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
 		String name = editTextName.getText().toString();
-		EditText editTextTags = (EditText) findViewById(R.id.EnterTags);
-		String tags = editTextTags.getText().toString();
-		CharSequence toastText;
-		Toast toast = null;
 		EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);
 		String description = editTextDescription.getText().toString();
 		
 		//create claim
 		id = CLC.addClaim(name, sdate, edate, description, this.user);
+		ArrayList<Destination> destination = parentActivity.getDestination();
+		CLC.getClaim(id).setDestination(destination);
 		
 		//add Tag to Claim
 		for (int i = 0; i<  tagsArrayList.size(); i++){
@@ -200,7 +197,7 @@ public class AddClaimActivity extends Activity
 		}
 
 		//toast finished
-		Toast.makeText(context,"Claim Saved.", Toast.LENGTH_SHORT).show();	
+		Toast.makeText(AddClaimActivity.this,"Claim Saved.", Toast.LENGTH_SHORT).show();	
 		
 	}
 
@@ -240,7 +237,7 @@ public class AddClaimActivity extends Activity
 	 * @param view
 	 */
 	public void onClickTags(View view){
-		final ArrayList<String> tagList = new ArrayList<String>();
+		final ArrayList<String> tagList = user.getTagList();
 		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
 		String[] userTags = new String[tagList.size()];
 		userTags = (String[]) tagList.toArray(userTags);
@@ -270,6 +267,15 @@ public class AddClaimActivity extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				tagsArrayList.addAll(tagList);
+				EditText tags = (EditText) findViewById(R.id.EnterTags);
+				String block = "";
+				for (int i = 0; i < tagsArrayList.size(); i++) {
+					block += tagsArrayList.get(i).toString();
+					if (i != tagsArrayList.size() - 1) {
+						block += ", ";
+					}
+				}
+				tags.setText(block);
 			}
 		});
 		builder.show();
@@ -289,6 +295,15 @@ public class AddClaimActivity extends Activity
 			public void onClick(DialogInterface dialog, int id) {
 				tagsArrayList.add(editText.getText().toString());
 				user.addTag(editText.getText().toString());
+				EditText tags = (EditText) findViewById(R.id.EnterTags);
+				String block = "";
+				for (int i = 0; i < tagsArrayList.size(); i++) {
+					block += tagsArrayList.get(i).toString();
+					if (i != tagsArrayList.size() - 1) {
+						block += ", ";
+					}
+				}
+				tags.setText(block);
 			}
 		})
 		.setNegativeButton("Cancel",
@@ -303,7 +318,7 @@ public class AddClaimActivity extends Activity
 	
 	
 	
-	//initialize calendar view
+	//initialize calendar view dialogues
     private void setDateTimeField() {
         startDate.setOnClickListener(new View.OnClickListener()
 		{

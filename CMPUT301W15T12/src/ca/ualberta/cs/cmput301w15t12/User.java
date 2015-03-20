@@ -37,11 +37,6 @@ public class User implements Serializable
 		this.tagList = new ArrayList<String>();
 
 	}
-	
-	public User(String name, String pass){
-		this.UserName = name;
-		this.Password = pass;
-	}
 
 	public boolean equals(Object compareUser) {
 		if (compareUser != null &&
@@ -83,9 +78,6 @@ public class User implements Serializable
 		tagList.add(tag);
 	}
 
-	public ArrayList<String> getTags() {
-		return tagList;
-	}
 
 	//getters and setters
 	public String getUserName() {
@@ -103,18 +95,6 @@ public class User implements Serializable
 
 	public void setTagList(ArrayList<String> tagList){
 		this.tagList = tagList;
-	}
-	public String getPassword()
-	{
-	
-		return Password;
-	}
-
-	
-	public void setPassword(String password)
-	{
-	
-		Password = password;
 	}
 
 }

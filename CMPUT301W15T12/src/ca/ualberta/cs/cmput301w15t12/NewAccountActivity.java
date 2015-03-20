@@ -42,6 +42,8 @@ public class NewAccountActivity extends Activity
 		setContentView(R.layout.new_account);
 		UserListManager.initManager(this.getApplicationContext());
 		ULC = new UserListController();
+		EditText username = (EditText) findViewById(R.id.editNewUserName);
+		username.requestFocus();
 
 		//clickable create account button creates new user and takes user to choose claim list page
 		Button createbutton = (Button) findViewById(R.id.buttonNewAccountDone);

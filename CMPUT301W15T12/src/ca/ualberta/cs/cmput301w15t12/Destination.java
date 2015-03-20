@@ -28,11 +28,18 @@ public class Destination implements Serializable
 	private String Destination;
 	private String Description;
 	
+	
+
+	public Destination(String name, String desc)
+	{
+		this.Destination = name;
+		this.Description = desc;
+	}
 
 	//for printing the list of destinations
 	public String toString()
 	{
-		String string = Destination+": "+Description+"\n";
+		String string = Destination+": "+Description;
 		return string;
 	}	
 

@@ -7,8 +7,8 @@
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="title_activity_item_view">ItemViewActivity</string>
     <string name="ep">Enter Password</string>
-    <string name="cp">Confirm Password</string>      
-    <string name="New_Claim">New Claim</string>    
+    <string name="cp">Confirm Password</string>
+    <string name="New_Claim">New Claim</string>
     <string name="Edit_Item">Edit Item</string>
     <string name="Email_Claim">Email Claim</string>
     <string name="Edit_Claim">Edit Claim</string>
@@ -62,6 +62,7 @@
     <string name="tags">Tags</string>
     <string name="destinations">Destinations</string>
     <string name="Add_Image">Add Image   </string>
+    <string name="Add">Add </string>
     <string name="Flagged">Flagged</string>
     <string name="title_activity_claim_list">ClaimListActivity</string>
     <string name="title_activity_claim">ClaimActivity</string>

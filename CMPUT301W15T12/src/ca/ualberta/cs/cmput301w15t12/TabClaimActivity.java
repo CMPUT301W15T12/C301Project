@@ -19,6 +19,8 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -28,7 +30,9 @@ import android.widget.TabHost.TabSpec;
 
 @SuppressWarnings("deprecation")
 public class TabClaimActivity extends TabActivity
-{
+{	
+	ArrayList<Destination> DP = new ArrayList<Destination>();
+	TabClaimActivity parent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +45,8 @@ public class TabClaimActivity extends TabActivity
 		String option = getIntent().getExtras().getString("option");
 
 		TabHost tabHost = getTabHost();
+		
+		parent = (TabClaimActivity) this.getParent();
 
 		if (option.equals("Add")) {
 			// Claim tab
@@ -66,6 +72,8 @@ public class TabClaimActivity extends TabActivity
 
 		} else {
 			int claim_id = getIntent().getIntExtra("claim_id", 0);
+			ClaimListController CLC = new ClaimListController();
+			DP = CLC.getClaim(claim_id).getDestination();
 
 			// Claim tab
 			Intent intentClaim = new Intent().setClass(this, AddClaimActivity.class);
@@ -101,6 +109,17 @@ public class TabClaimActivity extends TabActivity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.tab_claim, menu);
 		return true;
+	}
+	
+	public void setDestination(ArrayList<Destination> d){
+		DP = d;
+	}
+	
+	public ArrayList<Destination> getDestination(){
+		if (DP == null) {
+			return new ArrayList<Destination>();
+		}
+		return DP;
 	}
 
 }
