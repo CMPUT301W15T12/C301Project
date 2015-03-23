@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import android.content.res.Resources.NotFoundException;
 import android.widget.Toast;
 
 
@@ -222,6 +223,7 @@ public class Claim {
 		} else {
 			throw new AlreadyExistsException();
 		}
+		notifyListeners();
 	}
 	public boolean containsTag(String tag){
 		return tagList.contains(tag);	

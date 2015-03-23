@@ -84,7 +84,6 @@ public class ClaimListActivity extends Activity {
 
 	public void onResume(){
 		super.onResume();
-
 		ListView listViewClaims = (ListView) findViewById(R.id.listViewClaims);
 		final ArrayList<Claim> claims2 = CLC.filterByClaimant(user);
 		final ArrayList<String> claims = new ArrayList<String>();

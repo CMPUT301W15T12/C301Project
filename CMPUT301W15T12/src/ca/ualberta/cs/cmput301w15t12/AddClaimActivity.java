@@ -73,12 +73,14 @@ public class AddClaimActivity extends Activity
 		Username = getIntent().getExtras().getString("username");
 		final String option = getIntent().getExtras().getString("option");
 
-		//initializes the date fields
+		//initializes edittext variables globally
 		editTextName = (EditText) findViewById(R.id.EnterClaimName);
 		editTextDescription = (EditText) findViewById(R.id.EnterDescription);
 		tags = (EditText) findViewById(R.id.EnterTags);
 		startDate = (EditText) findViewById(R.id.EnterStartDate);
 		endDate = (EditText) findViewById(R.id.EnterEndDate);
+
+		//initializes the date fields
 		endDate.setInputType(InputType.TYPE_NULL);
 		startDate.setInputType(InputType.TYPE_NULL);
 		setDateTimeField();
@@ -155,13 +157,13 @@ public class AddClaimActivity extends Activity
 				claim.setStartDate(sdate);
 				claim.setEndDate(edate);
 				claim.setDestination(destination);
-
+				
+				claim.setTagList(new ArrayList<String>());
 				//add Tags to Claim
 				for (int i = 0; i < tagsArrayList.size(); i++){
-					try {
-						claim.setTagList(new ArrayList<String>());
-						claim.addTag(tagsArrayList.get(i));
-					} catch (AlreadyExistsException e) {
+					try{
+						CLC.addTagToClaim(id, tagsArrayList.get(i));
+					} catch (AlreadyExistsException e){
 						e.printStackTrace();
 					}
 				}
@@ -203,7 +205,7 @@ public class AddClaimActivity extends Activity
 				//add Tag to Claim
 				for (int i = 0; i<  tagsArrayList.size(); i++){
 					try {
-						CLC.addTagToClaim(id, tagsArrayList.get(i).toString());
+						CLC.addTagToClaim(id, tagsArrayList.get(i));
 					} catch (AlreadyExistsException e) {
 						e.printStackTrace();
 					}

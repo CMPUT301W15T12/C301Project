@@ -64,7 +64,6 @@ public class ClaimActivity extends Activity {
 		setContentView(R.layout.claimant_claim_page);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
-
 		try {
 			Username = getIntent().getExtras().getString("username");
 			final int id = getIntent().getIntExtra("claim_id", 0);
