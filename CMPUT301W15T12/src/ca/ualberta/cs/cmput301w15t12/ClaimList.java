@@ -108,7 +108,7 @@ public class ClaimList{
 				filteredClaimList.add(ClaimList.claims.get(i));
 			}
 		}
-		//leave sort unil after demo
+		//leave sort until after demo
 		return sort(filteredClaimList);
 	}
 
@@ -123,10 +123,10 @@ public class ClaimList{
 		return sort(filteredClaimList);
 	}
 
-	public ArrayList<Claim> filterByTag(String tag){
+	public ArrayList<Claim> filterByTag(String user, ArrayList<String> tag){
 		ArrayList<Claim> filteredClaimList = new ArrayList<Claim>();
 		for (int i = 0; i < ClaimList.claims.size(); i++) {
-			if (ClaimList.claims.get(i).containsTag(tag)){
+			if (ClaimList.claims.get(i).getClaimant().getUserName().equals(user) && tag.contains(ClaimList.claims.get(i))){
 				filteredClaimList.add(ClaimList.claims.get(i));
 			}
 		}

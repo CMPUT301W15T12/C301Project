@@ -27,10 +27,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-import android.content.res.Resources.NotFoundException;
-import android.widget.Toast;
-
-
 public class Claim {
 	//static key work on dataFormat ensures all instances of the Claim class are going to have a consistent dateformat. 
 	//This is a design decision, talk to Jim if this doesn't suit your needs

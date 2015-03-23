@@ -28,6 +28,7 @@
     <string name="Enter_Date">Enter Date (YYYY/MM/DD)</string>
     <string name="Enter_Expense_Name">Enter Expense Name</string>
     <string name="Enter_Category">Enter Category</string>
+    <string name="Enter_tag">Enter Tag</string>
     <string name="New_Expense_Item">New Expense Item</string>
     <string name="Date_Date">Date-Date</string>
     <string name="CN_Status">Claim Name - Status</string>
@@ -87,5 +88,6 @@
     <string name="choose_approver">See Claims Waiting for Approval</string>
     <string name="title_activity_tab_claim">TabClaimActivity</string>
     <string name="title_activity_add_destinations">AddDestinationsActivity</string>
+    <string name="tagE">Tag &#8230;</string>
 
 </resources>

@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Enter Tag:" />
+        android:text="@string/Enter_tag" />
 
     <EditText
         android:id="@+id/editTextTag"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Tag ..."
+        android:hint="@string/tagE"
         android:padding="10dp"  >
     </EditText>
 

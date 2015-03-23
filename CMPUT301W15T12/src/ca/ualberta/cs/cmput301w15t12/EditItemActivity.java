@@ -59,17 +59,19 @@ public class EditItemActivity extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_item);
+		
+		//initialize the manager
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
 	    
+		//intialize the date dialogue
         Date = (EditText) findViewById(R.id.editItemDate);    
         Date.setInputType(InputType.TYPE_NULL);
-		
         setDateTimeField();
         
+        //get all the values from the previous intent
 		Intent intent = getIntent();
 		expenseItemId = intent.getIntExtra("item_index", 0);
 		claimIndex = intent.getIntExtra("claim_id", 0);
@@ -77,6 +79,9 @@ public class EditItemActivity extends Activity
 		expenseItem = clc.getClaim(claimIndex).getExpenseItems().get(expenseItemId);
 		claim = clc.getClaim(claimIndex);
         
+		//start the user on the username edit text
+		EditText editName = (EditText) findViewById(R.id.editItemName );
+		editName.requestFocus();		
         
 		//clickable button creates Item and takes the user back to the claim list page
 		Button donebutton = (Button) findViewById(R.id.buttonEditItemDone);
@@ -89,20 +94,18 @@ public class EditItemActivity extends Activity
 				EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
 				EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
 				EditText editAmount = (EditText) findViewById(R.id.editAmount);
-				EditText editDate = (EditText) findViewById(R.id.editItemDate);
 				
 				String name = editName.getText().toString();
 				String category = editCategory.getText().toString();
 				String description = editDescription.getText().toString();
 				String currency = editCurrency.getText().toString();
 				String amount = editAmount.getText().toString();
-				String date = editDate.getText().toString();
+				String date = Date.getText().toString();
 				
 				Date dfDate = null;
 				try {
 					dfDate = df.parse(date);
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				DecimalFormat deF = new DecimalFormat("0.00");
@@ -111,17 +114,18 @@ public class EditItemActivity extends Activity
 				try {
 					bdAmount = (BigDecimal) deF.parse(amount);
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
-				ExpenseItem ei = new ExpenseItem(name,category, description, currency, bdAmount, dfDate);
-				try {
-					editItem(ei);
-				} catch (AlreadyExistsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
+				claim.getExpenseItems().get(expenseItemId).setName(name);
+				claim.getExpenseItems().get(expenseItemId).setCategory(category);
+				claim.getExpenseItems().get(expenseItemId).setDescription(description);
+				claim.getExpenseItems().get(expenseItemId).setCurrency(currency);
+				claim.getExpenseItems().get(expenseItemId).setAmount(bdAmount);
+				claim.getExpenseItems().get(expenseItemId).setDate(dfDate);
+				
+				//TODO edit picture
 				finish();
 			}
 		});

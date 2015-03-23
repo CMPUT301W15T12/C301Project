@@ -66,7 +66,7 @@ public class ClaimActivity extends Activity {
 		ClaimListManager.initManager(this.getApplicationContext());
 		try {
 			Username = getIntent().getExtras().getString("username");
-			final int id = getIntent().getIntExtra("claim_id", 0);
+			id = getIntent().getIntExtra("claim_id", 0);
 		} catch (NullPointerException e) {
 			Toast.makeText(this, "nope", Toast.LENGTH_LONG).show();
 		}
@@ -274,11 +274,6 @@ public class ClaimActivity extends Activity {
 		Intent intent = new Intent(ClaimActivity.this, SeeCommentsActivity.class);
 		intent.putExtra("claim_id", id);
 		startActivity(intent);
-	}
-
-	public void showSelectedClaim() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public Claim getFormFragment() {

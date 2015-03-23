@@ -34,7 +34,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;

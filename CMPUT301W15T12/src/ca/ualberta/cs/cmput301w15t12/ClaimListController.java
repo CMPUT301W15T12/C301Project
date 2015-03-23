@@ -82,8 +82,8 @@ public class ClaimListController{
 		return this.claimList.filterByStatus(status);
 	}
 	
-	public ArrayList<Claim> filterByTag(String tag){
-		return this.claimList.filterByTag(tag);
+	public ArrayList<Claim> filterByTag(String claimant, ArrayList<String> tag){
+		return this.claimList.filterByTag(claimant, tag);
 	}
 	
 	//==================Listener==================

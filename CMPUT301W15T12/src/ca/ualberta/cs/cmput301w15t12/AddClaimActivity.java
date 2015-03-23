@@ -275,7 +275,7 @@ public class AddClaimActivity extends Activity
 
 	}
 
-	//initializa the adding a tag dialogue
+	//initialize the adding a tag dialogue
 	protected void addTagDialog(){
 		LayoutInflater layoutInflater = LayoutInflater.from(AddClaimActivity.this);
 		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
@@ -292,7 +292,7 @@ public class AddClaimActivity extends Activity
 					tagsArrayList.add(editText.getText().toString());
 				}
 				user.addTag(editText.getText().toString());
-				EditText tags = (EditText) findViewById(R.id.EnterTags);
+				tags = (EditText) findViewById(R.id.EnterTags);
 				String block = "";
 				for (int i = 0; i < tagsArrayList.size(); i++) {
 					block += tagsArrayList.get(i).toString();
