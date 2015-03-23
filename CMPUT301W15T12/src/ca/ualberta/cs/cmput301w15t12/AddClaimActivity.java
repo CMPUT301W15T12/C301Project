@@ -16,8 +16,6 @@
  *   @author vanbelle
  */
 
-
-
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.text.ParseException;
@@ -31,7 +29,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -41,7 +38,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 public class AddClaimActivity extends Activity
@@ -49,6 +45,9 @@ public class AddClaimActivity extends Activity
 	//Date field variables
 	private EditText startDate;
 	private EditText endDate;
+	private EditText editTextName;
+	private EditText tags;
+	private EditText editTextDescription;
 	private DatePickerDialog fromDatePickerDialog;
 	private DatePickerDialog toDatePickerDialog;
 	private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -75,6 +74,9 @@ public class AddClaimActivity extends Activity
 		final String option = getIntent().getExtras().getString("option");
 
 		//initializes the date fields
+		editTextName = (EditText) findViewById(R.id.EnterClaimName);
+		editTextDescription = (EditText) findViewById(R.id.EnterDescription);
+		tags = (EditText) findViewById(R.id.EnterTags);
 		startDate = (EditText) findViewById(R.id.EnterStartDate);
 		endDate = (EditText) findViewById(R.id.EnterEndDate);
 		endDate.setInputType(InputType.TYPE_NULL);
@@ -85,7 +87,18 @@ public class AddClaimActivity extends Activity
 			int id = getIntent().getIntExtra("claim_id",1000000);
 			claim = CLC.getClaim(id);
 			tagsArrayList = claim.getTagList();
-			//TODO fill in existing fields
+			startDate.setText(df.format(claim.getStartDate()));
+			endDate.setText(df.format(claim.getEndDate()));
+			editTextDescription.setText(claim.getDescription());
+			editTextName.setText(claim.getName());
+			String block = "";
+			for (int i = 0; i < tagsArrayList.size(); i++) {
+				block += tagsArrayList.get(i).toString();
+				if (i != tagsArrayList.size() - 1) {
+					block += ", ";
+				}
+			}
+			tags.setText(block);
 
 		}
 
@@ -121,12 +134,7 @@ public class AddClaimActivity extends Activity
 
 	public void editClaim() throws ParseException {
 		//edit Claim
-		if (claim.editable()){	    	
-			EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
-			EditText editTextStartDate = (EditText) findViewById(R.id.EnterStartDate);
-			EditText editTextEndDate = (EditText) findViewById(R.id.EnterEndDate);
-			EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);	    	
-
+		if (claim.editable()){  	
 			//Convert EditTexts to Strings and Dates
 			String name = editTextName.getText().toString();
 			String description = editTextDescription.getText().toString();
@@ -135,8 +143,8 @@ public class AddClaimActivity extends Activity
 				Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
 			} else {
 
-				Date sdate = df.parse(editTextStartDate.getText().toString());
-				Date edate = df.parse(editTextEndDate.getText().toString());
+				Date sdate = df.parse(startDate.getText().toString());
+				Date edate = df.parse(endDate.getText().toString());
 
 				//gets destinations from other tab
 				ArrayList<Destination> destination = parentActivity.getDestination();
@@ -180,9 +188,7 @@ public class AddClaimActivity extends Activity
 			Date edate = df.parse(endDate.getText().toString());
 
 			//XML Inputs
-			EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
 			String name = editTextName.getText().toString();
-			EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);
 			String description = editTextDescription.getText().toString();
 
 			if (name.equals("") || description.equals("")) {
@@ -253,7 +259,6 @@ public class AddClaimActivity extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				//print the tags associated to the claim
-				EditText tags = (EditText) findViewById(R.id.EnterTags);
 				String block = "";
 				for (int i = 0; i < tagsArrayList.size(); i++) {
 					block += tagsArrayList.get(i).toString();
