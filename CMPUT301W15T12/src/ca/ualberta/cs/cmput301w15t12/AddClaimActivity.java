@@ -55,7 +55,7 @@ public class AddClaimActivity extends Activity
 	private User user;
 	private String Username;
 	private ArrayList<String> tagsArrayList = new ArrayList<String>();
-	private Integer id;
+	private int id;
 	private Claim claim;
 	private TabClaimActivity parentActivity;
 	private boolean selected[];
@@ -84,7 +84,7 @@ public class AddClaimActivity extends Activity
 		setDateTimeField();
 
 		if (option.equals("Edit")){
-			int id = getIntent().getIntExtra("claim_id",1000000);
+			id = getIntent().getIntExtra("claim_id",1000000);
 			claim = CLC.getClaim(id);
 			tagsArrayList = claim.getTagList();
 			startDate.setText(df.format(claim.getStartDate()));
@@ -148,24 +148,24 @@ public class AddClaimActivity extends Activity
 
 				//gets destinations from other tab
 				ArrayList<Destination> destination = parentActivity.getDestination();
-				
+
 				//set new values
 				claim.setName(name);
 				claim.setDescription(description);
 				claim.setStartDate(sdate);
 				claim.setEndDate(edate);
 				claim.setDestination(destination);
-				
+
 				//add Tags to Claim
-				for (int i = 0; i<  tagsArrayList.size(); i++){
+				for (int i = 0; i < tagsArrayList.size(); i++){
 					try {
 						claim.setTagList(new ArrayList<String>());
-						CLC.addTagToClaim(id, tagsArrayList.get(i).toString());
+						claim.addTag(tagsArrayList.get(i));
 					} catch (AlreadyExistsException e) {
 						e.printStackTrace();
 					}
 				}
-				
+
 				//toasts the user and finishes
 				Toast.makeText(AddClaimActivity.this,"Claim Updated", Toast.LENGTH_LONG).show();
 				finish();

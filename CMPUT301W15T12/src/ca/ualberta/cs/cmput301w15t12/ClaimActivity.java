@@ -67,12 +67,11 @@ public class ClaimActivity extends Activity {
 
 		try {
 			Username = getIntent().getExtras().getString("username");
+			final int id = getIntent().getIntExtra("claim_id", 0);
 		} catch (NullPointerException e) {
 			Toast.makeText(this, "nope", Toast.LENGTH_LONG).show();
 		}
-
-		//Claim passed on is stored in claim variable
-		final int id = getIntent().getIntExtra("claim_id", 0);
+		
 		claim = CLC.getClaim(id);
 
 		//clickable button takes the user to the edit add item page when clicked
@@ -102,7 +101,7 @@ public class ClaimActivity extends Activity {
 		TextView description = (TextView) findViewById(R.id.textClaimDescription);
 		TextView dates = (TextView) findViewById(R.id.textStarttoEndDate);
 		TextView destinations = (TextView) findViewById(R.id.textClaimDestinations);
-
+		
 		//sets the textviews
 		name.setText(claim.getName()+" - "+claim.getStatus());
 		description.setText(claim.getDescription());
