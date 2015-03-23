@@ -291,7 +291,6 @@ public class AddClaimActivity extends Activity
 				if (!tagsArrayList.contains(editText.getText().toString())) {
 					tagsArrayList.add(editText.getText().toString());
 				}
-				user.addTag(editText.getText().toString());
 				tags = (EditText) findViewById(R.id.EnterTags);
 				String block = "";
 				for (int i = 0; i < tagsArrayList.size(); i++) {

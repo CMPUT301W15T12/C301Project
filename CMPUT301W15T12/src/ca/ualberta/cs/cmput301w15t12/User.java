@@ -90,6 +90,18 @@ public class User implements Serializable
 
 
 	public ArrayList<String> getTagList(){
+		tagList.clear();
+		ClaimListController CLC = new ClaimListController();
+		ArrayList<Claim> claims = CLC.getAllClaims();
+		for (int i = 0; i < claims.size(); i++) {
+			if (claims.get(i).getClaimant().equals(UserName)){
+				for (int j = 0; j < claims.get(i).getTagList().size(); j++ ) {
+					if (!tagList.contains(claims.get(i).getTagList().get(j))) {
+						tagList.add(claims.get(i).getTagList().get(j));
+					}
+				}
+			}
+		}
 		return tagList;
 	}
 

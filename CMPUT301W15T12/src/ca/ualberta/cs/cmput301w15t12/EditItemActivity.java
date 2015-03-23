@@ -44,7 +44,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class EditItemActivity extends Activity
 {
@@ -89,12 +88,14 @@ public class EditItemActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
+				//get the edit texts
 		        EditText editName = (EditText) findViewById(R.id.editItemName );
 				EditText editCategory = (EditText) findViewById(R.id.editCategory);
 				EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
 				EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
 				EditText editAmount = (EditText) findViewById(R.id.editAmount);
 				
+				//get the inputted values
 				String name = editName.getText().toString();
 				String category = editCategory.getText().toString();
 				String description = editDescription.getText().toString();
@@ -102,12 +103,15 @@ public class EditItemActivity extends Activity
 				String amount = editAmount.getText().toString();
 				String date = Date.getText().toString();
 				
+				//check date and parse it
 				Date dfDate = null;
 				try {
 					dfDate = df.parse(date);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
+				
+				//check amount and parse it
 				DecimalFormat deF = new DecimalFormat("0.00");
 				deF.setParseBigDecimal(true);
 				BigDecimal bdAmount = null;
@@ -117,7 +121,7 @@ public class EditItemActivity extends Activity
 					e1.printStackTrace();
 				}
 				
-				
+				//save values for the expense item
 				claim.getExpenseItems().get(expenseItemId).setName(name);
 				claim.getExpenseItems().get(expenseItemId).setCategory(category);
 				claim.getExpenseItems().get(expenseItemId).setDescription(description);
@@ -155,14 +159,14 @@ public class EditItemActivity extends Activity
 		editDate.setText(df.format(expenseItem.getDate()));
 	}
 	
-	public void editItem(ExpenseItem ei) throws AlreadyExistsException {
-		//TODO keep index, delete and create new item and then insert at that index.
-		//pass on index and attributes
-		//need a function to add at an index
-		Toast.makeText(EditItemActivity.this, "here", Toast.LENGTH_SHORT).show();
-		claim.addItem(ei);
-		claim.removeItem(expenseItemId);
-	}
+//	public void editItem(ExpenseItem ei) throws AlreadyExistsException {
+//		//TODO keep index, delete and create new item and then insert at that index.
+//		//pass on index and attributes
+//		//need a function to add at an index
+//		Toast.makeText(EditItemActivity.this, "here", Toast.LENGTH_SHORT).show();
+//		claim.addItem(ei);
+//		claim.removeItem(expenseItemId);
+//	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
