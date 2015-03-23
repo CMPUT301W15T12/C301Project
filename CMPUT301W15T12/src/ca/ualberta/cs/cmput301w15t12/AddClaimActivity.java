@@ -14,7 +14,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 
 
@@ -41,24 +41,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class AddClaimActivity extends Activity
 {
 	//Date field variables
-    private EditText startDate;
-    private EditText endDate;
-    private DatePickerDialog fromDatePickerDialog;
-    private DatePickerDialog toDatePickerDialog;
-    private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-    private ClaimListController CLC = new ClaimListController();
-    private User user;
-    private String Username;
-    private ArrayList<String> tagsArrayList = new ArrayList<String>();
-    private Integer id;
-    private Claim claim;
-    private TabClaimActivity parentActivity;
-    
+	private EditText startDate;
+	private EditText endDate;
+	private DatePickerDialog fromDatePickerDialog;
+	private DatePickerDialog toDatePickerDialog;
+	private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+	private ClaimListController CLC = new ClaimListController();
+	private User user;
+	private String Username;
+	private ArrayList<String> tagsArrayList = new ArrayList<String>();
+	private Integer id;
+	private Claim claim;
+	private TabClaimActivity parentActivity;
+	private boolean selected[];
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -67,36 +69,36 @@ public class AddClaimActivity extends Activity
 		setContentView(R.layout.add_claim);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
-		
+
 		//username of user passed along from list choice activity
 		Username = getIntent().getExtras().getString("username");
 		final String option = getIntent().getExtras().getString("option");
-		
+
 		//initializes the date fields
 		startDate = (EditText) findViewById(R.id.EnterStartDate);
 		endDate = (EditText) findViewById(R.id.EnterEndDate);
 		endDate.setInputType(InputType.TYPE_NULL);
 		startDate.setInputType(InputType.TYPE_NULL);
 		setDateTimeField();
-		
+
 		if (option.equals("Edit")){
 			int id = getIntent().getIntExtra("claim_id",1000000);
 			claim = CLC.getClaim(id);
 			tagsArrayList = claim.getTagList();
 			//TODO fill in existing fields
-			
+
 		}
-		
+
 		//gets the user corresponding to the UserName
 		for (int i = 0; i < UserListController.getUserList().size(); i++) {
 			if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
 				user = UserListController.getUserList().get(i);
 			}
 		}
-		
+
 		//getparent activity
 		parentActivity = (TabClaimActivity) this.getParent();
-		
+
 		//clickable button creates claim and takes the user back to the claim list page
 		Button donebutton = (Button) findViewById(R.id.buttonsaveClaim);
 		donebutton.setOnClickListener(new View.OnClickListener()
@@ -112,147 +114,131 @@ public class AddClaimActivity extends Activity
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				finish();			}
+			}
 		});
-		
-	}
-	
-	public void editClaim() {
-		String status = claim.getStatus();
-    	Context context = this.getApplicationContext();
 
-		//edit Claim
-		if (claim.editable()){
-			Claim prevClaim = claim;
-			
-	    	String name = new String();
-	    	Date startDate = new Date();
-	    	Date endDate = new Date();
-	    	String description = new String();
-	    	
-	    	EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
-	    	EditText editTextStartDate = (EditText) findViewById(R.id.EnterStartDate);
-	    	EditText editTextEndDate = (EditText) findViewById(R.id.EnterEndDate);
-	    	EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);	    	
-	    	
-	    	////Shouldn't Use this method - We would lose any existing expense items, comments, or approvers!!
-//	    	//Convert XML to String
-//	    	name = editTextName.getText().toString();
-//	    	//startDate = editTextStartDate.getDate().toString();
-//	    	//endDate = editTextEndDate.getText().toString();
-//	    	description = editTextDescription.getText().toString();
-//
-//	    	if (name.equals("")){
-//	    		name = prevClaim.getName();
-//	    	}
-//	    	if (startDate.equals("")){
-//	    		startDate = prevClaim.getStartDate();
-//	    	}
-//	    	if (endDate.equals("")){
-//	    		endDate = prevClaim.getEndDate();
-//	    	}
-//	    	claimController.addClaim(name, startDate, endDate, description, this.user);
-//			claimController.removeClaim(positionClaim);
-			
-	    	String toastText = "Claim Updated";
-	    	Toast toast = Toast.makeText(context,toastText, Toast.LENGTH_LONG);
-	    	toast.show();	
-		}
-		
-		//TOAST http://developer.android.com/guide/topics/ui/notifiers/toasts.html
-		//Can't edit Claim
-		else {
-			CharSequence text = "No edits allowed";
-			int duration = Toast.LENGTH_LONG;
-			
-			Toast toast = Toast.makeText(context, text, duration);
-			toast.show();
-			
-		}	
 	}
-	
-	public void addClaim() throws ParseException  {
-		//Initializing variables
-		Date sdate = df.parse(startDate.getText().toString());
-		Date edate = df.parse(endDate.getText().toString());
-		
-		//XML Inputs
-		EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
-		String name = editTextName.getText().toString();
-		EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);
-		String description = editTextDescription.getText().toString();
-		
-		//create claim
-		id = CLC.addClaim(name, sdate, edate, description, this.user);
-		ArrayList<Destination> destination = parentActivity.getDestination();
-		CLC.getClaim(id).setDestination(destination);
-		
-		//add Tag to Claim
-		for (int i = 0; i<  tagsArrayList.size(); i++){
-			try {
-				CLC.addTagToClaim(id, tagsArrayList.get(i).toString());
-			} catch (AlreadyExistsException e) {
-				e.printStackTrace();
+
+	public void editClaim() throws ParseException {
+		//edit Claim
+		if (claim.editable()){	    	
+			EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
+			EditText editTextStartDate = (EditText) findViewById(R.id.EnterStartDate);
+			EditText editTextEndDate = (EditText) findViewById(R.id.EnterEndDate);
+			EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);	    	
+
+			//Convert EditTexts to Strings and Dates
+			String name = editTextName.getText().toString();
+			String description = editTextDescription.getText().toString();
+
+			if (startDate.getText().toString().equals("") ||endDate.getText().toString().equals("") || name.equals("") || description.equals("")) {
+				Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
+			} else {
+
+				Date sdate = df.parse(editTextStartDate.getText().toString());
+				Date edate = df.parse(editTextEndDate.getText().toString());
+
+				//gets destinations from other tab
+				ArrayList<Destination> destination = parentActivity.getDestination();
+				
+				//set new values
+				claim.setName(name);
+				claim.setDescription(description);
+				claim.setStartDate(sdate);
+				claim.setEndDate(edate);
+				claim.setDestination(destination);
+				
+				//add Tags to Claim
+				for (int i = 0; i<  tagsArrayList.size(); i++){
+					try {
+						claim.setTagList(new ArrayList<String>());
+						CLC.addTagToClaim(id, tagsArrayList.get(i).toString());
+					} catch (AlreadyExistsException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				//toasts the user and finishes
+				Toast.makeText(AddClaimActivity.this,"Claim Updated", Toast.LENGTH_LONG).show();
+				finish();
 			}
 		}
 
-		//toast finished
-		Toast.makeText(AddClaimActivity.this,"Claim Saved.", Toast.LENGTH_SHORT).show();	
-		
+		//Can't edit Claim no edit allowed
+		else {
+			Toast.makeText(AddClaimActivity.this, "No edits allowed",Toast.LENGTH_SHORT).show();
+		}	
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public void addClaim() throws ParseException  {
+		if (startDate.getText().toString().equals("") ||endDate.getText().toString().equals("")) {
+			Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
+		} else {
 
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.add_claim, menu);
-		return true;
+			//Initializing variables
+			Date sdate = df.parse(startDate.getText().toString());
+			Date edate = df.parse(endDate.getText().toString());
+
+			//XML Inputs
+			EditText editTextName = (EditText) findViewById(R.id.EnterClaimName);
+			String name = editTextName.getText().toString();
+			EditText editTextDescription = (EditText) findViewById(R.id.EnterDescription);
+			String description = editTextDescription.getText().toString();
+
+			if (name.equals("") || description.equals("")) {
+				Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
+			} else {
+
+				//create claim
+				id = CLC.addClaim(name, sdate, edate, description, this.user);
+				ArrayList<Destination> destination = parentActivity.getDestination();
+				CLC.getClaim(id).setDestination(destination);
+
+				//add Tag to Claim
+				for (int i = 0; i<  tagsArrayList.size(); i++){
+					try {
+						CLC.addTagToClaim(id, tagsArrayList.get(i).toString());
+					} catch (AlreadyExistsException e) {
+						e.printStackTrace();
+					}
+				}
+
+				//toast finished
+				Toast.makeText(AddClaimActivity.this,"Claim Saved.", Toast.LENGTH_SHORT).show();	
+				finish();
+			}
+		}
 	}
-	
-//	public void onClickDestination(View view){
-//		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
-//		builder.setTitle("Add Destination");
-//		LayoutInflater inflater = LayoutInflater.from(AddClaimActivity.this);
-//		View promptView = inflater.inflate(R.layout.destination_dialog, null);
-//		builder.setView(promptView);
-//		final EditText editTextDestination = (EditText) promptView.findViewById(R.id.editTextDestination);
-//		final EditText editTextDescription = (EditText) promptView.findViewById(R.id.editTextDescription);
-//		builder.setCancelable(false)
-//			.setPositiveButton("Save", new DialogInterface.OnClickListener(){
-//				@Override
-//				public void onClick(DialogInterface dialog, int id){
-//					destination.setDestination(editTextDestination.getText().toString());
-//					destination.setDescription(editTextDescription.getText().toString());
-//				}
-//			})
-//			.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-//				public void onClick(DialogInterface dialog, int id){
-//				}
-//			});
-//	}
-	
-	
+
 	/** 
 	 * @param view
 	 */
+	//initialize the choose from previous tags dialogue
 	public void onClickTags(View view){
 		final ArrayList<String> tagList = user.getTagList();
 		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
-		String[] userTags = new String[tagList.size()];
-		userTags = (String[]) tagList.toArray(userTags);
-		final String[] finalUserTags = userTags;
+		final String[] userTags = (String[]) tagList.toArray(new String[tagList.size()]);
 		builder.setTitle("Choose Tags");
-		builder.setMultiChoiceItems(userTags, null,
+
+		//check the items already included
+		selected = new boolean[tagList.size()];
+		for (int i = 0;  i < tagList.size(); i++) {
+			if (tagsArrayList.contains(userTags[i])) {
+				selected[i] = true;
+			}
+		}
+
+		//when an item is clicked
+		builder.setMultiChoiceItems(userTags, selected,
 				new DialogInterface.OnMultiChoiceClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-				if (isChecked) {
+			public void onClick(DialogInterface dialog, int which, boolean isChecked) {	
+				if (isChecked && !tagsArrayList.contains(userTags[which])) {
 					// If the user checked the item, add it to the selected items
-					tagList.add(finalUserTags[which]);
-				} else if (tagList.contains(finalUserTags[which])) {
-					// Else, if the item is already in the array, remove it 
-					tagList.remove(finalUserTags[which]);
+					tagsArrayList.add(userTags[which]);
+				} else {
+					//if the item was unchecked remove the item
+					tagsArrayList.remove(userTags[which]);
 				}
 			}
 		});
@@ -261,12 +247,12 @@ public class AddClaimActivity extends Activity
 			public void onClick(DialogInterface dialog, int id) {
 				addTagDialog();
 			}
-			
+
 		});
 		builder.setNegativeButton("Save", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				tagsArrayList.addAll(tagList);
+				//print the tags associated to the claim
 				EditText tags = (EditText) findViewById(R.id.EnterTags);
 				String block = "";
 				for (int i = 0; i < tagsArrayList.size(); i++) {
@@ -282,6 +268,7 @@ public class AddClaimActivity extends Activity
 
 	}
 
+	//initializa the adding a tag dialogue
 	protected void addTagDialog(){
 		LayoutInflater layoutInflater = LayoutInflater.from(AddClaimActivity.this);
 		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
@@ -293,7 +280,10 @@ public class AddClaimActivity extends Activity
 		alertDialogBuilder.setCancelable(false)
 		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				tagsArrayList.add(editText.getText().toString());
+				//adds tags to userList and claimList
+				if (!tagsArrayList.contains(editText.getText().toString())) {
+					tagsArrayList.add(editText.getText().toString());
+				}
 				user.addTag(editText.getText().toString());
 				EditText tags = (EditText) findViewById(R.id.EnterTags);
 				String block = "";
@@ -315,48 +305,53 @@ public class AddClaimActivity extends Activity
 		AlertDialog alert = alertDialogBuilder.create();
 		alert.show();
 	}
-	
-	
-	
+
+
+
 	//initialize calendar view dialogues
-    private void setDateTimeField() {
-        startDate.setOnClickListener(new View.OnClickListener()
-		{
-			
+	private void setDateTimeField() {
+		startDate.setOnClickListener(new View.OnClickListener(){
 			@Override
-			public void onClick(View v)
-			{
-			    fromDatePickerDialog.show();
+			public void onClick(View v){
+				fromDatePickerDialog.show();
 			}
 		});
-        endDate.setOnClickListener(new View.OnClickListener() {
-        
-        	@Override
-        	public void onClick(View view) {
-        		toDatePickerDialog.show();   
-        	}
-        });
-        
-        Calendar newCalendar = Calendar.getInstance();
-        fromDatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
- 
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                startDate.setText(df.format(newDate.getTime()));
-            }
- 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-        
-        toDatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
- 
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                endDate.setText(df.format(newDate.getTime()));
-            }
- 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-    }
+		endDate.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				toDatePickerDialog.show();   
+			}
+		});
+
+		Calendar newCalendar = Calendar.getInstance();
+		fromDatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
+
+			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+				Calendar newDate = Calendar.getInstance();
+				newDate.set(year, monthOfYear, dayOfMonth);
+				startDate.setText(df.format(newDate.getTime()));
+			}
+
+		},newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+		toDatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
+
+			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+				Calendar newDate = Calendar.getInstance();
+				newDate.set(year, monthOfYear, dayOfMonth);
+				endDate.setText(df.format(newDate.getTime()));
+			}
+
+		},newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.add_claim, menu);
+		return true;
+	}
 
 }

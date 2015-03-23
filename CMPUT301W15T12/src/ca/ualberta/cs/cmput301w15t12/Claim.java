@@ -15,7 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 package ca.ualberta.cs.cmput301w15t12;
 
@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+
+import android.widget.Toast;
 
 
 public class Claim {
@@ -89,7 +91,7 @@ public class Claim {
 			return false;
 		}
 	}
-	
+
 	public boolean incomplete() {
 		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
 		for (int i = 0; i < expenseItems.size(); i++) {
@@ -135,14 +137,22 @@ public class Claim {
 	public String destinationsToString() {
 		String dests = "";
 		for (int i = 0; i < destinations.size(); i++) {
-			dests += destinations.get(i).toString()+"\n";
+			if (i + 1 == destinations.size()) {
+				dests += destinations.get(i).toString();
+			} else {
+				dests += destinations.get(i).toString()+", ";
+			}
 		}
 		return dests;
 	}
 	public String toStringList(ArrayList<String> list) {
 		String string = "";
 		for (int i = 0; i < list.size(); i++) {
-			string += list.get(i)+"\n";
+			if (i + 1 == list.size()) {
+				string += list.get(i);
+			} else {
+				string += list.get(i)+", ";
+			}
 		}
 		return string;
 	}
@@ -170,7 +180,7 @@ public class Claim {
 		}
 		return (id == claim.getId());
 	}
-	
+
 	//all the adds/removes/contains for the lists
 	public void removeItem(int i) {
 		ExpenseItem item = this.expenseList.getList().get(i);
@@ -233,6 +243,7 @@ public class Claim {
 	}
 	public void setName(String name) {
 		this.name = name;
+		notifyListeners();
 	}	
 	public User getClaimant() {
 		return Claimant;
@@ -252,6 +263,7 @@ public class Claim {
 
 	public void setDescription(String desc) {
 		this.Description = desc;
+		notifyListeners();
 	}	
 	public String getStatus() {
 		return Status;
@@ -270,12 +282,14 @@ public class Claim {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+		notifyListeners();
 	}
 	public ArrayList<Destination> getDestination() {
 		return destinations;
 	}
 	public void setDestination(ArrayList<Destination> destination) {
 		this.destinations = destination;
+		notifyListeners();
 	}
 	public User getApprover() {
 		return approver;
@@ -289,6 +303,9 @@ public class Claim {
 		}
 		return tagList;
 	}
+	public void setTagList(ArrayList<String> list) {
+		this.tagList = list;
+	}
 	//gets the total
 	public ArrayList<String> getTotal() {
 		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
@@ -297,14 +314,14 @@ public class Claim {
 		for (int i=0; i<expenseItems.size();i++){
 			ExpenseItem expense = expenseItems.get(i);
 			String currency = expense.getCurrency();
-			
+
 			if (costDictionary.containsKey(currency)){	//there is already an item with the same currency
 				costDictionary.put(currency,costDictionary.get(currency).add(expense.getAmount()));
 			}else{
 				costDictionary.put(currency,expense.getAmount());
 			}	
 		}
-		
+
 		for (String currency : costDictionary.keySet()) {
 			BigDecimal amount = costDictionary.get(currency);
 			formatedStringList.add(amount.toString()+" "+currency+"\n");

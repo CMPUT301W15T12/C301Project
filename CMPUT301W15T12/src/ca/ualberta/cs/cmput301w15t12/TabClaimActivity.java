@@ -31,8 +31,9 @@ import android.widget.TabHost.TabSpec;
 @SuppressWarnings("deprecation")
 public class TabClaimActivity extends TabActivity
 {	
-	ArrayList<Destination> DP = new ArrayList<Destination>();
-	TabClaimActivity parent;
+	public ArrayList<Destination> DP = new ArrayList<Destination>();
+	public TabClaimActivity parent;
+	public TabHost tabHost;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -44,7 +45,7 @@ public class TabClaimActivity extends TabActivity
 		String username = getIntent().getExtras().getString("username");
 		String option = getIntent().getExtras().getString("option");
 
-		TabHost tabHost = getTabHost();
+		tabHost = getTabHost();
 		
 		parent = (TabClaimActivity) this.getParent();
 
@@ -120,6 +121,10 @@ public class TabClaimActivity extends TabActivity
 			return new ArrayList<Destination>();
 		}
 		return DP;
+	}
+	
+	public void chooseTab(int i){
+		tabHost.setCurrentTab(i);
 	}
 
 }

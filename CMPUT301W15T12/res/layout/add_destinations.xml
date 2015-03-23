@@ -24,6 +24,7 @@
         android:id="@+id/listDestinations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSaveDestinations"
         android:layout_alignLeft="@+id/editAddDestination"
         android:layout_below="@+id/editAddDestinationDescription" >
 
@@ -49,5 +50,14 @@
         android:ems="10"
         android:hint="@string/Description"
         android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/buttonSaveDestinations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/save" />
 
 </RelativeLayout>

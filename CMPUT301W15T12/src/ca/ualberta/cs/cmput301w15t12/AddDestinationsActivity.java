@@ -58,6 +58,17 @@ public class AddDestinationsActivity extends Activity
 			D = claim.getDestination();
 			parentActivity.setDestination(D);
 		}
+		
+		Button saveButton = (Button) findViewById(R.id.buttonSaveDestinations);
+		saveButton.setOnClickListener(new View.OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				parentActivity.chooseTab(0);		
+			}
+		});
 
 
 		ListView list = (ListView) findViewById(R.id.listDestinations);
