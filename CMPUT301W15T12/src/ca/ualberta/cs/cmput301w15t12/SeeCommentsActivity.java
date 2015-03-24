@@ -14,7 +14,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 package ca.ualberta.cs.cmput301w15t12;
 
@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SeeCommentsActivity extends Activity
 {
@@ -37,22 +38,28 @@ public class SeeCommentsActivity extends Activity
 		setContentView(R.layout.see_comments);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
-		
+
 		//gets the id of the claim whose comments are being viewed
 		final int id = getIntent().getIntExtra("claim_id", 0);
-		
+
 		//gets the edit text ids
 		TextView Comments = (TextView) findViewById(R.id.textComments);
 		TextView Approvers = (TextView) findViewById(R.id.textSeeCommentsApprovers);
-		
+
 		//gets the correct claim
 		ClaimListController CLC = new ClaimListController();
 		Claim claim = CLC.getClaim(id);
-		
+
 		//sets text fields
-		Comments.setText(claim.getComment());
-		Approvers.setText(claim.getApprover().getUserName());
-		
+		if (claim.getApprover()== null) {
+			Toast.makeText(this,"No Comments", Toast.LENGTH_SHORT).show();
+		} else if (claim.getComment().equals("")) {
+			Toast.makeText(this,"No Comments", Toast.LENGTH_SHORT).show();
+			Approvers.setText(claim.getApprover().getUserName());
+		} else {
+			Comments.setText(claim.getComment());
+			Approvers.setText(claim.getApprover().getUserName());
+		}
 		Button doneBtn = (Button) findViewById(R.id.buttonSeeCommentsDone);
 		doneBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {

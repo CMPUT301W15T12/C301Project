@@ -31,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class AddDestinationsActivity extends Activity
 {
@@ -58,11 +59,11 @@ public class AddDestinationsActivity extends Activity
 			D = claim.getDestination();
 			parentActivity.setDestination(D);
 		}
-		
+
 		Button saveButton = (Button) findViewById(R.id.buttonSaveDestinations);
 		saveButton.setOnClickListener(new View.OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View v)
 			{
@@ -81,7 +82,7 @@ public class AddDestinationsActivity extends Activity
 
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,s);
 		list.setAdapter(adapter);
-		
+
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -94,7 +95,7 @@ public class AddDestinationsActivity extends Activity
 			}
 
 		});
-		
+
 
 		Button addbutton = (Button) findViewById(R.id.buttonAddDestination);
 		addbutton.setOnClickListener(new View.OnClickListener()
@@ -105,13 +106,31 @@ public class AddDestinationsActivity extends Activity
 			{
 				EditText destination = (EditText) findViewById(R.id.editAddDestination);
 				EditText description = (EditText) findViewById(R.id.editAddDestinationDescription);
-				Destination dest = new Destination(destination.getText().toString(), description.getText().toString());	
-				D.add(dest);
-				parentActivity.setDestination(D);
-				adapter.add(dest.toString());
-				adapter.notifyDataSetChanged();
-				destination.setText("");
-				description.setText("");
+				String d1 = destination.getText().toString();
+				String d2 = description.getText().toString();
+				Boolean contains = false;
+				if (d1.equals("") || d2.equals("")) {
+					Toast.makeText(AddDestinationsActivity.this, "Incomplete Destination", Toast.LENGTH_SHORT).show();
+				} else {
+					for (int i = 0; i < D.size(); i++){
+						if (D.get(i).getDestination().equals(d1) && D.get(i).getDescription().equals(d2)) {
+							contains = true;
+							break;
+						}
+					}
+					if (contains) {
+						Toast.makeText(AddDestinationsActivity.this, "Destination already added", Toast.LENGTH_SHORT).show();
+					} else {
+						Destination dest = new Destination(d1, d2);	
+						D.add(dest);
+						parentActivity.setDestination(D);
+						adapter.add(dest.toString());
+						adapter.notifyDataSetChanged();
+						destination.setText("");
+						description.setText("");
+						destination.requestFocus();
+					}
+				}
 			}
 		});
 

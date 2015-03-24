@@ -10,8 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:gravity="left"
-        android:text="@string/comments" />
+        android:gravity="left" />
 
     <Button
         android:id="@+id/buttonSeeCommentsDone"
@@ -29,7 +28,6 @@
         android:layout_above="@+id/buttonSeeCommentsDone"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:gravity="left"
-        android:text="@string/approvers" />
+        android:gravity="left"/>
 
 </RelativeLayout>

@@ -223,7 +223,7 @@ public class AddClaimActivity extends Activity
 	 */
 	//initialize the choose from previous tags dialogue
 	public void onClickTags(View view){
-		final ArrayList<String> tagList = user.getTagList();
+		ArrayList<String> tagList = user.getTagList();
 		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
 		final String[] userTags = (String[]) tagList.toArray(new String[tagList.size()]);
 		builder.setTitle("Choose Tags");
@@ -290,6 +290,9 @@ public class AddClaimActivity extends Activity
 				//adds tags to userList and claimList
 				if (!tagsArrayList.contains(editText.getText().toString())) {
 					tagsArrayList.add(editText.getText().toString());
+				}
+				if (!user.getTagList().contains(editText.getText().toString())) {
+					user.addTag(editText.getText().toString());
 				}
 				tags = (EditText) findViewById(R.id.EnterTags);
 				String block = "";
