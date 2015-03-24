@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.net.Uri;
+
 public class ExpenseItem implements Serializable{
 
 	private static final long serialVersionUID = -2552967637419002646L;
@@ -38,6 +40,7 @@ public class ExpenseItem implements Serializable{
 	private boolean flag;
 	private boolean receipt;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+	Uri uri;
 	
 	public ExpenseItem(String name,String category, String description, String currency, 
 			BigDecimal amount, Date date){
@@ -141,6 +144,14 @@ public class ExpenseItem implements Serializable{
 	}
 	public void setCurrency(String currency){
 		this.Currency = currency;
+	}
+
+	public void setUri(Uri imageFileUri) {
+		this.uri = imageFileUri;
+	}
+
+	public Uri getUri() {
+		return uri;
 	}
 	
 }

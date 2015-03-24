@@ -21,6 +21,7 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -29,7 +30,10 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Date;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -37,6 +41,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
@@ -44,6 +49,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditItemActivity extends Activity
 {
@@ -54,6 +60,7 @@ public class EditItemActivity extends Activity
     private ExpenseItem expenseItem;
     private int claimIndex;
     private Claim claim;
+    Uri imageFileUri;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -77,7 +84,12 @@ public class EditItemActivity extends Activity
 		ClaimListController clc = new ClaimListController();
 		expenseItem = clc.getClaim(claimIndex).getExpenseItems().get(expenseItemId);
 		claim = clc.getClaim(claimIndex);
-        
+		Button ib = (Button) findViewById(R.id.buttonAddImage);
+		
+		imageFileUri = expenseItem.getUri();
+		Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+		ib.setBackgroundDrawable(picture);
+        ib.setText("");
 		//start the user on the username edit text
 		EditText editName = (EditText) findViewById(R.id.editItemName );
 		editName.requestFocus();		
@@ -102,7 +114,7 @@ public class EditItemActivity extends Activity
 				String currency = editCurrency.getText().toString();
 				String amount = editAmount.getText().toString();
 				String date = Date.getText().toString();
-				
+
 				//check date and parse it
 				Date dfDate = null;
 				try {
@@ -128,11 +140,51 @@ public class EditItemActivity extends Activity
 				claim.getExpenseItems().get(expenseItemId).setCurrency(currency);
 				claim.getExpenseItems().get(expenseItemId).setAmount(bdAmount);
 				claim.getExpenseItems().get(expenseItemId).setDate(dfDate);
+				claim.getExpenseItems().get(expenseItemId).setUri(imageFileUri);
+
+
 				
 				//TODO edit picture
 				finish();
 			}
 		});
+		
+	}
+	
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	
+	public void addImage(View view){
+		String folder = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/tmp";
+		File folderF = new File(folder);
+		if (!folderF.exists()) {
+			folderF.mkdir();
+		}
+
+		// Create an URI for the picture file
+		String imageFilePath = folder + "/"
+				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+		File imageFile = new File(imageFilePath);
+		imageFileUri = Uri.fromFile(imageFile);
+		
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
+			if (resultCode == RESULT_OK){
+				Button ib = (Button) findViewById(R.id.buttonAddImage);
+				Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+				ib.setBackgroundDrawable(picture);
+		        ib.setText("");
+				Toast.makeText(EditItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
+			}
+			else if (resultCode == RESULT_CANCELED){
+				Toast.makeText(EditItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
+			}
+		}
 		
 	}
 	
@@ -148,6 +200,7 @@ public class EditItemActivity extends Activity
 		EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
 		EditText editAmount = (EditText) findViewById(R.id.editAmount);
 		EditText editDate = (EditText) findViewById(R.id.editItemDate);
+
 		
 		editName.requestFocus();
 		
