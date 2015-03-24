@@ -7,7 +7,6 @@ import android.widget.Button;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
-import ca.ualberta.cs.cmput301w15t12.ClaimList;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.User;
 
@@ -30,7 +29,7 @@ public class ClaimActivityTests extends
 		Date date2 = new Date();
 		int id;
 
-		id = claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
+		id = claimList.addClaim("name1",  date1, date2, "description1", new User("Megan", "123"));
 		
 		// Note: setStatus automatically handles valid changes to status
 		// If a call is not valid, nothing happens, and the status remains the same
@@ -86,7 +85,7 @@ public class ClaimActivityTests extends
 		Date date2 = new Date();
 		int id;
 		ClaimListController claimList = new ClaimListController();
-		id = claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
+		id = claimList.addClaim("name1",  date1, date2, "description1", new User("Megan", "123"));
 		
 		// Set status to returned
 		claimList.getClaim(0).setStatus("Returned");
@@ -118,7 +117,7 @@ public class ClaimActivityTests extends
 		Date date1 = new Date();
 		Date date2 = new Date();
 		ClaimListController claimList = new ClaimListController();
-		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
+		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan", "123"));
 		Claim claim = claimList.getClaim(0);
 		
 		// Make sure claim is in submitted status
@@ -152,11 +151,11 @@ public class ClaimActivityTests extends
 		Date date1 = new Date();
 		Date date2 = new Date();
 		ClaimListController claimList = new ClaimListController();
-		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan"));
+		claimList.addClaim("name1",  date1, date2, "description1", new User("Megan", "123"));
 		Claim claim = claimList.getClaim(0);
 		
 		// Make new user who will act as approver, and his comments
-		User approver = new User("Megan");
+		User approver = new User("Megan", "123");
 		String comment = "";
 		
 		// Make sure claim is in submitted status
@@ -176,7 +175,7 @@ public class ClaimActivityTests extends
 		assertTrue("Comment is not correct", claim.getComment().matches(comment));
 		
 		// Make new claim
-		Claim claim2 = new Claim ("name1", date1, date2, "description1", new User("Megan"), 1);
+		Claim claim2 = new Claim ("name1", date1, date2, "description1", new User("Megan", "123"), 1);
 		
 		// Make sure claim is in submitted status
 		claim2.setStatus("Submitted");

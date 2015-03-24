@@ -24,7 +24,7 @@ public class ExpenseListTests extends TestCase
 		BigDecimal amount = new BigDecimal(45.50);
 		Date date1 = new Date();
 		Date date2 = new Date();
-		User user = new User("name");
+		User user = new User("name", "123");
 		ExpenseItem expense = new ExpenseItem("name","air fare","description","USD",amount,date);
 		Claim claim = new Claim("Claim",date1,date2,"description", user,2);
 		
@@ -41,7 +41,7 @@ public class ExpenseListTests extends TestCase
 	public void testExpenseOrder() throws AlreadyExistsException{
 		Date date5 = new Date();
 		Date date4 = new Date();
-		User user = new User("name");
+		User user = new User("name", "123");
 		Claim claim = new Claim("Claim",date5,date4,"description", user,2);;
 		Date date1 = new Date();
 		BigDecimal amount1 = new BigDecimal(45.50);

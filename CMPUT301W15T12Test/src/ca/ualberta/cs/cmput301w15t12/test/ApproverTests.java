@@ -28,7 +28,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	in order from oldest to most recent, so that older claims are considered first.
 	public void testsortItem() throws ParseException, AlreadyExistsException {
 		String approver = "Sarah";
-		User user = new User(approver);
+		User user = new User(approver, "123");
 		ClaimListController claimListController = new ClaimListController();
 		Date d1 = format.parse("01-02-1232");
 		Date d2 = format.parse("01-02-2134");
@@ -59,7 +59,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 	public void testaddComment() throws ParseException, AlreadyExistsException {
 		String name = "Sarah";
 		ClaimListController claimListController = new ClaimListController();
-		User user = new User(name);
+		User user = new User(name, "123");
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
@@ -75,7 +75,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		String n = "leah";
 		String name = "Sarah";
 		ClaimListController claimListController = new ClaimListController();
-		User user = new User(name);
+		User user = new User(name, "123");
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
@@ -91,7 +91,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 	public void testreturnClaim() throws Exception {
 		ClaimListController claimListController = new ClaimListController();
 		String name = "Sarah";
-		User user = new User(name);
+		User user = new User(name, "123");
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
@@ -107,7 +107,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		boolean thrown1 = false;
 		boolean thrown2 = false;
 		String approver = "Sarah";
-		User user = new User(approver);
+		User user = new User(approver, "123");
 		ClaimListController claimListController = new ClaimListController();
 		Date d1 = format.parse("01-02-1233");
 		Date d2 = format.parse("01-02-2134");

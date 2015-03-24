@@ -28,7 +28,7 @@ public class ClaimListTests extends TestCase
 //	US02.02.01
 	public void testsortClaims() throws ParseException, AlreadyExistsException {
 		String approver = "Sarah";
-		User user = new User(approver);
+		User user = new User(approver, "123");
 		ClaimListController claimListController = new ClaimListController();
 		Date d1 = format.parse("01-02-1232");
 		Date d2 = format.parse("01-02-2134");
@@ -58,7 +58,7 @@ public class ClaimListTests extends TestCase
 								new GregorianCalendar().getTime(),
 								new GregorianCalendar().getTime(),
 								"description",
-								new User("Jim"));
+								new User("Jim", "123"));
 		
 		
 		ClaimList claimList2 = new ClaimList();
@@ -68,8 +68,8 @@ public class ClaimListTests extends TestCase
 	
 	public void testFilterByClaimant(){
 		ClaimList claimList = new ClaimList();		
-		User claimantA =  new User("Jim");
-		User claimantB = new User("Bob");
+		User claimantA =  new User("Jim", "123");
+		User claimantB = new User("Bob", "123");
 		claimList.addClaim(	"Claim 1", 
 								new GregorianCalendar().getTime(),
 								new GregorianCalendar().getTime(),
@@ -103,12 +103,12 @@ public class ClaimListTests extends TestCase
 								new GregorianCalendar().getTime(),
 								new GregorianCalendar().getTime(),
 								"description",
-								new User("Jim"));	
+								new User("Jim", "123"));	
 		int claim2Id = claimList.addClaim(	"Claim 2", 
 				new GregorianCalendar().getTime(),
 				new GregorianCalendar().getTime(),
 				"description",
-				new User("Jim"));		
+				new User("Jim", "123"));		
 		
 		
 		
@@ -116,7 +116,7 @@ public class ClaimListTests extends TestCase
 				new GregorianCalendar().getTime(),
 				new GregorianCalendar().getTime(),
 				"description",
-				new User("Jim"));	
+				new User("Jim", "123"));	
 		
 		Claim claim2 = claimList.getClaim(claim2Id);
 		Claim claim3 = claimList.getClaim(claim3Id);
@@ -135,19 +135,21 @@ public class ClaimListTests extends TestCase
 								new GregorianCalendar().getTime(),
 								new GregorianCalendar().getTime(),
 								"description",
-								new User("Jim"));	
+								new User("Jim", "123"));	
 		int claim2Id = claimList.addClaim(	"Claim 2", 
 				new GregorianCalendar().getTime(),
 				new GregorianCalendar().getTime(),
 				"description",
-				new User("Jim"));		
+				new User("Jim", "123"));		
 		
 		Claim claim1 = claimList.getClaim(claim1Id);
 		Claim claim2 = claimList.getClaim(claim2Id);
 		try {
 			claim1.addTag("cat");
 			claim2.addTag("cat");
-			assertEquals("there should be two claims with tag 'cat'",2,claimList.filterByTag("cat").size());
+			ArrayList<String> tags = new ArrayList<String>();
+			tags.add("cat");
+			assertEquals("there should be two claims with tag 'cat'",2,claimList.filterByTag("Jim",tags).size());
 		} catch (AlreadyExistsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

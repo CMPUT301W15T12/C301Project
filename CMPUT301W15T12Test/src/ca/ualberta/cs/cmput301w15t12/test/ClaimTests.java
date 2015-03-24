@@ -1,7 +1,6 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -26,7 +25,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		Date startDate = new GregorianCalendar().getTime(); //Default to now when no input is supplied
 		Date endDate = new GregorianCalendar(2015,GregorianCalendar.MARCH,21).getTime();
 		String description = "This is a fake claim";
-		User user = new User("Jim");
+		User user = new User("Jim", "123");
 		int id = 0;
 		
 		Claim claim = new Claim(name,  startDate, endDate, description,user,id);
@@ -53,7 +52,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		Date startDate = new GregorianCalendar().getTime(); //Default to now when no input is supplied
 		Date endDate = new GregorianCalendar(2015,GregorianCalendar.MARCH,21).getTime();
 		String description = "This is a fake claim";
-		User user = new User("Jim");
+		User user = new User("Jim", "123");
 		int id = 0;
 		
 		Claim claim = new Claim(oldName,  startDate, endDate, description,user,id);
@@ -71,7 +70,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		Date date = new GregorianCalendar().getTime(); //Default to know when no input is supplied
 
 		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
-		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim"),0);
+		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim", "123"),0);
 		
 		try {
 			claim.addItem(expenseItem);
@@ -92,7 +91,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
 		ExpenseItem expenseItem2 = new ExpenseItem("TEST",category, description, currency, amount, date);
 
-		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim"),0);
+		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim", "123"),0);
 		
 		try {
 			claim.addItem(expenseItem);

@@ -3,15 +3,11 @@ package ca.ualberta.cs.cmput301w15t12.test;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import android.app.Instrumentation;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.ViewAsserts;
-import android.widget.TextView;
 
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
-import ca.ualberta.cs.cmput301w15t12.R;
 
 public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseItemActivity> {
 	

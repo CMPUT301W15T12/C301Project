@@ -6,7 +6,6 @@ import java.util.GregorianCalendar;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
-import ca.ualberta.cs.cmput301w15t12.ClaimList;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.User;
 import junit.framework.TestCase;
@@ -24,8 +23,8 @@ public class ClaimListControllertTest extends TestCase {
 	
 	public void testFilterByClaimant(){
 		ClaimListController claimListController = new ClaimListController();		
-		User claimantA =  new User("Jim");
-		User claimantB = new User("Bob");
+		User claimantA =  new User("Jim", "123");
+		User claimantB = new User("Bob", "123");
 		claimListController.addClaim(	"Claim 1", 
 								new GregorianCalendar().getTime(),
 								new GregorianCalendar().getTime(),
@@ -59,12 +58,12 @@ public class ClaimListControllertTest extends TestCase {
 								new GregorianCalendar().getTime(),
 								new GregorianCalendar().getTime(),
 								"description",
-								new User("Jim"));	
+								new User("Jim", "123"));	
 		int claim2Id = claimListController.addClaim(	"Claim 2", 
 				new GregorianCalendar().getTime(),
 				new GregorianCalendar().getTime(),
 				"description",
-				new User("Jim"));		
+				new User("Jim", "123"));		
 		
 		
 		
@@ -72,7 +71,7 @@ public class ClaimListControllertTest extends TestCase {
 				new GregorianCalendar().getTime(),
 				new GregorianCalendar().getTime(),
 				"description",
-				new User("Jim"));	
+				new User("Jim", "123"));	
 		
 		Claim claim2 = claimListController.getClaim(claim2Id);
 		Claim claim3 = claimListController.getClaim(claim3Id);
@@ -91,19 +90,21 @@ public class ClaimListControllertTest extends TestCase {
 								new GregorianCalendar().getTime(),
 								new GregorianCalendar().getTime(),
 								"description",
-								new User("Jim"));	
+								new User("Jim", "123"));	
 		int claim2Id = claimListController.addClaim(	"Claim 2", 
 				new GregorianCalendar().getTime(),
 				new GregorianCalendar().getTime(),
 				"description",
-				new User("Jim"));		
+				new User("Jim", "123"));		
 		
 		Claim claim1 = claimListController.getClaim(claim1Id);
 		Claim claim2 = claimListController.getClaim(claim2Id);
 		try {
 			claim1.addTag("cat");
 			claim2.addTag("cat");
-			assertEquals("there should be two claims with tag 'cat'",2,claimListController.filterByTag("cat").size());
+			ArrayList<String> tags= new ArrayList<String>();
+			tags.add("cat");
+			assertEquals("there should be two claims with tag 'cat'",2,claimListController.filterByTag("Jim",tags).size());
 		} catch (AlreadyExistsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,7 +120,7 @@ public class ClaimListControllertTest extends TestCase {
 				new GregorianCalendar().getTime(),
 				new GregorianCalendar().getTime(),
 				"description",
-				new User("Jim"));	
+				new User("Jim", "123"));	
 		try {
 			claimListController.addTagToClaim(claimId, tag1);
 			claimListController.addTagToClaim(claimId, tag2);
@@ -142,7 +143,7 @@ public class ClaimListControllertTest extends TestCase {
 		clc.clear();
 		Date date1 = new Date();
 		Date date2 = new Date();
-		User user = new User("name");
+		User user = new User("name", "123");
 		clc.addClaim("Claim",date1, date2, "description", user);
 		assertEquals("claim was not added", 1,clc.size());
 		if (clc.getClaim(0).editable()){

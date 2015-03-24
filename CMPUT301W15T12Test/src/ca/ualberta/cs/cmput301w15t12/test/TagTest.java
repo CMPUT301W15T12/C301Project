@@ -38,7 +38,7 @@ public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> 
 		int id;
 		//Testing adding a tag.  assume redundancy check works.//tested below...
 		ClaimListController clc = new ClaimListController();
-		id = clc.addClaim("hello", startDate, endDate, "description", new User("Megan"));
+		id = clc.addClaim("hello", startDate, endDate, "description", new User("Megan", "123"));
 		Claim claim = clc.getClaim(id);
 		clc.addTagToClaim(id, "tag");
 		assertEquals("Did not create tag", clc.getTagListFromClaim(id).get(0),"tag");

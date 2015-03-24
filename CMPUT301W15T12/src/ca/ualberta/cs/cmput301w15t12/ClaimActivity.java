@@ -287,4 +287,11 @@ public class ClaimActivity extends Activity {
 		return null;
 	}
 
+	public void showSelectedClaim()
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+
 }
