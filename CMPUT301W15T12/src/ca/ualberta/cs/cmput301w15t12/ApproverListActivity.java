@@ -16,7 +16,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 package ca.ualberta.cs.cmput301w15t12;
 
@@ -49,44 +49,48 @@ public class ApproverListActivity extends Activity
 		setContentView(R.layout.approver_claim_list);
 		UserListManager.initManager(this.getApplicationContext());
 		ClaimListManager.initManager(this.getApplicationContext());
-		
+
 		approver = getIntent().getExtras().getString("username");
 	}
-	
+
 	public void onResume() {
 		super.onResume();
-		
+
 		//lists all the submitted claims for the approver to approve
 		ListView lv = (ListView) findViewById(R.id.listApproverClaimList);
 		final ArrayList<Claim> claims = CLC.filterByStatus("Submitted");
 		ArrayList<String> sclaims = new ArrayList<String>();
-		
+
 		for (int i = 0; i < claims.size(); i++){
-			sclaims.add(claims.get(i).toStringApproverList());
+			if (claims.get(i).getApprover()== null || claims.get(i).getApprover().getUserName().equals(approver)) {
+				sclaims.add(claims.get(i).toStringApproverList());
+			}
 		}
-		
+
 		if (claims.size() == 0) {
 			Toast.makeText(this, "No Submitted Claims", Toast.LENGTH_SHORT).show();
 		}
-		
+
 		final ArrayAdapter<String> SubClaimAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sclaims);
 		lv.setAdapter(SubClaimAdapter);
-		
+
 		//adds a listener to the list
 		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
 				ArrayList<Claim> claims = CLC.filterByStatus("Submitted");
 				ArrayList<String> sclaims = new ArrayList<String>();
-				
+
 				for (int i = 0; i < claims.size(); i++){
-					sclaims.add(claims.get(i).toStringApproverList());
+					if (claims.get(i).getApprover()== null || claims.get(i).getApprover().getUserName().equals(approver)) {
+						sclaims.add(claims.get(i).toStringApproverList());
+					}
 				}
 
 				SubClaimAdapter.notifyDataSetChanged();
 			}
 		});
-		
+
 		//takes user to claim page when clicked
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{ 
@@ -101,7 +105,7 @@ public class ApproverListActivity extends Activity
 				startActivity(intent);
 			}
 		});
-		
+
 	}
 
 	@Override

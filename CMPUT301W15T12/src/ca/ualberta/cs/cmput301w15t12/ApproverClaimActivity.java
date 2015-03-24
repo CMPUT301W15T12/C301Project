@@ -46,6 +46,7 @@ public class ApproverClaimActivity extends Activity {
 	public Claim Claim;
 	public String approver;
 	public int id;
+	public ArrayList<String> total;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
 	@Override
@@ -163,13 +164,13 @@ public class ApproverClaimActivity extends Activity {
 		//total list
 		ListView lv = (ListView) findViewById(R.id.ApproverlistTotalSum);
 
-		ArrayList<String> total = Claim.getTotal();
+		total = Claim.getTotal();
 		totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
 		lv.setAdapter(totalAdapter);
 		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
-				ArrayList<String> total = Claim.getTotal();
+				total = Claim.getTotal();
 				totalAdapter.notifyDataSetChanged();
 			}
 		});

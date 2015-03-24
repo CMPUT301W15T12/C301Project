@@ -57,6 +57,7 @@ public class ClaimActivity extends Activity {
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	public ClaimListController CLC = new ClaimListController();
 	public String Username;
+	public ArrayList<String> total;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,13 +112,13 @@ public class ClaimActivity extends Activity {
 
 		//total list
 		ListView lv = (ListView) findViewById(R.id.listTotalSum);
-		ArrayList<String> total = claim.getTotal();
+		total = claim.getTotal();
 		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
 		lv.setAdapter(totalAdapter);
 		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
-				ArrayList<String> total = claim.getTotal();
+				total = claim.getTotal();
 				totalAdapter.notifyDataSetChanged();
 			}
 		});
