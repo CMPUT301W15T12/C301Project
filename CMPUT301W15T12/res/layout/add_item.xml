@@ -42,6 +42,7 @@
         android:layout_above="@+id/buttonEditItemDone"
         android:layout_below="@+id/editCurrency"
         android:layout_centerHorizontal="true"
+        android:onClick="addImage"
         android:text="@string/Add_Image" />
 
     <EditText

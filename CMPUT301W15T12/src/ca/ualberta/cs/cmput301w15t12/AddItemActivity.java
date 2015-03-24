@@ -21,6 +21,7 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,10 @@ import java.util.Locale;
 import java.util.Date;
 
 import ca.ualberta.cs.cmput301w15t12.R;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -37,13 +41,16 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddItemActivity extends Activity
 {
@@ -52,6 +59,7 @@ public class AddItemActivity extends Activity
     private SimpleDateFormat df =new SimpleDateFormat("MM/dd/yyyy", Locale.US);
     private Claim claim;
     private int claim_id;
+    Uri imageFileUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -136,6 +144,43 @@ public class AddItemActivity extends Activity
 			}
 		});
 		adb.show();
+	}
+	
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	
+	public void addImage(View view){
+		String folder = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/tmp";
+		File folderF = new File(folder);
+		if (!folderF.exists()) {
+			folderF.mkdir();
+		}
+
+		// Create an URI for the picture file
+		String imageFilePath = folder + "/"
+				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+		File imageFile = new File(imageFilePath);
+		imageFileUri = Uri.fromFile(imageFile);
+		
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
+			if (resultCode == RESULT_OK){
+				Button ib = (Button) findViewById(R.id.buttonAddImage);
+				Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+				ib.setBackgroundDrawable(picture);
+		        ib.setText("");
+				Toast.makeText(AddItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
+			}
+			else if (resultCode == RESULT_CANCELED){
+				Toast.makeText(AddItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
+			}
+		}
+		
 	}
 	
 	public void categoryOnClick(View view){
