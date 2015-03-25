@@ -20,18 +20,21 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
-import ca.ualberta.cs.cmput301w15t12.R;
-import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;;
+import android.widget.Button;
+import android.widget.ImageView;
 
 public class ViewPhotoActivity extends Activity {
 
 	public ExpenseItem Item;
 	public ClaimListController CLC = new ClaimListController();
-	
+    Uri imageFileUri;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,8 +47,12 @@ public class ViewPhotoActivity extends Activity {
 		final int index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
 		
-		//TODO get photo and place it in the image box
+		ImageView iv = (ImageView) findViewById(R.id.receiptImageView);
 		
+		imageFileUri = Item.getUri();
+		Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+		iv.setImageDrawable(picture);
+        
 		Button doneBtn = (Button) findViewById(R.id.buttonViewPictureDone);
 		doneBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {

@@ -24,19 +24,22 @@ package ca.ualberta.cs.cmput301w15t12;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import ca.ualberta.cs.cmput301w15t12.R;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class ExpenseItemActivity extends Activity {
 
@@ -45,7 +48,9 @@ public class ExpenseItemActivity extends Activity {
 	public Claim Claim;
 	public int index;
 	public ClaimListController CLC = new ClaimListController();
+	Uri imageFileUri;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,50 +63,60 @@ public class ExpenseItemActivity extends Activity {
 		Claim = CLC.getClaim(id);
 		index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
-
-
+		final Button viewbutton = (Button) findViewById(R.id.buttonImage);
+		
+		if (!Item.getReceipt()){
+			viewbutton.setText("No Receipt");
+		}
+		else{
+			imageFileUri = Item.getUri();
+			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+			viewbutton.setBackgroundDrawable(picture);
+			viewbutton.setText("");
+		}
 		//clickable button, confirms delete choice
-//		Button deletebutton = (Button) findViewById(R.id.buttonitemdelete);
-//		deletebutton.setOnClickListener(new View.OnClickListener() {
-//			//checks that deleting is what you want
-//			@Override
-//			public void onClick(View v) {
-//				AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
-//				adb.setMessage("Delete this Item?");
-//				adb.setCancelable(true);
-//				adb.setPositiveButton("Delete", new OnClickListener(){
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						//TODO delete item
-//					}
-//				});
-//				adb.setNegativeButton("Cancel", new OnClickListener() {
-//					public void onClick(DialogInterface dialog, int which) {
-//					}
-//				});
-//				adb.show();
-//			}
-//		});
+		Button deletebutton = (Button) findViewById(R.id.buttonitemdelete);
+		deletebutton.setOnClickListener(new View.OnClickListener() {
+			//checks that deleting is what you want
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);
+				adb.setMessage("Delete this Item?");
+				adb.setCancelable(true);
+				adb.setPositiveButton("Delete", new OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//TODO delete item
+					}
+				});
+				adb.setNegativeButton("Cancel", new OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+				adb.show();
+			}
+		});
 
 		
 		//clickable button, if photo exists takes user to View photo page
-//		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
-//		viewbutton.setOnClickListener(new View.OnClickListener()
-//		{
-//			@Override
-//			public void onClick(View v) {
-//				if (!Item.getReceipt()){
-//					Toast.makeText(ExpenseItemActivity.this, "No Photo", Toast.LENGTH_SHORT).show();
-//				} else {
-//					Intent intent = new Intent(ExpenseItemActivity.this,ViewPhotoActivity.class);
+		viewbutton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v) {
+				if (!Item.getReceipt()){
+					Toast.makeText(ExpenseItemActivity.this, "No Photo", Toast.LENGTH_SHORT).show();
+				} 
+//				else {
+//					Intent intent = new Intent();
 //					intent.putExtra("claim_id", id);
-//					intent.putExtra("intem_index", index);
+//					intent.putExtra("item_index", index);
 //					startActivity(intent);
 //				}
-//			}
-//		});
+			}
+		});
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -125,8 +140,16 @@ public class ExpenseItemActivity extends Activity {
 		AC.setText(Item.toACString());
 		flag.setChecked(Item.getFlag());
 
-
-
+		final Button viewbutton = (Button) findViewById(R.id.buttonImage);
+		if (!Item.getReceipt()){
+			viewbutton.setText("No Receipt");
+		}
+		else{
+			imageFileUri = Item.getUri();
+			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+			viewbutton.setBackgroundDrawable(picture);
+			viewbutton.setText("");
+		}
 	}
 
 	@Override

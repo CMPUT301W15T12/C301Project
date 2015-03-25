@@ -30,8 +30,7 @@
         android:layout_above="@+id/buttonitemedit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textItemCurrency"
-        android:text="@string/Add_Image" />
+        android:layout_below="@+id/textItemCurrency" />
 
     <TextView
         android:id="@+id/textDate"

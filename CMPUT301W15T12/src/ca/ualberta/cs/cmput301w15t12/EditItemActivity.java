@@ -60,7 +60,8 @@ public class EditItemActivity extends Activity
     private ExpenseItem expenseItem;
     private int claimIndex;
     private Claim claim;
-    Uri imageFileUri;
+    Uri imageFileUri = null;
+    private boolean receipt; 
     
 	@SuppressWarnings("deprecation")
 	@Override
@@ -87,10 +88,16 @@ public class EditItemActivity extends Activity
 		claim = clc.getClaim(claimIndex);
 		Button ib = (Button) findViewById(R.id.buttonAddImage);
 		
-		imageFileUri = expenseItem.getUri();
-		Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-		ib.setBackgroundDrawable(picture);
-        ib.setText("");
+		if (expenseItem.getReceipt()){
+			imageFileUri = expenseItem.getUri();
+			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+			ib.setBackgroundDrawable(picture);
+			ib.setText("");
+		}
+		else{
+			ib.setText("No Receipt");
+		}
+		
 		//start the user on the username edit text
 		EditText editName = (EditText) findViewById(R.id.editItemName );
 		editName.requestFocus();		
@@ -142,10 +149,10 @@ public class EditItemActivity extends Activity
 				claim.getExpenseItems().get(expenseItemId).setAmount(bdAmount);
 				claim.getExpenseItems().get(expenseItemId).setDate(dfDate);
 				claim.getExpenseItems().get(expenseItemId).setUri(imageFileUri);
+				if (receipt){
+					expenseItem.setReceipt(true);
+				}
 
-
-				
-				//TODO edit picture
 				finish();
 			}
 		});
@@ -182,9 +189,16 @@ public class EditItemActivity extends Activity
 				ib.setBackgroundDrawable(picture);
 		        ib.setText("");
 				Toast.makeText(EditItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
+				receipt = true;
 			}
 			else if (resultCode == RESULT_CANCELED){
 				Toast.makeText(EditItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
+				if (!receipt){
+					receipt = false;	
+				}
+				else {
+					receipt = true;
+				}
 			}
 		}
 		

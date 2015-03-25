@@ -58,8 +58,8 @@ public class AddItemActivity extends Activity
     private SimpleDateFormat df =new SimpleDateFormat("MM/dd/yyyy", Locale.US);
     private Claim claim;
     private int claim_id;
-    Uri imageFileUri;
-
+    Uri imageFileUri = null;
+    boolean receipt = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -105,6 +105,12 @@ public class AddItemActivity extends Activity
 				ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
 						editDescription.getText().toString(), editCurrency.getText().toString(),amount, date);
 				expenseItem.setUri(imageFileUri);
+				if (receipt){
+					expenseItem.setReceipt(true);
+				}
+				else{
+					expenseItem.setReceipt(false);
+				}
 				try {
 					addItem(expenseItem);
 					
@@ -174,9 +180,11 @@ public class AddItemActivity extends Activity
 				ib.setBackgroundDrawable(picture);
 		        ib.setText("");
 				Toast.makeText(AddItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
+				receipt = true;
 			}
 			else if (resultCode == RESULT_CANCELED){
 				Toast.makeText(AddItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
+				receipt = false;
 			}
 		}
 		
