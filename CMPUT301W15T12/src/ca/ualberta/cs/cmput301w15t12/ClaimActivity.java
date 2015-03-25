@@ -46,10 +46,7 @@ import android.widget.Toast;
  * @author msumner
  *
  */
-/**
- * @author msumner
- *
- */
+
 public class ClaimActivity extends Activity {
 
 	public int id;
@@ -69,7 +66,6 @@ public class ClaimActivity extends Activity {
 			Username = getIntent().getExtras().getString("username");
 			id = getIntent().getIntExtra("claim_id", 0);
 		} catch (NullPointerException e) {
-			Toast.makeText(this, "nope", Toast.LENGTH_LONG).show();
 		}
 		
 		claim = CLC.getClaim(id);

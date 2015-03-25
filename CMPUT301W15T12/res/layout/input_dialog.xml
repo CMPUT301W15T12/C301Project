@@ -6,14 +6,14 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textEditTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/Enter_tag" />
 
     <EditText
-        android:id="@+id/editTextTag"
+        android:id="@+id/editTextTagName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/tagE"

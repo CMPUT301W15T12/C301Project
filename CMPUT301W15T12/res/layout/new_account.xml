@@ -32,6 +32,7 @@
         android:layout_below="@+id/editCreatePassword"
         android:layout_marginTop="14dp"
         android:ems="10"
+        android:fontFamily="sans-serif"
         android:hint="@string/cp"
         android:inputType="textPassword" />
 
@@ -44,6 +45,7 @@
         android:layout_below="@+id/textcreatenewaccount"
         android:layout_marginTop="120dp"
         android:ems="10"
+        android:fontFamily="sans-serif"
         android:hint="@string/User_Name" />
 
     <EditText
@@ -55,6 +57,7 @@
         android:layout_below="@+id/editNewUserName"
         android:layout_marginTop="17dp"
         android:ems="10"
+        android:fontFamily="sans-serif"
         android:hint="@string/ep"
         android:inputType="textPassword" />
 

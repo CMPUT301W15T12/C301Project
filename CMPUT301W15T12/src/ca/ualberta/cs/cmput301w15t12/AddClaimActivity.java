@@ -282,7 +282,7 @@ public class AddClaimActivity extends Activity
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddClaimActivity.this);
 		alertDialogBuilder.setView(promptView);
 
-		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTag);
+		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTagName);
 
 		alertDialogBuilder.setCancelable(false)
 		.setPositiveButton("OK", new DialogInterface.OnClickListener() {

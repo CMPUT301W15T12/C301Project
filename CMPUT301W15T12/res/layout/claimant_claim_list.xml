@@ -5,21 +5,23 @@
 
     <EditText
         android:id="@+id/editTextSearchTags"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:ems="10"
+        android:focusableInTouchMode="false"
+        android:layout_weight=".5"
+        android:onClick="onClickTags"
         android:hint="@string/search_tags" />
 
     <Button
         android:id="@+id/buttonAddClaim"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:text="@string/Add_Claim" />
 
     <ListView
@@ -31,5 +33,15 @@
         android:layout_below="@+id/editTextSearchTags" >
 
     </ListView>
+
+    <Button
+        android:id="@+id/buttonManageTags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="tagsOnClick"
+        android:layout_toRightOf="@+id/buttonAddClaim"
+        android:text="@string/m_tag" />
 
 </RelativeLayout>

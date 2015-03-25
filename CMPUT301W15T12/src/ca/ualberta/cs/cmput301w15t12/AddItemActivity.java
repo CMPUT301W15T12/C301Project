@@ -106,7 +106,7 @@ public class AddItemActivity extends Activity
 				
 				ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
 						editDescription.getText().toString(), editCurrency.getText().toString(),amount, date);
-				expenseItem.setUri(imageFileUri);
+//TODO				expenseItem.setUri(imageFileUri);
 				try {
 					addItem(expenseItem);
 					

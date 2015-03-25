@@ -15,7 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 package ca.ualberta.cs.cmput301w15t12;
 
@@ -31,7 +31,7 @@ public class ClaimList{
 	private static ArrayList<Claim> claims;
 	private static ArrayList<Listener> listeners;
 	private static int nextUnassignedId;
-	
+
 	public ClaimList() {
 		if (ClaimList.claims==null){
 			claims = new ArrayList<Claim>();
@@ -39,7 +39,7 @@ public class ClaimList{
 			ClaimList.nextUnassignedId = 0;
 		}
 	}
-	
+
 	//==================Get/Add/Remove/Contains/Size==================
 	public Claim getClaim(int id) {
 		for (int i = 0; i < claims.size(); i++) {
@@ -49,11 +49,11 @@ public class ClaimList{
 		}
 		return null; //return null if not found
 	}
-	
+
 	public ArrayList<Claim> getAllClaims(){
 		return ClaimList.claims;
 	}
-	
+
 	public int addClaim(String name, Date startDate, Date endDate, String description, User Claimant){
 		int id = getNextUnassignedId();
 		incrementeNextUnassignedId(); //important
@@ -62,7 +62,7 @@ public class ClaimList{
 		notifyListeners();
 		return id;		//return the id of the newly created claim
 	}
-	
+
 	public void removeClaim(int id) {
 		for (int i = 0; i < claims.size() ; i++) {
 			if (claims.get(i).getId() == id) {
@@ -71,15 +71,15 @@ public class ClaimList{
 		}
 		notifyListeners();
 	}
-	
+
 	public boolean contains(Claim claim) {
 		return claims.contains(claim);
 	}
-	
+
 	public int size() {
 		return claims.size();
 	}
-	
+
 	//sort/clear created by sarah - leave until after demo
 	private ArrayList<Claim> sort(ArrayList<Claim> list)
 	{
@@ -92,7 +92,7 @@ public class ClaimList{
 		});
 		return list;
 	}
-	
+
 	//clears list of claims, and sets the next id to 0.
 	public void clear()
 	{
@@ -126,14 +126,16 @@ public class ClaimList{
 	public ArrayList<Claim> filterByTag(String user, ArrayList<String> tag){
 		ArrayList<Claim> filteredClaimList = new ArrayList<Claim>();
 		for (int i = 0; i < ClaimList.claims.size(); i++) {
-			if (ClaimList.claims.get(i).getClaimant().getUserName().equals(user) && tag.contains(ClaimList.claims.get(i))){
-				filteredClaimList.add(ClaimList.claims.get(i));
+			for (int j = 0; j < ClaimList.claims.get(i).getTagList().size(); j++){
+				if (ClaimList.claims.get(i).getClaimant().getUserName().equals(user) && tag.contains(ClaimList.claims.get(i).getTagList().get(j))){
+					filteredClaimList.add(ClaimList.claims.get(i));
+				}
 			}
 		}
 		//leave sort until after demo 
 		return sort(filteredClaimList);
 	}
-	
+
 	//==================Listener==================
 	public ArrayList<Listener> getListeners() {
 		return ClaimList.listeners;
@@ -142,18 +144,18 @@ public class ClaimList{
 	public void addListener(Listener listener) {
 		ClaimList.listeners.add(listener);		
 	}
-	
+
 	public void removeListener(Listener listener) {
 		listeners.remove(listener);
 	}
 
-	
+
 	public void notifyListeners() {
 		for (Listener listener : listeners) {
 			listener.update();
 		}
 	}
-	
+
 	//==================Private==================
 	private int getNextUnassignedId(){
 		return ClaimList.nextUnassignedId;

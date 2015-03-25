@@ -29,6 +29,7 @@
     <string name="Enter_Expense_Name">Enter Expense Name</string>
     <string name="Enter_Category">Enter Category</string>
     <string name="Enter_tag">Enter Tag</string>
+    <string name="m_tag">Manage Tags</string>
     <string name="New_Expense_Item">New Expense Item</string>
     <string name="Date_Date">Date-Date</string>
     <string name="CN_Status">Claim Name - Status</string>
@@ -36,7 +37,8 @@
     <string name="Add_Expense_Item">Add Expense Item</string>
     <string name="Choose">Choose</string>
     <string name="Date">Date</string>
-    <string name="edit_tags">Edit Tags</string>
+    <string name="edit_tags">Edit Tags Everywhere</string>
+    <string name="delete_tags">Delete Tags</string>
     <string name="search_tags">Search Tags</string>
     <string name="Expense_Item">Expense Item</string>
     <string name="Category">Category</string>
@@ -89,5 +91,8 @@
     <string name="title_activity_tab_claim">TabClaimActivity</string>
     <string name="title_activity_add_destinations">AddDestinationsActivity</string>
     <string name="tagE">Tag &#8230;</string>
+    <string name="tag">Tag</string>
+    <string name="title_activity_tag_manager">TagManagerActivity</string>
+    <string name="text">Single Click to Edit Long Click to delete</string>   
 
 </resources>

@@ -86,7 +86,7 @@ public class EditItemActivity extends Activity
 		claim = clc.getClaim(claimIndex);
 		Button ib = (Button) findViewById(R.id.buttonAddImage);
 		
-		imageFileUri = expenseItem.getUri();
+//TODO		imageFileUri = expenseItem.getUri();
 		Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
 		ib.setBackgroundDrawable(picture);
         ib.setText("");
@@ -140,7 +140,7 @@ public class EditItemActivity extends Activity
 				claim.getExpenseItems().get(expenseItemId).setCurrency(currency);
 				claim.getExpenseItems().get(expenseItemId).setAmount(bdAmount);
 				claim.getExpenseItems().get(expenseItemId).setDate(dfDate);
-				claim.getExpenseItems().get(expenseItemId).setUri(imageFileUri);
+//TODO				claim.getExpenseItems().get(expenseItemId).setUri(imageFileUri);
 
 
 				
@@ -211,15 +211,6 @@ public class EditItemActivity extends Activity
 		editAmount.setText(expenseItem.getAmount().toString());
 		editDate.setText(df.format(expenseItem.getDate()));
 	}
-	
-//	public void editItem(ExpenseItem ei) throws AlreadyExistsException {
-//		//TODO keep index, delete and create new item and then insert at that index.
-//		//pass on index and attributes
-//		//need a function to add at an index
-//		Toast.makeText(EditItemActivity.this, "here", Toast.LENGTH_SHORT).show();
-//		claim.addItem(ei);
-//		claim.removeItem(expenseItemId);
-//	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

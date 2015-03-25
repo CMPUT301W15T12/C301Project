@@ -25,8 +25,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,7 +37,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import ca.ualberta.cs.cmput301w15t12.R;
+
 
 public class ClaimListActivity extends Activity {
 
@@ -84,6 +90,19 @@ public class ClaimListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		Button manager = (Button) findViewById(R.id.buttonManageTags);
+		manager.setOnClickListener(new View.OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(ClaimListActivity.this, TagManagerActivity.class);
+				intent.putExtra("username", Username);
+				startActivity(intent);
+			}
+		});
 
 	}
 
@@ -92,7 +111,7 @@ public class ClaimListActivity extends Activity {
 		super.onResume();
 		updateList();
 	}
-		
+
 	public void updateList(){
 		ListView listViewClaims = (ListView) findViewById(R.id.listViewClaims);
 		if (tagsArrayList.size() == 0) {
@@ -143,18 +162,11 @@ public class ClaimListActivity extends Activity {
 	 */
 	//initialize the choose from previous tags dialogue
 	public void onClickTags(View view){
-		EditText tags = (EditText) findViewById(R.id.editTextSearchTags);
-		tagsArrayList = new ArrayList<String>();
-		final ArrayList<String> tagList = user.getTagList();
+		ArrayList<String> tagList = user.getTagList();
 		AlertDialog.Builder builder = new AlertDialog.Builder(ClaimListActivity.this);
 		final String[] userTags = (String[]) tagList.toArray(new String[tagList.size()]);
 		builder.setTitle("Choose Tags");
-
-		//check the items already included
-//		selected = new boolean[tagList.size()];
-//		for (int i = 0;  i < tagList.size(); i++) {
-//			selected[i] = false;
-//		}
+		tagsArrayList.clear();
 
 		//when an item is clicked
 		builder.setMultiChoiceItems(userTags, selected,
@@ -170,22 +182,38 @@ public class ClaimListActivity extends Activity {
 				}
 			}
 		});
-		
-		String block = "";
-		for (int i = 0; i < tagsArrayList.size(); i++) {
-			block += tagsArrayList.get(i).toString();
-			if (i != tagsArrayList.size() - 1) {
-				block += ", ";
+
+		builder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				EditText tags = (EditText) findViewById(R.id.editTextSearchTags);
+				String block = "";
+				for (int i = 0; i < tagsArrayList.size(); i++) {
+					block += tagsArrayList.get(i).toString();
+					if (i != tagsArrayList.size() - 1) {
+						block += ", ";
+					}
+				}
+				tags.setText(block);
+				updateList();
 			}
-		}
-		tags.setText(block);
-		updateList();
+
+		});
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		builder.show();
+
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.claim_list, menu);
+		getMenuInflater().inflate(R.menu.claimant_claim_list, menu);
 		return true;
 	}
 
