@@ -36,22 +36,6 @@
         android:text="@string/login" />
 
     <EditText
-        android:id="@+id/editLoginUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textLogin"
-        android:layout_alignRight="@+id/buttonLogin"
-        android:layout_below="@+id/textLogin"
-        android:layout_marginTop="152dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
-        android:hint="@string/User_Name"
-        android:typeface="normal" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
         android:id="@+id/editPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,6 +46,18 @@
         android:fontFamily="sans-serif"
         android:hint="@string/ep"
         android:inputType="textPassword"
+        android:typeface="normal" />
+
+    <EditText
+        android:id="@+id/editLoginUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editPassword"
+        android:layout_alignLeft="@+id/textLogin"
+        android:layout_marginBottom="19dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="@string/User_Name"
         android:typeface="normal" />
 
 </RelativeLayout>

@@ -70,6 +70,7 @@
     <string name="title_activity_claim_list">ClaimListActivity</string>
     <string name="title_activity_claim">ClaimActivity</string>
     <string name="title_activity_approver">ApproverActivity</string>
+    <string name="title_activity_view_photo">ViewPhotoActivity</string>
     <string name="approverAddComment">Add Comment</string>
     <string name="approverApprove">Approve</string>
     <string name="approverReturn">Return</string>

@@ -106,12 +106,12 @@ public class ExpenseItemActivity extends Activity {
 				if (!Item.getReceipt()){
 					Toast.makeText(ExpenseItemActivity.this, "No Photo", Toast.LENGTH_SHORT).show();
 				} 
-//				else {
-//					Intent intent = new Intent();
-//					intent.putExtra("claim_id", id);
-//					intent.putExtra("item_index", index);
-//					startActivity(intent);
-//				}
+				else {
+					Intent intent = new Intent(ExpenseItemActivity.this, ViewPhotoActivity.class);
+					intent.putExtra("claim_id", id);
+					intent.putExtra("item_index", index);
+					startActivity(intent);
+				}
 			}
 		});
 	}
@@ -140,7 +140,7 @@ public class ExpenseItemActivity extends Activity {
 		AC.setText(Item.toACString());
 		flag.setChecked(Item.getFlag());
 
-		final Button viewbutton = (Button) findViewById(R.id.buttonImage);
+		Button viewbutton = (Button) findViewById(R.id.buttonImage);
 		if (!Item.getReceipt()){
 			viewbutton.setText("No Receipt");
 		}
