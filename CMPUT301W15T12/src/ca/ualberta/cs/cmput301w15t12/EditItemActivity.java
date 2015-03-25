@@ -62,6 +62,7 @@ public class EditItemActivity extends Activity
     private Claim claim;
     Uri imageFileUri;
     
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -86,7 +87,7 @@ public class EditItemActivity extends Activity
 		claim = clc.getClaim(claimIndex);
 		Button ib = (Button) findViewById(R.id.buttonAddImage);
 		
-//TODO		imageFileUri = expenseItem.getUri();
+		imageFileUri = expenseItem.getUri();
 		Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
 		ib.setBackgroundDrawable(picture);
         ib.setText("");
@@ -140,7 +141,7 @@ public class EditItemActivity extends Activity
 				claim.getExpenseItems().get(expenseItemId).setCurrency(currency);
 				claim.getExpenseItems().get(expenseItemId).setAmount(bdAmount);
 				claim.getExpenseItems().get(expenseItemId).setDate(dfDate);
-//TODO				claim.getExpenseItems().get(expenseItemId).setUri(imageFileUri);
+				claim.getExpenseItems().get(expenseItemId).setUri(imageFileUri);
 
 
 				
@@ -172,6 +173,7 @@ public class EditItemActivity extends Activity
 		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 	
+	@SuppressWarnings("deprecation")
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
 			if (resultCode == RESULT_OK){

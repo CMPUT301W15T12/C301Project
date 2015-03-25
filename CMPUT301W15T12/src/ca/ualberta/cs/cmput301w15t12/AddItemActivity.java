@@ -48,7 +48,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,19 +98,17 @@ public class AddItemActivity extends Activity
 				try {
 					date = df.parse(editDate.getText().toString());
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					date = null;
 				}
 				
 				ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
 						editDescription.getText().toString(), editCurrency.getText().toString(),amount, date);
-//TODO				expenseItem.setUri(imageFileUri);
+				expenseItem.setUri(imageFileUri);
 				try {
 					addItem(expenseItem);
 					
 				} catch (AlreadyExistsException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				finish();
@@ -168,6 +165,7 @@ public class AddItemActivity extends Activity
 		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 	
+	@SuppressWarnings("deprecation")
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
 			if (resultCode == RESULT_OK){
