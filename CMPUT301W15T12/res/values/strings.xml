@@ -6,6 +6,10 @@
     <string name="title_activity_add_claim">AddClaimActivity</string>
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="title_activity_item_view">ItemViewActivity</string>
+    <string name="ChooseGeolocation">Choose Geolocation</string>
+    <string name="IncludeImage">Include Image</string>
+    <string name="HereGeolocation">Current Location</string>
+    <string name="ThereGeolocation">Choose Location</string>
     <string name="ep">Enter Password</string>
     <string name="back">Back</string>
     <string name="cp">Confirm Password</string>
