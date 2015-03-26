@@ -125,7 +125,15 @@ public class ClaimActivity extends Activity {
 		Integer[] imageId = new Integer[Items.size()];
 		for (int i = 0; i < Items.size(); i++) {
 			eitems.add(Items.get(i).toStringList());
-			if (Items.get(i).getFlag() && Items.get(i).getReceipt()) {
+			if (Items.get(i).getFlag() && Items.get(i).getReceipt() && Items.get(i).getLocation()) {
+				imageId[i] = R.drawable.trio;
+			} else if (Items.get(i).getFlag() && Items.get(i).getLocation()){
+				imageId[i] = R.drawable.globeflag;
+			} else if (Items.get(i).getReceipt() &&Items.get(i).getLocation()) {
+				imageId[i] = R.drawable.globereceipt;
+			} else if (Items.get(i).getLocation()) {
+				imageId[i] = R.drawable.globe;
+			} else if (Items.get(i).getFlag() && Items.get(i).getReceipt()) {
 				imageId[i] = R.drawable.both;
 			} else if (Items.get(i).getFlag()) {
 				imageId[i] = R.drawable.flagged;

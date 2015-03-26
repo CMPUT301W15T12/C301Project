@@ -39,6 +39,7 @@ public class ExpenseItem implements Serializable{
 	private Date date;
 	private boolean flag;
 	private boolean receipt;
+	private boolean location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	Uri uri;
 	
@@ -152,6 +153,20 @@ public class ExpenseItem implements Serializable{
 
 	public Uri getUri() {
 		return uri;
+	}
+
+	
+	public boolean getLocation()
+	{
+	
+		return location;
+	}
+
+	
+	public void setLocation(boolean location)
+	{
+	
+		this.location = location;
 	}
 	
 }
