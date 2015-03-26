@@ -91,9 +91,7 @@ public class AddItemActivity extends Activity
 				EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
 				EditText editAmount = (EditText) findViewById(R.id.editAmount);
 				EditText editDate = (EditText) findViewById(R.id.editItemDate);
-				
 				BigDecimal amount = new BigDecimal(editAmount.getText().toString());
-				
 				Date date;
 				try {
 					date = df.parse(editDate.getText().toString());
@@ -106,20 +104,24 @@ public class AddItemActivity extends Activity
 						editDescription.getText().toString(), editCurrency.getText().toString(),amount, date);
 				expenseItem.setUri(imageFileUri);
 				try {
-					addItem(expenseItem);
-					
+					//check to see fields are filled in
+					if (expenseItem.getName().equals("") ||expenseItem.getCategory().equals("") ||expenseItem.getDescription().equals("") ||
+							editDate.getText().toString().equals("") || expenseItem.getCurrency().equals("") || editAmount.getText().toString().equals("")){
+						Toast.makeText(AddItemActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();
+					}
+					else{
+						addItem(expenseItem);
+						finish();
+					}
 				} catch (AlreadyExistsException e) {
 					e.printStackTrace();
 				}
-				finish();
 			}
 		});
 		
 	}
 	
 	public void addItem(ExpenseItem expenseitem) throws AlreadyExistsException {
-		//TODO checks all user input and creates expense item based off of it,
-		//and adds the appropriate flag
 		claim.addItem(expenseitem);
 	}
 	
