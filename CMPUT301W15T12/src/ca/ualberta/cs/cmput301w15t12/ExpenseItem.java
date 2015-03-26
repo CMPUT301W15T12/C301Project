@@ -53,6 +53,7 @@ public class ExpenseItem implements Serializable{
 		this.date = date;
 		this.flag = false;
 		this.receipt = false;
+		this.location = false;
 	}
 
 	//for printing the list of expense items
@@ -149,23 +150,16 @@ public class ExpenseItem implements Serializable{
 
 	public void setUri(Uri imageFileUri) {
 		this.uri = imageFileUri;
+		this.flag = true;
 	}
 
 	public Uri getUri() {
 		return uri;
 	}
-
-	
-	public boolean getLocation()
-	{
-	
+	public boolean getLocation(){
 		return location;
 	}
-
-	
-	public void setLocation(boolean location)
-	{
-	
+	public void setLocation(boolean location){
 		this.location = location;
 	}
 	
