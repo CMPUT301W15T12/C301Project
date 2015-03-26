@@ -22,6 +22,8 @@ package ca.ualberta.cs.cmput301w15t12;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.location.Location;
+
 
 
 public class User implements Serializable
@@ -30,6 +32,7 @@ public class User implements Serializable
 	private String UserName;
 	private ArrayList<String> tagList;
 	private String Password;
+	private Location location;
 
 	public User(String name, String Password) {
 		this.UserName = name;
@@ -53,11 +56,7 @@ public class User implements Serializable
 		}
 		return getUserName().equals(compareUser.getUserName());
 	} 
-	
-	public boolean authenticate(String password) {
-		//TODO
-		return false;
-	}
+
 	public void setPassword(String password){
 		this.Password = password;
 	}
@@ -96,5 +95,13 @@ public class User implements Serializable
 	public void setTagList(ArrayList<String> tagList){
 		this.tagList = tagList;
 	}
-
+	public Location getLocation()
+	{
+		return location;
+	}
+	
+	public void setLocation(Location location)
+	{
+		this.location = location;
+	}
 }

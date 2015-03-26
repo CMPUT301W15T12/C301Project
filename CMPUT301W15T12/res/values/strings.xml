@@ -7,6 +7,7 @@
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="title_activity_item_view">ItemViewActivity</string>
     <string name="ep">Enter Password</string>
+    <string name="back">Back</string>
     <string name="cp">Confirm Password</string>
     <string name="New_Claim">New Claim</string>
     <string name="Edit_Item">Edit Item</string>
@@ -14,6 +15,7 @@
     <string name="Edit_Claim">Edit Claim</string>
     <string name="Submit_Claim">Submit Claim</string>
     <string name="Delete_Claim">Delete Claim</string>
+    <string name="Delete_Photo">Delete Photo</string>
     <string name="new_destinations">Add New Destination</string>
     <string name="SeeComments">See Comments</string>
     <string name="Enter_Claim_Name">Enter Claim Name</string>
@@ -94,6 +96,6 @@
     <string name="tagE">Tag &#8230;</string>
     <string name="tag">Tag</string>
     <string name="title_activity_tag_manager">TagManagerActivity</string>
-    <string name="text">Single Click to Edit Long Click to delete</string>   
+    <string name="text">Single Click to Edit Long Click to delete</string>
 
 </resources>

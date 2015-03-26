@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.location.Location;
 import android.net.Uri;
 
 public class ExpenseItem implements Serializable{
@@ -39,7 +40,8 @@ public class ExpenseItem implements Serializable{
 	private Date date;
 	private boolean flag;
 	private boolean receipt;
-	private boolean location;
+	private boolean boolLocation;
+	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	Uri uri;
 	
@@ -53,7 +55,7 @@ public class ExpenseItem implements Serializable{
 		this.date = date;
 		this.flag = false;
 		this.receipt = false;
-		this.location = false;
+		this.boolLocation = false;
 	}
 
 	//for printing the list of expense items
@@ -156,10 +158,16 @@ public class ExpenseItem implements Serializable{
 	public Uri getUri() {
 		return uri;
 	}
-	public boolean getLocation(){
+	public boolean getBoolLocation(){
+		return boolLocation;
+	}
+	public void setBoolLocation(boolean location){
+		this.boolLocation = location;
+	}
+	public Location getlocation(){
 		return location;
 	}
-	public void setLocation(boolean location){
+	public void setlocation(Location location){
 		this.location = location;
 	}
 	
