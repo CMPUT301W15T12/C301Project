@@ -112,6 +112,7 @@
         android:layout_above="@+id/buttonEditItemDone"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/buttonAddImage"
+        android:onClick = "deleteImage"
         android:text="@string/Delete_Photo" />
 
 </RelativeLayout>
