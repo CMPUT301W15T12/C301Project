@@ -23,10 +23,15 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +42,7 @@ public class AddDestinationsActivity extends Activity
 {
 	public ArrayList<Destination> D = new ArrayList<Destination>();
 	public TabClaimActivity parentActivity;
+	public ArrayList<String> s;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -74,7 +80,7 @@ public class AddDestinationsActivity extends Activity
 
 		ListView list = (ListView) findViewById(R.id.listDestinations);
 		ArrayList<Destination> ns = parentActivity.getDestination();
-		ArrayList<String> s = new ArrayList<String>();
+		s.clear();
 
 		for (int i = 0; i < ns.size(); i++) {
 			s.add(ns.get(i).toString());
@@ -82,18 +88,17 @@ public class AddDestinationsActivity extends Activity
 
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,s);
 		list.setAdapter(adapter);
-
-		list.setOnItemClickListener(new OnItemClickListener() {
+		list.setOnItemLongClickListener(new OnItemLongClickListener()
+		{
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3)
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3)
 			{
 
-				// TODO Auto-generated method stub
-
+				s.remove(arg2);
+				return false;
 			}
-
 		});
 
 
@@ -104,6 +109,24 @@ public class AddDestinationsActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				AlertDialog.Builder adb = new AlertDialog.Builder(AddDestinationsActivity.this);
+				adb.setMessage("Do you want to use your current location for your destination, or choose remotely? ");
+				adb.setCancelable(true);
+				adb.setPositiveButton("Current Location", new OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//TODO
+					}
+				});
+				adb.setNegativeButton("Remote Location", new OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(AddDestinationsActivity.this, MapActivity.class);
+						startActivity(intent);
+					}
+				});
+				adb.show();				
+
+
 				EditText destination = (EditText) findViewById(R.id.editAddDestination);
 				EditText description = (EditText) findViewById(R.id.editAddDestinationDescription);
 				String d1 = destination.getText().toString();

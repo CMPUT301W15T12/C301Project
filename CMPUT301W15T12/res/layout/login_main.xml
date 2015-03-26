@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/editPassword"
         android:layout_alignLeft="@+id/textLogin"
+        android:layout_alignRight="@+id/buttonLogin"
         android:layout_marginBottom="19dp"
         android:ems="10"
         android:fontFamily="sans-serif"

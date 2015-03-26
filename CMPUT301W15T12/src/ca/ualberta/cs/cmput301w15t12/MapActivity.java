@@ -31,6 +31,14 @@ public class MapActivity extends Activity
 		 mapController.setZoom(2);
 	}
 
+	public void setPoint(){
+		//TODO
+	}
+	
+	public void getPoint(){
+		//TODO
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{

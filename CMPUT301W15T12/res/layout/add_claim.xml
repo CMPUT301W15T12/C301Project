@@ -53,7 +53,7 @@
         android:id="@+id/EnterTags"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonClaimLocation"
+        android:layout_above="@+id/buttonsaveClaim"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/EnterEndDate"
@@ -86,14 +86,5 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="@string/Done" />
-
-    <Button
-        android:id="@+id/buttonClaimLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonsaveClaim"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/ChooseGeolocation" />
 
 </RelativeLayout>

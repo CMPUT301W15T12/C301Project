@@ -316,7 +316,7 @@ public class AddClaimActivity extends Activity
 	}
 
 
-
+	//http://androidopentutorials.com/android-datepickerdialog-on-edittext-click-event/ 2015/01/26
 	//initialize calendar view dialogues
 	private void setDateTimeField() {
 		startDate.setOnClickListener(new View.OnClickListener(){

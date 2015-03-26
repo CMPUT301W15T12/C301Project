@@ -24,7 +24,10 @@ package ca.ualberta.cs.cmput301w15t12;
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -69,6 +72,32 @@ public class NewAccountActivity extends Activity
 					}
 				}
 
+			}
+		});
+		
+		Button location = (Button) findViewById(R.id.buttonUserLocation);
+		location.setOnClickListener(new View.OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				AlertDialog.Builder adb = new AlertDialog.Builder(NewAccountActivity.this);
+				adb.setMessage("Do you want to set your current location as your home, or choose remotely? ");
+				adb.setCancelable(true);
+				adb.setPositiveButton("Current Location", new OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//TODO
+					}
+				});
+				adb.setNegativeButton("Remote Location", new OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(NewAccountActivity.this, MapActivity.class);
+						startActivity(intent);
+					}
+				});
+				adb.show();				
 			}
 		});
 	}
