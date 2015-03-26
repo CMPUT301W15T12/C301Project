@@ -61,7 +61,6 @@ public class EditItemActivity extends Activity
     private int claimIndex;
     private Claim claim;
     Uri imageFileUri = null;
-    private boolean receipt; 
     
 	@SuppressWarnings("deprecation")
 	@Override
@@ -149,14 +148,19 @@ public class EditItemActivity extends Activity
 				claim.getExpenseItems().get(expenseItemId).setAmount(bdAmount);
 				claim.getExpenseItems().get(expenseItemId).setDate(dfDate);
 				claim.getExpenseItems().get(expenseItemId).setUri(imageFileUri);
-				if (receipt){
-					expenseItem.setReceipt(true);
-				}
-
 				finish();
 			}
 		});
 		
+	}
+	
+	public void deleteImage(View view){
+		imageFileUri = null;
+		Button ib = (Button) findViewById(R.id.buttonAddImage);
+		//2015/03/26 - http://stackoverflow.com/questions/14802354/how-to-reset-a-buttons-background-color-to-default
+		ib.setBackgroundResource(android.R.drawable.btn_default);
+		ib.setText("Add Image");
+		Toast.makeText(EditItemActivity.this, "Photo Deleted", Toast.LENGTH_SHORT).show();
 	}
 	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -189,16 +193,9 @@ public class EditItemActivity extends Activity
 				ib.setBackgroundDrawable(picture);
 		        ib.setText("");
 				Toast.makeText(EditItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
-				receipt = true;
 			}
 			else if (resultCode == RESULT_CANCELED){
 				Toast.makeText(EditItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
-				if (!receipt){
-					receipt = false;	
-				}
-				else {
-					receipt = true;
-				}
 			}
 		}
 		

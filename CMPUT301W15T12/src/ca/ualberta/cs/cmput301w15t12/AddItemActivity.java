@@ -59,7 +59,7 @@ public class AddItemActivity extends Activity
     private Claim claim;
     private int claim_id;
     Uri imageFileUri = null;
-    boolean receipt = false;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -105,12 +105,6 @@ public class AddItemActivity extends Activity
 				ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
 						editDescription.getText().toString(), editCurrency.getText().toString(),amount, date);
 				expenseItem.setUri(imageFileUri);
-				if (receipt){
-					expenseItem.setReceipt(true);
-				}
-				else{
-					expenseItem.setReceipt(false);
-				}
 				try {
 					addItem(expenseItem);
 					
@@ -150,8 +144,19 @@ public class AddItemActivity extends Activity
 		adb.show();
 	}
 	
+	public void deleteImage(View view){
+		imageFileUri = null;
+		Button ib = (Button) findViewById(R.id.buttonAddImage);
+		//2015/03/26 - http://stackoverflow.com/questions/14802354/how-to-reset-a-buttons-background-color-to-default
+		ib.setBackgroundResource(android.R.drawable.btn_default);
+		ib.setText("Add Image");
+		Toast.makeText(AddItemActivity.this, "Photo Deleted", Toast.LENGTH_SHORT).show();
+	}
+	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	
+	//adds an image to the expense
+	//Code implemented from camera test used in lab: https://github.com/joshua2ua/BogoPicLab March 24, 2015
 	public void addImage(View view){
 		String folder = Environment.getExternalStorageDirectory()
 				.getAbsolutePath() + "/tmp";
@@ -166,6 +171,7 @@ public class AddItemActivity extends Activity
 		File imageFile = new File(imageFilePath);
 		imageFileUri = Uri.fromFile(imageFile);
 		
+		//takes user to camera app
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
 		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -174,17 +180,18 @@ public class AddItemActivity extends Activity
 	@SuppressWarnings("deprecation")
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
+			//saves photo if save clicked
 			if (resultCode == RESULT_OK){
 				Button ib = (Button) findViewById(R.id.buttonAddImage);
 				Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
 				ib.setBackgroundDrawable(picture);
 		        ib.setText("");
 				Toast.makeText(AddItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
-				receipt = true;
 			}
+			
+			//doesn't save photo if cancel clicked 
 			else if (resultCode == RESULT_CANCELED){
 				Toast.makeText(AddItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
-				receipt = false;
 			}
 		}
 		
