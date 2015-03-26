@@ -53,17 +53,17 @@
         android:id="@+id/EnterTags"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonClaimLocation"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/EnterEndDate"
-        android:layout_above="@+id/buttonsaveClaim"
         android:layout_marginTop="38dp"
-        android:ems="10"
-        android:hint="@string/tags"
         android:layout_weight=".5"
+        android:ems="10"
         android:focusableInTouchMode="false"
-        android:onClick="onClickTags"
-        android:inputType="textMultiLine" />
+        android:hint="@string/tags"
+        android:inputType="textMultiLine"
+        android:onClick="onClickTags" />
 
     <EditText
         android:id="@+id/EnterDescription"
@@ -86,5 +86,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="@string/Done" />
+
+    <Button
+        android:id="@+id/buttonClaimLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonsaveClaim"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/ChooseGeolocation" />
 
 </RelativeLayout>

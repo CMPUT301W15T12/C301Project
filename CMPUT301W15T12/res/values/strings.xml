@@ -7,6 +7,7 @@
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="title_activity_item_view">ItemViewActivity</string>
     <string name="ChooseGeolocation">Choose Geolocation</string>
+    <string name="ChooseHomeGeolocation">Choose Home Geolocation</string>
     <string name="IncludeImage">Include Image</string>
     <string name="HereGeolocation">Current Location</string>
     <string name="ThereGeolocation">Choose Location</string>
@@ -101,5 +102,6 @@
     <string name="tag">Tag</string>
     <string name="title_activity_tag_manager">TagManagerActivity</string>
     <string name="text">Single Click to Edit Long Click to delete</string>
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

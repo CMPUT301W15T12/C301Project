@@ -113,7 +113,7 @@ public class Claim {
 			block += "\n"+toStringList(getTotal());
 		}
 		if(!(destinations.size() == 0)) {
-			block += "\n"+destinationsToString();
+			block += "\n"+destinationsListToString();
 		}
 		if (!(approver == null)) {
 			block += "\n"+approver.getUserName();
@@ -127,7 +127,7 @@ public class Claim {
 		if(!(getTotal().size() == 0)) {
 			block += "\n"+toStringList(getTotal());
 		} if(!(destinations.size() == 0)) {
-			block += "\n"+destinationsToString();
+			block += "\n"+destinationsListToString();
 		} if (!(tagList.size() == 0)) {
 			block += "\n"+toStringList(tagList);
 		}
@@ -140,6 +140,17 @@ public class Claim {
 				dests += destinations.get(i).toString();
 			} else {
 				dests += destinations.get(i).toString()+", ";
+			}
+		}
+		return dests;
+	}
+	public String destinationsListToString() {
+		String dests = "";
+		for (int i = 0; i < destinations.size(); i++) {
+			if (i + 1 == destinations.size()) {
+				dests += destinations.get(i).getDestination();
+			} else {
+				dests += destinations.get(i).getDestination()+", ";
 			}
 		}
 		return dests;

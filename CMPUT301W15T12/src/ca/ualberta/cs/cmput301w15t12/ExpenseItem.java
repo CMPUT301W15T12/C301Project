@@ -15,7 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 package ca.ualberta.cs.cmput301w15t12;
 
@@ -44,7 +44,7 @@ public class ExpenseItem implements Serializable{
 	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	Uri uri;
-	
+
 	public ExpenseItem(String name,String category, String description, String currency, 
 			BigDecimal amount, Date date){
 		this.name = name;
@@ -74,18 +74,18 @@ public class ExpenseItem implements Serializable{
 		return string;
 	}
 
-	
+
 	//returns string format of Amount and Currency --> for printing the total List
 	public String toACString() {
 		return Amount.toString()+" "+this.Currency;
 	}
-	
+
 	public void incomplete() {
 		if (name == null || category == null || description == null || Amount == null || Currency == null || date == null) {
 			flag = true;
 		}
 	}
-	
+
 	//getters and setters for the attributes
 	public boolean getFlag() {
 		return flag;
@@ -94,55 +94,55 @@ public class ExpenseItem implements Serializable{
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-	
+
 	public boolean getReceipt(){
 		return receipt;
 	}
-	
+
 	public void setReceipt(boolean receipt){
 		this.receipt = receipt;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getCategory() {
 		return category;
 	}
-	
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public Date getDate() {
 		return date;
 	}
-	
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	public BigDecimal getAmount() {
 		return Amount;
 	}
-	
+
 	public void setAmount(BigDecimal amount) {
 		this.Amount = amount;
 	}
-	
+
 	public String getCurrency() {
 		return Currency;
 	}
@@ -151,8 +151,13 @@ public class ExpenseItem implements Serializable{
 	}
 
 	public void setUri(Uri imageFileUri) {
-		this.uri = imageFileUri;
-		this.flag = true;
+		if (imageFileUri == null) {
+			this.receipt = false;
+			this.uri = null;
+		} else {
+			this.uri = imageFileUri;
+			this.receipt = true;
+		}
 	}
 
 	public Uri getUri() {
@@ -170,5 +175,5 @@ public class ExpenseItem implements Serializable{
 	public void setlocation(Location location){
 		this.location = location;
 	}
-	
+
 }
