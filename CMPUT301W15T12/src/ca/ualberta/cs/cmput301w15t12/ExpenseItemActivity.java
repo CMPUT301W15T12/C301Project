@@ -48,7 +48,7 @@ public class ExpenseItemActivity extends Activity {
 	public Claim Claim;
 	public int index;
 	public ClaimListController CLC = new ClaimListController();
-	Uri imageFileUri;
+	Uri imageFileUri = null;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -97,7 +97,6 @@ public class ExpenseItemActivity extends Activity {
 			}
 		});
 
-		
 		//clickable button, if photo exists takes user to View photo page
 		viewbutton.setOnClickListener(new View.OnClickListener()
 		{

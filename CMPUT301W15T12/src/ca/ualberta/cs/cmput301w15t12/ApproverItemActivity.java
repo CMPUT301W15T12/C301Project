@@ -22,9 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import ca.ualberta.cs.cmput301w15t12.R;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +38,9 @@ public class ApproverItemActivity extends Activity {
 	public ClaimListController CLC = new ClaimListController();
 	public ExpenseItem Item;
 	public SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-
+	Uri imageFileUri;
+	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +53,19 @@ public class ApproverItemActivity extends Activity {
 		final int index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
 
+		//get the image and place it in the button
 		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
+		if (!Item.getReceipt()){
+			viewbutton.setText("No Receipt");
+		}
+		else{
+			imageFileUri = Item.getUri();
+			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+			viewbutton.setBackgroundDrawable(picture);
+			viewbutton.setText("");
+		}
+		
+		//If there is an image, clicking viewbutton enlarges it
 		viewbutton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -59,13 +75,14 @@ public class ApproverItemActivity extends Activity {
 				} else {
 					Intent intent = new Intent(ApproverItemActivity.this,ViewPhotoActivity.class);
 					intent.putExtra("claim_id", id);
-					intent.putExtra("intem_index", index);
+					intent.putExtra("item_index", index);
 					startActivity(intent);
 				}
 			}
 		});
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -87,8 +104,17 @@ public class ApproverItemActivity extends Activity {
 		Description.setText(Item.getDescription());
 		AC.setText(Item.toACString());
 		
-		
-		
+		//get the image and place it in the button
+		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
+		if (!Item.getReceipt()){
+			viewbutton.setText("No Receipt");
+		}
+		else{
+			imageFileUri = Item.getUri();
+			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+			viewbutton.setBackgroundDrawable(picture);
+			viewbutton.setText("");
+		}
 	}
 
 	@Override

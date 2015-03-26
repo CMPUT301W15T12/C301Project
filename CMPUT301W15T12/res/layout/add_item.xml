@@ -89,27 +89,28 @@
         android:id="@+id/buttonAddImage"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonDeleteImage"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editCurrency"
         android:onClick="addImage"
         android:text="@string/Add_Image" />
 
     <Button
-        android:id="@+id/buttonChooseLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonAddImage"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/buttonAddImage"
-        android:text="@string/ChooseGeolocation" />
-
-    <Button
         android:id="@+id/buttonDeleteImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/buttonEditItemDone"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/buttonAddImage"
+        android:layout_alignLeft="@+id/buttonChooseLocation"
+        android:layout_alignParentRight="true"
+        android:onClick="deleteImage"
         android:text="@string/Delete_Photo" />
+
+    <Button
+        android:id="@+id/buttonChooseLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/buttonAddImage"
+        android:layout_toRightOf="@+id/buttonAddImage"
+        android:text="@string/ChooseGeolocation" />
 
 </RelativeLayout>

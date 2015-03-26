@@ -52,8 +52,8 @@ public final class R {
         public static final int buttonApproverReturn=0x7f080020;
         public static final int buttonChooseApprover=0x7f080027;
         public static final int buttonChooseClaimant=0x7f080028;
-        public static final int buttonChooseLocation=0x7f080015;
-        public static final int buttonDeleteImage=0x7f080016;
+        public static final int buttonChooseLocation=0x7f080016;
+        public static final int buttonDeleteImage=0x7f080015;
         public static final int buttonDoneTagManager=0x7f080054;
         public static final int buttonEditItemDone=0x7f08000d;
         public static final int buttonImage=0x7f08003c;
