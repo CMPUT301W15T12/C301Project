@@ -163,7 +163,7 @@ public class Claim {
 	public String toStringTagList(ArrayList<String> list) {
 		String string = "";
 		for (int i = 0; i < list.size(); i++) {
-			if(i +1 == list.size()){
+			if(i + 1 != list.size()){
 				string += list.get(i)+", ";
 			} else {		
 				string += list.get(i);

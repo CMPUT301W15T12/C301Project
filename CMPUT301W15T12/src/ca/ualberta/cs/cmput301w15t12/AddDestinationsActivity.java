@@ -114,10 +114,10 @@ public class AddDestinationsActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				EditText destination = (EditText) findViewById(R.id.editAddDestination);
-				EditText description = (EditText) findViewById(R.id.editAddDestinationDescription);
-				String d1 = destination.getText().toString();
-				String d2 = description.getText().toString();
+				final EditText destination = (EditText) findViewById(R.id.editAddDestination);
+				final EditText description = (EditText) findViewById(R.id.editAddDestinationDescription);
+				final String d1 = destination.getText().toString();
+				final String d2 = description.getText().toString();
 				if (d1.equals("") || d2.equals("")) {
 					Toast.makeText(AddDestinationsActivity.this, "Incomplete Destination", Toast.LENGTH_SHORT).show();
 				} else {
@@ -130,6 +130,19 @@ public class AddDestinationsActivity extends Activity
 							LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 							location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 							lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
+							if (location == null){
+								Toast.makeText(AddDestinationsActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
+							} else {
+								Toast.makeText(AddDestinationsActivity.this,"Current Location added as Destination Location",Toast.LENGTH_SHORT).show();
+								Destination dest = new Destination(d1, d2, location);	
+								D.add(dest);
+								parentActivity.setDestination(D);
+								adapter.add(dest.toString());
+								adapter.notifyDataSetChanged();
+								destination.setText("");
+								description.setText("");
+								destination.requestFocus();
+							}
 						}
 					});
 					adb.setNegativeButton("Remote Location", new OnClickListener() {
@@ -137,68 +150,66 @@ public class AddDestinationsActivity extends Activity
 							Intent intent = new Intent(AddDestinationsActivity.this, MapActivity.class);
 							startActivity(intent);
 							//TODO get result
+							if (location == null){
+								Toast.makeText(AddDestinationsActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
+							} else {
+								Toast.makeText(AddDestinationsActivity.this,"Chosen Location added as Destination Location",Toast.LENGTH_SHORT).show();
+								Destination dest = new Destination(d1, d2, location);	
+								D.add(dest);
+								parentActivity.setDestination(D);
+								adapter.add(dest.toString());
+								adapter.notifyDataSetChanged();
+								destination.setText("");
+								description.setText("");
+								destination.requestFocus();
+							}
 						}
 					});
 					adb.show();
-
-					if (location == null){
-						Toast.makeText(AddDestinationsActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(AddDestinationsActivity.this,"Location added as Destination Location",Toast.LENGTH_SHORT).show();
-
-						Destination dest = new Destination(d1, d2, location);	
-						D.add(dest);
-						parentActivity.setDestination(D);
-						adapter.add(dest.toString());
-						adapter.notifyDataSetChanged();
-						destination.setText("");
-						description.setText("");
-						destination.requestFocus();
-					}
+					
 				}
-
 			}
-		});
+	});
 
+
+}
+
+@Override
+public boolean onCreateOptionsMenu(Menu menu)
+{
+
+	// Inflate the menu; this adds items to the action bar if it is present.
+	getMenuInflater().inflate(R.menu.add_destinations, menu);
+	return true;
+}
+
+//https://github.com/joshua2ua/MockLocationTester
+private final LocationListener listener = new LocationListener() {
+	public void onLocationChanged (Location location) {
+		if (location != null) {
+			double lat = location.getLatitude();
+			double lng = location.getLongitude();
+			Date date = new Date(location.getTime());
+
+			Toast.makeText(AddDestinationsActivity.this, "The location is: \nLatitude: " + lat
+					+ "\nLongitude: " + lng
+					+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(AddDestinationsActivity.this,"nope",Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void onProviderDisabled (String provider) {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public  void onProviderEnabled (String provider) {
 
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.add_destinations, menu);
-		return true;
 	}
 
-	//https://github.com/joshua2ua/MockLocationTester
-	private final LocationListener listener = new LocationListener() {
-		public void onLocationChanged (Location location) {
-			if (location != null) {
-				double lat = location.getLatitude();
-				double lng = location.getLongitude();
-				Date date = new Date(location.getTime());
+	public void onStatusChanged (String provider, int status, Bundle extras) {
 
-				Toast.makeText(AddDestinationsActivity.this, "The location is: \nLatitude: " + lat
-						+ "\nLongitude: " + lng
-						+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
-			} else {
-				Toast.makeText(AddDestinationsActivity.this,"nope",Toast.LENGTH_SHORT).show();
-			}
-		}
-
-		public void onProviderDisabled (String provider) {
-
-		}
-
-		public  void onProviderEnabled (String provider) {
-
-		}
-
-		public void onStatusChanged (String provider, int status, Bundle extras) {
-
-		}
-	};
+	}
+};
 
 }

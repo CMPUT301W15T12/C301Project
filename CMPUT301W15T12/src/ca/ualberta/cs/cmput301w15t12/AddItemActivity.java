@@ -351,7 +351,7 @@ public class AddItemActivity extends Activity
 					if (location == null){
 						Toast.makeText(AddItemActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
 					} else {
-						Toast.makeText(AddItemActivity.this,"current Location added as Destination Location",Toast.LENGTH_SHORT).show();
+						Toast.makeText(AddItemActivity.this,"Current Location added as Destination Location",Toast.LENGTH_SHORT).show();
 					}
 				}
 			});
