@@ -66,40 +66,45 @@ public class EditItemActivity extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_item);
 		
-		//initialize the manager
-		UserListManager.initManager(this.getApplicationContext());
-		ClaimListManager.initManager(this.getApplicationContext());
-	    
-		//intialize the date dialogue
-        Date = (EditText) findViewById(R.id.editItemDate);    
-        Date.setInputType(InputType.TYPE_NULL);
-        setDateTimeField();
-        
-        //get all the values from the previous intent
-		Intent intent = getIntent();
-		expenseItemId = intent.getIntExtra("item_index", 0);
-		claimIndex = intent.getIntExtra("claim_id", 0);
-		ClaimListController clc = new ClaimListController();
-		expenseItem = clc.getClaim(claimIndex).getExpenseItems().get(expenseItemId);
-		claim = clc.getClaim(claimIndex);
-		Button ib = (Button) findViewById(R.id.buttonAddImage);
 		
-		if (expenseItem.getReceipt()){
-			imageFileUri = expenseItem.getUri();
-			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-			ib.setBackgroundDrawable(picture);
-			ib.setText("");
-		}
-		else{
-			ib.setText("No Receipt");
-		}
+		//too many similarities between this activty and the add item activity, combined the two of them - Sarah
 		
-		//start the user on the username edit text
-		EditText editName = (EditText) findViewById(R.id.editItemName );
-		editName.requestFocus();		
+		
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.add_item);
+//		
+//		//initialize the manager
+//		UserListManager.initManager(this.getApplicationContext());
+//		ClaimListManager.initManager(this.getApplicationContext());
+//	    
+//		//intialize the date dialogue
+//        Date = (EditText) findViewById(R.id.editItemDate);    
+//        Date.setInputType(InputType.TYPE_NULL);
+//        setDateTimeField();
+//        
+//        //get all the values from the previous intent
+//		Intent intent = getIntent();
+//		expenseItemId = intent.getIntExtra("item_index", 0);
+//		claimIndex = intent.getIntExtra("claim_id", 0);
+//		ClaimListController clc = new ClaimListController();
+//		expenseItem = clc.getClaim(claimIndex).getExpenseItems().get(expenseItemId);
+//		claim = clc.getClaim(claimIndex);
+//		Button ib = (Button) findViewById(R.id.buttonAddImage);
+//		
+//		if (expenseItem.getReceipt()){
+//			imageFileUri = expenseItem.getUri();
+//			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+//			ib.setBackgroundDrawable(picture);
+//			ib.setText("");
+//		}
+//		else{
+//			ib.setText("No Receipt");
+//		}
+//		
+//		//start the user on the username edit text
+//		EditText editName = (EditText) findViewById(R.id.editItemName );
+//		editName.requestFocus();		
         
 		//clickable button creates Item and takes the user back to the claim list page
 		Button donebutton = (Button) findViewById(R.id.buttonEditItemDone);
@@ -154,147 +159,147 @@ public class EditItemActivity extends Activity
 		
 	}
 	
-	public void deleteImage(View view){
-		imageFileUri = null;
-		Button ib = (Button) findViewById(R.id.buttonAddImage);
-		//2015/03/26 - http://stackoverflow.com/questions/14802354/how-to-reset-a-buttons-background-color-to-default
-		ib.setBackgroundResource(android.R.drawable.btn_default);
-		ib.setText("Add Image");
-		Toast.makeText(EditItemActivity.this, "Photo Deleted", Toast.LENGTH_SHORT).show();
-	}
+//	public void deleteImage(View view){
+//		imageFileUri = null;
+//		Button ib = (Button) findViewById(R.id.buttonAddImage);
+//		//2015/03/26 - http://stackoverflow.com/questions/14802354/how-to-reset-a-buttons-background-color-to-default
+//		ib.setBackgroundResource(android.R.drawable.btn_default);
+//		ib.setText("Add Image");
+//		Toast.makeText(EditItemActivity.this, "Photo Deleted", Toast.LENGTH_SHORT).show();
+//	}
+//	
+//	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+//	
+//	public void addImage(View view){
+//		String folder = Environment.getExternalStorageDirectory()
+//				.getAbsolutePath() + "/tmp";
+//		File folderF = new File(folder);
+//		if (!folderF.exists()) {
+//			folderF.mkdir();
+//		}
+//
+//		// Create an URI for the picture file
+//		String imageFilePath = folder + "/"
+//				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+//		File imageFile = new File(imageFilePath);
+//		imageFileUri = Uri.fromFile(imageFile);
+//		
+//		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+//		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//	}
+//	
+//	@SuppressWarnings("deprecation")
+//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
+//			if (resultCode == RESULT_OK){
+//				Button ib = (Button) findViewById(R.id.buttonAddImage);
+//				Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+//				ib.setBackgroundDrawable(picture);
+//		        ib.setText("");
+//				Toast.makeText(EditItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
+//			}
+//			else if (resultCode == RESULT_CANCELED){
+//				Toast.makeText(EditItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
+//			}
+//		}
+//		
+//	}
 	
-	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+//	@Override
+//	//will this affect the dialogs? - instead be in onCreate?
+//	public void onResume(){
+//		super.onResume();
+//		
+//        //set fields to claim details
+//        EditText editName = (EditText) findViewById(R.id.editItemName );
+//		EditText editCategory = (EditText) findViewById(R.id.editCategory);
+//		EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
+//		EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
+//		EditText editAmount = (EditText) findViewById(R.id.editAmount);
+//		EditText editDate = (EditText) findViewById(R.id.editItemDate);
+//
+//		
+//		editName.requestFocus();
+//		
+//		editName.setText(expenseItem.getName());
+//		editCategory.setText(expenseItem.getCategory());
+//		editDescription.setText(expenseItem.getDescription());
+//		editCurrency.setText(expenseItem.getCurrency());	
+//		editAmount.setText(expenseItem.getAmount().toString());
+//		editDate.setText(df.format(expenseItem.getDate()));
+//	}
+//	
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu)
+//	{
+//
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.edit_item, menu);
+//		return true;
+//	}
 	
-	public void addImage(View view){
-		String folder = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/tmp";
-		File folderF = new File(folder);
-		if (!folderF.exists()) {
-			folderF.mkdir();
-		}
-
-		// Create an URI for the picture file
-		String imageFilePath = folder + "/"
-				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
-		File imageFile = new File(imageFilePath);
-		imageFileUri = Uri.fromFile(imageFile);
-		
-		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
-		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-	}
-	
-	@SuppressWarnings("deprecation")
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
-			if (resultCode == RESULT_OK){
-				Button ib = (Button) findViewById(R.id.buttonAddImage);
-				Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-				ib.setBackgroundDrawable(picture);
-		        ib.setText("");
-				Toast.makeText(EditItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
-			}
-			else if (resultCode == RESULT_CANCELED){
-				Toast.makeText(EditItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
-			}
-		}
-		
-	}
-	
-	@Override
-	//will this affect the dialogs? - instead be in onCreate?
-	public void onResume(){
-		super.onResume();
-		
-        //set fields to claim details
-        EditText editName = (EditText) findViewById(R.id.editItemName );
-		EditText editCategory = (EditText) findViewById(R.id.editCategory);
-		EditText editDescription = (EditText) findViewById(R.id.editItemDescription);
-		EditText editCurrency = (EditText) findViewById(R.id.editCurrency);
-		EditText editAmount = (EditText) findViewById(R.id.editAmount);
-		EditText editDate = (EditText) findViewById(R.id.editItemDate);
-
-		
-		editName.requestFocus();
-		
-		editName.setText(expenseItem.getName());
-		editCategory.setText(expenseItem.getCategory());
-		editDescription.setText(expenseItem.getDescription());
-		editCurrency.setText(expenseItem.getCurrency());	
-		editAmount.setText(expenseItem.getAmount().toString());
-		editDate.setText(df.format(expenseItem.getDate()));
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.edit_item, menu);
-		return true;
-	}
-	
-    private void setDateTimeField() {
-        Date.setOnClickListener(new View.OnClickListener()
-		{
-			
-			@Override
-			public void onClick(View v)
-			{
-			    DatePickerDialog.show();
-			}});
-        
-        Calendar newCalendar = Calendar.getInstance();
-        DatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
- 
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                Date.setText(df.format(newDate.getTime()));
-            }
- 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));}
-
-	public void currencyOnClick(View view){
-		//open currency dialog
-		final String[] currencies = {"CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CHY"};
-		AlertDialog.Builder adb = new AlertDialog.Builder(EditItemActivity.this);
-		adb.setTitle("Select a currency");
-		adb.setItems(currencies, new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog,int which){
-				TextView currency = (TextView) findViewById(R.id.editCurrency);
-				String selection = currencies[which];
-				currency.setText(selection);
-			}
-		});
-		adb.setNegativeButton("Cancel",new OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which){
-			}
-		});
-		adb.show();
-	}
-    
-	public void categoryOnClick(View view){
-		//open category dialog
-		final String[] categories = {"Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
-				"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"};
-		AlertDialog.Builder adb = new AlertDialog.Builder(EditItemActivity.this);
-		adb.setTitle("Select a category");
-		adb.setItems(categories, new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog,int which){
-				TextView currency = (TextView) findViewById(R.id.editCategory);
-				String selection = categories[which];
-				currency.setText(selection);
-			}
-		});
-		adb.setNegativeButton("Cancel",new OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which){
-			}
-		});
-		adb.show();
-	}
+//    private void setDateTimeField() {
+//        Date.setOnClickListener(new View.OnClickListener()
+//		{
+//			
+//			@Override
+//			public void onClick(View v)
+//			{
+//			    DatePickerDialog.show();
+//			}});
+//        
+//        Calendar newCalendar = Calendar.getInstance();
+//        DatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
+// 
+//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                Calendar newDate = Calendar.getInstance();
+//                newDate.set(year, monthOfYear, dayOfMonth);
+//                Date.setText(df.format(newDate.getTime()));
+//            }
+// 
+//        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));}
+//
+//	public void currencyOnClick(View view){
+//		//open currency dialog
+//		final String[] currencies = {"CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CHY"};
+//		AlertDialog.Builder adb = new AlertDialog.Builder(EditItemActivity.this);
+//		adb.setTitle("Select a currency");
+//		adb.setItems(currencies, new DialogInterface.OnClickListener(){
+//			@Override
+//			public void onClick(DialogInterface dialog,int which){
+//				TextView currency = (TextView) findViewById(R.id.editCurrency);
+//				String selection = currencies[which];
+//				currency.setText(selection);
+//			}
+//		});
+//		adb.setNegativeButton("Cancel",new OnClickListener(){
+//			@Override
+//			public void onClick(DialogInterface dialog, int which){
+//			}
+//		});
+//		adb.show();
+//	}
+//    
+//	public void categoryOnClick(View view){
+//		//open category dialog
+//		final String[] categories = {"Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
+//				"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"};
+//		AlertDialog.Builder adb = new AlertDialog.Builder(EditItemActivity.this);
+//		adb.setTitle("Select a category");
+//		adb.setItems(categories, new DialogInterface.OnClickListener(){
+//			@Override
+//			public void onClick(DialogInterface dialog,int which){
+//				TextView currency = (TextView) findViewById(R.id.editCategory);
+//				String selection = categories[which];
+//				currency.setText(selection);
+//			}
+//		});
+//		adb.setNegativeButton("Cancel",new OnClickListener(){
+//			@Override
+//			public void onClick(DialogInterface dialog, int which){
+//			}
+//		});
+//		adb.show();
+//	}
 }

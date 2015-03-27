@@ -46,14 +46,14 @@ public class ExpenseItem implements Serializable{
 	Uri uri;
 
 	public ExpenseItem(String name,String category, String description, String currency, 
-			BigDecimal amount, Date date){
+			BigDecimal amount, Date date, boolean flag){
 		this.name = name;
 		this.category = category;
 		this.description = description;
 		this.Amount = amount;
 		this.Currency = currency;
 		this.date = date;
-		this.flag = false;
+		this.flag = flag;
 		this.receipt = false;
 		this.boolLocation = false;
 	}
@@ -174,6 +174,11 @@ public class ExpenseItem implements Serializable{
 	}
 	public void setlocation(Location location){
 		this.location = location;
+		if (location == null) {
+			setBoolLocation(false);
+		} else {
+			setBoolLocation(true);
+		}
 	}
 
 }

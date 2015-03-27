@@ -20,17 +20,21 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,7 +46,8 @@ public class AddDestinationsActivity extends Activity
 {
 	public ArrayList<Destination> D = new ArrayList<Destination>();
 	public TabClaimActivity parentActivity;
-	public ArrayList<String> s;
+	public ArrayList<String> s = new ArrayList<String>();
+	public Location location;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -96,7 +101,7 @@ public class AddDestinationsActivity extends Activity
 					int arg2, long arg3)
 			{
 
-				s.remove(arg2);
+				s.remove(arg2);adapter.notifyDataSetChanged();
 				return false;
 			}
 		});
@@ -109,42 +114,39 @@ public class AddDestinationsActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				AlertDialog.Builder adb = new AlertDialog.Builder(AddDestinationsActivity.this);
-				adb.setMessage("Do you want to use your current location for your destination, or choose remotely? ");
-				adb.setCancelable(true);
-				adb.setPositiveButton("Current Location", new OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						//TODO
-					}
-				});
-				adb.setNegativeButton("Remote Location", new OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						Intent intent = new Intent(AddDestinationsActivity.this, MapActivity.class);
-						startActivity(intent);
-					}
-				});
-				adb.show();				
-
-
 				EditText destination = (EditText) findViewById(R.id.editAddDestination);
 				EditText description = (EditText) findViewById(R.id.editAddDestinationDescription);
 				String d1 = destination.getText().toString();
 				String d2 = description.getText().toString();
-				Boolean contains = false;
 				if (d1.equals("") || d2.equals("")) {
 					Toast.makeText(AddDestinationsActivity.this, "Incomplete Destination", Toast.LENGTH_SHORT).show();
 				} else {
-					for (int i = 0; i < D.size(); i++){
-						if (D.get(i).getDestination().equals(d1) && D.get(i).getDescription().equals(d2)) {
-							contains = true;
-							break;
+					AlertDialog.Builder adb = new AlertDialog.Builder(AddDestinationsActivity.this);
+					adb.setMessage("Do you want to use your current location for your destination, or choose remotely? ");
+					adb.setCancelable(true);
+					adb.setPositiveButton("Current Location", new OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+							location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+							lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 						}
-					}
-					if (contains) {
-						Toast.makeText(AddDestinationsActivity.this, "Destination already added", Toast.LENGTH_SHORT).show();
+					});
+					adb.setNegativeButton("Remote Location", new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							Intent intent = new Intent(AddDestinationsActivity.this, MapActivity.class);
+							startActivity(intent);
+							//TODO get result
+						}
+					});
+					adb.show();
+
+					if (location == null){
+						Toast.makeText(AddDestinationsActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
 					} else {
-						Destination dest = new Destination(d1, d2);	
+						Toast.makeText(AddDestinationsActivity.this,"Location added as Destination Location",Toast.LENGTH_SHORT).show();
+
+						Destination dest = new Destination(d1, d2, location);	
 						D.add(dest);
 						parentActivity.setDestination(D);
 						adapter.add(dest.toString());
@@ -154,6 +156,7 @@ public class AddDestinationsActivity extends Activity
 						destination.requestFocus();
 					}
 				}
+
 			}
 		});
 
@@ -168,5 +171,34 @@ public class AddDestinationsActivity extends Activity
 		getMenuInflater().inflate(R.menu.add_destinations, menu);
 		return true;
 	}
+
+	//https://github.com/joshua2ua/MockLocationTester
+	private final LocationListener listener = new LocationListener() {
+		public void onLocationChanged (Location location) {
+			if (location != null) {
+				double lat = location.getLatitude();
+				double lng = location.getLongitude();
+				Date date = new Date(location.getTime());
+
+				Toast.makeText(AddDestinationsActivity.this, "The location is: \nLatitude: " + lat
+						+ "\nLongitude: " + lng
+						+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(AddDestinationsActivity.this,"nope",Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		public void onProviderDisabled (String provider) {
+
+		}
+
+		public  void onProviderEnabled (String provider) {
+
+		}
+
+		public void onStatusChanged (String provider, int status, Bundle extras) {
+
+		}
+	};
 
 }

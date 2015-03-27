@@ -69,7 +69,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		BigDecimal amount = new BigDecimal(10.0);
 		Date date = new GregorianCalendar().getTime(); //Default to know when no input is supplied
 
-		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
+		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date, false);
 		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim", "123"),0);
 		
 		try {
@@ -88,8 +88,8 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		BigDecimal amount = new BigDecimal(10);
 		Date date = new GregorianCalendar().getTime(); //Default to now when no input is supplied
 
-		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
-		ExpenseItem expenseItem2 = new ExpenseItem("TEST",category, description, currency, amount, date);
+		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date, false);
+		ExpenseItem expenseItem2 = new ExpenseItem("TEST",category, description, currency, amount, date, false);
 
 		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim", "123"),0);
 		

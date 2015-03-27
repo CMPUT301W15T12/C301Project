@@ -22,6 +22,8 @@ package ca.ualberta.cs.cmput301w15t12;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.location.Location;
+
 
 public class ClaimListController{
 
@@ -68,9 +70,9 @@ public class ClaimListController{
 	public ArrayList<String> getTagListFromClaim(int claimId){
 		return this.claimList.getClaim(claimId).getTagList();
 	}
-	public void addDestination(int claimId, String name, String desc) throws AlreadyExistsException {
+	public void addDestination(int claimId, String name, String desc, Location location) throws AlreadyExistsException {
 		Claim targetClaim = this.claimList.getClaim(claimId);
-		targetClaim.addDestination(new Destination(name, desc));
+		targetClaim.addDestination(new Destination(name, desc, location));
 	}
 	
 	//==================Filters==================

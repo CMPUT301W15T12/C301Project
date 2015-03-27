@@ -1,118 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/buttonEditItemDone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/Done" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="620dp" >
 
-    <EditText
-        android:id="@+id/editAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editItemDescription"
-        android:ems="10"
-        android:hint="@string/Enter_Amount"
-        android:inputType="numberDecimal|numberSigned" />
+        <Button
+            android:id="@+id/buttonEditItemDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/checkBoxFlag"
+            android:text="@string/Done" />
 
-    <EditText
-        android:id="@+id/editCurrency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editAmount"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:hint="@string/Enter_Currency"
-        android:onClick="currencyOnClick" />
+        <EditText
+            android:id="@+id/editAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editItemDescription"
+            android:ems="10"
+            android:hint="@string/Enter_Amount"
+            android:inputType="numberDecimal|numberSigned" />
 
-    <EditText
-        android:id="@+id/editItemDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editItemDate"
-        android:layout_marginTop="29dp"
-        android:ems="10"
-        android:hint="@string/Enter_Description"
-        android:inputType="textMultiLine" />
+        <EditText
+            android:id="@+id/editItemDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editItemDate"
+            android:layout_marginTop="29dp"
+            android:ems="10"
+            android:hint="@string/Enter_Description"
+            android:inputType="textMultiLine" />
 
-    <EditText
-        android:id="@+id/editCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editItemName"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:hint="@string/Enter_Category"
-        android:onClick="categoryOnClick" />
+        <EditText
+            android:id="@+id/editCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editItemName"
+            android:ems="10"
+            android:focusableInTouchMode="false"
+            android:hint="@string/Enter_Category"
+            android:onClick="categoryOnClick" />
 
-    <EditText
-        android:id="@+id/editItemDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editCategory"
-        android:layout_weight=".5"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:hint="@string/Enter_Date"
-        android:inputType="date" />
+        <EditText
+            android:id="@+id/editItemDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editCategory"
+            android:layout_weight=".5"
+            android:ems="10"
+            android:focusableInTouchMode="false"
+            android:hint="@string/Enter_Date"
+            android:inputType="date" />
 
-    <EditText
-        android:id="@+id/editItemName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:hint="@string/Enter_Expense_Name" />
+        <EditText
+            android:id="@+id/editItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:hint="@string/Enter_Expense_Name" />
 
-    <requestFocus />
+        <EditText
+            android:id="@+id/editCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editAmount"
+            android:ems="10"
+            android:focusableInTouchMode="false"
+            android:hint="@string/Enter_Currency"
+            android:onClick="currencyOnClick" />
 
-    <Button
-        android:id="@+id/buttonAddImage"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonDeleteImage"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editCurrency"
-        android:onClick="addImage"
-        android:text="@string/Add_Image" />
+        <CheckBox
+            android:id="@+id/checkBoxFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckBoxClicked"
+            android:layout_alignLeft="@+id/checkBoxIncludeLocation"
+            android:layout_below="@+id/checkBoxIncludeLocation"
+            android:text="@string/flag" />
 
-    <Button
-        android:id="@+id/buttonChooseLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonDeleteImage"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/buttonAddImage"
-        android:layout_toRightOf="@+id/buttonAddImage"
-        android:text="@string/ChooseGeolocation" />
+        <CheckBox
+            android:id="@+id/checkBoxIncludeLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onLocationClick"
+            android:layout_below="@+id/checkBoxIncludePicture"
+            android:layout_centerHorizontal="true"
+            android:text="@string/IncludeLocation" />
 
-    <Button
-        android:id="@+id/buttonDeleteImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonEditItemDone"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/buttonAddImage"
-        android:onClick = "deleteImage"
-        android:text="@string/Delete_Photo" />
+        <CheckBox
+            android:id="@+id/checkBoxIncludePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/checkBoxIncludeLocation"
+            android:layout_below="@+id/buttonAddImage"
+            android:onClick="onImageCheckBoxClick"
+            android:layout_marginTop="22dp"
+            android:text="@string/IncludeImage" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/buttonAddImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/editCurrency"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:onClick="addImage"
+            android:text="@string/Add_Image" />
+
+    </RelativeLayout>
+
+</ScrollView>

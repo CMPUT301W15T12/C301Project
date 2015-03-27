@@ -27,8 +27,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-import android.location.Location;
-
 public class Claim {
 	//static key work on dataFormat ensures all instances of the Claim class are going to have a consistent dateformat. 
 	//This is a design decision, talk to Jim if this doesn't suit your needs
@@ -43,7 +41,6 @@ public class Claim {
 	private Date endDate;
 	private String Description;
 	private String Status;
-	private Location location;
 	private ArrayList<Destination> destinations;
 	private ExpenseList expenseList;
 	private ArrayList<String> tagList;
@@ -129,7 +126,7 @@ public class Claim {
 		} if(!(destinations.size() == 0)) {
 			block += "\n"+destinationsListToString();
 		} if (!(tagList.size() == 0)) {
-			block += "\n"+toStringList(tagList);
+			block += "\n"+toStringTagList(tagList);
 		}
 		return block;
 	}
@@ -158,10 +155,18 @@ public class Claim {
 	public String toStringList(ArrayList<String> list) {
 		String string = "";
 		for (int i = 0; i < list.size(); i++) {
-			if (i + 1 == list.size()) {
-				string += list.get(i);
-			} else {
+			string += list.get(i);
+		}
+		return string;
+	}
+	
+	public String toStringTagList(ArrayList<String> list) {
+		String string = "";
+		for (int i = 0; i < list.size(); i++) {
+			if(i +1 == list.size()){
 				string += list.get(i)+", ";
+			} else {		
+				string += list.get(i);
 			}
 		}
 		return string;
@@ -198,14 +203,11 @@ public class Claim {
 		notifyListeners();
 	}
 
-	public void addItem(ExpenseItem item) throws AlreadyExistsException {
+	public void addItem(ExpenseItem item) {
 		if (!this.expenseList.contains(item)) {
 			this.expenseList.addExpenseItem(item);
 			notifyListeners();
-		} else {
-			throw new AlreadyExistsException();
-		}
-
+		} 
 	}
 	public boolean containsItem(ExpenseItem Item){
 		return this.expenseList.contains(Item);	
@@ -335,18 +337,14 @@ public class Claim {
 
 		for (String currency : costDictionary.keySet()) {
 			BigDecimal amount = costDictionary.get(currency);
-			formatedStringList.add(amount.toString()+" "+currency+"\n");
+			formatedStringList.add(amount.toString()+" "+currency+", ");
+		}
+		int length = formatedStringList.size() - 1;
+		if (length != -1) {
+			String line =  formatedStringList.get(length);
+			formatedStringList.set(length, line.substring(0,line.length() - 2));
 		}
 		return formatedStringList;
-	}
-	public Location getLocation()
-	{
-		return location;
-	}
-	
-	public void setLocation(Location location)
-	{
-		this.location = location;
 	}
 	//end getters and setters
 
@@ -368,6 +366,6 @@ public class Claim {
 	public void removeListener(Listener l) {
 		getListeners().remove(l);
 	}
-	
+
 }
 
