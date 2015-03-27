@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +52,7 @@ public class ClaimListActivity extends Activity {
 	public boolean selected[];
 	public ArrayList<String> tagsArrayList = new ArrayList<String>(); 
 	public ArrayList<Claim> claims = new ArrayList<Claim>();
+	public Integer[] imageId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +93,11 @@ public class ClaimListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		
+
 		Button manager = (Button) findViewById(R.id.buttonManageTags);
 		manager.setOnClickListener(new View.OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View v)
 			{
@@ -119,33 +122,55 @@ public class ClaimListActivity extends Activity {
 		} else {
 			claims = CLC.filterByTag(user.getUserName(), tagsArrayList);
 		}
+		imageId = new Integer[claims.size()];
 		final ArrayList<String> cl = new ArrayList<String>();
 		for (int i = 0; i < claims.size(); i++) {
 			cl.add(claims.get(i).toStringClaimantList());
+			if (claims.get(i).getDestination().size() == 0){
+				imageId[i] = R.drawable.none;
+			} else {
+				//2015/03/27 - http://stackoverflow.com/questions/8836551/calculating-distance-between-multiple-geopositions-in-java
+				Location l = claims.get(i).getDestination().get(0).getLocation();
+				Location u = user.getLocation();
+				Float distance = l.distanceTo(u);
+				if (distance < 2000) {
+					imageId[i] = R.drawable.planeone;
+				} else if (distance < 10000) {
+					imageId[i] = R.drawable.planetwo;
+				} else if (distance > 10000) {
+					imageId[i] = R.drawable.planethree;			    		
+				}
+			}
 		}
-		final ArrayAdapter<String> claimAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cl) {
-			  @Override
-			  //http://stackoverflow.com/questions/16686413/text-color-arrayadapter-with-simple-list-item-single-choice
-			  public View getView(int position, View convertView, ViewGroup parent) {
-			    View view = super.getView(position, convertView, parent);
-			    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-			    if (claims.get(position).getDestination().size() == 0){
-			    	text1.setTextColor(Color.BLACK);
-			    } else {
-			    	//2015/03/27 - http://stackoverflow.com/questions/8836551/calculating-distance-between-multiple-geopositions-in-java
-			    	Location l = claims.get(position).getDestination().get(0).getLocation();
-			    	Location u = user.getLocation();
-			    	Float distance = l.distanceTo(u);
-			    	if (distance < 2000) {
-			    		text1.setTextColor(Color.RED);
-			    	} else if (distance < 10000) {
-			    		text1.setTextColor(Color.BLUE);
-			    	} else if (distance > 10000) {
-			    		text1.setTextColor(Color.GREEN);			    		
-			    	}
-			    }
-			    return view;
-			  }
+		final CustomList claimAdapter = new CustomList(this, cl, imageId) {
+			@Override
+			//http://stackoverflow.com/questions/16686413/text-color-arrayadapter-with-simple-list-item-single-choice
+			public View getView(int position, View convertView, ViewGroup parent) {
+				LayoutInflater inflater = ClaimListActivity.this.getLayoutInflater();
+				View rowView= inflater.inflate(R.layout.list_single, null, true);
+				TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
+				ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
+				txtTitle.setText(cl.get(position));
+				imageView.setImageResource(imageId[position]);
+				//			    View view = super.getView(position, convertView, parent);
+				//			    TextView txtTitle = (TextView) view.findViewById(android.R.id.text1);
+				if (claims.get(position).getDestination().size() == 0){
+					txtTitle.setTextColor(Color.BLACK);
+				} else {
+					//2015/03/27 - http://stackoverflow.com/questions/8836551/calculating-distance-between-multiple-geopositions-in-java
+					Location l = claims.get(position).getDestination().get(0).getLocation();
+					Location u = user.getLocation();
+					Float distance = l.distanceTo(u);
+					if (distance < 2000) {
+						txtTitle.setTextColor(Color.GREEN);
+					} else if (distance < 10000) {
+						txtTitle.setTextColor(Color.BLUE);
+					} else if (distance > 10000) {
+						txtTitle.setTextColor(Color.RED);			    		
+					}
+				}
+				return rowView;
+			}
 		};
 		listViewClaims.setAdapter(claimAdapter);
 
@@ -232,7 +257,7 @@ public class ClaimListActivity extends Activity {
 
 	}
 
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
