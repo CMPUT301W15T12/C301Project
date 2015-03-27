@@ -18,7 +18,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		super(ClaimActivity.class);
 	}
 
-	
+
 	//US01.01.01 - expense claim that records my name, a starting date of travel, and an ending date of travel
 	public void testCreatingClaim(){
 		String name = "travel to Toronto";
@@ -27,7 +27,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		String description = "This is a fake claim";
 		User user = new User("Jim", "123");
 		int id = 0;
-		
+
 		Claim claim = new Claim(name,  startDate, endDate, description,user,id);
 		assertNotNull("Name not initialized", claim.getName());
 		assertEquals("Name does not match",name,claim.getName());
@@ -37,13 +37,13 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		assertEquals("End Date not match",endDate,claim.getEndDate());
 		assertNotNull("Destination not initialized", claim.getDestination());
 	}
-	
+
 	//US01.02.01 - record one or more destinations of travel and an associated reason for travel to each destination
 	public void testDestination(){
-		
-		
+
+
 	}
-	
+
 
 	//US01.04.01 - edit an expense claim while changes are allowed (setters)
 	public void testEditClaim(){
@@ -54,13 +54,13 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		String description = "This is a fake claim";
 		User user = new User("Jim", "123");
 		int id = 0;
-		
+
 		Claim claim = new Claim(oldName,  startDate, endDate, description,user,id);
 		claim.setName(newName);
 		assertEquals("Name is not updated", newName, claim.getName());
 	}
-	
-	
+
+
 	public void testAddExpenseItemToClaim(){
 		String name = "my expense";
 		String category = "hotel";
@@ -69,17 +69,13 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		BigDecimal amount = new BigDecimal(10.0);
 		Date date = new GregorianCalendar().getTime(); //Default to know when no input is supplied
 
-		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
+		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date, false);
 		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim", "123"),0);
-		
-		try {
-			claim.addItem(expenseItem);
-			assertTrue("Wrong number of expenseItem returned",claim.getExpenseItems().size()==1);
-		} catch (AlreadyExistsException e) {
-			fail("Expense already exist. This should not happend with the current testing data");
-		}
+
+		claim.addItem(expenseItem);
+		assertTrue("Wrong number of expenseItem returned",claim.getExpenseItems().size()==1);
 	}
-	
+
 	public void testGetTotal(){
 		String name = "my expense";
 		String category = "hotel";
@@ -88,28 +84,25 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		BigDecimal amount = new BigDecimal(10);
 		Date date = new GregorianCalendar().getTime(); //Default to now when no input is supplied
 
-		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date);
-		ExpenseItem expenseItem2 = new ExpenseItem("TEST",category, description, currency, amount, date);
+		ExpenseItem expenseItem = new ExpenseItem(name,category, description, currency, amount, date, false);
+		ExpenseItem expenseItem2 = new ExpenseItem("TEST",category, description, currency, amount, date, false);
 
 		Claim claim = new Claim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",new User("Jim", "123"),0);
-		
-		try {
-			claim.addItem(expenseItem);
-			claim.addItem(expenseItem2);
-		} catch (AlreadyExistsException e) {
-			fail("Expense already exist. This should not happend with the current testing data");
-		}
-		
+
+
+		claim.addItem(expenseItem);
+		claim.addItem(expenseItem2);
+
 		assertTrue("Wrong total amount returned",claim.getTotal().size()==1);
 		assertEquals("Wrong sum value",claim.getTotal().get(0),"20 CAD\n");
 
 	}
-	
+
 	//US01.06.01 - entered information to be remembered, so that I do not lose data
 	public void testInfoSaved(){
 		//TODO move this to claimList test.
 	}
-	
+
 	//US09.01.01 - make and work on expense claims and items while offline, and push application and expense information online once I get connectivity.
 	public void testOffline(){
 		//TODO add this after manager class is finished

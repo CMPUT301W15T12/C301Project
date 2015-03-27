@@ -28,16 +28,6 @@
 
     </ListView>
 
-    <ListView
-        android:id="@+id/listTotalSum"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textClaimDestinations"
-        android:visibility="visible" >
-    </ListView>
-
     <Button
         android:id="@+id/buttonAddItem"
         android:layout_width="wrap_content"
@@ -83,5 +73,16 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textClaimDescription"
         android:text="@string/destinations" />
+
+    <TextView
+        android:id="@+id/listTotalSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textClaimDestinations"
+        android:gravity="center"
+        android:text="@string/Total"
+        android:textSize="20sp" />
 
 </RelativeLayout>

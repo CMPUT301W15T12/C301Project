@@ -9,10 +9,12 @@
     <string name="ChooseGeolocation">Choose Geolocation</string>
     <string name="ChooseHomeGeolocation">Choose Home Geolocation</string>
     <string name="IncludeImage">Include Image</string>
+    <string name="IncludeLocation">Include GeoLocation</string>
     <string name="HereGeolocation">Current Location</string>
     <string name="ThereGeolocation">Choose Location</string>
     <string name="ep">Enter Password</string>
     <string name="back">Back</string>
+    <string name="flag">Flag as Incomplete</string>
     <string name="cp">Confirm Password</string>
     <string name="New_Claim">New Claim</string>
     <string name="Edit_Item">Edit Item</string>
@@ -92,7 +94,6 @@
     <string name="approvers">Approvers</string>
     <string name="title_claim_page">Claim Page</string>
     <string name="title_activity_edit_clam">EditClamActivity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_choose_list">ChooseListActivity</string>
     <string name="choose_claimant">See Your Claims</string>
     <string name="choose_approver">See Claims Waiting for Approval</string>

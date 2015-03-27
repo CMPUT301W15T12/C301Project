@@ -54,7 +54,6 @@ public class ClaimActivity extends Activity {
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	public ClaimListController CLC = new ClaimListController();
 	public String Username;
-	public ArrayList<String> total;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +80,7 @@ public class ClaimActivity extends Activity {
 				} else {
 					Intent intent = new Intent(ClaimActivity.this, AddItemActivity.class);
 					intent.putExtra("claim_id", id);
+					intent.putExtra("option","add");
 					startActivity(intent);
 				}
 			}
@@ -107,17 +107,15 @@ public class ClaimActivity extends Activity {
 		destinations.setText(claim.destinationsToString());
 
 		//total list
-		ListView lv = (ListView) findViewById(R.id.listTotalSum);
-		total = claim.getTotal();
-		final ArrayAdapter<String> totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
-		lv.setAdapter(totalAdapter);
-		CLC.addListener(new Listener() {
-			@Override
-			public void update() {
-				total = claim.getTotal();
-				totalAdapter.notifyDataSetChanged();
-			}
-		});
+		TextView tv = (TextView) findViewById(R.id.listTotalSum);
+		ArrayList<String> total = claim.getTotal();
+		
+		String block = "";
+		for (int i = 0; i < total.size(); i++) {
+			block += total.get(i);
+		}
+		tv.setText(block);
+		
 
 		//for expense item list - adds a photo icon
 		ArrayList<String> eitems = new ArrayList<String>();

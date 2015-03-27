@@ -21,10 +21,16 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.util.Date;
+
 import ca.ualberta.cs.cmput301w15t12.R;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
@@ -36,7 +42,10 @@ import android.widget.Toast;
 
 public class NewAccountActivity extends Activity
 {
-	UserListController ULC;
+	public UserListController ULC;
+	public Location location;
+	public static final String MOCK_PROVIDER = "mockLocationProvider";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -47,6 +56,7 @@ public class NewAccountActivity extends Activity
 		ULC = new UserListController();
 		EditText username = (EditText) findViewById(R.id.editNewUserName);
 		username.requestFocus();
+		final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		//clickable create account button creates new user and takes user to choose claim list page
 		Button createbutton = (Button) findViewById(R.id.buttonNewAccountDone);
@@ -62,10 +72,16 @@ public class NewAccountActivity extends Activity
 				} else {
 					try {
 						String un = username.getText().toString();
-						ULC.addUserWithPass(un, p1.getText().toString());
-						Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
-						intent.putExtra("username", un);
-						startActivity(intent);
+						if (location == null) {
+							Toast.makeText(NewAccountActivity.this,"No Home Geolocation chosen", Toast.LENGTH_SHORT).show();
+						} else {
+							ULC.addUserWithPass(un, p1.getText().toString());
+							User user = UserListController.getUserList().getUser(un);
+							user.setLocation(location);
+							Intent intent = new Intent(NewAccountActivity.this, ChooseListActivity.class);
+							intent.putExtra("username", un);
+							startActivity(intent);
+						}
 					} catch (Exception e) {
 						Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
 						e.printStackTrace();
@@ -74,11 +90,11 @@ public class NewAccountActivity extends Activity
 
 			}
 		});
-		
-		Button location = (Button) findViewById(R.id.buttonUserLocation);
-		location.setOnClickListener(new View.OnClickListener()
+
+		Button geolocation = (Button) findViewById(R.id.buttonUserLocation);
+		geolocation.setOnClickListener(new View.OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View v)
 			{
@@ -88,19 +104,56 @@ public class NewAccountActivity extends Activity
 				adb.setPositiveButton("Current Location", new OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						//TODO
+						location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+						lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
+						if (location == null){
+							Toast.makeText(NewAccountActivity.this,"nope",Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(NewAccountActivity.this,"Current Location added as Home Location",Toast.LENGTH_SHORT).show();
+						}
 					}
 				});
 				adb.setNegativeButton("Remote Location", new OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = new Intent(NewAccountActivity.this, MapActivity.class);
 						startActivity(intent);
+						//TODO get result
 					}
 				});
 				adb.show();				
 			}
 		});
+
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 	}
+	//    //https://github.com/joshua2ua/MockLocationTester
+	private final LocationListener listener = new LocationListener() {
+		public void onLocationChanged (Location location) {
+			if (location != null) {
+				double lat = location.getLatitude();
+				double lng = location.getLongitude();
+				Date date = new Date(location.getTime());
+
+				Toast.makeText(NewAccountActivity.this, "The location is: \nLatitude: " + lat
+						+ "\nLongitude: " + lng
+						+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(NewAccountActivity.this,"nope",Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		public void onProviderDisabled (String provider) {
+
+		}
+
+		public  void onProviderEnabled (String provider) {
+
+		}
+
+		public void onStatusChanged (String provider, int status, Bundle extras) {
+
+		}
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

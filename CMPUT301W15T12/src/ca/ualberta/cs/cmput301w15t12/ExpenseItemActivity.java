@@ -48,7 +48,8 @@ public class ExpenseItemActivity extends Activity {
 	public Claim Claim;
 	public int index;
 	public ClaimListController CLC = new ClaimListController();
-	Uri imageFileUri = null;
+	public Uri imageFileUri = null;
+	public int id;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -59,7 +60,7 @@ public class ExpenseItemActivity extends Activity {
 		ClaimListManager.initManager(this.getApplicationContext());
 
 		//gets the id for the claim and the index for the item
-		final int id = getIntent().getIntExtra("claim_id", 0);
+		id = getIntent().getIntExtra("claim_id", 0);
 		Claim = CLC.getClaim(id);
 		index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
@@ -126,7 +127,7 @@ public class ExpenseItemActivity extends Activity {
 		TextView Category = (TextView) findViewById(R.id.textCategory);
 		TextView Description = (TextView) findViewById(R.id.textItemDescription);
 		TextView AC = (TextView) findViewById(R.id.textItemCurrency);
-		CheckBox flag = (CheckBox) findViewById(R.id.checkBox1);
+		CheckBox flag = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
 
 		//date to string
 		String date = df.format(Item.getDate());
@@ -182,7 +183,10 @@ public class ExpenseItemActivity extends Activity {
 	
 	public void editButton(View view){
 		if (Claim.editable()){
-			Intent intent = new Intent(ExpenseItemActivity.this,EditItemActivity.class);
+			Intent intent = new Intent(ExpenseItemActivity.this,AddItemActivity.class);
+			intent.putExtra("option","edit");
+			intent.putExtra("claim_id", id);
+			intent.putExtra("item_index",index);
 			startActivity(intent);
 		} else{
 			Toast.makeText(this,"Claim not editable",Toast.LENGTH_SHORT).show();

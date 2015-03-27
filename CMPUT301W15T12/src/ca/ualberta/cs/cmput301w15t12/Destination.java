@@ -22,18 +22,20 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.io.Serializable;
 
+import android.location.Location;
+
 public class Destination implements Serializable
 {
 	private static final long serialVersionUID = -7586457957887443944L;
 	private String Destination;
 	private String Description;
+	private Location location;
 	
-	
-
-	public Destination(String name, String desc)
+	public Destination(String name, String desc,Location location)
 	{
 		this.Destination = name;
 		this.Description = desc;
+		this.location = location;
 	}
 
 	//for printing the list of destinations
@@ -63,5 +65,19 @@ public class Destination implements Serializable
 	}
 	public void setDescription(String description){
 		Description = description;
+	}
+
+	
+	public Location getLocation()
+	{
+	
+		return location;
+	}
+
+	
+	public void setLocation(Location location)
+	{
+	
+		this.location = location;
 	}
 }

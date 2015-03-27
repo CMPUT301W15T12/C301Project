@@ -28,7 +28,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testExpenseItem(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
 		assertNotNull("date not initialized",expenseItem.getDate());
 		assertNotNull("category not initialized",expenseItem.getCategory());
 		assertNotNull("description not initialized",expenseItem.getDescription());
@@ -42,7 +42,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testCategory(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
 		boolean i = false;
 		if (expenseItem.getCategory().equals("air fare") || 
 				expenseItem.getCategory().equals("round transport") || 
@@ -63,7 +63,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testCurrency(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
 		boolean i = false;
 		if (expenseItem.getCurrency().equals("CAD") || 
 				expenseItem.getCurrency().equals("USD") || 
@@ -81,7 +81,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testFlag(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
 		
 		expenseItem.setFlag(true);
 		//passes if item has a flag
@@ -116,7 +116,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testEditItem(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date);
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
 		Date date2 = new Date();
 		BigDecimal amount2 = new BigDecimal(800.23);
 		expenseItem.setName("name2");

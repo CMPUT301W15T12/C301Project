@@ -47,8 +47,8 @@ public class ExpenseList {
 	}
 	
 	public void addExpenseItem(String name,String category, String description, String currency, 
-			BigDecimal amount, Date date) {
-		ExpenseItem item = new ExpenseItem(name, category, description, currency, amount, date);
+			BigDecimal amount, Date date, boolean flag) {
+		ExpenseItem item = new ExpenseItem(name, category, description, currency, amount, date, flag);
 		list.add(item);
 		notifyListeners();
 	}
