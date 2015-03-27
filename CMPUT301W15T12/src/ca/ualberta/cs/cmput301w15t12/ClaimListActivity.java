@@ -25,15 +25,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cs.cmput301w15t12.R;
 
@@ -119,7 +123,30 @@ public class ClaimListActivity extends Activity {
 		for (int i = 0; i < claims.size(); i++) {
 			cl.add(claims.get(i).toStringClaimantList());
 		}
-		final ArrayAdapter<String> claimAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cl);
+		final ArrayAdapter<String> claimAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cl) {
+			  @Override
+			  //http://stackoverflow.com/questions/16686413/text-color-arrayadapter-with-simple-list-item-single-choice
+			  public View getView(int position, View convertView, ViewGroup parent) {
+			    View view = super.getView(position, convertView, parent);
+			    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+			    if (claims.get(position).getDestination().size() == 0){
+			    	text1.setTextColor(Color.BLACK);
+			    } else {
+			    	//2015/03/27 - http://stackoverflow.com/questions/8836551/calculating-distance-between-multiple-geopositions-in-java
+			    	Location l = claims.get(position).getDestination().get(0).getLocation();
+			    	Location u = user.getLocation();
+			    	Float distance = l.distanceTo(u);
+			    	if (distance < 2000) {
+			    		text1.setTextColor(Color.RED);
+			    	} else if (distance < 10000) {
+			    		text1.setTextColor(Color.BLUE);
+			    	} else if (distance > 10000) {
+			    		text1.setTextColor(Color.GREEN);			    		
+			    	}
+			    }
+			    return view;
+			  }
+		};
 		listViewClaims.setAdapter(claimAdapter);
 
 		listViewClaims.setOnItemClickListener(new OnItemClickListener()
