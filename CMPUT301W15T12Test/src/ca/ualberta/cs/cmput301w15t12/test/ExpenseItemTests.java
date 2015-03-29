@@ -39,42 +39,59 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	
 	//US04.02.01 - category is one of air fare, round transport, vehicle rental, 
 	//private automobile, fuel, parking, registration, accommodation, meal, or supplies.
+	//Valid categories are stored in the expenseItem class in a static final array list
 	public void testCategory(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
 		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
-		boolean i = false;
-		if (expenseItem.getCategory().equals("air fare") || 
-				expenseItem.getCategory().equals("round transport") || 
-				expenseItem.getCategory().equals("vehicle rental") || 
-				expenseItem.getCategory().equals("private automobile") || 
-				expenseItem.getCategory().equals("fuel") || 
-				expenseItem.getCategory().equals("parking") || 
-				expenseItem.getCategory().equals("registration") || 
-				expenseItem.getCategory().equals("accomodation") || 
-				expenseItem.getCategory().equals("meal") || 
-				expenseItem.getCategory().equals("supplies")) { 
-			i=true;
+		
+		try {
+			// Try all valid categories
+			for (String category : ExpenseItem.getCategories()) {
+				expenseItem.setCategory(category);
+			}
+		} catch (Exception e){
+			// Should not throw exception with valid categories
+			fail("Shouldn't have thrown an exception");
 		}
-		assertTrue("Category is not one of the required categories",i);
+		
+		try {
+			// Try invalid category
+			expenseItem.setCategory("Invalid");
+			
+			// Should throw an exception
+			fail("Should have thrown an exception");
+		} catch (Exception e) {
+			// Working 
+		}
 	}
 	
 	//US04.03.01 - currency is one of CAD, USD, EUR, GBP, CHF, JPY, CNY
+	//Valid currencies are stored in the expenseItem class in a static final array list
 	public void testCurrency(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
-		boolean i = false;
-		if (expenseItem.getCurrency().equals("CAD") || 
-				expenseItem.getCurrency().equals("USD") || 
-				expenseItem.getCurrency().equals("EUR") || 
-				expenseItem.getCurrency().equals("GBP") || 
-				expenseItem.getCurrency().equals("CHF") || 
-				expenseItem.getCurrency().equals("JPY") || 
-				expenseItem.getCurrency().equals("CNY")) { 
-			i=true;
+		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","CAD",amount,date, false);
+		
+		try {
+			// Try all valid currencies	
+			for (String currency : ExpenseItem.getCurrencies()) {
+				expenseItem.setCurrency(currency);
+			}
+		} catch (Exception e){
+			// Should not throw exception with valid currencies
+			fail("Shouldn't have thrown an exception");
 		}
-		assertTrue("currency is not one of the required currencies",i);
+		
+		try {
+			// Try an invalid currency
+			expenseItem.setCurrency("Invalid");
+			
+			// Should throw an exception with invalid categories
+			fail("Should have thrown an exception");
+		} catch (Exception e) {
+			// Working 
+		}
 	}
 	
 	//US04.04.01 - expense item can be flagged

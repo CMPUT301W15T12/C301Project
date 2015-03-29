@@ -23,6 +23,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -32,6 +34,11 @@ import android.net.Uri;
 public class ExpenseItem implements Serializable{
 
 	private static final long serialVersionUID = -2552967637419002646L;
+	private static final ArrayList<String> currencies = new ArrayList<String>(
+			Arrays.asList("CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CNY"));
+	private static final ArrayList<String> categories = new ArrayList<String>(
+			Arrays.asList("air fare", "round transport", "vehicle rental", "private automobile", 
+					"fuel", "parking", "registration", "accommodation", "meal", "supplies"));
 	private String name;
 	private String category;
 	private String description;
@@ -44,14 +51,15 @@ public class ExpenseItem implements Serializable{
 	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	Uri uri;
+	
 
 	public ExpenseItem(String name,String category, String description, String currency, 
 			BigDecimal amount, Date date, boolean flag){
 		this.name = name;
-		this.category = category;
+		setCategory(category);
 		this.description = description;
 		this.Amount = amount;
-		this.Currency = currency;
+		setCurrency(currency);
 		this.date = date;
 		this.flag = flag;
 		this.receipt = false;
@@ -87,6 +95,14 @@ public class ExpenseItem implements Serializable{
 	}
 
 	//getters and setters for the attributes
+	public static ArrayList<String> getCurrencies() {
+		return currencies;
+	}
+	
+	public static ArrayList<String> getCategories() {
+		return categories;
+	}
+	
 	public boolean getFlag() {
 		return flag;
 	}
@@ -116,7 +132,11 @@ public class ExpenseItem implements Serializable{
 	}
 
 	public void setCategory(String category) {
-		this.category = category;
+		if (categories.contains(category)) {
+			this.category = category;
+		} else {
+			throw new RuntimeException("Invalid category");
+		}
 	}
 
 	public String getDescription() {
@@ -146,10 +166,15 @@ public class ExpenseItem implements Serializable{
 	public String getCurrency() {
 		return Currency;
 	}
-	public void setCurrency(String currency){
-		this.Currency = currency;
-	}
 
+	public void setCurrency(String currency) {
+		if (currencies.contains(currency)) {
+			this.Currency = currency;
+		} else {
+			throw new RuntimeException("Invalid currency");
+		}
+	}
+	
 	public void setUri(Uri imageFileUri) {
 		if (imageFileUri == null) {
 			this.receipt = false;
