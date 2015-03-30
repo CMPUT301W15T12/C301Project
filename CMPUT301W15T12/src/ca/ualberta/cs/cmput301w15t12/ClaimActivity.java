@@ -90,7 +90,6 @@ public class ClaimActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-
 		//gets the textviews
 		TextView name = (TextView) findViewById(R.id.textClaimName);
 		TextView description = (TextView) findViewById(R.id.textClaimDescription);

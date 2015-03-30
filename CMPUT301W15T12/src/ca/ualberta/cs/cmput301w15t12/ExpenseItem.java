@@ -37,8 +37,8 @@ public class ExpenseItem implements Serializable{
 	private static final ArrayList<String> currencies = new ArrayList<String>(
 			Arrays.asList("CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CNY"));
 	private static final ArrayList<String> categories = new ArrayList<String>(
-			Arrays.asList("air fare", "round transport", "vehicle rental", "private automobile", 
-					"fuel", "parking", "registration", "accommodation", "meal", "supplies"));
+			Arrays.asList("Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile", 
+					"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"));
 	private String name;
 	private String category;
 	private String description;
