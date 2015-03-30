@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textComments"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:gravity="left" />
-
     <Button
         android:id="@+id/buttonSeeCommentsDone"
         android:layout_width="wrap_content"
@@ -29,5 +20,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:gravity="left"/>
+
+    <ListView
+        android:id="@+id/listViewComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textSeeCommentsApprovers"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+    </ListView>
 
 </RelativeLayout>

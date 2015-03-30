@@ -21,14 +21,20 @@ package ca.ualberta.cs.cmput301w15t12;
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SeeCommentsActivity extends Activity
 {
+	public Claim claim;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -43,22 +49,21 @@ public class SeeCommentsActivity extends Activity
 		final int id = getIntent().getIntExtra("claim_id", 0);
 
 		//gets the edit text ids
-		TextView Comments = (TextView) findViewById(R.id.textComments);
+		ListView Comments = (ListView) findViewById(R.id.listViewComments);
 		TextView Approvers = (TextView) findViewById(R.id.textSeeCommentsApprovers);
 
 		//gets the correct claim
 		ClaimListController CLC = new ClaimListController();
-		Claim claim = CLC.getClaim(id);
+		claim = CLC.getClaim(id);
 
 		//sets text fields
 		if (claim.getApprover()== null) {
 			Toast.makeText(this,"No Comments", Toast.LENGTH_SHORT).show();
-		} else if (claim.getComment().equals("")) {
+		} else if (claim.getComment().size() == 0) {
 			Toast.makeText(this,"No Comments", Toast.LENGTH_SHORT).show();
-			Approvers.setText(claim.getApprover().getUserName());
+			Approvers.setText("Approver: "+claim.getApprover().getUserName());
 		} else {
-			Comments.setText(claim.getComment());
-			Approvers.setText(claim.getApprover().getUserName());
+			Approvers.setText("Approver: "+claim.getApprover().getUserName());
 		}
 		Button doneBtn = (Button) findViewById(R.id.buttonSeeCommentsDone);
 		doneBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +71,20 @@ public class SeeCommentsActivity extends Activity
 				finish();
 			}
 		});
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, claim.getComment());
+		Comments.setAdapter(adapter);
+		Comments.setOnItemClickListener(new OnItemClickListener()
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3)
+			{
+				new AlertDialog.Builder(SeeCommentsActivity.this).setMessage(claim.getComment().get(arg2)).setNeutralButton("OK", null).show();
+			}
+		});
+		
 	}
 
 	@Override

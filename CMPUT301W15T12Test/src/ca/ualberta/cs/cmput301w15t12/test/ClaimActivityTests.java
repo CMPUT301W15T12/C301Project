@@ -168,11 +168,11 @@ public class ClaimActivityTests extends
 		assertTrue("Status was not changed to approved", claim.getStatus() == "Approved");
 		claim.setApprover(approver);
 		comment = "Looking good!";
-		claim.setComment(comment);
+		claim.addComment(comment);
 		
 		// Make sure approver and his comments are correct
 		assertTrue("Not the right approver", claim.getApprover().equals(approver));
-		assertTrue("Comment is not correct", claim.getComment().matches(comment));
+		assertTrue("Comment is not correct", claim.getComment().get(0).equals(comment));
 		
 		// Make new claim
 		Claim claim2 = new Claim ("name1", date1, date2, "description1", new User("Megan", "123"), 1);
@@ -187,11 +187,11 @@ public class ClaimActivityTests extends
 		assertTrue("Status was not changed to returned", claim.getStatus() == "Returned");
 		claim2.setApprover(approver);
 		comment = "Needs some fixing...";
-		claim.setComment(comment);
+		claim.addComment(comment);
 		
 		// Make sure approver and his comments are correct
 		assertTrue("Not the right approver", claim.getApprover().equals(approver));
-		assertTrue("Comment is not correct", claim.getComment().matches(comment));
+		assertTrue("Comment is not correct", claim.getComment().get(0).equals(comment));
 	}
 }
 

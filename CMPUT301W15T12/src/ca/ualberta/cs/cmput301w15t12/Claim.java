@@ -34,7 +34,7 @@ public class Claim {
 
 	private User Claimant;
 	private User approver;
-	private String comment;
+	private ArrayList<String> comment = new ArrayList<String>();
 	private int id;
 	private String name;
 	private Date startDate;
@@ -47,7 +47,6 @@ public class Claim {
 	private ArrayList<Listener> listeners;
 
 	public Claim(String name, Date startDate, Date endDate, String description, User Claimant, int id){
-		this.comment = "";
 		this.name = name;
 		this.Claimant = Claimant;
 		this.approver = null;
@@ -62,22 +61,29 @@ public class Claim {
 		this.id = id;
 	}
 
-	public void returnClaim(String name) throws Exception {
+	public void returnClaim(String name) throws NotAllowedException, MissingItemException{
 		if (Claimant.getUserName().equals(name)) {
-			throw new Exception();
+			throw new NotAllowedException();
+		} else if (comment.size() == 0){
+			throw new MissingItemException();
+		} else {
+			User user =  UserListController.getUserList().getUser(name);
+			setApprover(user);
+			setStatus("Returned");
 		}
-		User user =  UserListController.getUserList().getUser(name);
-		setApprover(user);
-		setStatus("Returned");
 	}
 
-	public void approveClaim(String name) throws Exception {
+	public void approveClaim(String name) throws MissingItemException, NotAllowedException {
 		if (Claimant.getUserName().equals(name)) {
-			throw new Exception();
+			throw new NotAllowedException();
+		} else if(comment.size() == 0) {
+			throw new MissingItemException();
+		} else {
+			User user =  UserListController.getUserList().getUser(name);
+			setApprover(user);
+			setStatus("Approved");
+
 		}
-		User user =  UserListController.getUserList().getUser(name);
-		setApprover(user);
-		setStatus("Approved");
 	}
 
 	public boolean editable() {
@@ -159,7 +165,7 @@ public class Claim {
 		}
 		return string;
 	}
-	
+
 	public String toStringTagList(ArrayList<String> list) {
 		String string = "";
 		for (int i = 0; i < list.size(); i++) {
@@ -208,6 +214,9 @@ public class Claim {
 			this.expenseList.addExpenseItem(item);
 			notifyListeners();
 		} 
+	}
+	public void addComment(String Comment) {
+		this.comment.add(Comment);
 	}
 	public boolean containsItem(ExpenseItem Item){
 		return this.expenseList.contains(Item);	
@@ -264,10 +273,10 @@ public class Claim {
 	public void setClaimant (User name) {
 		this.Claimant = name;
 	}	
-	public String getComment() {
+	public ArrayList<String> getComment() {
 		return comment;
 	}
-	public void setComment(String comment) {
+	public void setComment(ArrayList<String> comment) {
 		this.comment = comment;
 	}	
 	public String getDescription() {

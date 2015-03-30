@@ -31,11 +31,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,10 +72,36 @@ public class ApproverClaimActivity extends Activity {
 				if (Claim.getClaimant().getUserName().equals(approver)) {
 					Toast.makeText(ApproverClaimActivity.this, "Not Allowed to Comment Own Claim", Toast.LENGTH_LONG).show();
 				} else {
-					Intent intent = new Intent(ApproverClaimActivity.this, AddCommentsActivity.class);
-					intent.putExtra("claim_id", id);
-					intent.putExtra("username", approver);
-					startActivity(intent);
+					LayoutInflater LI = LayoutInflater.from(ApproverClaimActivity.this);
+					final View promptView = LI.inflate(R.layout.input_dialog, null);
+					EditText enter = (EditText) promptView.findViewById(R.id.editTextTagName);
+					TextView title = (TextView) promptView.findViewById(R.id.textEditTag);
+					title.setText("Enter Comment");
+					enter.setHint("Comment");
+					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
+					adb.setView(promptView);
+					
+					adb.setCancelable(false)
+					.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							//add comment to the comment list
+							EditText enter = (EditText) promptView.findViewById(R.id.editTextTagName);
+							String comment = enter.getText().toString();
+							if (comment.equals("")) {
+								Toast.makeText(ApproverClaimActivity.this,"Cannot add an empty comment", Toast.LENGTH_SHORT).show();
+							} else {
+								Claim.addComment(comment);
+							}
+						}
+					})
+					.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.cancel();
+						}
+					});
+					AlertDialog alert =adb.create();
+					alert.show();
 				}
 			}
 
@@ -94,10 +122,11 @@ public class ApproverClaimActivity extends Activity {
 						public void onClick(DialogInterface dialog, int which) {
 							try{
 								Claim.approveClaim(approver);
-							} catch (Exception e){
+							} catch (NotAllowedException e1){
 								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+							} catch(MissingItemException e2){
+								Toast.makeText(ApproverClaimActivity.this,"Stil Needs a Comment", Toast.LENGTH_LONG).show();
 							}
-							finish();
 						}
 					});
 					adb.setNegativeButton("Cancel", new OnClickListener() {
@@ -124,10 +153,11 @@ public class ApproverClaimActivity extends Activity {
 						public void onClick(DialogInterface dialog, int which) {
 							try {
 								Claim.returnClaim(approver);
-							} catch (Exception e) {
+							} catch (NotAllowedException e1){
 								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+							} catch(MissingItemException e2){
+								Toast.makeText(ApproverClaimActivity.this,"Stil Needs a Comment", Toast.LENGTH_LONG).show();
 							}
-							finish();
 						}
 					});
 					adb.setNegativeButton("Cancel", new OnClickListener() {

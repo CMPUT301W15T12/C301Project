@@ -117,7 +117,7 @@ public class TagManagerActivity extends Activity
 	//initialize the adding a tag dialogue
 	protected void editTagDialog(){
 		LayoutInflater layoutInflater = LayoutInflater.from(TagManagerActivity.this);
-		View promptView = layoutInflater.inflate(R.layout.edit_tag_dialogue, null);
+		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TagManagerActivity.this);
 		alertDialogBuilder.setView(promptView);
 		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTagName);

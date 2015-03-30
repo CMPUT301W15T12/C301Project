@@ -12,6 +12,8 @@ import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
+import ca.ualberta.cs.cmput301w15t12.MissingItemException;
+import ca.ualberta.cs.cmput301w15t12.NotAllowedException;
 import ca.ualberta.cs.cmput301w15t12.User;
 
 
@@ -64,14 +66,14 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
-		claimListController.getClaim(0).setComment("Great");
-		assertEquals("comment got set", claimListController.getClaim(0).getComment(), "Great");		
+		claimListController.getClaim(0).addComment("Great");
+		assertEquals("comment got set", claimListController.getClaim(0).getComment().get(0), "Great");		
 	}
 
 //	US08.07.01
 //	As an approver, I want to return a submitted expense claim that was not approved, denoting the claim 
 //	status as returned and setting my name as the approver for the expense claim.
-	public void testapproveClaim() throws Exception {
+	public void testapproveClaim() throws ParseException {
 		String n = "leah";
 		String name = "Sarah";
 		ClaimListController claimListController = new ClaimListController();
@@ -80,7 +82,31 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
-		claimListController.getClaim(0).approveClaim(n);
+		boolean thrown1 = false;
+		boolean thrown2 = false;
+		try
+		{
+			claimListController.getClaim(0).approveClaim(n);
+		} catch (NotAllowedException e)
+		{
+		} catch (MissingItemException e)
+		{
+			thrown2 = true;
+		}
+		assertTrue(thrown2);
+		assertFalse(thrown1);
+		claimListController.getClaim(0).addComment("yay");
+		try
+		{
+			claimListController.getClaim(0).approveClaim(n);
+		} catch (NotAllowedException e)
+		{
+		} catch (MissingItemException e)
+		{
+			thrown2 = true;
+		}
+		assertFalse(thrown1);
+		assertFalse(thrown2);
 		assertTrue("Status = Approved?",claimListController.getClaim(0).getStatus().equals("Approved"));
 		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(name));
 	}
@@ -88,7 +114,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 //	US08.08.01
 //	As an approver, I want to approve a submitted expense claim that was approved, denoting the claim status 
 //	as approved and setting my name as the approver for the expense claim.
-	public void testreturnClaim() throws Exception {
+	public void testreturnClaim() throws ParseException {
 		ClaimListController claimListController = new ClaimListController();
 		String name = "Sarah";
 		User user = new User(name, "123");
@@ -96,7 +122,31 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		Date d2 = format.parse("01-02-2134");
 		claimListController.addClaim("c1", d1, d2, "Blah", user);
 		claimListController.getClaim(0).setStatus("Submitted");
-		claimListController.getClaim(0).returnClaim(name);
+		boolean thrown1 = false;
+		boolean thrown2 = false;
+		try
+		{
+			claimListController.getClaim(0).returnClaim(name);
+		} catch (NotAllowedException e)
+		{
+		} catch (MissingItemException e)
+		{
+			thrown2 = true;
+		}
+		assertTrue(thrown2);
+		assertFalse(thrown1);
+		claimListController.getClaim(0).addComment("yay");
+		try
+		{
+			claimListController.getClaim(0).returnClaim(name);
+		} catch (NotAllowedException e)
+		{
+		} catch (MissingItemException e)
+		{
+			thrown2 = true;
+		}
+		assertFalse(thrown1);
+		assertFalse(thrown2);
 		assertTrue("Status = returned?",claimListController.getClaim(0).getStatus().equals("Returned"));
 		assertTrue("Name is set?",claimListController.getClaim(0).getApprover().getUserName().equals(name));
 	}
