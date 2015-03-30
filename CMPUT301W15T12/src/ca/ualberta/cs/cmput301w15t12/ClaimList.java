@@ -90,6 +90,7 @@ public class ClaimList{
 				return lhs.getStartDate().compareTo(rhs.getStartDate());
 			}
 		});
+		Collections.reverse(list);
 		return list;
 	}
 
