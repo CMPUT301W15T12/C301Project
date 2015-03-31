@@ -204,22 +204,20 @@ public class Claim {
 
 	//all the adds/removes/contains for the lists
 	public void removeItem(int i) {
-		ExpenseItem item = this.expenseList.getList().get(i);
-		this.expenseList.rmExpenseItem(item);
-		notifyListeners();
+		this.expenseList.rmExpenseItem(i);
 	}
 
 	public void addItem(ExpenseItem item) {
-		if (!this.expenseList.contains(item)) {
-			this.expenseList.addExpenseItem(item);
-			notifyListeners();
-		} 
+		this.expenseList.addExpenseItem(item);
 	}
 	public void addComment(String Comment) {
 		this.comment.add(Comment);
 	}
 	public boolean containsItem(ExpenseItem Item){
 		return this.expenseList.contains(Item);	
+	}
+	public Integer[] getIds() {
+		return expenseList.getIds();
 	}
 	public void addDestination (Destination destination) throws AlreadyExistsException {
 		if (!destinations.contains(destination)){
@@ -354,6 +352,14 @@ public class Claim {
 			formatedStringList.set(length, line.substring(0,line.length() - 2));
 		}
 		return formatedStringList;
+	}
+	public String getTotalString(){
+		ArrayList<String> TS = getTotal();
+		String s = "";
+		for (int i = 0; i < TS.size(); i++) {
+			s += TS.get(i);
+		}
+		return s;
 	}
 	//end getters and setters
 

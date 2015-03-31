@@ -93,15 +93,8 @@ public class AddClaimActivity extends Activity
 			endDate.setText(df.format(claim.getEndDate()));
 			editTextDescription.setText(claim.getDescription());
 			editTextName.setText(claim.getName());
-			String block = "";
-			for (int i = 0; i < tagsArrayList.size(); i++) {
-				block += tagsArrayList.get(i).toString();
-				if (i != tagsArrayList.size() - 1) {
-					block += ", ";
-				}
-			}
-			tags.setText(block);
-
+			String t = claim.toStringTagList(claim.getTagList());
+			tags.setText(t);
 		}
 
 		//gets the user corresponding to the UserName

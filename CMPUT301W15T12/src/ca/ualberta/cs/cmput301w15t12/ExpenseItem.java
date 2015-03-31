@@ -50,7 +50,8 @@ public class ExpenseItem implements Serializable{
 	private boolean boolLocation;
 	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-	Uri uri;
+	private Uri uri;
+	private Integer imageId; 
 	
 
 	public ExpenseItem(String name,String category, String description, String currency, 
@@ -64,6 +65,7 @@ public class ExpenseItem implements Serializable{
 		this.flag = flag;
 		this.receipt = false;
 		this.boolLocation = false;
+		this.imageId = null;
 	}
 
 	//for printing the list of expense items
@@ -184,7 +186,26 @@ public class ExpenseItem implements Serializable{
 			this.receipt = true;
 		}
 	}
-
+	public Integer getImageId(){
+		if (getFlag() && getReceipt() && getBoolLocation()) {
+			imageId = R.drawable.trio;
+		} else if (getFlag() && getBoolLocation()){
+			imageId = R.drawable.globeflag;
+		} else if (getReceipt() && getBoolLocation()) {
+			imageId = R.drawable.globereceipt;
+		} else if (getBoolLocation()) {
+			imageId = R.drawable.globe;
+		} else if (getFlag() && getReceipt()) {
+			imageId = R.drawable.both;
+		} else if (getFlag()) {
+			imageId = R.drawable.flagged;
+		} else if (getReceipt()) {
+			imageId = R.drawable.receipt;
+		} else {
+			imageId = R.drawable.none;
+		}
+		return imageId;
+	}
 	public Uri getUri() {
 		return uri;
 	}

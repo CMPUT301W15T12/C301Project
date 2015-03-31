@@ -16,7 +16,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 package ca.ualberta.cs.cmput301w15t12;
 
@@ -65,7 +65,7 @@ public class ClaimActivity extends Activity {
 			id = getIntent().getIntExtra("claim_id", 0);
 		} catch (NullPointerException e) {
 		}
-		
+
 		claim = CLC.getClaim(id);
 
 		//clickable button takes the user to the edit add item page when clicked
@@ -95,7 +95,7 @@ public class ClaimActivity extends Activity {
 		TextView description = (TextView) findViewById(R.id.textClaimDescription);
 		TextView dates = (TextView) findViewById(R.id.textStarttoEndDate);
 		TextView destinations = (TextView) findViewById(R.id.textClaimDestinations);
-		
+
 		//sets the textviews
 		name.setText(claim.getName()+" - "+claim.getStatus());
 		description.setText(claim.getDescription());
@@ -106,39 +106,15 @@ public class ClaimActivity extends Activity {
 
 		//total list
 		TextView tv = (TextView) findViewById(R.id.listTotalSum);
-		ArrayList<String> total = claim.getTotal();
-		
-		String block = "";
-		for (int i = 0; i < total.size(); i++) {
-			block += total.get(i);
-		}
-		tv.setText(block);
-		
+		String total = claim.getTotalString();
+		tv.setText(total);
+
 
 		//for expense item list - adds a photo icon
 		ArrayList<String> eitems = new ArrayList<String>();
 		final ArrayList<ExpenseItem> Items = claim.getExpenseItems();
-		Integer[] imageId = new Integer[Items.size()];
-		for (int i = 0; i < Items.size(); i++) {
-			eitems.add(Items.get(i).toStringList());
-			if (Items.get(i).getFlag() && Items.get(i).getReceipt() && Items.get(i).getBoolLocation()) {
-				imageId[i] = R.drawable.trio;
-			} else if (Items.get(i).getFlag() && Items.get(i).getBoolLocation()){
-				imageId[i] = R.drawable.globeflag;
-			} else if (Items.get(i).getReceipt() &&Items.get(i).getBoolLocation()) {
-				imageId[i] = R.drawable.globereceipt;
-			} else if (Items.get(i).getBoolLocation()) {
-				imageId[i] = R.drawable.globe;
-			} else if (Items.get(i).getFlag() && Items.get(i).getReceipt()) {
-				imageId[i] = R.drawable.both;
-			} else if (Items.get(i).getFlag()) {
-				imageId[i] = R.drawable.flagged;
-			} else if (Items.get(i).getReceipt()) {
-				imageId[i] = R.drawable.receipt;
-			} else {
-				imageId[i] = R.drawable.none;
-			}
-		}
+		Integer[] imageId = claim.getIds();
+
 		final CustomList adapter = new CustomList(ClaimActivity.this, eitems, imageId);
 		ListView list = (ListView) findViewById(R.id.listExpenseItems);
 		list.setAdapter(adapter);
@@ -291,7 +267,7 @@ public class ClaimActivity extends Activity {
 	{
 
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

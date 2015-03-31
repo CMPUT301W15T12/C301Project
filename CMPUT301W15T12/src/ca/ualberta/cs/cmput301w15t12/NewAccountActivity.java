@@ -42,7 +42,6 @@ import android.widget.Toast;
 
 public class NewAccountActivity extends Activity
 {
-	public UserListController ULC;
 	public Location location;
 	public static final String MOCK_PROVIDER = "mockLocationProvider";
 
@@ -53,8 +52,7 @@ public class NewAccountActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_account);
 		UserListManager.initManager(this.getApplicationContext());
-		ULC = new UserListController();
-		EditText username = (EditText) findViewById(R.id.editNewUserName);
+		final EditText username = (EditText) findViewById(R.id.editNewUserName);
 		username.requestFocus();
 		final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -64,7 +62,7 @@ public class NewAccountActivity extends Activity
 		{
 			@Override
 			public void onClick(View v) {
-				EditText username = (EditText) findViewById(R.id.editNewUserName);
+				UserListController ULC = new UserListController();
 				EditText p1 = (EditText) findViewById(R.id.editCreatePassword);
 				EditText p2 = (EditText) findViewById(R.id.editConfirmPassword);
 				if (!p1.getText().toString().equals(p2.getText().toString())) {

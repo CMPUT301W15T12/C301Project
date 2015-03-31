@@ -149,6 +149,7 @@ public class AddItemActivity extends Activity
 					editItem();
 				} else {
 					addItem();
+					finish();
 				}
 			}
 		});
@@ -162,14 +163,12 @@ public class AddItemActivity extends Activity
 		String description = editDescription.getText().toString();
 		String currency = editCurrency.getText().toString();
 		String amount = editAmount.getText().toString();
-		String date = Date.getText().toString();
 
 		//check date and parse it
 		Date dfDate = null;
 		try {
-			dfDate = df.parse(date);
+			dfDate = df.parse(Date.getText().toString());
 		} catch (ParseException e1) {
-			e1.printStackTrace();
 		}
 
 		//check amount and parse it
@@ -195,14 +194,12 @@ public class AddItemActivity extends Activity
 
 	}
 
-	public void addItem() {
+	private void addItem() {
 		BigDecimal amount = new BigDecimal(editAmount.getText().toString());
-		Date date;
+		Date date = null;
 		try {
 			date = df.parse(Date.getText().toString());
 		} catch (ParseException e) {
-			e.printStackTrace();
-			date = null;
 		}
 
 		ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
@@ -212,8 +209,6 @@ public class AddItemActivity extends Activity
 
 		//check to see fields are filled in
 		claim.addItem(expenseItem);
-		finish();
-
 	}
 
 	public void currencyOnClick(View view){
