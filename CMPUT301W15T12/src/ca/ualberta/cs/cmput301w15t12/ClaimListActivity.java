@@ -74,10 +74,9 @@ public class ClaimListActivity extends Activity {
 				user = UserListController.getUserList().get(i);
 			}
 		}
-		if (user == null) {
-			Toast.makeText(this, "no User found", Toast.LENGTH_SHORT).show();
-		}
-
+		
+		EditText search = (EditText) findViewById(R.id.editTextSearchTags);
+		search.setText("");
 
 		//clickable button takes the user to the add claim page when clicked
 		//passes along the username so that user can be added when claim is created

@@ -37,7 +37,7 @@ public class ExpenseItem implements Serializable{
 	private static final ArrayList<String> currencies = new ArrayList<String>(
 			Arrays.asList("CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CNY"));
 	private static final ArrayList<String> categories = new ArrayList<String>(
-			Arrays.asList("Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile", 
+			Arrays.asList("Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
 					"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"));
 	private String name;
 	private String category;
@@ -137,10 +137,10 @@ public class ExpenseItem implements Serializable{
 	}
 
 	public void setCategory(String category) {
-		if (category == null || categories.contains(category)) {
+		if (category.equals("") || categories.contains(category)) {
 			this.category = category;
 		} else {
-			throw new RuntimeException("Invalid category");
+			throw new RuntimeException("Invalid category"+category+"!");
 		}
 	}
 
@@ -173,7 +173,7 @@ public class ExpenseItem implements Serializable{
 	}
 
 	public void setCurrency(String currency) {
-		if (currency == null || currencies.contains(currency)) {
+		if (currency.equals("") || currencies.contains(currency)) {
 			this.Currency = currency;
 		} else {
 			throw new RuntimeException("Invalid currency");

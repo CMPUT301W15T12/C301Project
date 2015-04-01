@@ -115,22 +115,41 @@ public class AddItemActivity extends Activity
 		if (option.equals("edit")){
 			expenseItemId = intent.getIntExtra("item_index", 0);
 			expenseItem = clc.getClaim(claim_id).getExpenseItems().get(expenseItemId);
-			//set fields to claim details    		
+			//set fields to claim details    
+			
+			String d = "";
+			if (expenseItem.getDate() != null) {
+				d = df.format(expenseItem.getDate());
+			}
 
 			editName.setText(expenseItem.getName());
 			editCategory.setText(expenseItem.getCategory());
 			editDescription.setText(expenseItem.getDescription());
 			editCurrency.setText(expenseItem.getCurrency());	
 			editAmount.setText(expenseItem.getAmount().toString());
-			Date.setText(df.format(expenseItem.getDate()));
+			Date.setText(d);
+			
+			CheckBox checkImage = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
+			CheckBox checkLocation = (CheckBox) findViewById(R.id.checkBoxIncludeLocation);
+			CheckBox checkFlag = (CheckBox) findViewById(R.id.checkBoxFlag);
+			
+			//set check boxes if previously checked
+			if(expenseItem.getFlag()){
+				checkFlag.setChecked(true);
+			}
+			
+			if(expenseItem.getBoolLocation()){
+				checkLocation.setChecked(true);
+			}
 
+			//set picture and picture checkbox if picture exists
 			if (expenseItem.getReceipt()){
 				imageFileUri = expenseItem.getUri();
 				Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+				checkImage.setChecked(true);
 				ib.setBackgroundDrawable(picture);
 				ib.setText("");
-			}
-			else{
+			} else{
 				ib.setText("No Receipt");
 			}
 		}
@@ -163,7 +182,6 @@ public class AddItemActivity extends Activity
 		String description = editDescription.getText().toString();
 		String currency = editCurrency.getText().toString();
 		String amount = editAmount.getText().toString();
-
 		//check date and parse it
 		Date dfDate = null;
 		try {
@@ -182,22 +200,20 @@ public class AddItemActivity extends Activity
 		}
 
 		//save values for the expense item
-		claim.getExpenseItems().get(expenseItemId).setName(name);
-		claim.getExpenseItems().get(expenseItemId).setCategory(category);
-		claim.getExpenseItems().get(expenseItemId).setDescription(description);
-		claim.getExpenseItems().get(expenseItemId).setCurrency(currency);
-		claim.getExpenseItems().get(expenseItemId).setAmount(bdAmount);
-		claim.getExpenseItems().get(expenseItemId).setDate(dfDate);
-		claim.getExpenseItems().get(expenseItemId).setUri(imageFileUri);
-		claim.getExpenseItems().get(expenseItemId).setlocation(location);
+		expenseItem.setName(name);
+		expenseItem.setCategory(category);
+		expenseItem.setDescription(description);
+		expenseItem.setCurrency(currency);
+		expenseItem.setAmount(bdAmount);
+		expenseItem.setDate(dfDate);
+		expenseItem.setUri(imageFileUri);
+		expenseItem.setlocation(location);
 		finish();
 
 	}
 
 	private void addItem() {
 		BigDecimal amount;
-		String Currency;
-		String Category;
 		Date date = null;
 		//default values for incomplete expense items
 		if(!editAmount.getText().toString().equals("")){
@@ -208,22 +224,10 @@ public class AddItemActivity extends Activity
 		try {
 			date = df.parse(Date.getText().toString());
 		} catch (ParseException e) {
-		} catch (NullPointerException e){
-		}
-		if(!editCurrency.getText().toString().equals("")){
-			Currency = editCurrency.getText().toString();
-		} else {
-			Currency = "USD";
-		}
-		if(!editCategory.getText().toString().equals("")){
-			Category = editCurrency.getText().toString();
-		} else {
-			Category = "Transportation";
-		}
+		} 
 		
-
 		ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
-				editDescription.getText().toString(), Currency,amount, date, flag);
+				editDescription.getText().toString(), editCurrency.getText().toString(),amount, date, flag);
 		expenseItem.setUri(imageFileUri);
 		expenseItem.setlocation(location);
 

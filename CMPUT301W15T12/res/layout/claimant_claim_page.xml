@@ -65,24 +65,26 @@
         android:textColor="#000" />
 
     <TextView
-        android:id="@+id/textClaimDestinations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:gravity="center"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textClaimDescription"
-        android:text="@string/destinations" />
-
-    <TextView
         android:id="@+id/listTotalSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textClaimDestinations"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/Total"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textClaimDestinations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textClaimDescription"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="@string/destinations" />
 
 </RelativeLayout>
