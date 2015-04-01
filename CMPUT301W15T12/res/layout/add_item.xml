@@ -15,6 +15,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/checkBoxFlag"
+            android:onClick="onDoneButtonClick"
             android:text="@string/Done" />
 
         <EditText
@@ -92,18 +93,18 @@
             android:id="@+id/checkBoxFlag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onCheckBoxClicked"
             android:layout_alignLeft="@+id/checkBoxIncludeLocation"
             android:layout_below="@+id/checkBoxIncludeLocation"
+            android:onClick="onCheckBoxClicked"
             android:text="@string/flag" />
 
         <CheckBox
             android:id="@+id/checkBoxIncludeLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onLocationClick"
             android:layout_below="@+id/checkBoxIncludePicture"
             android:layout_centerHorizontal="true"
+            android:onClick="onLocationClick"
             android:text="@string/IncludeLocation" />
 
         <CheckBox
@@ -112,8 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/checkBoxIncludeLocation"
             android:layout_below="@+id/buttonAddImage"
-            android:onClick="onImageCheckBoxClick"
             android:layout_marginTop="22dp"
+            android:onClick="onImageCheckBoxClick"
             android:text="@string/IncludeImage" />
 
         <Button
@@ -125,7 +126,6 @@
             android:layout_marginTop="17dp"
             android:onClick="addImage"
             android:text="@string/Add_Image" />
-
     </RelativeLayout>
 
 </ScrollView>

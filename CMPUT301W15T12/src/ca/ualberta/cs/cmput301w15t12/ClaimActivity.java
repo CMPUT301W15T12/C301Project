@@ -205,27 +205,15 @@ public class ClaimActivity extends Activity {
 
 	//menu item submitClaim
 	public void submitClaim(MenuItem menu) {
+		String text = "Submit this Claim?";
+		if (claim.incomplete()) {
+			text = "Submit this Claim? \n There are Incomplete Fields.";
+		}
 		if (!claim.editable()) {
 			Toast.makeText(ClaimActivity.this, "No edits allowed", Toast.LENGTH_LONG).show();
-		} else if (claim.incomplete()){
-			AlertDialog.Builder adb = new AlertDialog.Builder(ClaimActivity.this);
-			adb.setMessage("Submit this Claim? \n There are Incomplete Fields.");
-			adb.setCancelable(true);
-			adb.setPositiveButton("Submit", new OnClickListener(){
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					claim.setStatus("Submitted");
-					finish();
-				}
-			});
-			adb.setNegativeButton("Cancel", new OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-				}
-			});
-			adb.show();
 		} else {	
 			AlertDialog.Builder adb = new AlertDialog.Builder(ClaimActivity.this);
-			adb.setMessage("Submit this Claim?");
+			adb.setMessage(text);
 			adb.setCancelable(true);
 			adb.setPositiveButton("Submit", new OnClickListener(){
 				@Override
@@ -249,13 +237,14 @@ public class ClaimActivity extends Activity {
 		startActivity(intent);
 	}
 
-	//menu item see comments
+	//menu item see comments takes user to seeComments activity
 	public void seeComments(MenuItem menu) {
 		Intent intent = new Intent(ClaimActivity.this, SeeCommentsActivity.class);
 		intent.putExtra("claim_id", id);
 		startActivity(intent);
 	}
 	
+	//open map activity to see all locations associated with a claim
 	public void seeLocations(MenuItem menu) {
 		Intent intent = new Intent(ClaimActivity.this, MapActivity.class);
 		intent.putExtra("claim_id",id);

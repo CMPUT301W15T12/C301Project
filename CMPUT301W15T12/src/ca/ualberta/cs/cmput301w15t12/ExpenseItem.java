@@ -69,12 +69,8 @@ public class ExpenseItem implements Serializable{
 	}
 
 	//for printing the list of expense items
-	public String toStringList() {
-		String d = "";
-		if(date != null) {
-			d = df.format(date);
-		} 		
-		String block = "["+d+"] "+name+"\n"+category+" - "+Amount+" "+Currency+"\n"+description;
+	public String toStringList() {	
+		String block = "["+getStringDate()+"] "+name+"\n"+category+" - "+Amount+" "+Currency+"\n"+description;
 		return block;
 	}
 
@@ -100,6 +96,13 @@ public class ExpenseItem implements Serializable{
 	}
 
 	//getters and setters for the attributes
+	public String getStringDate(){
+		String d = "";
+		if(date != null) {
+			d = df.format(date);
+		} 
+		return d;
+	}
 	public static ArrayList<String> getCurrencies() {
 		return currencies;
 	}

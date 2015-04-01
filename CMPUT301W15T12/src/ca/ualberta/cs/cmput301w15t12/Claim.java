@@ -113,7 +113,7 @@ public class Claim {
 		String ds= dateFormat.format(startDate);
 		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status;
 		if(!(getTotal().size() == 0)) {
-			block += "\n"+toStringList(getTotal());
+			block += "\n"+getTotalString();
 		}
 		if(!(destinations.size() == 0)) {
 			block += "\n"+destinationsListToString();
@@ -128,7 +128,7 @@ public class Claim {
 		String ds = dateFormat.format(startDate);
 		String block = "["+ds+"] "+name+" - "+Status;
 		if(!(getTotal().size() == 0)) {
-			block += "\n"+toStringList(getTotal());
+			block += "\n"+getTotalString();
 		} if(!(destinations.size() == 0)) {
 			block += "\n"+destinationsListToString();
 		} if (!(tagList.size() == 0)) {
@@ -158,14 +158,6 @@ public class Claim {
 		}
 		return dests;
 	}
-	public String toStringList(ArrayList<String> list) {
-		String string = "";
-		for (int i = 0; i < list.size(); i++) {
-			string += list.get(i);
-		}
-		return string;
-	}
-
 	public String toStringTagList(ArrayList<String> list) {
 		String string = "";
 		for (int i = 0; i < list.size(); i++) {
@@ -186,7 +178,7 @@ public class Claim {
 		string += Status+"\n"+Description+"\n";
 		string += ds+" - "+de+"\n";
 		string += "Destinations:"+destinationsToString()+"\n";
-		string += "Total"+toStringList(getTotal())+"\n";
+		string += "Total: "+getTotalString()+"\n";
 		string += "Items:";
 		for (int i = 0; i < expenseItems.size(); i++) {
 			string += expenseItems.get(i).toEmail()+"\n";
@@ -249,6 +241,14 @@ public class Claim {
 	//end add/remove/contains
 
 	//All the getters and setters
+	public void setAll(String name, Date startDate, Date endDate, String description, ArrayList<String> tags,ArrayList<Destination> destinations){
+		setName(name);
+		setStartDate(startDate);
+		setEndDate(endDate);
+		setDescription(description);
+		setTagList(tags);
+		setDestination(destinations);
+	}
 	public int getId(){
 		return id;
 	}

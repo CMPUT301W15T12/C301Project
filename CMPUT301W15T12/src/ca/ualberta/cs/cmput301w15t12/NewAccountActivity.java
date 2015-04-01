@@ -21,11 +21,8 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
-import java.util.Date;
-
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
@@ -54,6 +51,8 @@ public class NewAccountActivity extends Activity
 		setContentView(R.layout.new_account);
 		UserListManager.initManager(this.getApplicationContext());
 		final EditText username = (EditText) findViewById(R.id.editNewUserName);
+		final EditText p1 = (EditText) findViewById(R.id.editCreatePassword);
+		final EditText p2 = (EditText) findViewById(R.id.editConfirmPassword);
 		username.requestFocus();
 		final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -64,8 +63,6 @@ public class NewAccountActivity extends Activity
 			@Override
 			public void onClick(View v) {
 				UserListController ULC = new UserListController();
-				EditText p1 = (EditText) findViewById(R.id.editCreatePassword);
-				EditText p2 = (EditText) findViewById(R.id.editConfirmPassword);
 				if (!p1.getText().toString().equals(p2.getText().toString())) {
 					Toast.makeText(NewAccountActivity.this, "Passwords don't match", Toast.LENGTH_SHORT).show();
 				} else {
@@ -81,12 +78,10 @@ public class NewAccountActivity extends Activity
 							intent.putExtra("username", un);
 							startActivity(intent);
 						}
-					} catch (Exception e) {
+					} catch (AlreadyExistsException e) {
 						Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
-						e.printStackTrace();
 					}
 				}
-
 			}
 		});
 
@@ -104,7 +99,6 @@ public class NewAccountActivity extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-						lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 						if (location == null){
 							Toast.makeText(NewAccountActivity.this,"No GPS Location Found, Enable GPS",Toast.LENGTH_SHORT).show();
 						} else {
@@ -122,8 +116,6 @@ public class NewAccountActivity extends Activity
 				adb.show();				
 			}
 		});
-
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 	}
 
 	@Override
@@ -133,36 +125,6 @@ public class NewAccountActivity extends Activity
 			location = data.getExtras().getParcelable("Location"); 
 		}
 	}
-
-
-	//    //https://github.com/joshua2ua/MockLocationTester
-	private final LocationListener listener = new LocationListener() {
-		public void onLocationChanged (Location location) {
-			if (location != null) {
-				double lat = location.getLatitude();
-				double lng = location.getLongitude();
-				Date date = new Date(location.getTime());
-
-				Toast.makeText(NewAccountActivity.this, "The location is: \nLatitude: " + lat
-						+ "\nLongitude: " + lng
-						+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
-			} else {
-				Toast.makeText(NewAccountActivity.this,"nope",Toast.LENGTH_SHORT).show();
-			}
-		}
-
-		public void onProviderDisabled (String provider) {
-
-		}
-
-		public  void onProviderEnabled (String provider) {
-
-		}
-
-		public void onStatusChanged (String provider, int status, Bundle extras) {
-
-		}
-	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

@@ -61,14 +61,13 @@ public class UserListController
 		return getUserList().authenticateUser(UserName, Password);
 	}
 	
-	public void addUser(String string) throws AlreadyExistsException {
-		getUserList().addUser(new User(string, null));
-		saveUserList();
-	}
+//	public void addUser(String string) throws AlreadyExistsException {
+//		getUserList().addUser(new User(string, null));
+//		saveUserList();
+//	}
 	
 	public void addUserWithPass(String name, String pass) throws AlreadyExistsException{
 		getUserList().addUser(new User(name, pass));
-		saveUserList();
 	}
 	
 	public static void removeUser(String user){

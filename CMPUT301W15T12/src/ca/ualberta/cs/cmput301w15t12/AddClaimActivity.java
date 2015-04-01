@@ -51,6 +51,7 @@ public class AddClaimActivity extends Activity
 	private DatePickerDialog fromDatePickerDialog;
 	private DatePickerDialog toDatePickerDialog;
 	private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+
 	private ClaimListController CLC = new ClaimListController();
 	private User user;
 	private String Username;
@@ -85,6 +86,7 @@ public class AddClaimActivity extends Activity
 		startDate.setInputType(InputType.TYPE_NULL);
 		setDateTimeField();
 
+		//if the user is editing an existing claim, set all existing attributes
 		if (option.equals("Edit")){
 			id = getIntent().getIntExtra("claim_id",1000000);
 			claim = CLC.getClaim(id);
@@ -104,10 +106,10 @@ public class AddClaimActivity extends Activity
 			}
 		}
 
-		//getparent activity
+		//get tab parent activity
 		parentActivity = (TabClaimActivity) this.getParent();
 
-		//clickable button creates claim and takes the user back to the claim list page
+		//clickable button creates  or edit a claim and takes the user back to page they came from
 		Button donebutton = (Button) findViewById(R.id.buttonsaveClaim);
 		donebutton.setOnClickListener(new View.OnClickListener()
 		{
@@ -127,96 +129,79 @@ public class AddClaimActivity extends Activity
 
 	}
 
+	//saves any changes the user make to the claim and calls finish
 	public void editClaim() throws ParseException {
-		//edit Claim
-		if (claim.editable()){  	
-			//Convert EditTexts to Strings and Dates
-			String name = editTextName.getText().toString();
-			String description = editTextDescription.getText().toString();
+		//edit Claim	
+		//Convert EditTexts to Strings and Dates
+		String name = editTextName.getText().toString();
+		String description = editTextDescription.getText().toString();
 
-			if (startDate.getText().toString().equals("") ||endDate.getText().toString().equals("") || name.equals("") || description.equals("")) {
-				Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
-			} else {
-
-				Date sdate = df.parse(startDate.getText().toString());
-				Date edate = df.parse(endDate.getText().toString());
-
-				if (!sdate.after(edate)){
-					//gets destinations from other tab
-					ArrayList<Destination> destination = parentActivity.getDestination();
-
-					//set new values
-					claim.setName(name);
-					claim.setDescription(description);
-					claim.setStartDate(sdate);
-					claim.setEndDate(edate);
-					claim.setDestination(destination);
-
-					claim.setTagList(new ArrayList<String>());
-					//add Tags to Claim
-					for (int i = 0; i < tagsArrayList.size(); i++){
-						try{
-							CLC.addTagToClaim(id, tagsArrayList.get(i));
-						} catch (AlreadyExistsException e){
-							e.printStackTrace();
-						}
-					}
-
-					//toasts the user and finishes
-					Toast.makeText(AddClaimActivity.this,"Claim Updated", Toast.LENGTH_LONG).show();
-					finish();
-				} else {
-					Toast.makeText(this,"End Date needs to be after Start Date", Toast.LENGTH_SHORT).show();
-				}
-			}
-
-		}
-
-		//Can't edit Claim no edit allowed
-		else {
-			Toast.makeText(AddClaimActivity.this, "No edits allowed",Toast.LENGTH_SHORT).show();
-		}	
-	}
-
-	public void addClaim() throws ParseException  {
-		if (startDate.getText().toString().equals("") ||endDate.getText().toString().equals("")) {
+		//check for incomplete fields
+		if (startDate.getText().toString().equals("") ||endDate.getText().toString().equals("") || name.equals("") || description.equals("")) {
 			Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
 		} else {
 
+			Date sdate = df.parse(startDate.getText().toString());
+			Date edate = df.parse(endDate.getText().toString());
+
+			//ensures end date is after start date
+			if (!sdate.after(edate)){
+				//gets destinations from other tab
+				ArrayList<Destination> destination = parentActivity.getDestination();
+
+				//set new values
+				claim.setAll(name, sdate, edate, description, new ArrayList<String>(), destination);
+				
+				for (int i = 0; i < tagsArrayList.size(); i++){
+					try{
+						CLC.addTagToClaim(id, tagsArrayList.get(i));
+					} catch (AlreadyExistsException e){
+						e.printStackTrace();
+					}
+				}
+
+				//toasts the user and finishes
+				Toast.makeText(AddClaimActivity.this,"Claim Updated", Toast.LENGTH_LONG).show();
+				finish();
+			} else {
+				Toast.makeText(this,"End Date needs to be after Start Date", Toast.LENGTH_SHORT).show();
+			}
+		}
+
+	}	
+
+	//adds a new claim and goes back to claim list
+	public void addClaim() throws ParseException  {
+		String name = editTextName.getText().toString();
+		String description = editTextDescription.getText().toString();
+		//ensures no empty fields for date(s), name and description
+		if (startDate.getText().toString().equals("") ||endDate.getText().toString().equals("")|| name.equals("") || description.equals("")) {
+			Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
+		} else {
 			//Initializing variables
 			Date sdate = df.parse(startDate.getText().toString());
 			Date edate = df.parse(endDate.getText().toString());
 
+			//ensures end date is after start date
 			if (sdate.after(edate)) {
 				Toast.makeText(this, "End Date needs to be after Start Date", Toast.LENGTH_SHORT).show();
 			} else {
+				//create claim
+				id = CLC.addClaim(name, sdate, edate, description, this.user);
+				ArrayList<Destination> destination = parentActivity.getDestination();
+				CLC.getClaim(id).setDestination(destination);
 
-				//XML Inputs
-				String name = editTextName.getText().toString();
-				String description = editTextDescription.getText().toString();
-
-				if (name.equals("") || description.equals("")) {
-					Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
-				} else {
-
-					//create claim
-					id = CLC.addClaim(name, sdate, edate, description, this.user);
-					ArrayList<Destination> destination = parentActivity.getDestination();
-					CLC.getClaim(id).setDestination(destination);
-
-					//add Tag to Claim
-					for (int i = 0; i<  tagsArrayList.size(); i++){
-						try {
-							CLC.addTagToClaim(id, tagsArrayList.get(i));
-						} catch (AlreadyExistsException e) {
-							e.printStackTrace();
-						}
+				//add Tag to Claim
+				for (int i = 0; i<  tagsArrayList.size(); i++){
+					try {
+						CLC.addTagToClaim(id, tagsArrayList.get(i));
+					} catch (AlreadyExistsException e) {
 					}
-
-					//toast finished
-					Toast.makeText(AddClaimActivity.this,"Claim Saved.", Toast.LENGTH_SHORT).show();	
-					finish();
 				}
+
+				//toast finished
+				Toast.makeText(AddClaimActivity.this,"Claim Saved.", Toast.LENGTH_SHORT).show();	
+				finish();
 			}
 		}
 	}
@@ -253,6 +238,7 @@ public class AddClaimActivity extends Activity
 				}
 			}
 		});
+		//allow the user to add a new tag
 		builder.setPositiveButton("Add New", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
@@ -260,6 +246,7 @@ public class AddClaimActivity extends Activity
 			}
 
 		});
+		//save any added tags from the user
 		builder.setNegativeButton("Save", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
@@ -286,7 +273,7 @@ public class AddClaimActivity extends Activity
 		alertDialogBuilder.setView(promptView);
 
 		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTagName);
-
+		
 		alertDialogBuilder.setCancelable(false)
 		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {

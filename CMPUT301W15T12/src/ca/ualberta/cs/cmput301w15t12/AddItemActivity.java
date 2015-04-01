@@ -32,7 +32,6 @@ import java.util.Date;
 
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -158,21 +157,19 @@ public class AddItemActivity extends Activity
 		EditText editName = (EditText) findViewById(R.id.editItemName );
 		editName.requestFocus();		
 
-		//clickable button creates Item and takes the user back to the claim list page
-		Button donebutton = (Button) findViewById(R.id.buttonEditItemDone);
-		donebutton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v) {
-				if(option.equals("edit")){
-					editItem();
-				} else {
-					addItem();
-					finish();
-				}
-			}
-		});
 
+
+
+	}
+	
+	//Done button redirects to editItem or AddItem method.
+	public void onDoneButtonClick(View view){
+		if(option.equals("edit")){
+			editItem();
+		} else {
+			addItem();
+			finish();
+		}
 	}
 
 	public void editItem() {	
@@ -359,6 +356,7 @@ public class AddItemActivity extends Activity
 		}
 	}
 
+	//https://github.com/joshua2ua/MockLocationTester
 	public void onLocationClick(View view){
 		boolean checked = ((CheckBox) view).isChecked();
 		if (checked) {
@@ -370,7 +368,6 @@ public class AddItemActivity extends Activity
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-					lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 					if (location == null){
 						Toast.makeText(AddItemActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
 					} else {
@@ -427,35 +424,4 @@ public class AddItemActivity extends Activity
 			}
 
 		},newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));}
-
-
-	//https://github.com/joshua2ua/MockLocationTester
-	private final LocationListener listener = new LocationListener() {
-		public void onLocationChanged (Location location) {
-			if (location != null) {
-				double lat = location.getLatitude();
-				double lng = location.getLongitude();
-				Date date = new Date(location.getTime());
-
-				Toast.makeText(AddItemActivity.this, "The location is: \nLatitude: " + lat
-						+ "\nLongitude: " + lng
-						+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
-			} else {
-				Toast.makeText(AddItemActivity.this,"nope",Toast.LENGTH_SHORT).show();
-			}
-		}
-
-		public void onProviderDisabled (String provider) {
-
-		}
-
-		public  void onProviderEnabled (String provider) {
-
-		}
-
-		public void onStatusChanged (String provider, int status, Bundle extras) {
-
-		}
-	};
-
 }

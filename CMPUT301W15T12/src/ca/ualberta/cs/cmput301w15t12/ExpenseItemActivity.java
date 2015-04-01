@@ -88,6 +88,7 @@ public class ExpenseItemActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Claim.getExpenseItems().remove(index);
+						finish();
 					}
 				});
 				adb.setNegativeButton("Cancel", new OnClickListener() {
@@ -129,11 +130,7 @@ public class ExpenseItemActivity extends Activity {
 		TextView AC = (TextView) findViewById(R.id.textItemCurrency);
 		CheckBox flag = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
 
-		String date = null;
-		//date to string
-		if (Item.getDate() != null) {
-			date = df.format(Item.getDate());
-		}
+		String date = Item.getStringDate();
 		
 		//setting the textviews with existing information
 		Name.setText(Item.getName());

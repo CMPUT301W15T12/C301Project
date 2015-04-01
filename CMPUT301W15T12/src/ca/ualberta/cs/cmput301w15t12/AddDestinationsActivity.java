@@ -20,10 +20,8 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
@@ -129,10 +127,10 @@ public class AddDestinationsActivity extends Activity
 						public void onClick(DialogInterface dialog, int which) {
 							LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 							location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-							lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 							if (location == null){
 								Toast.makeText(AddDestinationsActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
 							} else {
+								//https://github.com/joshua2ua/MockLocationTester
 								Toast.makeText(AddDestinationsActivity.this,"Current Location added as Destination Location",Toast.LENGTH_SHORT).show();
 								Destination dest = new Destination(d1, d2, location);	
 								D.add(dest);
@@ -190,34 +188,5 @@ public class AddDestinationsActivity extends Activity
 		getMenuInflater().inflate(R.menu.add_destinations, menu);
 		return true;
 	}
-
-	//https://github.com/joshua2ua/MockLocationTester
-	private final LocationListener listener = new LocationListener() {
-		public void onLocationChanged (Location location) {
-			if (location != null) {
-				double lat = location.getLatitude();
-				double lng = location.getLongitude();
-				Date date = new Date(location.getTime());
-
-				Toast.makeText(AddDestinationsActivity.this, "The location is: \nLatitude: " + lat
-						+ "\nLongitude: " + lng
-						+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
-			} else {
-				Toast.makeText(AddDestinationsActivity.this,"nope",Toast.LENGTH_SHORT).show();
-			}
-		}
-
-		public void onProviderDisabled (String provider) {
-
-		}
-
-		public  void onProviderEnabled (String provider) {
-
-		}
-
-		public void onStatusChanged (String provider, int status, Bundle extras) {
-
-		}
-	};
 
 }
