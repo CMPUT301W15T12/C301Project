@@ -115,7 +115,7 @@ public class NewAccountActivity extends Activity
 				adb.setNegativeButton("Remote Location", new OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = new Intent(NewAccountActivity.this, MapActivity.class);
-						intent.putExtra("option","add");
+						intent.putExtra("option", "add");
 						startActivityForResult(intent, 0);
 					}
 				});

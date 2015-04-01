@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.widget.Toast;
 
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
@@ -33,10 +34,11 @@ public class MapActivity extends Activity
 		 mapController = (MapController) this.mapView.getController();
 		 mapController.setZoom(2);
 		 
+		 
 		 String option = getIntent().getExtras().getString("option");
 		 if(option.equals("add")){
 			 //TODO get Location
-			 returnLocation();
+			 //returnLocation();
 		 } else {
 			 ClaimListController CLC = new ClaimListController();
 			 int id = getIntent().getIntExtra("claim_id",0);
@@ -57,7 +59,7 @@ public class MapActivity extends Activity
 	public void returnLocation(){
 		Intent intent = new Intent();
 		intent.putExtra("Location",location);
-		startActivity(intent);
+		finish();
 	}
 	
 	@Override
