@@ -5,7 +5,6 @@ import java.util.Date;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 
@@ -28,7 +27,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testExpenseItem(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
+		ExpenseItem expenseItem = new ExpenseItem("name","Air Fare","description","USD",amount,date, false);
 		assertNotNull("date not initialized",expenseItem.getDate());
 		assertNotNull("category not initialized",expenseItem.getCategory());
 		assertNotNull("description not initialized",expenseItem.getDescription());
@@ -43,10 +42,18 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testCategory(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
+		ExpenseItem expenseItem = new ExpenseItem("name","Air Fare","description","USD",amount,date, false);
 		
 		try {
-			// Try all valid categories
+			// Try no category (should still be valid)
+			expenseItem.setCategory(null);
+		} catch (Exception e) {
+			// Should not throw exception with no category
+			fail("Shouldn't have thrown an exception");
+		}
+		
+		try {
+			// Try all valid categories 
 			for (String category : ExpenseItem.getCategories()) {
 				expenseItem.setCategory(category);
 			}
@@ -71,10 +78,18 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testCurrency(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","CAD",amount,date, false);
+		ExpenseItem expenseItem = new ExpenseItem("name","Air Fare","description","CAD",amount,date, false);
 		
 		try {
-			// Try all valid currencies	
+			// Try no currency (should still be valid)
+			expenseItem.setCurrency(null);
+		} catch (Exception e) {
+			// Should not throw exception with no currency
+			fail("Shouldn't have thrown an exception");
+		}
+		
+		try {
+			// Try all valid currencies
 			for (String currency : ExpenseItem.getCurrencies()) {
 				expenseItem.setCurrency(currency);
 			}
@@ -98,7 +113,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testFlag(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
+		ExpenseItem expenseItem = new ExpenseItem("name","Air Fare","description","USD",amount,date, false);
 		
 		expenseItem.setFlag(true);
 		//passes if item has a flag
@@ -133,11 +148,11 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	public void testEditItem(){
 		Date date = new Date();
 		BigDecimal amount = new BigDecimal(45.50);
-		ExpenseItem expenseItem = new ExpenseItem("name","air fare","description","USD",amount,date, false);
+		ExpenseItem expenseItem = new ExpenseItem("name","Air Fare","description","USD",amount,date, false);
 		Date date2 = new Date();
 		BigDecimal amount2 = new BigDecimal(800.23);
 		expenseItem.setName("name2");
-		expenseItem.setCategory("parking");
+		expenseItem.setCategory("Parking");
 		expenseItem.setDescription("description2");
 		expenseItem.setCurrency("CAD");
 		expenseItem.setAmount(amount2);
@@ -145,7 +160,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		expenseItem.setFlag(true);
 		
 		assertEquals("date not initialized",date2,expenseItem.getDate());
-		assertEquals("category not initialized","parking",expenseItem.getCategory());
+		assertEquals("category not initialized","Parking",expenseItem.getCategory());
 		assertEquals("description not initialized","description2",expenseItem.getDescription());
 		assertEquals("amount not initialized",amount2,expenseItem.getAmount());
 		assertEquals("currency not initialized","CAD",expenseItem.getCurrency());
