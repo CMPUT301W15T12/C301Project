@@ -115,7 +115,7 @@ public class AddItemActivity extends Activity
 			expenseItemId = intent.getIntExtra("item_index", 0);
 			expenseItem = clc.getClaim(claim_id).getExpenseItems().get(expenseItemId);
 			//set fields to claim details    
-			
+
 			String d = "";
 			if (expenseItem.getDate() != null) {
 				d = df.format(expenseItem.getDate());
@@ -127,16 +127,16 @@ public class AddItemActivity extends Activity
 			editCurrency.setText(expenseItem.getCurrency());	
 			editAmount.setText(expenseItem.getAmount().toString());
 			Date.setText(d);
-			
+
 			CheckBox checkImage = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
 			CheckBox checkLocation = (CheckBox) findViewById(R.id.checkBoxIncludeLocation);
 			CheckBox checkFlag = (CheckBox) findViewById(R.id.checkBoxFlag);
-			
+
 			//set check boxes if previously checked
 			if(expenseItem.getFlag()){
 				checkFlag.setChecked(true);
 			}
-			
+
 			if(expenseItem.getBoolLocation()){
 				checkLocation.setChecked(true);
 			}
@@ -161,7 +161,7 @@ public class AddItemActivity extends Activity
 
 
 	}
-	
+
 	//Done button redirects to editItem or AddItem method.
 	public void onDoneButtonClick(View view){
 		if(option.equals("edit")){
@@ -198,9 +198,17 @@ public class AddItemActivity extends Activity
 
 		//save values for the expense item
 		expenseItem.setName(name);
-		expenseItem.setCategory(category);
+		try {
+			expenseItem.setCategory(category);
+		} catch (RuntimeException e) {
+			Toast.makeText(this, "Incorrect category", Toast.LENGTH_SHORT).show();
+		}
 		expenseItem.setDescription(description);
-		expenseItem.setCurrency(currency);
+		try {
+			expenseItem.setCurrency(currency);
+		} catch (RuntimeException e) {
+			Toast.makeText(this, "Incorrect currency", Toast.LENGTH_SHORT).show();
+		}
 		expenseItem.setAmount(bdAmount);
 		expenseItem.setDate(dfDate);
 		expenseItem.setUri(imageFileUri);
@@ -222,14 +230,17 @@ public class AddItemActivity extends Activity
 			date = df.parse(Date.getText().toString());
 		} catch (ParseException e) {
 		} 
-		
-		ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
-				editDescription.getText().toString(), editCurrency.getText().toString(),amount, date, flag);
-		expenseItem.setUri(imageFileUri);
-		expenseItem.setlocation(location);
+		try {
+			expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
+					editDescription.getText().toString(), editCurrency.getText().toString(),amount, date, flag);
+			expenseItem.setUri(imageFileUri);
+			expenseItem.setlocation(location);
 
-		//check to see fields are filled in
-		claim.addItem(expenseItem);
+			//check to see fields are filled in
+			claim.addItem(expenseItem);
+		} catch (RuntimeException e){
+			Toast.makeText(this, "Incorrect category or currency", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void currencyOnClick(View view){
