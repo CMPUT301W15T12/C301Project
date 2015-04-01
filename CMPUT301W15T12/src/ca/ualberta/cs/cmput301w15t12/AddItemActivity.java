@@ -195,15 +195,35 @@ public class AddItemActivity extends Activity
 	}
 
 	private void addItem() {
-		BigDecimal amount = new BigDecimal(editAmount.getText().toString());
+		BigDecimal amount;
+		String Currency;
+		String Category;
 		Date date = null;
+		//default values for incomplete expense items
+		if(!editAmount.getText().toString().equals("")){
+			amount = new BigDecimal(editAmount.getText().toString());
+		} else {
+			amount = new BigDecimal(0);
+		}
 		try {
 			date = df.parse(Date.getText().toString());
 		} catch (ParseException e) {
+		} catch (NullPointerException e){
 		}
+		if(!editCurrency.getText().toString().equals("")){
+			Currency = editCurrency.getText().toString();
+		} else {
+			Currency = "USD";
+		}
+		if(!editCategory.getText().toString().equals("")){
+			Category = editCurrency.getText().toString();
+		} else {
+			Category = "Transportation";
+		}
+		
 
 		ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
-				editDescription.getText().toString(), editCurrency.getText().toString(),amount, date, flag);
+				editDescription.getText().toString(), Currency,amount, date, flag);
 		expenseItem.setUri(imageFileUri);
 		expenseItem.setlocation(location);
 

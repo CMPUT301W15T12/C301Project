@@ -114,6 +114,9 @@ public class ClaimActivity extends Activity {
 		ArrayList<String> eitems = new ArrayList<String>();
 		final ArrayList<ExpenseItem> Items = claim.getExpenseItems();
 		Integer[] imageId = claim.getIds();
+		for (int i = 0; i < Items.size();i++){
+			eitems.add(Items.get(i).toStringList());
+		}
 
 		final CustomList adapter = new CustomList(ClaimActivity.this, eitems, imageId);
 		ListView list = (ListView) findViewById(R.id.listExpenseItems);
