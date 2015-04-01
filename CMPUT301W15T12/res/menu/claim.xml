@@ -30,5 +30,10 @@
         android:onClick="seeComments"
         android:title="@string/SeeComments">
     </item>
+    <item
+        android:id="@+id/seeLocations"
+        android:onClick="seeLocations"
+        android:title="@string/seeLocations">
+    </item>
 
 </menu>
