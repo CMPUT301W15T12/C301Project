@@ -52,7 +52,7 @@ public class ExpenseItem implements Serializable{
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	private Uri uri;
 	private Integer imageId; 
-	
+
 
 	public ExpenseItem(String name,String category, String description, String currency, 
 			BigDecimal amount, Date date, boolean flag){
@@ -70,7 +70,10 @@ public class ExpenseItem implements Serializable{
 
 	//for printing the list of expense items
 	public String toStringList() {
-		String d = df.format(date);
+		String d = "";
+		if(date != null) {
+			d = df.format(date);
+		} 		
 		String block = "["+d+"] "+name+"\n"+category+" - "+Amount+" "+Currency+"\n"+description;
 		return block;
 	}
@@ -100,11 +103,11 @@ public class ExpenseItem implements Serializable{
 	public static ArrayList<String> getCurrencies() {
 		return currencies;
 	}
-	
+
 	public static ArrayList<String> getCategories() {
 		return categories;
 	}
-	
+
 	public boolean getFlag() {
 		return flag;
 	}
@@ -176,7 +179,7 @@ public class ExpenseItem implements Serializable{
 			throw new RuntimeException("Invalid currency");
 		}
 	}
-	
+
 	public void setUri(Uri imageFileUri) {
 		if (imageFileUri == null) {
 			this.receipt = false;
