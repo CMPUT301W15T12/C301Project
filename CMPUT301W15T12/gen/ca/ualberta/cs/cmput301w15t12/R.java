@@ -35,13 +35,12 @@ public final class R {
         public static final int trio=0x7f02000b;
     }
     public static final class id {
-        public static final int ApproverlistTotalSum=0x7f08001d;
         public static final int EnterClaimName=0x7f080001;
         public static final int EnterDescription=0x7f080002;
         public static final int EnterEndDate=0x7f080003;
         public static final int EnterStartDate=0x7f080000;
         public static final int EnterTags=0x7f080004;
-        public static final int action_settings=0x7f080059;
+        public static final int action_settings=0x7f080058;
         public static final int body=0x7f080035;
         public static final int buttonAddClaim=0x7f080029;
         public static final int buttonAddComment=0x7f08001c;
@@ -50,9 +49,9 @@ public final class R {
         public static final int buttonAddImage=0x7f080017;
         public static final int buttonAddItem=0x7f08002f;
         public static final int buttonAddTag=0x7f080053;
-        public static final int buttonApproverApprove=0x7f080020;
+        public static final int buttonApproverApprove=0x7f08001f;
         public static final int buttonApproverImage=0x7f080027;
-        public static final int buttonApproverReturn=0x7f080021;
+        public static final int buttonApproverReturn=0x7f080020;
         public static final int buttonDoneTagManager=0x7f080054;
         public static final int buttonEditItemDone=0x7f08000d;
         public static final int buttonImage=0x7f08003b;
@@ -63,20 +62,20 @@ public final class R {
         public static final int buttonSaveDestinations=0x7f08000a;
         public static final int buttonSeeCommentsDone=0x7f08004f;
         public static final int buttonUserLocation=0x7f08004e;
-        public static final int buttonViewPictureDone=0x7f080058;
+        public static final int buttonViewPictureDone=0x7f080057;
         public static final int buttonitemdelete=0x7f080039;
         public static final int buttonitemedit=0x7f08003a;
         public static final int buttonsaveClaim=0x7f080005;
         public static final int checkBoxFlag=0x7f08000e;
         public static final int checkBoxIncludeLocation=0x7f080015;
         public static final int checkBoxIncludePicture=0x7f080016;
-        public static final int deleteClaimItem=0x7f08005a;
+        public static final int deleteClaimItem=0x7f080059;
         public static final int editAddComments=0x7f080006;
         public static final int editAddDestination=0x7f080008;
         public static final int editAddDestinationDescription=0x7f08000b;
         public static final int editAmount=0x7f08000f;
         public static final int editCategory=0x7f080012;
-        public static final int editClaimItem=0x7f08005b;
+        public static final int editClaimItem=0x7f08005a;
         public static final int editConfirmPassword=0x7f08004b;
         public static final int editCreatePassword=0x7f08004c;
         public static final int editCurrency=0x7f080014;
@@ -89,7 +88,7 @@ public final class R {
         public static final int editTextNewTag=0x7f080052;
         public static final int editTextSearchTags=0x7f080028;
         public static final int editTextTagName=0x7f080038;
-        public static final int emailClaimItem=0x7f08005d;
+        public static final int emailClaimItem=0x7f08005c;
         public static final int img=0x7f080041;
         public static final int listApproverClaimList=0x7f080018;
         public static final int listApproverlistExpenseItems=0x7f08001b;
@@ -100,16 +99,16 @@ public final class R {
         public static final int listViewComments=0x7f080051;
         public static final int listViewTags=0x7f080055;
         public static final int mapview=0x7f080048;
-        public static final int receiptImageView=0x7f080057;
+        public static final int receiptImageView=0x7f080056;
         public static final int recipient=0x7f080033;
-        public static final int seeCommentsItem=0x7f08005e;
-        public static final int seeLocations=0x7f08005f;
+        public static final int seeCommentsItem=0x7f08005d;
+        public static final int seeLocations=0x7f08005e;
         public static final int sendEmail=0x7f080036;
         public static final int subject=0x7f080034;
-        public static final int submitClaimItem=0x7f08005c;
+        public static final int submitClaimItem=0x7f08005b;
         public static final int textApproverCategory=0x7f080024;
-        public static final int textApproverClaimDescription=0x7f08001f;
-        public static final int textApproverClaimDestinations=0x7f08001e;
+        public static final int textApproverClaimDescription=0x7f08001e;
+        public static final int textApproverClaimDestinations=0x7f080021;
         public static final int textApproverClaimName=0x7f08001a;
         public static final int textApproverDate=0x7f080022;
         public static final int textApproverItemCurrency=0x7f080026;
@@ -128,7 +127,7 @@ public final class R {
         public static final int textLogin=0x7f080043;
         public static final int textSeeCommentsApprovers=0x7f080050;
         public static final int textStarttoEndDate=0x7f08002c;
-        public static final int textView1=0x7f080056;
+        public static final int textViewApproverTotal=0x7f08001d;
         public static final int textcreatenewaccount=0x7f08004a;
         public static final int txt=0x7f080042;
     }

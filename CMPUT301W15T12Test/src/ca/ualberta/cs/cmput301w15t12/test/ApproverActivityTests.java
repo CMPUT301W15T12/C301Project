@@ -31,7 +31,7 @@ public class ApproverActivityTests extends ActivityInstrumentationTestCase2<Appr
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),dateView);
 		TextView descriptionView = (TextView) activity.findViewById(R.id.textApproverClaimDescription);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),descriptionView);
-		ListView totalSumView = (ListView) activity.findViewById(R.id.ApproverlistTotalSum);
+		TextView totalSumView = (TextView) activity.findViewById(R.id.textViewApproverTotal);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),totalSumView);
 		ListView expenseView = (ListView) activity.findViewById(R.id.listApproverlistExpenseItems);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),expenseView);

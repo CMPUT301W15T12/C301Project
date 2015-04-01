@@ -23,19 +23,9 @@
         android:layout_above="@+id/buttonAddComment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/ApproverlistTotalSum"
+        android:layout_below="@+id/textViewApproverTotal"
         android:visibility="visible" >
 
-    </ListView>
-
-    <ListView
-        android:id="@+id/ApproverlistTotalSum"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textApproverClaimDestinations"
-        android:visibility="visible" >
     </ListView>
 
     <TextView
@@ -100,5 +90,16 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textApproverClaimDescription"
         android:text="@string/destinations" />
+
+    <TextView
+        android:id="@+id/textViewApproverTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_below="@+id/textApproverClaimDestinations"
+        android:layout_marginTop="15dp"
+        android:text="@string/Total" />
 
 </RelativeLayout>

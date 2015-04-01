@@ -15,7 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
-*/
+ */
 
 package ca.ualberta.cs.cmput301w15t12;
 
@@ -80,7 +80,7 @@ public class ApproverClaimActivity extends Activity {
 					enter.setHint("Comment");
 					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
 					adb.setView(promptView);
-					
+
 					adb.setCancelable(false)
 					.setPositiveButton("Add", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
@@ -113,6 +113,8 @@ public class ApproverClaimActivity extends Activity {
 			public void onClick(View view) {
 				if (approver.equals(Claim.getClaimant().getUserName())){
 					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
+				} else if (Claim.getComment().size() == 0){
+					Toast.makeText(ApproverClaimActivity.this,"Stil Needs a Comment", Toast.LENGTH_LONG).show();
 				} else {
 					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
 					adb.setMessage("Approve this Claim?");
@@ -144,6 +146,8 @@ public class ApproverClaimActivity extends Activity {
 			public void onClick(View view) {
 				if (approver.equals(Claim.getClaimant().getUserName())){
 					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Return Own Claim", Toast.LENGTH_LONG).show();
+				} else if (Claim.getComment().size() == 0){
+					Toast.makeText(ApproverClaimActivity.this,"Stil Needs a Comment", Toast.LENGTH_LONG).show();
 				} else{
 					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
 					adb.setMessage("Return this Claim?");
@@ -153,6 +157,7 @@ public class ApproverClaimActivity extends Activity {
 						public void onClick(DialogInterface dialog, int which) {
 							try {
 								Claim.returnClaim(approver);
+								finish();
 							} catch (NotAllowedException e1){
 								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
 							} catch(MissingItemException e2){
@@ -169,8 +174,6 @@ public class ApproverClaimActivity extends Activity {
 			}
 		});
 	}
-
-	private ArrayAdapter<String> totalAdapter;
 
 	@Override
 	public void onResume() {
@@ -192,18 +195,9 @@ public class ApproverClaimActivity extends Activity {
 		destinations.setText(Claim.destinationsToString());
 
 		//total list
-		ListView lv = (ListView) findViewById(R.id.ApproverlistTotalSum);
-
-		total = Claim.getTotal();
-		totalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
-		lv.setAdapter(totalAdapter);
-		CLC.addListener(new Listener() {
-			@Override
-			public void update() {
-				total = Claim.getTotal();
-				totalAdapter.notifyDataSetChanged();
-			}
-		});
+		TextView tv = (TextView) findViewById(R.id.textViewApproverTotal);
+		String total = Claim.getTotalString();
+		tv.setText(total);
 
 		ListView list = (ListView) findViewById(R.id.listApproverlistExpenseItems);
 		final ArrayList<ExpenseItem> EItems = Claim.getExpenseItems();
