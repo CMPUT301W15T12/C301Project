@@ -14,6 +14,7 @@
     <string name="ThereGeolocation">Choose Location</string>
     <string name="ep">Enter Password</string>
     <string name="back">Back</string>
+    <string name="seeLocations">See Locations</string>
     <string name="flag">Flag as Incomplete</string>
     <string name="cp">Confirm Password</string>
     <string name="New_Claim">New Claim</string>

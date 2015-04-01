@@ -149,6 +149,7 @@ public class AddItemActivity extends Activity
 					editItem();
 				} else {
 					addItem();
+					finish();
 				}
 			}
 		});
@@ -162,14 +163,12 @@ public class AddItemActivity extends Activity
 		String description = editDescription.getText().toString();
 		String currency = editCurrency.getText().toString();
 		String amount = editAmount.getText().toString();
-		String date = Date.getText().toString();
 
 		//check date and parse it
 		Date dfDate = null;
 		try {
-			dfDate = df.parse(date);
+			dfDate = df.parse(Date.getText().toString());
 		} catch (ParseException e1) {
-			e1.printStackTrace();
 		}
 
 		//check amount and parse it
@@ -195,25 +194,41 @@ public class AddItemActivity extends Activity
 
 	}
 
-	public void addItem() {
-		BigDecimal amount = new BigDecimal(editAmount.getText().toString());
-		Date date;
+	private void addItem() {
+		BigDecimal amount;
+		String Currency;
+		String Category;
+		Date date = null;
+		//default values for incomplete expense items
+		if(!editAmount.getText().toString().equals("")){
+			amount = new BigDecimal(editAmount.getText().toString());
+		} else {
+			amount = new BigDecimal(0);
+		}
 		try {
 			date = df.parse(Date.getText().toString());
 		} catch (ParseException e) {
-			e.printStackTrace();
-			date = null;
+		} catch (NullPointerException e){
 		}
+		if(!editCurrency.getText().toString().equals("")){
+			Currency = editCurrency.getText().toString();
+		} else {
+			Currency = "USD";
+		}
+		if(!editCategory.getText().toString().equals("")){
+			Category = editCurrency.getText().toString();
+		} else {
+			Category = "Transportation";
+		}
+		
 
 		ExpenseItem expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
-				editDescription.getText().toString(), editCurrency.getText().toString(),amount, date, flag);
+				editDescription.getText().toString(), Currency,amount, date, flag);
 		expenseItem.setUri(imageFileUri);
 		expenseItem.setlocation(location);
 
 		//check to see fields are filled in
 		claim.addItem(expenseItem);
-		finish();
-
 	}
 
 	public void currencyOnClick(View view){
@@ -288,6 +303,10 @@ public class AddItemActivity extends Activity
 			else if (resultCode == RESULT_CANCELED){
 				Toast.makeText(AddItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
 			}
+		} else {
+			if (resultCode == RESULT_OK){
+				location = data.getExtras().getParcelable("Location"); 
+			}
 		}
 
 	}
@@ -358,8 +377,8 @@ public class AddItemActivity extends Activity
 			adb.setNegativeButton("Remote Location", new OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					Intent intent = new Intent(AddItemActivity.this, MapActivity.class);
-					startActivity(intent);
-					//TODO get result
+					intent.putExtra("option","add");
+					startActivityForResult(intent, 0);
 					if (location == null){
 						Toast.makeText(AddItemActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
 					} else {

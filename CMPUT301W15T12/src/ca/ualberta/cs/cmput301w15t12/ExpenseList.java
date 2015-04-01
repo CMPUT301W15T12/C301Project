@@ -26,10 +26,19 @@ public class ExpenseList {
 	
 	protected ArrayList<ExpenseItem> list;
 	protected transient ArrayList<Listener> listeners;
+	protected Integer[] ids;
 	
 	public ExpenseList() {
 		list = new ArrayList<ExpenseItem>();
 		listeners = new ArrayList<Listener>();
+	}
+	
+	public Integer[] getIds() {
+		ids = new Integer[size()];
+		for (int i = 0; i < size(); i++) {
+			ids[i] = list.get(i).getImageId();
+		}
+		return ids;
 	}
 	
 	public ArrayList<ExpenseItem> getList() {
@@ -55,6 +64,10 @@ public class ExpenseList {
 	
 	public void rmExpenseItem(ExpenseItem item) {
 		list.remove(item);
+		notifyListeners();
+	}
+	public void rmExpenseItem(int i){
+		list.remove(i);
 		notifyListeners();
 	}
 	
