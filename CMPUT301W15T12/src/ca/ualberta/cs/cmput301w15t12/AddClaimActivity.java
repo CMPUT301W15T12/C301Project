@@ -141,30 +141,35 @@ public class AddClaimActivity extends Activity
 				Date sdate = df.parse(startDate.getText().toString());
 				Date edate = df.parse(endDate.getText().toString());
 
-				//gets destinations from other tab
-				ArrayList<Destination> destination = parentActivity.getDestination();
+				if (!sdate.after(edate)){
+					//gets destinations from other tab
+					ArrayList<Destination> destination = parentActivity.getDestination();
 
-				//set new values
-				claim.setName(name);
-				claim.setDescription(description);
-				claim.setStartDate(sdate);
-				claim.setEndDate(edate);
-				claim.setDestination(destination);
-				
-				claim.setTagList(new ArrayList<String>());
-				//add Tags to Claim
-				for (int i = 0; i < tagsArrayList.size(); i++){
-					try{
-						CLC.addTagToClaim(id, tagsArrayList.get(i));
-					} catch (AlreadyExistsException e){
-						e.printStackTrace();
+					//set new values
+					claim.setName(name);
+					claim.setDescription(description);
+					claim.setStartDate(sdate);
+					claim.setEndDate(edate);
+					claim.setDestination(destination);
+
+					claim.setTagList(new ArrayList<String>());
+					//add Tags to Claim
+					for (int i = 0; i < tagsArrayList.size(); i++){
+						try{
+							CLC.addTagToClaim(id, tagsArrayList.get(i));
+						} catch (AlreadyExistsException e){
+							e.printStackTrace();
+						}
 					}
-				}
 
-				//toasts the user and finishes
-				Toast.makeText(AddClaimActivity.this,"Claim Updated", Toast.LENGTH_LONG).show();
-				finish();
+					//toasts the user and finishes
+					Toast.makeText(AddClaimActivity.this,"Claim Updated", Toast.LENGTH_LONG).show();
+					finish();
+				} else {
+					Toast.makeText(this,"End Date needs to be after Start Date", Toast.LENGTH_SHORT).show();
+				}
 			}
+
 		}
 
 		//Can't edit Claim no edit allowed
@@ -182,31 +187,36 @@ public class AddClaimActivity extends Activity
 			Date sdate = df.parse(startDate.getText().toString());
 			Date edate = df.parse(endDate.getText().toString());
 
-			//XML Inputs
-			String name = editTextName.getText().toString();
-			String description = editTextDescription.getText().toString();
-
-			if (name.equals("") || description.equals("")) {
-				Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
+			if (sdate.after(edate)) {
+				Toast.makeText(this, "End Date needs to be after Start Date", Toast.LENGTH_SHORT).show();
 			} else {
 
-				//create claim
-				id = CLC.addClaim(name, sdate, edate, description, this.user);
-				ArrayList<Destination> destination = parentActivity.getDestination();
-				CLC.getClaim(id).setDestination(destination);
+				//XML Inputs
+				String name = editTextName.getText().toString();
+				String description = editTextDescription.getText().toString();
 
-				//add Tag to Claim
-				for (int i = 0; i<  tagsArrayList.size(); i++){
-					try {
-						CLC.addTagToClaim(id, tagsArrayList.get(i));
-					} catch (AlreadyExistsException e) {
-						e.printStackTrace();
+				if (name.equals("") || description.equals("")) {
+					Toast.makeText(AddClaimActivity.this,"Incomplete Fields", Toast.LENGTH_SHORT).show();	
+				} else {
+
+					//create claim
+					id = CLC.addClaim(name, sdate, edate, description, this.user);
+					ArrayList<Destination> destination = parentActivity.getDestination();
+					CLC.getClaim(id).setDestination(destination);
+
+					//add Tag to Claim
+					for (int i = 0; i<  tagsArrayList.size(); i++){
+						try {
+							CLC.addTagToClaim(id, tagsArrayList.get(i));
+						} catch (AlreadyExistsException e) {
+							e.printStackTrace();
+						}
 					}
-				}
 
-				//toast finished
-				Toast.makeText(AddClaimActivity.this,"Claim Saved.", Toast.LENGTH_SHORT).show();	
-				finish();
+					//toast finished
+					Toast.makeText(AddClaimActivity.this,"Claim Saved.", Toast.LENGTH_SHORT).show();	
+					finish();
+				}
 			}
 		}
 	}
