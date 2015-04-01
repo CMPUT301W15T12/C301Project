@@ -128,7 +128,7 @@ public class ClaimList{
 		ArrayList<Claim> filteredClaimList = new ArrayList<Claim>();
 		for (int i = 0; i < ClaimList.claims.size(); i++) {
 			for (int j = 0; j < ClaimList.claims.get(i).getTagList().size(); j++){
-				if (ClaimList.claims.get(i).getClaimant().getUserName().equals(user) && tag.contains(ClaimList.claims.get(i).getTagList().get(j))){
+				if (ClaimList.claims.get(i).getClaimant().getUserName().equals(user) && tag.contains(ClaimList.claims.get(i).getTagList().get(j)) && !filteredClaimList.contains(ClaimList.claims.get(i))){
 					filteredClaimList.add(ClaimList.claims.get(i));
 				}
 			}
