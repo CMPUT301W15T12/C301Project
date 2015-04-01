@@ -52,7 +52,7 @@ public class ChooseListActivity extends TabActivity
 		intentApprover.putExtra("username", username);
 		TabSpec tabSpecApprover = tabHost
 				.newTabSpec("Approver")
-				.setIndicator("Submitted Claims")
+				.setIndicator("All Submitted Claims")
 				.setContent(intentApprover);
 
 		tabHost.addTab(tabSpecClaim);
