@@ -148,8 +148,8 @@ public class AddDestinationsActivity extends Activity
 					adb.setNegativeButton("Remote Location", new OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							Intent intent = new Intent(AddDestinationsActivity.this, MapActivity.class);
-							startActivity(intent);
-							//TODO get result
+							intent.putExtra("option","add");
+							startActivityForResult(intent, 0);
 							if (location == null){
 								Toast.makeText(AddDestinationsActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
 							} else {
@@ -166,50 +166,58 @@ public class AddDestinationsActivity extends Activity
 						}
 					});
 					adb.show();
-					
+
 				}
 			}
-	});
+		});
 
 
-}
+	}
 
-@Override
-public boolean onCreateOptionsMenu(Menu menu)
-{
-
-	// Inflate the menu; this adds items to the action bar if it is present.
-	getMenuInflater().inflate(R.menu.add_destinations, menu);
-	return true;
-}
-
-//https://github.com/joshua2ua/MockLocationTester
-private final LocationListener listener = new LocationListener() {
-	public void onLocationChanged (Location location) {
-		if (location != null) {
-			double lat = location.getLatitude();
-			double lng = location.getLongitude();
-			Date date = new Date(location.getTime());
-
-			Toast.makeText(AddDestinationsActivity.this, "The location is: \nLatitude: " + lat
-					+ "\nLongitude: " + lng
-					+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
-		} else {
-			Toast.makeText(AddDestinationsActivity.this,"nope",Toast.LENGTH_SHORT).show();
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (resultCode == RESULT_OK){
+			location = data.getExtras().getParcelable("Location"); 
 		}
 	}
 
-	public void onProviderDisabled (String provider) {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.add_destinations, menu);
+		return true;
 	}
 
-	public  void onProviderEnabled (String provider) {
+	//https://github.com/joshua2ua/MockLocationTester
+	private final LocationListener listener = new LocationListener() {
+		public void onLocationChanged (Location location) {
+			if (location != null) {
+				double lat = location.getLatitude();
+				double lng = location.getLongitude();
+				Date date = new Date(location.getTime());
 
-	}
+				Toast.makeText(AddDestinationsActivity.this, "The location is: \nLatitude: " + lat
+						+ "\nLongitude: " + lng
+						+ "\n at time: " + date.toString(), Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(AddDestinationsActivity.this,"nope",Toast.LENGTH_SHORT).show();
+			}
+		}
 
-	public void onStatusChanged (String provider, int status, Bundle extras) {
+		public void onProviderDisabled (String provider) {
 
-	}
-};
+		}
+
+		public  void onProviderEnabled (String provider) {
+
+		}
+
+		public void onStatusChanged (String provider, int status, Bundle extras) {
+
+		}
+	};
 
 }

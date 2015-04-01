@@ -44,6 +44,7 @@ public class NewAccountActivity extends Activity
 {
 	public Location location;
 	public static final String MOCK_PROVIDER = "mockLocationProvider";
+	public final int MAP_LOCATION_REQUEST_CODE = 110;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -105,7 +106,7 @@ public class NewAccountActivity extends Activity
 						location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 						lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 						if (location == null){
-							Toast.makeText(NewAccountActivity.this,"nope",Toast.LENGTH_SHORT).show();
+							Toast.makeText(NewAccountActivity.this,"No GPS Location Found, Enable GPS",Toast.LENGTH_SHORT).show();
 						} else {
 							Toast.makeText(NewAccountActivity.this,"Current Location added as Home Location",Toast.LENGTH_SHORT).show();
 						}
@@ -114,8 +115,8 @@ public class NewAccountActivity extends Activity
 				adb.setNegativeButton("Remote Location", new OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = new Intent(NewAccountActivity.this, MapActivity.class);
-						startActivity(intent);
-						//TODO get result
+						intent.putExtra("option","add");
+						startActivityForResult(intent, 0);
 					}
 				});
 				adb.show();				
@@ -124,6 +125,16 @@ public class NewAccountActivity extends Activity
 
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (resultCode == RESULT_OK){
+			location = data.getExtras().getParcelable("Location"); 
+		}
+	}
+
+
 	//    //https://github.com/joshua2ua/MockLocationTester
 	private final LocationListener listener = new LocationListener() {
 		public void onLocationChanged (Location location) {

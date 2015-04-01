@@ -283,6 +283,10 @@ public class AddItemActivity extends Activity
 			else if (resultCode == RESULT_CANCELED){
 				Toast.makeText(AddItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
 			}
+		} else {
+			if (resultCode == RESULT_OK){
+				location = data.getExtras().getParcelable("Location"); 
+			}
 		}
 
 	}
@@ -353,8 +357,8 @@ public class AddItemActivity extends Activity
 			adb.setNegativeButton("Remote Location", new OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					Intent intent = new Intent(AddItemActivity.this, MapActivity.class);
-					startActivity(intent);
-					//TODO get result
+					intent.putExtra("option","add");
+					startActivityForResult(intent, 0);
 					if (location == null){
 						Toast.makeText(AddItemActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
 					} else {

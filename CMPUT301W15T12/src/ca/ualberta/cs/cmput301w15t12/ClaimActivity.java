@@ -252,22 +252,12 @@ public class ClaimActivity extends Activity {
 		intent.putExtra("claim_id", id);
 		startActivity(intent);
 	}
-
-	public Claim getFormFragment() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Button getSubmitButton() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void showSelectedClaim()
-	{
-
-		// TODO Auto-generated method stub
-
+	
+	public void seeLocations(MenuItem menu) {
+		Intent intent = new Intent(ClaimActivity.this, MapActivity.class);
+		intent.putExtra("claim_id",id);
+		intent.putExtra("option","see");
+		startActivity(intent);
 	}
 
 }
