@@ -140,7 +140,7 @@ public class ExpenseItem implements Serializable{
 	}
 
 	public void setCategory(String category) {
-		if (category.equals("") || categories.contains(category)) {
+		if (category == null || category.equals("") || categories.contains(category)) {
 			this.category = category;
 		} else {
 			throw new RuntimeException("Invalid category"+category+"!");
@@ -176,7 +176,7 @@ public class ExpenseItem implements Serializable{
 	}
 
 	public void setCurrency(String currency) {
-		if (currency.equals("") || currencies.contains(currency)) {
+		if (currency == null || currency.equals("") || currencies.contains(currency)) {
 			this.Currency = currency;
 		} else {
 			throw new RuntimeException("Invalid currency");

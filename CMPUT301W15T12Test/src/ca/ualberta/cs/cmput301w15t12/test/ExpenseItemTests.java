@@ -47,6 +47,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		try {
 			// Try no category (should still be valid)
 			expenseItem.setCategory(null);
+			expenseItem.setCategory("");
 		} catch (Exception e) {
 			// Should not throw exception with no category
 			fail("Shouldn't have thrown an exception");
@@ -83,6 +84,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 		try {
 			// Try no currency (should still be valid)
 			expenseItem.setCurrency(null);
+			expenseItem.setCurrency("");
 		} catch (Exception e) {
 			// Should not throw exception with no currency
 			fail("Shouldn't have thrown an exception");
