@@ -156,7 +156,20 @@ public class ClaimList{
 			listener.update();
 		}
 	}
-
+	//Do not call this unless your are ClaimListController or ESClient.
+	//This method should ONLY be used by ClaimListController or ESClient for synchronizing data with the elastic server
+	public void load( ArrayList<Claim> claims){
+		//load the given claim arraylist
+		ClaimList.claims = claims;		
+		int maxId = 0;
+		for (int i=0;i<claims.size();i++){
+			if (claims.get(i).getId()>maxId){
+				maxId = claims.get(i).getId();	
+			}
+		}
+		//get the next unused ID
+		ClaimList.nextUnassignedId = maxId+1;
+	}
 	//==================Private==================
 	private int getNextUnassignedId(){
 		return ClaimList.nextUnassignedId;
