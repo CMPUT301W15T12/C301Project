@@ -19,11 +19,11 @@ import com.google.gson.reflect.TypeToken;
 
 import android.location.Location;
 
-
+//to DELETE DATA curl -XDELETE <recordUrl>
 public class ESClient {
 	private Gson gson = new Gson();
 	private HttpClient httpclient = new DefaultHttpClient();
-	private static String recordUrl = "http://cmput301.softwareprocess.es:8080/qsjiangtest/record/1";
+	private static String recordUrl = "http://cmput301.softwareprocess.es:8080/cmput301w15t12/record/1";
 
 	class RecordContainer{
 		private ArrayList<Claim> claims;
