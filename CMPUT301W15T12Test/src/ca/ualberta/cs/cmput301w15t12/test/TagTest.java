@@ -2,13 +2,11 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.cmput301w15t12.AddClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
-import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.User;
 
 public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> {
@@ -19,69 +17,79 @@ public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> 
 		super(AddClaimActivity.class);
 	}
 
-	
-//	public void testFilterbyTag(){
-//		Tags tag = new Tags("filter_test","this is a filter test");
-//		
-//		for(Claim claim:ClaimList.getClaims()){
-//			if(claim.isPresent(tag)){
-//				ClaimList.addFiltered(claim);
-//			}
-//		}
-//		assertTrue("added failed", ClaimList.getFiltered().size()>0);
-//	}
-
 	//US03.01.01 As a claimant, I want to give an expense claim one zero or more alphanumeric tags, so that claims can be organized by me into groups.
-	public void testAddTag() throws AlreadyExistsException{
-		Date startDate = new GregorianCalendar().getTime(); //Default to now when no input is supplied
-		Date endDate = new GregorianCalendar(2015,GregorianCalendar.MARCH,21).getTime();
-		int id;
-		//Testing adding a tag.  assume redundancy check works.//tested below...
-		ClaimListController clc = new ClaimListController();
-		id = clc.addClaim("hello", startDate, endDate, "description", new User("Megan", "123"));
-		Claim claim = clc.getClaim(id);
-		clc.addTagToClaim(id, "tag");
-		assertEquals("Did not create tag", clc.getTagListFromClaim(id).get(0),"tag");
-	}
-}
-/*
-	public void testDoubleTag(){
-		Claim claim = new Claim("hello", null, null, null, null, null);
-		// testing for double tags.  does it work. I am assuming my ADD TAG works at this point.//
-		int testSize = activity.getTagList(claim).size();
-		Tags tag2 = new Tags("tag2","testTag description2");
-		Tags tag3 = new Tags("tag3","testTag description3");
-		activity.addTag(claim,tag2);
-		activity.addTag(claim,tag2);
-		Boolean testPresence = activity.checkTag(claim,tag2);
-		Boolean testPresence2 = activity.checkTag(claim,tag3);
-		assertTrue("Added the tag twice", activity.getTagList(claim).size() == testSize+1);
-		assertTrue("Added the tag again", testPresence == true);
-		assertTrue("Contains tag 3", testPresence2 == false);
-	}
-	
-	public void testEditTag(){
-		Claim claim = new Claim("hello", null, null, null, null, null);
-		Tags editTag = activity.getTagList(claim).get(0); 
-		//Assume add and present work// now we use them to edit the tags
-		activity.removeTag(claim, 0);
-		assertTrue("No longer there", activity.checkTag(claim,editTag) == false);
-		String old_name = editTag.getName();
-		String new_name = "hahaha";
-		editTag.setName(new_name);
-		assertTrue("name is the same", editTag.getName() != old_name);
-		activity.addTagAt(claim,0,editTag);
-		assertTrue("is at 0", activity.getTagList(claim).get(0).getName() == new_name);
+	public void testAddTag() {
+		// Create new claim and obtain tags list
+		Claim claim = new Claim("name", new Date(), new Date(), "description", new User("Test", "User"), 0); 
+		
+		// New claim should have no tags
+		assertEquals("New claim has tags", 0, claim.getTagList().size());
+		
+		// Test populating tags list
+		for (int i = 1; i <= 10; i++) {
+			try {
+				String s = String.valueOf(i);
+				
+				// Add new tag
+				claim.addTag(s);
+				
+				// Make sure tag was properly added
+				assertTrue("Tag was not added", claim.getTagList().contains(s));
+				
+				// Test adding duplicate tag
+				try {
+					// Read same tag
+					claim.addTag(s);
+					fail("Should have thrown an exception when adding duplicate tags");
+				} catch (Exception e) {
+					// Already exists exception thrown when adding duplicate tag
+				}
+				
+				// Check size of tags list
+				assertEquals("Tags list was incorrectly populated", i, claim.getTagList().size());
+			} catch (Exception e){
+				// Already exists exception thrown when adding new tag
+				fail("Shouldn't have thrown an exception adding new tags");
+			}
+		}
 	}
 	
-	public void testDeleteTag(){
-		//ASSUME ALL ELSE WORKS> this deletes as tag and checks if it is still in the list
-		Claim claim = new Claim("hello", null, null, null, null, null);
-		int not_there = activity.getTagList(claim).size();
-		Tags to_remove = activity.getTagList(claim).get(0);
-		activity.removeTag(claim,0);
-		assertTrue("still there", activity.checkTag(claim,to_remove) == false);
-		assertTrue("not there any more????", activity.getTagList(claim).size() == not_there-1);
+	public void testDeleteTag() throws AlreadyExistsException{
+		// Create new claim
+		Claim claim = new Claim("name", new Date(), new Date(), "description", new User("Test", "User"), 0); 
+		
+		// Populate tags list with new unique tags
+		for (int i = 0; i < 10; i++) {
+			String s = String.valueOf(i);
+			claim.addTag(s);
+		}
+		
+		// Make sure tags list is populated
+		assertTrue("Tags list empty after populating", claim.getTagList().size() > 0);
+		
+		while (claim.getTagList().size() > 0) {
+			// Get tag at index 0
+			String tag = claim.getTagList().get(0);
+			
+			// Remove tag
+			claim.removeTag(0);
+			
+			// Make sure tag was removed
+			assertFalse("Claim still has removed tag", claim.getTagList().contains(tag));
+		}
+		
+		// Make sure tags list properly emptied
+		assertEquals("Tags list not fully emptied", 0, claim.getTagList().size());
+	}
+	
+	public void testEditTag() throws AlreadyExistsException{
+		// Create new claim
+		Claim claim = new Claim("name", new Date(), new Date(), "description", new User("Test", "User"), 0); 
+				
+		// Populate tags list with new unique tags
+		for (int i = 0; i < 10; i++) {
+			String s = String.valueOf(i);
+			claim.addTag(s);
+		}
 	}
 }
-*/
