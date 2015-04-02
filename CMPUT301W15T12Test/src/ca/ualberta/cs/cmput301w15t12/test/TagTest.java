@@ -10,9 +10,6 @@ import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.User;
 
 public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> {
-	//This code is for testing
-	AddClaimActivity activity;
-	
 	public TagTest() {
 		super(AddClaimActivity.class);
 	}
@@ -80,16 +77,5 @@ public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> 
 		
 		// Make sure tags list properly emptied
 		assertEquals("Tags list not fully emptied", 0, claim.getTagList().size());
-	}
-	
-	public void testEditTag() throws AlreadyExistsException{
-		// Create new claim
-		Claim claim = new Claim("name", new Date(), new Date(), "description", new User("Test", "User"), 0); 
-				
-		// Populate tags list with new unique tags
-		for (int i = 0; i < 10; i++) {
-			String s = String.valueOf(i);
-			claim.addTag(s);
-		}
 	}
 }
