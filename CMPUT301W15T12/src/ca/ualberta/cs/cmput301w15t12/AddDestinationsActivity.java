@@ -53,8 +53,6 @@ public class AddDestinationsActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_destinations);
-		UserListManager.initManager(this.getApplicationContext());
-		ClaimListManager.initManager(this.getApplicationContext());
 		ClaimListController CLC = new ClaimListController();
 
 		//username of user passed along from list choice activity

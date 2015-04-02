@@ -21,8 +21,10 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -33,6 +35,7 @@ import android.widget.Toast;
 public class LoginActivity extends Activity
 {
 	public UserListController ULC;
+	public ProgressDialog progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -40,8 +43,16 @@ public class LoginActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_main);
-		UserListManager.initManager(this.getApplicationContext());
 		ULC = new UserListController();
+		new LoadingOnlineRecordTask().execute();
+		
+		//http://stackoverflow.com/questions/8384067/how-to-dismiss-the-dialog-with-click-on-outside-of-the-dialog 2015/04/02
+		progress = new ProgressDialog(this);
+		progress.setTitle("Connecting");
+		progress.setCanceledOnTouchOutside(false);
+		progress.setMessage("Wait while the server connects and retrieves your information");
+		progress.show();
+		
 		
 		//clickable create account button takes user to create account page
 		Button newaccountbutton = (Button) findViewById(R.id.buttonNewAccount);
@@ -82,6 +93,20 @@ public class LoginActivity extends Activity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	private class LoadingOnlineRecordTask extends AsyncTask<Void, Void, Void> {
+	    @Override
+	    protected Void doInBackground(Void... optionalInputs) {
+	        new ESClient().loadRecordFromServer();
+	        return null;
+	    }
+	    @Override
+	    protected void onPostExecute(Void result) {
+	        progress.dismiss();
+	        ClaimListController claimListController = new ClaimListController();
+	        Toast.makeText(LoginActivity.this,"Loaded: "+claimListController.size()+" claims "+UserList.users.size()+" users", Toast.LENGTH_SHORT).show();       
+	    }  
 	}
 
 }

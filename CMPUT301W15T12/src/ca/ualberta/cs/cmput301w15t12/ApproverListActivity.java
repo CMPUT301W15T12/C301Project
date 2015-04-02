@@ -47,8 +47,6 @@ public class ApproverListActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.approver_claim_list);
-		UserListManager.initManager(this.getApplicationContext());
-		ClaimListManager.initManager(this.getApplicationContext());
 
 		approver = getIntent().getExtras().getString("username");
 	}

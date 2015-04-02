@@ -55,8 +55,6 @@ public class ApproverClaimActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.approver_claim_page);
-		UserListManager.initManager(this.getApplicationContext());
-		ClaimListManager.initManager(this.getApplicationContext());
 
 		//initialize claim variable
 		id = getIntent().getIntExtra("claim_id", 0);

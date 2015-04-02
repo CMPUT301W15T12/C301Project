@@ -34,8 +34,6 @@ public class TagManagerActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tag_manager);
-		UserListManager.initManager(this.getApplicationContext());
-		ClaimListManager.initManager(this.getApplicationContext());
 		CLC = new ClaimListController();
 
 		//username of user passed along from list choice activity 

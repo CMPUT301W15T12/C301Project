@@ -56,8 +56,6 @@ public class ExpenseItemActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.item_page);
-		UserListManager.initManager(this.getApplicationContext());
-		ClaimListManager.initManager(this.getApplicationContext());
 
 		//gets the id for the claim and the index for the item
 		id = getIntent().getIntExtra("claim_id", 0);

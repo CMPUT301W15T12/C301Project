@@ -67,8 +67,6 @@ public class AddClaimActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_claim);
-		UserListManager.initManager(this.getApplicationContext());
-		ClaimListManager.initManager(this.getApplicationContext());
 
 		//username of user passed along from list choice activity
 		Username = getIntent().getExtras().getString("username");

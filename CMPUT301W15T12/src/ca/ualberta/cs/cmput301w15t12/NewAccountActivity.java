@@ -49,7 +49,6 @@ public class NewAccountActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_account);
-		UserListManager.initManager(this.getApplicationContext());
 		final EditText username = (EditText) findViewById(R.id.editNewUserName);
 		final EditText p1 = (EditText) findViewById(R.id.editCreatePassword);
 		final EditText p2 = (EditText) findViewById(R.id.editConfirmPassword);

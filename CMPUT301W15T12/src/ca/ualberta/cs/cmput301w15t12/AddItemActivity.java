@@ -83,8 +83,6 @@ public class AddItemActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_item);
-		UserListManager.initManager(this.getApplicationContext());
-		ClaimListManager.initManager(this.getApplicationContext());
 
 		Intent intent = getIntent();
 		claim_id = intent.getIntExtra("claim_id", 0);
