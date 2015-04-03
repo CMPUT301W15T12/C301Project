@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 
@@ -50,8 +51,9 @@ public class ExpenseItem implements Serializable{
 	private boolean boolLocation;
 	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-	private Uri uri;
+	private Drawable picture;
 	private Integer imageId; 
+	private Uri uri;
 
 
 	public ExpenseItem(String name,String category, String description, String currency, 
@@ -140,7 +142,7 @@ public class ExpenseItem implements Serializable{
 	}
 
 	public void setCategory(String category) {
-		if (category.equals("") || categories.contains(category)) {
+		if (category == null || category.equals("") || categories.contains(category)) {
 			this.category = category;
 		} else {
 			throw new RuntimeException("Invalid category"+category+"!");
@@ -176,7 +178,7 @@ public class ExpenseItem implements Serializable{
 	}
 
 	public void setCurrency(String currency) {
-		if (currency.equals("") || currencies.contains(currency)) {
+		if (currency == null || currency.equals("") || currencies.contains(currency)) {
 			this.Currency = currency;
 		} else {
 			throw new RuntimeException("Invalid currency");
@@ -192,6 +194,11 @@ public class ExpenseItem implements Serializable{
 			this.receipt = true;
 		}
 	}
+	
+	public Drawable getDrawable(){
+		return this.picture;
+	}
+	
 	public Integer getImageId(){
 		if (getFlag() && getReceipt() && getBoolLocation()) {
 			imageId = R.drawable.trio;
@@ -212,6 +219,7 @@ public class ExpenseItem implements Serializable{
 		}
 		return imageId;
 	}
+	
 	public Uri getUri() {
 		return uri;
 	}

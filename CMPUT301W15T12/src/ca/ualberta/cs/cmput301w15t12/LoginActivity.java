@@ -47,6 +47,7 @@ public class LoginActivity extends Activity
 		new LoadingOnlineRecordTask().execute();
 		
 		//http://stackoverflow.com/questions/8384067/how-to-dismiss-the-dialog-with-click-on-outside-of-the-dialog 2015/04/02
+		
 		progress = new ProgressDialog(this);
 		progress.setTitle("Connecting");
 		progress.setCanceledOnTouchOutside(false);
