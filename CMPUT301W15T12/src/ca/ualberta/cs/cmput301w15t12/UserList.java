@@ -127,5 +127,12 @@ public class UserList implements Serializable
 		}
 	}
 
+	public void clear()
+	{
+
+		users.clear();
+		
+	}
+
 	
 }

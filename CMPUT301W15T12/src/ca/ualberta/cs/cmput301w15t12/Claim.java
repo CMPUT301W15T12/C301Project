@@ -79,10 +79,10 @@ public class Claim {
 		} else if(comment.size() == 0) {
 			throw new MissingItemException();
 		} else {
+			
 			User user =  UserListController.getUserList().getUser(name);
 			setApprover(user);
 			setStatus("Approved");
-
 		}
 	}
 

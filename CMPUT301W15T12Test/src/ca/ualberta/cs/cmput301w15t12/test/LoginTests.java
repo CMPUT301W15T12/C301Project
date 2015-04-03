@@ -1,4 +1,4 @@
-/*package ca.ualberta.cs.cmput301w15t12.test;
+package ca.ualberta.cs.cmput301w15t12.test;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.User;
@@ -13,11 +13,12 @@ public class LoginTests extends TestCase
 	//[DC01.02]
 	public void testaddAccount() throws AlreadyExistsException{
 		boolean thrown = false;
-
-		UserListController.getUserList().addUser("Sarah");
-		assertTrue("User Added", UserListController.getUserList().get(0).getUserName().equals("Sarah"));
+		UserListController.getUserList().clear();
+		User user = new User("Sarah", "123");
+		UserListController.getUserList().addUser(user);
+		assertTrue("User Added", UserListController.getUserList().getUsers().contains(user));
 		try {
-			UserListController.getUserList().addUser("Sarah");
+			UserListController.getUserList().addUser(new User("Sarah", "123"));
 		} catch (AlreadyExistsException e){
 			thrown = true;
 		}
@@ -26,8 +27,9 @@ public class LoginTests extends TestCase
 	
 	//[DC01.01]
 	public void testlogin() throws AlreadyExistsException {
-		User user = new User("Sarah");
+		UserListController.getUserList().clear();
+		User user = new User("Sarah","123");
+		UserListController.getUserList().addUser(user);
 		assertTrue("Can retrieve accounts", UserListController.getUserList().getUsers().contains(user));
 	}
 }
-*/

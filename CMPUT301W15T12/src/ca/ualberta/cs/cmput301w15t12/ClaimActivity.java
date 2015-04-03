@@ -107,7 +107,6 @@ public class ClaimActivity extends Activity {
 		String total = claim.getTotalString();
 		tv.setText(total);
 
-
 		//for expense item list - adds a photo icon
 		ArrayList<String> eitems = new ArrayList<String>();
 		final ArrayList<ExpenseItem> Items = claim.getExpenseItems();
