@@ -69,13 +69,6 @@ public class GeolocationTests extends TestCase
 		assertTrue(destination.getLocation().equals(loc));
 	}
 
-	//US02.03.01 added 2015-03-23
-	//As a claimant, I want the list of expense claims to have each claim color code by the distance of its first destination 
-	//geolocation to my home geolocation, so that claims for distant travel can be distinguished from claims for nearby travel.
-	public void testColor(){
-		//TODO sarah
-	}
-
 	//US04.09.01 added 2015-03-23
 	//As a claimant, I want to optionally attach a geolocation to an editable expense item, so I can record where an expense was incurred.
 	public void testaddItemLocation() throws ParseException{
@@ -89,9 +82,6 @@ public class GeolocationTests extends TestCase
 		item.setlocation(loc);
 		
 		assertTrue(item.getlocation().equals(loc));
-		
-
-
 	}
 
 }

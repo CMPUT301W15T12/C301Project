@@ -51,6 +51,7 @@ public class ClaimListActivity extends Activity {
 	public ArrayList<String> tagsArrayList = new ArrayList<String>(); 
 	public ArrayList<Claim> claims = new ArrayList<Claim>();
 	public Integer[] imageId;
+	public ArrayList<String> cl = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +119,7 @@ public class ClaimListActivity extends Activity {
 			claims = CLC.filterByTag(user.getUserName(), tagsArrayList);
 		}
 		imageId = new Integer[claims.size()];
-		final ArrayList<String> cl = new ArrayList<String>();
+		cl = new ArrayList<String>();
 		for (int i = 0; i < claims.size(); i++) {
 			cl.add(claims.get(i).toStringClaimantList());
 			if (claims.get(i).getDestination().size() == 0){
@@ -158,9 +159,9 @@ public class ClaimListActivity extends Activity {
 					Float distance = l.distanceTo(u);
 					if (distance < 2000) {
 						txtTitle.setTextColor(Color.GREEN);
-					} else if (distance < 10000) {
+					} else if (distance < 20000) {
 						txtTitle.setTextColor(Color.BLUE);
-					} else if (distance > 10000) {
+					} else if (distance > 20000) {
 						txtTitle.setTextColor(Color.RED);			    		
 					}
 				}
