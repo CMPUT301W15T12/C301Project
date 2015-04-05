@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
-
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 

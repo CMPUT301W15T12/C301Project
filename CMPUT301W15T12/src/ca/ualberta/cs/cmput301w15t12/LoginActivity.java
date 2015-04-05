@@ -113,7 +113,7 @@ public class LoginActivity extends Activity
 	    @Override
 	    protected void onPostExecute(Void result) {
 	        progress.dismiss();
-	        ClaimListController claimListController = new ClaimListController();
+	        //ClaimListController claimListController = new ClaimListController();
 	        //Toast.makeText(LoginActivity.this,"Loaded: "+claimListController.size()+" claims "+UserList.users.size()+" users", Toast.LENGTH_SHORT).show();       
 
 	    }  
