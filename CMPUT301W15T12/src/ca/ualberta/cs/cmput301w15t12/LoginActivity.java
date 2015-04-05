@@ -52,7 +52,7 @@ public class LoginActivity extends Activity
 		progress.setTitle("Connecting");
 		progress.setCanceledOnTouchOutside(false);
 		progress.setMessage("Wait while the server connects and retrieves your information");
-		progress.show();
+		//progress.show();
 		
 		
 		//clickable create account button takes user to create account page

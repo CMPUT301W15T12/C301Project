@@ -21,6 +21,7 @@
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ public class ApproverListActivity extends Activity
 		//lists all the submitted claims for the approver to approve
 		ListView lv = (ListView) findViewById(R.id.listApproverClaimList);
 		final ArrayList<Claim> claims = CLC.filterByStatus("Submitted");
+		Collections.reverse(claims);
 		ArrayList<String> sclaims = new ArrayList<String>();
 
 		for (int i = 0; i < claims.size(); i++){

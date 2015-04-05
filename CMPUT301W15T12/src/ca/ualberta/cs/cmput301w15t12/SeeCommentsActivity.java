@@ -18,6 +18,9 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -69,8 +72,9 @@ public class SeeCommentsActivity extends Activity
 				finish();
 			}
 		});
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, claim.getComment());
+		ArrayList<String> comments = claim.getComment();
+		Collections.reverse(comments);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, comments);
 		Comments.setAdapter(adapter);
 		Comments.setOnItemClickListener(new OnItemClickListener()
 		{
