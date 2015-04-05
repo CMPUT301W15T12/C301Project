@@ -51,7 +51,6 @@ public class ExpenseItem implements Serializable{
 	private boolean boolLocation;
 	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-	private Drawable picture;
 	private Integer imageId; 
 	private Uri uri;
 
@@ -193,10 +192,6 @@ public class ExpenseItem implements Serializable{
 			this.uri = imageFileUri;
 			this.receipt = true;
 		}
-	}
-	
-	public Drawable getDrawable(){
-		return this.picture;
 	}
 	
 	public Integer getImageId(){
