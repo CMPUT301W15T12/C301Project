@@ -54,6 +54,8 @@ public class AddDestinationsActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_destinations);
 		ClaimListController CLC = new ClaimListController();
+		EditText destination = (EditText) findViewById(R.id.editAddDestination);
+		destination.requestFocus();
 
 		//username of user passed along from list choice activity
 		final String option = getIntent().getExtras().getString("option");
