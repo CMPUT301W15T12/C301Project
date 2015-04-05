@@ -44,15 +44,19 @@ public class LoginActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_main);
 		ULC = new UserListController();
+		
+		EditText username = (EditText) findViewById(R.id.editLoginUserName);
+		username.requestFocus();
+		
 		//new LoadingOnlineRecordTask().execute();
 		
 		//http://stackoverflow.com/questions/8384067/how-to-dismiss-the-dialog-with-click-on-outside-of-the-dialog 2015/04/02
 		
-		progress = new ProgressDialog(this);
-		progress.setTitle("Connecting");
-		progress.setCanceledOnTouchOutside(false);
-		progress.setMessage("Wait while the server connects and retrieves your information");
-		progress.show();
+//		progress = new ProgressDialog(this);
+//		progress.setTitle("Connecting");
+//		progress.setCanceledOnTouchOutside(false);
+//		progress.setMessage("Wait while the server connects and retrieves your information");
+//		progress.show();
 		
 		
 		//clickable create account button takes user to create account page
