@@ -126,7 +126,7 @@ public class ExpenseItemActivity extends Activity {
 		TextView Category = (TextView) findViewById(R.id.textCategory);
 		TextView Description = (TextView) findViewById(R.id.textItemDescription);
 		TextView AC = (TextView) findViewById(R.id.textItemCurrency);
-		CheckBox flag = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
+		CheckBox flag = (CheckBox) findViewById(R.id.checkBoxToFlag);
 
 		String date = Item.getStringDate();
 		

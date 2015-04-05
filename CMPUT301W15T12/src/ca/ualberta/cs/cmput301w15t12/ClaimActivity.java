@@ -246,6 +246,7 @@ public class ClaimActivity extends Activity {
 		Intent intent = new Intent(ClaimActivity.this, MapActivity.class);
 		intent.putExtra("claim_id",id);
 		intent.putExtra("option","see");
+		intent.putExtra("username", Username);
 		startActivity(intent);
 	}
 

@@ -27,6 +27,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import android.location.Location;
+
 public class Claim {
 	//static key work on dataFormat ensures all instances of the Claim class are going to have a consistent dateformat. 
 	//This is a design decision, talk to Jim if this doesn't suit your needs
@@ -44,6 +46,7 @@ public class Claim {
 	private ArrayList<Destination> destinations;
 	private ExpenseList expenseList;
 	private ArrayList<String> tagList;
+	private ArrayList<Location> locations;
 	private ArrayList<Listener> listeners;
 
 	public Claim(String name, Date startDate, Date endDate, String description, User Claimant, int id){
@@ -361,6 +364,15 @@ public class Claim {
 		}
 		return s;
 	}
+	
+	public ArrayList<Location> getLocations(){
+		return locations;	
+	}
+	
+	public void setLocations(Location location){
+		locations.add(location);
+	}
+	
 	//end getters and setters
 
 	//All Listener Functions

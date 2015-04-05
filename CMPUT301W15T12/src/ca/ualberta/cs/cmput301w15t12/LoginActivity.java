@@ -52,7 +52,7 @@ public class LoginActivity extends Activity
 		progress.setTitle("Connecting");
 		progress.setCanceledOnTouchOutside(false);
 		progress.setMessage("Wait while the server connects and retrieves your information");
-		progress.show();
+		//progress.show();
 		
 		
 		//clickable create account button takes user to create account page
@@ -99,7 +99,7 @@ public class LoginActivity extends Activity
 	private class LoadingOnlineRecordTask extends AsyncTask<Void, Void, Void> {
 	    @Override
 	    protected Void doInBackground(Void... optionalInputs) {
-	        new ESClient().loadRecordFromServer();
+	        //new ESClient().loadRecordFromServer();
 	        return null;
 	    }
 	    @Override

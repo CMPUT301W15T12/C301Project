@@ -31,8 +31,6 @@ public class ApproverItemActivityTests extends ActivityInstrumentationTestCase2<
 		super.setUp();
 	}
 
-	//	US08.03.01
-	//As an approver, I want to view all the details of a submitted expense claim.
 	public void testitemUI() throws ParseException, AlreadyExistsException {
 		ApproverItemActivity activity = startApproverItemActivity();
 

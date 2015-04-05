@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="libs/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="libs/httpclient-4.2.1.jar"/>
 	<classpathentry kind="lib" path="libs/httpcore-4.2.1.jar"/>
-	<classpathentry kind="lib" path="libs/osmdroid-android-4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/osmdroid-android-4.2.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -35,7 +35,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -197,13 +196,20 @@ public class ApproverClaimActivity extends Activity {
 		String total = Claim.getTotalString();
 		tv.setText(total);
 
+		//expense item list
 		ListView list = (ListView) findViewById(R.id.listApproverlistExpenseItems);
 		final ArrayList<ExpenseItem> EItems = Claim.getExpenseItems();
 		ArrayList<String> items = new ArrayList<String>();
+		Integer[] imageId =  new Integer[EItems.size()];
 		for (int i = 0; i < EItems.size(); i++) {
 			items.add(EItems.get(i).toStringList());
+			if (EItems.get(i).getReceipt()) {
+				imageId[i] = R.drawable.receipt;
+			} else {
+				imageId[i] = R.drawable.none;
+			}
 		}
-		final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
+		final CustomList listAdapter = new CustomList(ApproverClaimActivity.this, items, imageId);
 		list.setAdapter(listAdapter);
 
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -227,9 +233,15 @@ public class ApproverClaimActivity extends Activity {
 			{
 				final ArrayList<ExpenseItem> EItems = Claim.getExpenseItems();
 				ArrayList<String> items = new ArrayList<String>();
+				Integer[] imageId =  new Integer[EItems.size()];
 				for (int i = 0; i < EItems.size(); i++) {
 					items.add(EItems.get(i).toStringList());
-				}				
+					if (EItems.get(i).getReceipt()) {
+						imageId[i] = R.drawable.receipt;
+					} else {
+						imageId[i] = R.drawable.none;
+					}
+				}
 				listAdapter.notifyDataSetChanged();
 			}
 		});

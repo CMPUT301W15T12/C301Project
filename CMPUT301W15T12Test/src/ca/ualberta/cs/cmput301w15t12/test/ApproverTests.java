@@ -3,13 +3,11 @@ package ca.ualberta.cs.cmput301w15t12.test;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import android.test.ActivityInstrumentationTestCase2;
 
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
-import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItemActivity;
 import ca.ualberta.cs.cmput301w15t12.MissingItemException;
@@ -25,37 +23,6 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 	public ApproverTests() {
 		super(ExpenseItemActivity.class);
 	}
-
-//	US08.02.01
-//	As an approver, I want the list of submitted expense claims to be sorted by starting date of travel, 
-//	in order from oldest to most recent, so that older claims are considered first.
-	public void testsortItem() throws ParseException, AlreadyExistsException {
-		String approver = "Sarah";
-		User user = new User(approver, "123");
-		ClaimListController claimListController = new ClaimListController();
-		claimListController.clear();
-		UserListController.getUserList().addUser(user);
-		Date d1 = format.parse("01-02-1232");
-		Date d2 = format.parse("01-02-2134");
-		Date d3 = format.parse("01-02-1233");
-		Date d4 = format.parse("01-02-2134");
-		Date d5 = format.parse("01-02-1234");
-		Date d6 = format.parse("01-02-2134");
-		int id1 = claimListController.addClaim("c1", d5, d6, "Blah", user);
-		int id2 = claimListController.addClaim("c1", d3, d4, "Blah", user);
-		int id3 = claimListController.addClaim("c1", d1, d2, "Blah",user);
-		claimListController.getAllClaims().get(id1).setStatus("Submitted");
-		claimListController.getAllClaims().get(id2).setStatus("Submitted");
-		claimListController.getAllClaims().get(id3).setStatus("Submitted");
-		ArrayList<Claim> submittedClaims = claimListController.filterByStatus("Submitted");
-		assertTrue("first item is claim 1",submittedClaims.get(0).getStartDate().equals(d5));
-		assertTrue("first item is claim 2",submittedClaims.get(1).getStartDate().equals(d3));
-		assertTrue("first item is claim 3",submittedClaims.get(2).getStartDate().equals(d1));
-	}
-
-
-
-//	US08.03.01 - see ApproverActivityTests
 
 //	US08.06.01
 //	As an approver, I want to add a comment to a submitted expense claim, so that I can explain why the

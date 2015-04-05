@@ -25,7 +25,7 @@ public class ExpenseListTests extends TestCase
 		Date date1 = new Date();
 		Date date2 = new Date();
 		User user = new User("name", "123");
-		ExpenseItem expense = new ExpenseItem("name","air fare","description","USD",amount,date, false);
+		ExpenseItem expense = new ExpenseItem("name","","description","USD",amount,date, false);
 		Claim claim = new Claim("Claim",date1,date2,"description", user,2);
 		
 		claim.addItem(expense);
@@ -49,9 +49,9 @@ public class ExpenseListTests extends TestCase
 		BigDecimal amount2 = new BigDecimal(600.34);
 		Date date3 = new Date();
 		BigDecimal amount3 = new BigDecimal(12.45);
-		ExpenseItem expenseItem1 = new ExpenseItem("name1","air fare","description1","USD",amount1,date1, false);
-		ExpenseItem expenseItem2 = new ExpenseItem("name2","ground transport","description2","USD",amount2,date2, false);
-		ExpenseItem expenseItem3 = new ExpenseItem("name3","accomodation","description3","USD",amount3,date3, false);
+		ExpenseItem expenseItem1 = new ExpenseItem("name1","","description1","USD",amount1,date1, false);
+		ExpenseItem expenseItem2 = new ExpenseItem("name2","","description2","USD",amount2,date2, false);
+		ExpenseItem expenseItem3 = new ExpenseItem("name3","","description3","USD",amount3,date3, false);
 		claim.addItem(expenseItem1);
 		claim.addItem(expenseItem2);
 		claim.addItem(expenseItem3);
