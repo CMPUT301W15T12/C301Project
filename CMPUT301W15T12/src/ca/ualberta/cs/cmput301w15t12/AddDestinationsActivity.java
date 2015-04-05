@@ -174,7 +174,16 @@ public class AddDestinationsActivity extends Activity
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		if (resultCode == RESULT_OK){
-			location = data.getExtras().getParcelable("Location"); 
+			final Location location2 = new Location("location");
+			double latitude = data.getExtras().getDouble("latitude");
+			double longitude = data.getExtras().getDouble("longitude");
+			location2.setLatitude(latitude);
+			location2.setLongitude(longitude);
+			location = location2;
+			Toast.makeText(AddDestinationsActivity.this, "Remote Location Saved",Toast.LENGTH_SHORT).show();
+		}
+		else{
+			Toast.makeText(AddDestinationsActivity.this, "Invalid Location",Toast.LENGTH_SHORT).show();
 		}
 	}
 

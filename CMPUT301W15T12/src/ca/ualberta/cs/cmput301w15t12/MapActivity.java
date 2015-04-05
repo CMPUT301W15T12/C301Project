@@ -17,28 +17,28 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 //https://github.com/IanDarwin/Android-Cookbook-Examples/blob/master/OSMIntro/src/com/OSM/OSM.java 2015/03/26
 public class MapActivity extends Activity {
 	private MapView mapView;
 	private MapController mapController;
 	private ItemizedIconOverlay<OverlayItem> mMyLocationOverlay = null;
-	private Location location;
+	//private Location location = new Location("current");
 	private DefaultResourceProxyImpl resourceProxy;
 	private int minMillisecondThresholdForLongClick = 500;
 	private long startTimeForLongClick = 0;
+	//for code implemented from http://stackoverflow.com/questions/1678493/android-maps-how-to-long-click-a-map
 	private float xScreenCoordinateForLongClick;
 	private float yScreenCoordinateForLongClick;
-	private float xtolerance = 10;// x pixels that your finger can be off but
-									// still constitute a long press
-	private float ytolerance = 10;// y pixels that your finger can be off but
-									// still constitute a long press
-	private float xlow; // actual screen coordinate when you subtract the
-						// tolerance
-	private float xhigh; // actual screen coordinate when you add the tolerance
-	private float ylow; // actual screen coordinate when you subtract the
-						// tolerance
-	private float yhigh; // actual screen coordinate when you add the tolerance
+	private float xtolerance = 10;
+	private float ytolerance = 10;
+	private float xlow; 
+	private float xhigh; 
+	private float ylow;
+	private float yhigh; 
+	private double latitude = 0.0;
+	private double longitude = 0.0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,6 @@ public class MapActivity extends Activity {
 
 		GeoPoint mapCenter = new GeoPoint(53554070, -2959520);
 		mapController.setCenter(mapCenter);
-		String option = getIntent().getExtras().getString("option");
 		mapView.invalidate();
 	}
 
@@ -68,48 +67,22 @@ public class MapActivity extends Activity {
 		String option = getIntent().getExtras().getString("option");
 		if (option.equals("add")) {
 			if (actionType == MotionEvent.ACTION_DOWN) {
-				// user pressed the button down so let's initialize the main
-				// variables that we care about:
-				// later on when the "Action Up" event fires, the "DownTime"
-				// should match the "startTimeForLongClick" that we set here
-				// the coordinate on the screen should not change much during
-				// the long press
 				startTimeForLongClick = ev.getEventTime();
 				xScreenCoordinateForLongClick = ev.getX();
 				yScreenCoordinateForLongClick = ev.getY();
 
 			} else if (actionType == MotionEvent.ACTION_MOVE) {
-				// For non-long press actions, the move action can happen a lot
-				// between ACTION_DOWN and ACTION_UP
 				if (ev.getPointerCount() > 1) {
-					// easiest way to detect a multi-touch even is if the
-					// pointer count is greater than 1
-					// next thing to look at is if the x and y coordinates of
-					// the person's finger change.
-					startTimeForLongClick = 0; // instead of a timer, just reset
-												// this class variable and in
-												// our ACTION_UP event, the
-												// DownTime value will not match
-												// and so we can reset.
+					startTimeForLongClick = 0; 
 				} else {
-					// I know that I am getting to the same action as above,
-					// startTimeForLongClick=0, but I want the processor
-					// to quickly skip over this step if it detects the pointer
-					// count > 1 above
-					float xmove = ev.getX(); // where is their finger now?
+					float xmove = ev.getX();
 					float ymove = ev.getY();
-					// these next four values allow you set a tiny box around
-					// their finger in case
-					// they don't perfectly keep their finger still on a long
-					// click.
 					xlow = xScreenCoordinateForLongClick - xtolerance;
 					xhigh = xScreenCoordinateForLongClick + xtolerance;
 					ylow = yScreenCoordinateForLongClick - ytolerance;
 					yhigh = yScreenCoordinateForLongClick + ytolerance;
 					if ((xmove < xlow || xmove > xhigh)
 							|| (ymove < ylow || ymove > yhigh)) {
-						// out of the range of an acceptable long press, reset
-						// the whole process
 						startTimeForLongClick = 0;
 					}
 				}
@@ -129,7 +102,6 @@ public class MapActivity extends Activity {
 						// the long click
 						float xup = ev.getX();
 						float yup = ev.getY();
-						// I don't want the overhead of a function call:
 						xlow = xScreenCoordinateForLongClick - xtolerance;
 						xhigh = xScreenCoordinateForLongClick + xtolerance;
 						ylow = yScreenCoordinateForLongClick - ytolerance;
@@ -153,6 +125,8 @@ public class MapActivity extends Activity {
 							this.mapView.getOverlays().add(
 									this.mMyLocationOverlay);
 							//TODO need to save location still
+							latitude = overlayPoint.getLatitudeE6() / 1E6;
+							longitude = overlayPoint.getLongitudeE6() / 1E6;
 							mapView.invalidate();
 						}
 					}
@@ -170,17 +144,20 @@ public class MapActivity extends Activity {
 
 	}
 
-	public void setPoint() {
-		// TODO
-	}
-
-	public void getPoint() {
-		// TODO
-	}
 
 	public void returnLocation(View view) {
-		Intent intent = new Intent();
-		intent.putExtra("Location", location);
+		Intent intent = getIntent();
+		if (latitude != 0.0 & longitude != 0.0){
+			Bundle b = new Bundle();
+			b.putDouble("latitude", latitude);
+			b.putDouble("longitude", longitude);
+			intent.putExtras(b);
+			setResult(RESULT_OK, intent);
+		}
+		else{
+			setResult(RESULT_CANCELED,intent);
+		}
+		
 		finish();
 	}
 
