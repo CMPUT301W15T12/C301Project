@@ -125,20 +125,13 @@ public class AddDestinationsActivity extends Activity
 						public void onClick(DialogInterface dialog, int which) {
 							LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 							location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-							if (location == null){
-								Toast.makeText(AddDestinationsActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
-							} else {
-								//https://github.com/joshua2ua/MockLocationTester
-								Toast.makeText(AddDestinationsActivity.this,"Current Location added as Destination Location",Toast.LENGTH_SHORT).show();
-								Destination dest = new Destination(d1, d2, location);	
-								D.add(dest);
-								parentActivity.setDestination(D);
-								adapter.add(dest.toString());
-								adapter.notifyDataSetChanged();
-								destination.setText("");
-								description.setText("");
-								destination.requestFocus();
-							}
+							//https://github.com/joshua2ua/MockLocationTester
+							Destination dest = new Destination(d1, d2, location);	
+							D.add(dest);
+							parentActivity.setDestination(D);
+							adapter.add(dest.toString());
+							adapter.notifyDataSetChanged();
+							
 						}
 					});
 					adb.setNegativeButton("Remote Location", new OnClickListener() {
@@ -146,19 +139,6 @@ public class AddDestinationsActivity extends Activity
 							Intent intent = new Intent(AddDestinationsActivity.this, MapActivity.class);
 							intent.putExtra("option","add");
 							startActivityForResult(intent, 0);
-							if (location == null){
-								Toast.makeText(AddDestinationsActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
-							} else {
-								Toast.makeText(AddDestinationsActivity.this,"Chosen Location added as Destination Location",Toast.LENGTH_SHORT).show();
-								Destination dest = new Destination(d1, d2, location);	
-								D.add(dest);
-								parentActivity.setDestination(D);
-								adapter.add(dest.toString());
-								adapter.notifyDataSetChanged();
-								destination.setText("");
-								description.setText("");
-								destination.requestFocus();
-							}
 						}
 					});
 					adb.show();
@@ -174,6 +154,11 @@ public class AddDestinationsActivity extends Activity
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		if (resultCode == RESULT_OK){
+			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,s);
+			final EditText destination = (EditText) findViewById(R.id.editAddDestination);
+			final EditText description = (EditText) findViewById(R.id.editAddDestinationDescription);
+			final String d1 = destination.getText().toString();
+			final String d2 = description.getText().toString();
 			final Location location2 = new Location("location");
 			double latitude = data.getExtras().getDouble("latitude");
 			double longitude = data.getExtras().getDouble("longitude");
@@ -181,6 +166,14 @@ public class AddDestinationsActivity extends Activity
 			location2.setLongitude(longitude);
 			location = location2;
 			Toast.makeText(AddDestinationsActivity.this, "Remote Location Saved",Toast.LENGTH_SHORT).show();
+			destination.setText("");
+			description.setText("");
+			destination.requestFocus();
+			Destination dest = new Destination(d1, d2, location);	
+			D.add(dest);
+			parentActivity.setDestination(D);
+			adapter.add(dest.toString());
+			adapter.notifyDataSetChanged();
 		}
 		else{
 			Toast.makeText(AddDestinationsActivity.this, "Invalid Location",Toast.LENGTH_SHORT).show();

@@ -293,7 +293,8 @@ public class AddItemActivity extends Activity
 		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
 		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
-
+	
+	@Override
 	@SuppressWarnings("deprecation")
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
@@ -307,14 +308,25 @@ public class AddItemActivity extends Activity
 				CheckBox flagged = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
 				flagged.setChecked(true);
 			}
-
+			
 			//doesn't save photo if cancel clicked 
 			else if (resultCode == RESULT_CANCELED){
 				Toast.makeText(AddItemActivity.this, "Photo Cancelled", Toast.LENGTH_SHORT).show();
 			}
 		} else {
 			if (resultCode == RESULT_OK){
-				location = data.getExtras().getParcelable("Location"); 
+				if (resultCode == RESULT_OK){
+					final Location location2 = new Location("location");
+					double latitude = data.getExtras().getDouble("latitude");
+					double longitude = data.getExtras().getDouble("longitude");
+					location2.setLatitude(latitude);
+					location2.setLongitude(longitude);
+					location = location2;
+					Toast.makeText(AddItemActivity.this, "Remote Location Saved",Toast.LENGTH_SHORT).show();
+				}
+				else{
+					Toast.makeText(AddItemActivity.this, "Invalid Location",Toast.LENGTH_SHORT).show();
+				}
 			}
 		}
 
@@ -388,11 +400,6 @@ public class AddItemActivity extends Activity
 					Intent intent = new Intent(AddItemActivity.this, MapActivity.class);
 					intent.putExtra("option","add");
 					startActivityForResult(intent, 0);
-					if (location == null){
-						Toast.makeText(AddItemActivity.this,"Error No Location added",Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(AddItemActivity.this,"Chosen Location added as Destination Location",Toast.LENGTH_SHORT).show();
-					}
 				}
 			});
 			adb.show();	

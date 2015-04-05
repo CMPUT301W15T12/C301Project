@@ -28,7 +28,7 @@ public class MapActivity extends Activity {
 	private DefaultResourceProxyImpl resourceProxy;
 	private int minMillisecondThresholdForLongClick = 500;
 	private long startTimeForLongClick = 0;
-	//for code implemented from http://stackoverflow.com/questions/1678493/android-maps-how-to-long-click-a-map
+	//variables for code implemented from http://stackoverflow.com/questions/1678493/android-maps-how-to-long-click-a-map
 	private float xScreenCoordinateForLongClick;
 	private float yScreenCoordinateForLongClick;
 	private float xtolerance = 10;
@@ -124,7 +124,6 @@ public class MapActivity extends Activity {
 									overlays, null, resourceProxy);
 							this.mapView.getOverlays().add(
 									this.mMyLocationOverlay);
-							//TODO need to save location still
 							latitude = overlayPoint.getLatitudeE6() / 1E6;
 							longitude = overlayPoint.getLongitudeE6() / 1E6;
 							mapView.invalidate();
