@@ -39,7 +39,8 @@ public class MapActivity extends Activity {
 	private float yhigh; 
 	private double latitude = 0.0;
 	private double longitude = 0.0;
-
+	private User user;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -55,6 +56,45 @@ public class MapActivity extends Activity {
 		GeoPoint mapCenter = new GeoPoint(53554070, -2959520);
 		mapController.setCenter(mapCenter);
 		mapView.invalidate();
+		String option = getIntent().getExtras().getString("option");
+		if (option.equals("see")){
+			String Username = getIntent().getExtras().getString("username");
+			//gets the user corresponding to the UserName
+			for (int i = 0; i < UserListController.getUserList().size(); i++) {
+				if (UserListController.getUserList().get(i).getUserName().equals(Username)) {
+					user = UserListController.getUserList().get(i);
+				}
+			}
+			ArrayList<OverlayItem> overlays = new ArrayList<OverlayItem>();
+			ClaimListController CLC = new ClaimListController();
+			int id = getIntent().getIntExtra("claim_id", 0);
+			Claim claim = CLC.getClaim(id);
+			ArrayList<Location> otherLocations = claim.getLocations();
+			
+			try{
+				for (int i = 0; i < otherLocations.size(); i ++){
+					Location locItem = otherLocations.get(i);
+					GeoPoint loc = new GeoPoint(locItem);
+					overlays.add(new OverlayItem("", "", loc));
+					ItemizedIconOverlay<OverlayItem> locationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, null, resourceProxy);
+					this.mapView.getOverlays().add(
+							locationOverlay);
+				}
+			}
+			catch (Exception e){
+				Toast.makeText(this, e + "" , Toast.LENGTH_SHORT).show();
+			}
+			Location homeLocation = user.getLocation();
+			GeoPoint homePoint = new GeoPoint(homeLocation);
+			overlays.add(new OverlayItem("", "", homePoint));
+			resourceProxy = new DefaultResourceProxyImpl(
+					getApplicationContext());
+			ItemizedIconOverlay<OverlayItem> locationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, null, resourceProxy);
+			this.mapView.getOverlays().add(
+					locationOverlay);
+			//TODO need to do view still
+			mapView.invalidate();
+		}
 	}
 
 	// Implemented from
@@ -116,8 +156,8 @@ public class MapActivity extends Activity {
 								this.mapView.getOverlays().remove(
 										this.mMyLocationOverlay);
 							}
-							overlays.add(new OverlayItem("New Overlay",
-									"Overlay Description", overlayPoint));
+							overlays.add(new OverlayItem("",
+									"", overlayPoint));
 							resourceProxy = new DefaultResourceProxyImpl(
 									getApplicationContext());
 							this.mMyLocationOverlay = new ItemizedIconOverlay<OverlayItem>(
@@ -131,13 +171,10 @@ public class MapActivity extends Activity {
 					}
 				}
 
-			}
-		} else {
-			ClaimListController CLC = new ClaimListController();
-			int id = getIntent().getIntExtra("claim_id", 0);
-			Claim claim = CLC.getClaim(id);
-			//TODO need to do view still
-		}
+				}
+		} 
+		
+
 
 		return super.dispatchTouchEvent(ev);
 
@@ -152,6 +189,7 @@ public class MapActivity extends Activity {
 			b.putDouble("longitude", longitude);
 			intent.putExtras(b);
 			setResult(RESULT_OK, intent);
+
 		}
 		else{
 			setResult(RESULT_CANCELED,intent);

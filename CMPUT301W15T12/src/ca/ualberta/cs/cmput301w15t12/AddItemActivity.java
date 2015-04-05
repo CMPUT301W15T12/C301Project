@@ -321,6 +321,7 @@ public class AddItemActivity extends Activity
 					double longitude = data.getExtras().getDouble("longitude");
 					location2.setLatitude(latitude);
 					location2.setLongitude(longitude);
+
 					location = location2;
 					Toast.makeText(AddItemActivity.this, "Remote Location Saved",Toast.LENGTH_SHORT).show();
 				}
