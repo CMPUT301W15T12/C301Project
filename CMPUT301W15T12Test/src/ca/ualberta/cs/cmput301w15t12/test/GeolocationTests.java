@@ -38,6 +38,13 @@ public class GeolocationTests extends TestCase
 	//test for viewing locations
 	public void testviewLocations(){
 		//TODO Megan
+		Location loc = new Location("dummyprovider");
+		loc.setLatitude(20.3);
+		loc.setLongitude(52.6);
+		User user = new User("Sarah", "132");
+		user.setLocation(loc);
+		assertNotNull("No location in list", user.getLocation());
+		
 	}
 
 	//US10.01.01 added 2015-03-23
