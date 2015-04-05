@@ -99,7 +99,7 @@ public class LoginActivity extends Activity
 	private class LoadingOnlineRecordTask extends AsyncTask<Void, Void, Void> {
 	    @Override
 	    protected Void doInBackground(Void... optionalInputs) {
-	        new ESClient().loadRecordFromServer();
+	        //new ESClient().loadRecordFromServer();
 	        return null;
 	    }
 	    @Override

@@ -42,7 +42,7 @@ public class NewAccountActivity extends Activity
 	public Location location;
 	public static final String MOCK_PROVIDER = "mockLocationProvider";
 	public final int MAP_LOCATION_REQUEST_CODE = 110;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -111,7 +111,9 @@ public class NewAccountActivity extends Activity
 						intent.putExtra("option", "add");
 						startActivityForResult(intent, 0);
 					}
+					
 				});
+
 				adb.show();				
 			}
 		});
@@ -121,7 +123,16 @@ public class NewAccountActivity extends Activity
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		if (resultCode == RESULT_OK){
-			location = data.getExtras().getParcelable("Location"); 
+			final Location location2 = new Location("location");
+			double latitude = data.getExtras().getDouble("latitude");
+			double longitude = data.getExtras().getDouble("longitude");
+			location2.setLatitude(latitude);
+			location2.setLongitude(longitude);
+			location = location2;
+			Toast.makeText(NewAccountActivity.this, "Remote Location Saved",Toast.LENGTH_SHORT).show();
+		}
+		else{
+			Toast.makeText(NewAccountActivity.this, "Invalid Location",Toast.LENGTH_SHORT).show();
 		}
 	}
 
