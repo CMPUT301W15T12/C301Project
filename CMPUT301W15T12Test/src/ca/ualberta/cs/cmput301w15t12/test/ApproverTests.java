@@ -47,6 +47,7 @@ public class ApproverTests extends ActivityInstrumentationTestCase2<ExpenseItemA
 		String n = "leah";
 		String name = "Sarah";
 		ClaimListController claimListController = new ClaimListController();
+		UserListController.getUserList().clear();
 		User user = new User(name, "123");
 		User approver = new User(n, "123");
 		UserListController.getUserList().addUser(user);

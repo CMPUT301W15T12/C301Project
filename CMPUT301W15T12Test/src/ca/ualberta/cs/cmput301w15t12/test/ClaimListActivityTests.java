@@ -46,13 +46,17 @@ public class ClaimListActivityTests extends ActivityInstrumentationTestCase2<Cla
 	//US02.01.01
 	//As a claimant, I want to list all my expense claims, showing for each claim: the starting date of travel, 
 	//the destination(s) of travel, the claim status, tags, and total currency amounts.
+	
+	//US02.02.01
+	//As a claimant, I want the list of expense claims to be sorted by starting date of travel, in order 
+	//from most recent to oldest, so that ongoing or recent travel expenses are quickly accessible.
 	public void testColorAndText() throws ParseException, AlreadyExistsException{
 		ClaimListActivity activity = startApproverItemActivity();	
 
 		ListView claimView = (ListView) activity.findViewById(R.id.listViewClaims);
 		ViewAsserts.assertOnScreen(activity.getWindow().getDecorView(),claimView);
 		
-		//check that the furthest claim is red
+		//check that the furthest claim is red and that the newest claim is first
 		View view1 = claimView.getAdapter().getView(0, null, null);
 		TextView tv1 = (TextView) view1.findViewById(R.id.txt);	
 		assertEquals(tv1.getCurrentTextColor(), Color.RED);
@@ -64,7 +68,7 @@ public class ClaimListActivityTests extends ActivityInstrumentationTestCase2<Cla
 		assertEquals(tv2.getCurrentTextColor(), Color.BLUE);
 		assertEquals(tv2.getText().toString(), "[01/02/1250] name2 - In Progress\nname");
 		
-		//check that the closest claim is green
+		//check that the closest claim is green and that the oldest claim is last
 		View view3 = claimView.getAdapter().getView(2, null, null);
 		TextView tv3 = (TextView) view3.findViewById(R.id.txt);	
 		assertEquals(tv3.getCurrentTextColor(), Color.GREEN);

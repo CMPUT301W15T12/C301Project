@@ -132,6 +132,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	}
 
 	//US04.05.01 - able to view an expense item and its details
+	
 	public void testViewItem() throws ParseException, AlreadyExistsException{
 		ExpenseItemActivity activity = getExpenseItemActivity();
 		

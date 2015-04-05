@@ -9,6 +9,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
+import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.Destination;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.User;
@@ -74,7 +75,18 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		claim.setStatus("Submitted");
 		assertFalse(claim.editable());
 	}
-
+	
+	//US01.05.01
+	//As a claimant, I want to delete an expense claim while changes are allowed.
+	public void testdeleteClaim(){
+		ClaimListController clc  = new ClaimListController();
+		clc.clear();
+		User user = new User("Jim", "123");
+		int id = clc.addClaim("my claim",  new GregorianCalendar().getTime(), new GregorianCalendar().getTime(), "decription",user);
+		assertEquals(clc.getClaim(id).getName(), "my claim");
+		clc.removeClaim(id);
+		assertTrue(clc.size() == 0);
+	}
 
 	public void testAddExpenseItemToClaim(){
 		String name = "my expense";

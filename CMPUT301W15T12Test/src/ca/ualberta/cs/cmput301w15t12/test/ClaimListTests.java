@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -13,7 +12,6 @@ import junit.framework.TestCase;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimList;
-import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.User;
 
 
@@ -23,27 +21,6 @@ public class ClaimListTests extends TestCase
 	//constructor
 	public ClaimListTests(){
 		super();
-	}
-	
-//	US02.02.01
-	public void testsortClaims() throws ParseException, AlreadyExistsException {
-		String approver = "Sarah";
-		User user = new User(approver, "123");
-		ClaimListController claimListController = new ClaimListController();
-		Date d1 = format.parse("01-02-1232");
-		Date d2 = format.parse("01-02-2134");
-		Date d3 = format.parse("01-02-1233");
-		Date d4 = format.parse("01-02-2134");
-		Date d5 = format.parse("01-02-1234");
-		Date d6 = format.parse("01-02-2134");
-		claimListController.addClaim("c1", d5, d6, "Blah", user);
-		claimListController.addClaim("c1", d3, d4, "Blah", user);
-		claimListController.addClaim("c1", d1, d2, "Blah",user);
-		ArrayList<Claim> submittedClaims = claimListController.filterByClaimant(user);
-
-		assertTrue("first item is claim 1",submittedClaims.get(0).getStartDate().equals(d1));
-		assertTrue("first item is claim 2",submittedClaims.get(1).getStartDate().equals(d3));
-		assertTrue("first item is claim 3",submittedClaims.get(2).getStartDate().equals(d5));
 	}
 	
 	//setup
