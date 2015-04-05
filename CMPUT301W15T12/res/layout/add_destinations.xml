@@ -8,18 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddDestinationsActivity" >
 
-    <EditText
-        android:id="@+id/editAddDestination"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:ems="10"
-        android:hint="@string/new_destinations" >
-
-        <requestFocus />
-    </EditText>
-
     <ListView
         android:id="@+id/listDestinations"
         android:layout_width="match_parent"
@@ -59,5 +47,25 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="@string/back" />
+
+    <EditText
+        android:id="@+id/editAddDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonSaveDestinations"
+        android:layout_below="@+id/textViewInfo"
+        android:ems="10"
+        android:hint="@string/new_destinations" />
+
+    <TextView
+        android:id="@+id/textViewInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editAddDestination"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Long Click to Delete"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

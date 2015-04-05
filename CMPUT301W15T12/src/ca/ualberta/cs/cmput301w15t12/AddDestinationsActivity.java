@@ -99,7 +99,10 @@ public class AddDestinationsActivity extends Activity
 					int arg2, long arg3)
 			{
 
-				s.remove(arg2);adapter.notifyDataSetChanged();
+				s.remove(arg2);
+				D.remove(arg2);
+				parentActivity.setDestination(D);
+				adapter.notifyDataSetChanged();
 				return false;
 			}
 		});

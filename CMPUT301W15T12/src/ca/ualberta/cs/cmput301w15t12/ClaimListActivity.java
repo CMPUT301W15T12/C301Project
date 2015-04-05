@@ -131,9 +131,9 @@ public class ClaimListActivity extends Activity {
 				Float distance = l.distanceTo(u);
 				if (distance < 3000000) {
 					imageId[i] = R.drawable.planeone;
-				} else if (distance < 15000000) {
+				} else if (distance < 10000000) {
 					imageId[i] = R.drawable.planetwo;
-				} else if (distance > 15000000) {
+				} else if (distance > 10000000) {
 					imageId[i] = R.drawable.planethree;			    		
 				}
 			}
@@ -159,9 +159,9 @@ public class ClaimListActivity extends Activity {
 					Float distance = l.distanceTo(u);
 					if (distance < 3000000) {
 						txtTitle.setTextColor(Color.GREEN);
-					} else if (distance < 15000000) {
+					} else if (distance < 10000000) {
 						txtTitle.setTextColor(Color.BLUE);
-					} else if (distance > 15000000) {
+					} else if (distance > 10000000) {
 						txtTitle.setTextColor(Color.RED);			    		
 					}
 				}

@@ -78,8 +78,8 @@ public class ClaimListActivityTests extends ActivityInstrumentationTestCase2<Cla
 	private ClaimListActivity startApproverItemActivity() throws ParseException, AlreadyExistsException{
 		User user  = new User("Freddie", "123");
 		Location loc = new Location(LocationManager.NETWORK_PROVIDER);
-		loc.setLatitude(20.3);
-		loc.setLongitude(52.6);
+		loc.setLatitude(80.3);
+		loc.setLongitude(10.6);
 		user.setLocation(loc);
 		
 		UserListController.getUserList().clear();
@@ -98,9 +98,9 @@ public class ClaimListActivityTests extends ActivityInstrumentationTestCase2<Cla
 		
 		//medium claim
 		d1 = df.parse("01/02/1250");
-		loc.setLatitude(20.4);
-		loc.setLongitude(52.6);
-		Location loc2 = new Location(loc);
+		Location loc2 = new Location("fake");
+		loc2.setLatitude(30.3);
+		loc2.setLongitude(-10.6);
 		
 		int id2 = clc.addClaim("name2", d1, d2,"desc",user);
 		Claim claim2 = clc.getClaim(id2);
@@ -109,8 +109,8 @@ public class ClaimListActivityTests extends ActivityInstrumentationTestCase2<Cla
 		// far claim
 		d1 = df.parse("01/01/1300");
 		Location loc3 = new Location(LocationManager.NETWORK_PROVIDER);
-		loc.setLatitude(20.3);
-		loc.setLongitude(52.6);
+		loc3.setLatitude(-80.3);
+		loc3.setLongitude(-182.6);
 		
 		int id3 = clc.addClaim("name3", d1, d2,"desc",user);
 		Claim claim3 = clc.getClaim(id3);
