@@ -17,7 +17,6 @@ public class ReceiptPhotoCRUDTest extends ActivityInstrumentationTestCase2<AddIt
 
 	public ReceiptPhotoCRUDTest() {
 		super(AddItemActivity.class);
-		// TODO Auto-generated constructor stub
 	}
 	//[US06.01.01] - Taking photograph of a receipt
 	public void testImageButton(){

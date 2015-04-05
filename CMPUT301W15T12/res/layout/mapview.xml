@@ -7,14 +7,15 @@
     <org.osmdroid.views.MapView
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
-        android:layout_height="419dp" >
+        android:layout_height="419dp"
+        android:layout_weight="0.92" >
     </org.osmdroid.views.MapView>
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Done"
-        android:onClick= "returnLocation" />
+        android:layout_height="wrap_content"
+        android:onClick="returnLocation"
+        android:text="Done" />
 
 </LinearLayout>

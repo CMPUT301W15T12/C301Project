@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -38,6 +39,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -294,6 +296,7 @@ public class AddItemActivity extends Activity
 		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 	
+	@SuppressLint("NewApi")
 	@Override
 	@SuppressWarnings("deprecation")
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -301,12 +304,17 @@ public class AddItemActivity extends Activity
 			//saves photo if save clicked
 			if (resultCode == RESULT_OK){
 				Button ib = (Button) findViewById(R.id.buttonAddImage);
-				Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-				ib.setBackgroundDrawable(picture);
-				ib.setText("");
-				Toast.makeText(AddItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
-				CheckBox flagged = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
-				flagged.setChecked(true);
+				if (((BitmapDrawable) Drawable.createFromPath(imageFileUri.getPath())).getBitmap().getByteCount() < 65536) {
+					Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
+					ib.setBackgroundDrawable(picture);
+					ib.setText("");
+					Toast.makeText(AddItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
+					CheckBox flagged = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
+					flagged.setChecked(true);
+				}
+				else{
+					Toast.makeText(AddItemActivity.this, "Receipt too big, try again", Toast.LENGTH_SHORT).show();
+				}
 			}
 			
 			//doesn't save photo if cancel clicked 
@@ -321,7 +329,6 @@ public class AddItemActivity extends Activity
 					double longitude = data.getExtras().getDouble("longitude");
 					location2.setLatitude(latitude);
 					location2.setLongitude(longitude);
-
 					location = location2;
 					Toast.makeText(AddItemActivity.this, "Remote Location Saved",Toast.LENGTH_SHORT).show();
 				}
