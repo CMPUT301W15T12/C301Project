@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import android.location.Location;
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
+import ca.ualberta.cs.cmput301w15t12.Destination;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.User;
 
@@ -39,9 +41,19 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 	}
 
 	//US01.02.01 - record one or more destinations of travel and an associated reason for travel to each destination
-	public void testDestination(){
-
-
+	public void testDestination() throws AlreadyExistsException{
+		Location loc = new Location("dummyprovider");
+		loc.setLatitude(20.3);
+		loc.setLongitude(52.6);
+		
+		Date startDate = new GregorianCalendar().getTime(); //Default to now when no input is supplied
+		Date endDate = new GregorianCalendar(2015,GregorianCalendar.MARCH,21).getTime();
+		
+		Claim claim = new Claim("name",  startDate, endDate, "description",new User("Sarah", "123"), 0);
+		claim.addDestination(new Destination("name", "desc", loc));
+		
+		assertEquals(claim.getDestination().get(0).getDestination(), "name");
+		assertEquals(claim.getDestination().get(0).getDescription(), "desc");
 	}
 
 
@@ -58,12 +70,15 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		Claim claim = new Claim(oldName,  startDate, endDate, description,user,id);
 		claim.setName(newName);
 		assertEquals("Name is not updated", newName, claim.getName());
+		
+		claim.setStatus("Submitted");
+		assertFalse(claim.editable());
 	}
 
 
 	public void testAddExpenseItemToClaim(){
 		String name = "my expense";
-		String category = "hotel";
+		String category = "";
 		String description = "description";
 		String currency = "CAD";
 		BigDecimal amount = new BigDecimal(10.0);
@@ -78,7 +93,7 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 
 	public void testGetTotal(){
 		String name = "my expense";
-		String category = "hotel";
+		String category = "";
 		String description = "description";
 		String currency = "CAD";
 		BigDecimal amount = new BigDecimal(10);
@@ -94,17 +109,17 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		claim.addItem(expenseItem2);
 
 		assertTrue("Wrong total amount returned",claim.getTotal().size()==1);
-		assertEquals("Wrong sum value",claim.getTotal().get(0),"20 CAD\n");
+		assertEquals("Wrong sum value",claim.getTotal().get(0),"20 CAD");
 
 	}
 
 	//US01.06.01 - entered information to be remembered, so that I do not lose data
 	public void testInfoSaved(){
-		//TODO move this to claimList test.
+		assertTrue(false);
 	}
 
 	//US09.01.01 - make and work on expense claims and items while offline, and push application and expense information online once I get connectivity.
 	public void testOffline(){
-		//TODO add this after manager class is finished
+		assertTrue(false);
 	}
 }
