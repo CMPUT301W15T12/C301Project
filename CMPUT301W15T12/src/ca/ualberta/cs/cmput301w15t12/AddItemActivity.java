@@ -304,7 +304,7 @@ public class AddItemActivity extends Activity
 			//saves photo if save clicked
 			if (resultCode == RESULT_OK){
 				Button ib = (Button) findViewById(R.id.buttonAddImage);
-				if (((BitmapDrawable) Drawable.createFromPath(imageFileUri.getPath())).getBitmap().getByteCount() < 65536) {
+				if (((BitmapDrawable) Drawable.createFromPath(imageFileUri.getPath())).getBitmap().getByteCount() < 65536000) {
 					Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
 					ib.setBackgroundDrawable(picture);
 					ib.setText("");
