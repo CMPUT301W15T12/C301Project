@@ -46,7 +46,7 @@ public class Claim {
 	private ArrayList<Destination> destinations;
 	private ExpenseList expenseList;
 	private ArrayList<String> tagList;
-	private ArrayList<Location> locations;
+	private ArrayList<Location> locations = new ArrayList<Location>();
 	private ArrayList<Listener> listeners;
 
 	public Claim(String name, Date startDate, Date endDate, String description, User Claimant, int id){
@@ -329,6 +329,7 @@ public class Claim {
 	public void setTagList(ArrayList<String> list) {
 		this.tagList = list;
 	}
+	
 	//gets the total
 	public ArrayList<String> getTotal() {
 		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
@@ -366,11 +367,17 @@ public class Claim {
 	}
 	
 	public ArrayList<Location> getLocations(){
+		locations.clear();
+		for (int i = 0; i < destinations.size(); i++) {
+			locations.add(destinations.get(i).getLocation());
+		}
+		for (int j = 0; j < expenseList.size(); j++) {
+			if (expenseList.getList().get(j).getBoolLocation()) {
+				locations.add(expenseList.getList().get(j).getlocation());
+			}
+		}
+		
 		return locations;	
-	}
-	
-	public void setLocations(Location location){
-		locations.add(location);
 	}
 	
 	//end getters and setters
