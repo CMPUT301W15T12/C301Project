@@ -28,34 +28,7 @@ public class UserListController
 		if (userlist == null) {
 			userlist = new UserList();
 		}
-			/*try {
-				userlist = UserListManager.getManager().loadUserList();
-				userlist.addListener(new Listener() {
-					@Override
-					public void update() {
-						saveUserList();
-					}
-				});
-
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				throw new RuntimeException("Could not deserialize UserList from UserListManager");
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw new RuntimeException("Could not deserialize UserList from UserListManager");
-			}
-		}*/
 		return userlist;
-	}
-
-	//tests dont run because it wants the manager initialized, leave like this until after the demo - Sarah
-	static public void saveUserList() {
-//		try {
-//			UserListManager.getManager().saveUserList(getUserList());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("Could not deserialize UserList from UserListManager");
-//		}
 	}
 	public boolean authenticateUser(String UserName, String Password){
 		return getUserList().authenticateUser(UserName, Password);
@@ -63,7 +36,7 @@ public class UserListController
 	
 	public void addUser(String string) throws AlreadyExistsException {
 		getUserList().addUser(new User(string, null));
-		saveUserList();
+
 	}
 	
 	public void addUserWithPass(String name, String pass) throws AlreadyExistsException{

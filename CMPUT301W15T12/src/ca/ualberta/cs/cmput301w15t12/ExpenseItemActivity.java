@@ -157,15 +157,15 @@ public class ExpenseItemActivity extends Activity {
 		return true;
 	}
 
-	public void deleteReceiptPhoto() {
-		// TODO Auto-generated method stub
+//	public void deleteReceiptPhoto() {
+//		// TODO Auto-generated method stub
+//
+//	}
 
-	}
-
-	public Bitmap getReceiptPhoto() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public Bitmap getReceiptPhoto() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	//checkbox function for checkBox1 (in item_page) when pressed by user
 	public void onCheckBoxClicked(View view){
 		boolean checked = ((CheckBox) view).isChecked();
