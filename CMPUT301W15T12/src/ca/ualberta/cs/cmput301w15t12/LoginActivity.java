@@ -48,15 +48,15 @@ public class LoginActivity extends Activity
 		EditText username = (EditText) findViewById(R.id.editLoginUserName);
 		username.requestFocus();
 		
-		//new LoadingOnlineRecordTask().execute();
+		new LoadingOnlineRecordTask().execute();
 		
 		//http://stackoverflow.com/questions/8384067/how-to-dismiss-the-dialog-with-click-on-outside-of-the-dialog 2015/04/02
 		
-//		progress = new ProgressDialog(this);
-//		progress.setTitle("Connecting");
-//		progress.setCanceledOnTouchOutside(false);
-//		progress.setMessage("Wait while the server connects and retrieves your information");
-//		progress.show();
+		progress = new ProgressDialog(this);
+		progress.setTitle("Connecting");
+		progress.setCanceledOnTouchOutside(false);
+		progress.setMessage("Wait while the server connects and retrieves your information");
+		progress.show();
 		
 		
 		//clickable create account button takes user to create account page
@@ -100,18 +100,18 @@ public class LoginActivity extends Activity
 		return true;
 	}
 	
-//	private class LoadingOnlineRecordTask extends AsyncTask<Void, Void, Void> {
-//	    @Override
-//	    protected Void doInBackground(Void... optionalInputs) {
-//	        //new ESClient().loadRecordFromServer();
-//	        return null;
-//	    }
-//	    @Override
-//	    protected void onPostExecute(Void result) {
-//	        progress.dismiss();
-//	        ClaimListController claimListController = new ClaimListController();
-//	        Toast.makeText(LoginActivity.this,"Loaded: "+claimListController.size()+" claims "+UserList.users.size()+" users", Toast.LENGTH_SHORT).show();       
-//	    }  
-//	}
+	private class LoadingOnlineRecordTask extends AsyncTask<Void, Void, Void> {
+	    @Override
+	    protected Void doInBackground(Void... optionalInputs) {
+	        new ESClient().loadRecordFromServer();
+	        return null;
+	    }
+	    @Override
+	    protected void onPostExecute(Void result) {
+	        progress.dismiss();
+	        ClaimListController claimListController = new ClaimListController();
+	        //Toast.makeText(LoginActivity.this,"Loaded: "+claimListController.size()+" claims "+UserList.users.size()+" users", Toast.LENGTH_SHORT).show();       
+	    }  
+	}
 
 }
