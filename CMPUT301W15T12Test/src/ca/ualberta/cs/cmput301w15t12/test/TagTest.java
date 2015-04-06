@@ -167,6 +167,18 @@ public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> 
 				
 				// Make sure the filtered tags list is correct
 				assertEquals("Filtered by tags list has the wrong number of claims", max - (i-1), fcl.size());
+				for (Claim claim : fcl) {
+					// Check every claim of filtered list
+					boolean bool = false;
+					
+					for (String tag : claim.getTagList()) {
+						// Compare claim's tag list with filter tag list
+						if (tags.contains(tag)) bool = true;
+					}
+					
+					// Make sure there was a common tag
+					assertTrue("Claim has no common tags", bool);
+				}
 			}
 		}
 	}
