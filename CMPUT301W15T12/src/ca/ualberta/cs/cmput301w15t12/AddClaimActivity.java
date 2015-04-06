@@ -14,6 +14,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
+ *   @author megsum
  */
 
 package ca.ualberta.cs.cmput301w15t12;
