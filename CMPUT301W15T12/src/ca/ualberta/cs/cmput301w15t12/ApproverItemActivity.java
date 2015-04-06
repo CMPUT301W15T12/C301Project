@@ -1,5 +1,5 @@
 /**
- * This  Activity displays the summary info for a given item. 
+ * This  Activity displays the summary info for a submitted item. 
  * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
@@ -45,7 +45,8 @@ public class ApproverItemActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.approver_expense_item);
-
+		
+		//get extras
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		Claim Claim = CLC.getClaim(id);
 		final int index = getIntent().getIntExtra("item_index", 0);
