@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="currency">
+        <item>CAD</item>
+       	<item>USD</item>
+       	<item>EUR</item>
+       	<item>GBP</item>
+       	<item>CHF</item>
+       	<item>JPY</item>
+       	<item>CNY</item>
+    </string-array>
+    
+  	<string-array name="category">
+        <item>Air Fare</item>
+        <item>Ground Transport</item>
+       	<item>Vehicle Rental</item>
+       	<item>Private Automobile</item>
+       	<item>Fuel</item>
+       	<item>Parking</item>
+       	<item>Registration</item>
+       	<item>Accommodation</item>
+       	<item>Meal</item>
+       	<item>Supplies</item>
+    </string-array>
+    
     <string name="app_name">CMPUT301W15T12</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_claim">AddClaimActivity</string>

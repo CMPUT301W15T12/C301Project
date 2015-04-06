@@ -30,6 +30,9 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		
+		// Initialize currencies and categories list in ExpenseItem
+		ExpenseItem.init(getInstrumentation().getTargetContext());
 	}
 
 	//US04.01.01 - expense item has date, category, description, amount, currency
@@ -48,7 +51,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 
 	//US04.02.01 - category is one of air fare, round transport, vehicle rental, 
 	// private automobile, fuel, parking, registration, accommodation, meal, or supplies.
-	// Valid categories are stored in the expenseItem class in a static final array list
+	// Valid categories are stored in a string array in the resources
 	public void testCategory(){
 		// Make new expense item
 		ExpenseItem expenseItem = new ExpenseItem("name","Air Fare","description","USD", new BigDecimal(66.69), new Date(), false);
@@ -64,7 +67,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 
 		try {
 			// Try setting all valid categories 
-			for (String category : ExpenseItem.getCategories()) {
+			for (String category : getInstrumentation().getTargetContext().getResources().getStringArray(R.array.category)) {
 				expenseItem.setCategory(category);
 			}
 		} catch (Exception e){
@@ -84,7 +87,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 	}
 
 	//US04.03.01 - currency is one of CAD, USD, EUR, GBP, CHF, JPY, CNY
-	//Valid currencies are stored in the expenseItem class in a static final array list
+	//Valid currencies are stored in a string array in the resources
 	public void testCurrency(){
 		// Make new expense item
 		ExpenseItem expenseItem = new ExpenseItem("name","Air Fare","description","USD", new BigDecimal(66.69), new Date(), false);
@@ -100,7 +103,7 @@ public class ExpenseItemTests extends ActivityInstrumentationTestCase2<ExpenseIt
 
 		try {
 			// Try setting all valid currencies
-			for (String currency : ExpenseItem.getCurrencies()) {
+			for (String currency : getInstrumentation().getTargetContext().getResources().getStringArray(R.array.currency)) {
 				expenseItem.setCurrency(currency);
 			}
 		} catch (Exception e){

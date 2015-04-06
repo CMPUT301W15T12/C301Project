@@ -84,7 +84,10 @@ public class AddItemActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_item);
-
+		
+		// Initialize currencies and categories list in ExpenseItem
+		ExpenseItem.init(getApplicationContext());
+		
 		Intent intent = getIntent();
 		claim_id = intent.getIntExtra("claim_id", 0);
 		option = intent.getExtras().getString("option");
@@ -252,7 +255,7 @@ public class AddItemActivity extends Activity
 	 */ 
 	public void currencyOnClick(View view){
 		//open currency dialog
-		final String[] currencies = {"CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CHY"};
+		final String[] currencies = getResources().getStringArray(R.array.currency);
 		AlertDialog.Builder adb = new AlertDialog.Builder(AddItemActivity.this);
 		adb.setTitle("Select a currency");
 		adb.setItems(currencies, new DialogInterface.OnClickListener(){
@@ -356,8 +359,7 @@ public class AddItemActivity extends Activity
 	 */ 
 	public void categoryOnClick(View view){
 		//open category dialog
-		final String[] categories = {"Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
-				"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"};
+		final String[] categories = getResources().getStringArray(R.array.category);
 		AlertDialog.Builder adb = new AlertDialog.Builder(AddItemActivity.this);
 		adb.setTitle("Select a category");
 		adb.setItems(categories, new DialogInterface.OnClickListener(){
