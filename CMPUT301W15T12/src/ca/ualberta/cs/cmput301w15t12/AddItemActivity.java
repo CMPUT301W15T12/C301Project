@@ -1,6 +1,6 @@
 /**
  * This  Activity allows a user to add a new Item in association with 
- * a specific claim 
+ * a specific claim or edit an existing item
  *
  * issues: does not allow a photo to be taken or included
  * 
@@ -17,6 +17,8 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author olexson
+ *   @author vanbelle
+ *   @author megsum
  */
 
 package ca.ualberta.cs.cmput301w15t12;
@@ -80,7 +82,6 @@ public class AddItemActivity extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_item);
 
@@ -94,7 +95,8 @@ public class AddItemActivity extends Activity
 		Date = (EditText) findViewById(R.id.editItemDate);    
 		Date.setInputType(InputType.TYPE_NULL);
 		setDateTimeField();
-
+		
+		//get the updated values
 		Button ib = (Button) findViewById(R.id.buttonAddImage);
 		editName = (EditText) findViewById(R.id.editItemName );
 		editCategory = (EditText) findViewById(R.id.editCategory);
@@ -119,7 +121,7 @@ public class AddItemActivity extends Activity
 			if (expenseItem.getDate() != null) {
 				d = df.format(expenseItem.getDate());
 			}
-
+			//update the current expense item
 			editName.setText(expenseItem.getName());
 			editCategory.setText(expenseItem.getCategory());
 			editDescription.setText(expenseItem.getDescription());
@@ -155,13 +157,12 @@ public class AddItemActivity extends Activity
 		//start the user on the username edit text
 		EditText editName = (EditText) findViewById(R.id.editItemName );
 		editName.requestFocus();		
-
-
-
-
 	}
 
-	//Done button redirects to editItem or AddItem method.
+	/**this method delegates responsibility to either the addItem method or to 
+	 * the editItem method depending on the option provided in the getExtra
+	 * @param view
+	 */ 
 	public void onDoneButtonClick(View view){
 		if(option.equals("edit")){
 			editItem();
@@ -170,7 +171,9 @@ public class AddItemActivity extends Activity
 			finish();
 		}
 	}
-
+	
+	/**the method edits an existing expense item with any updated values
+	 */ 
 	public void editItem() {	
 		//get the inputted values
 		String name = editName.getText().toString();
@@ -216,7 +219,9 @@ public class AddItemActivity extends Activity
 		finish();
 
 	}
-
+	
+	/**this method adds a new expense item to the specified claim
+	 */ 
 	private void addItem() {
 		BigDecimal amount;
 		Date date = null;
@@ -242,7 +247,9 @@ public class AddItemActivity extends Activity
 			Toast.makeText(this, "Incorrect category or currency", Toast.LENGTH_SHORT).show();
 		}
 	}
-
+	/**this method opens a dialog list from the which the user can choose a currency
+	 * @param view
+	 */ 
 	public void currencyOnClick(View view){
 		//open currency dialog
 		final String[] currencies = {"CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CHY"};
@@ -263,7 +270,9 @@ public class AddItemActivity extends Activity
 		});
 		adb.show();
 	}
-
+	/**this method deletes a previously added image
+	 * @param view
+	 */ 
 	public void deleteImage(View view){
 		imageFileUri = null;
 		Button ib = (Button) findViewById(R.id.buttonAddImage);
@@ -275,7 +284,8 @@ public class AddItemActivity extends Activity
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
-	//adds an image to the expense
+	/**gets an image from the camera app to be added to the expense item
+	*/ 
 	//Code implemented from camera test used in lab: https://github.com/joshua2ua/BogoPicLab March 24, 2015
 	public void addImage(View view){
 		String folder = Environment.getExternalStorageDirectory()
@@ -300,6 +310,7 @@ public class AddItemActivity extends Activity
 	@SuppressLint("NewApi")
 	@Override
 	@SuppressWarnings("deprecation")
+	//gets the image or the remote location from the map activity or camera app
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
 			//saves photo if save clicked
@@ -340,7 +351,9 @@ public class AddItemActivity extends Activity
 		}
 
 	}
-
+	/** this method opens a category dialog list from which the user can choose from the category options
+	 * @param view
+	 */ 
 	public void categoryOnClick(View view){
 		//open category dialog
 		final String[] categories = {"Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
@@ -363,7 +376,10 @@ public class AddItemActivity extends Activity
 		adb.show();
 	}
 
-	//checkbox function for checkBox1 (in item_page) when pressed by user
+	/** reacts when the flag checkbox is clicked, sets the flag boolean to true if it was unclicked and to false
+	 * if it was previously unchecked.
+	 * @param view
+	 */ 
 	public void onCheckBoxClicked(View view){
 		boolean checked = ((CheckBox) view).isChecked();
 		if (checked){
@@ -375,7 +391,10 @@ public class AddItemActivity extends Activity
 		}
 
 	}
-
+	/** reacts when image check box is clicked by deleting the image if the box is set to unchecked, and opening
+	 * the camera app if it was checked.
+	 * @param view
+	 */ 
 	public void onImageCheckBoxClick(View view){
 		boolean checked = ((CheckBox) view).isChecked();
 		if (!checked) {
@@ -384,11 +403,16 @@ public class AddItemActivity extends Activity
 			addImage(view);
 		}
 	}
-
+	
+	/** reacts to the location check box, when going from unchecked to checked 
+	 * opens up the geolocation dialog box asking the user if they want a remote location of their current gps location.
+	 * if the box goes from checked to unchecked it deletes the current added location
+	 */ 
 	//https://github.com/joshua2ua/MockLocationTester
 	public void onLocationClick(View view){
 		boolean checked = ((CheckBox) view).isChecked();
 		if (checked) {
+			//get the current gps location
 			final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			AlertDialog.Builder adb = new AlertDialog.Builder(AddItemActivity.this);
 			adb.setMessage("Do you want to set your current location as this item location, or choose remotely? ");
@@ -404,6 +428,7 @@ public class AddItemActivity extends Activity
 					}
 				}
 			});
+			//call remote location if they choose that option
 			adb.setNegativeButton("Remote Location", new OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					Intent intent = new Intent(AddItemActivity.this, MapActivity.class);
@@ -412,6 +437,7 @@ public class AddItemActivity extends Activity
 				}
 			});
 			adb.show();	
+		//delete the location	
 		} else {
 			location = null;
 		}
@@ -426,7 +452,8 @@ public class AddItemActivity extends Activity
 		return true;
 	}
 
-	//initialize date fields
+	/**initialize the date fields which open the date edit text gets opened
+	*/
 	//http://androidopentutorials.com/android-datepickerdialog-on-edittext-click-event/
 	private void setDateTimeField() {
 		Date.setOnClickListener(new View.OnClickListener()
