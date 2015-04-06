@@ -15,6 +15,8 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
+ *   @megsum
+ *   @olexson
  */
 
 package ca.ualberta.cs.cmput301w15t12;
@@ -48,7 +50,15 @@ public class Claim {
 	private ArrayList<String> tagList;
 	private ArrayList<Location> locations = new ArrayList<Location>();
 	private ArrayList<Listener> listeners;
-
+	/** Claim constructor sets the values for name, satrt date, end date, description, claimannt, id, approver, 
+	 * expenselist,taglist,destinations.
+	 * @param name
+	 * @param startDate
+	 * @param endDate
+	 * @param description
+	 * @param claimant
+	 * @param id
+	 */
 	public Claim(String name, Date startDate, Date endDate, String description, User Claimant, int id){
 		this.name = name;
 		this.Claimant = Claimant;
@@ -63,7 +73,12 @@ public class Claim {
 		this.listeners = new ArrayList<Listener>();
 		this.id = id;
 	}
-
+	/** returns the claim to the user if the approver is not the claimant and as long as there is a 
+	 * comment attached to the claim
+	 * @throws NotAllowedException
+	 * @throws MissingItemException
+	 * @param name
+	 */ 
 	public void returnClaim(String name) throws NotAllowedException, MissingItemException{
 		if (Claimant.getUserName().equals(name)) {
 			throw new NotAllowedException();
@@ -75,7 +90,12 @@ public class Claim {
 			setStatus("Returned");
 		}
 	}
-
+	/** approves the claim if the approver is not the claimant and if there is a 
+	 * comment attached to the claim
+	 * @throws NotAllowedException
+	 * @throws MissingItemException
+	 * @param name
+	 */ 
 	public void approveClaim(String name) throws MissingItemException, NotAllowedException {
 		if (Claimant.getUserName().equals(name)) {
 			throw new NotAllowedException();
@@ -88,7 +108,10 @@ public class Claim {
 			setStatus("Approved");
 		}
 	}
-
+	/** tells the user that they are allowed to edit the claim
+	 * @return true if the status is not set to submitted or approved
+	 * and false if the status is In Progress or Returned
+	 */ 
 	public boolean editable() {
 		if (Status.equals("In Progress")||Status.equals("Returned")){
 			return true;
