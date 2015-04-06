@@ -61,7 +61,8 @@ public class AddDestinationsActivity extends Activity
 		final String option = getIntent().getExtras().getString("option");
 		parentActivity = (TabClaimActivity) this.getParent();
 		parentActivity.setDestination(D);
-
+		
+		//get any existing destinations
 		if (option.equals("Edit")){
 			final int id = getIntent().getIntExtra("claim_id",1000000);
 			Claim claim = CLC.getClaim(id);
@@ -72,15 +73,14 @@ public class AddDestinationsActivity extends Activity
 		Button saveButton = (Button) findViewById(R.id.buttonSaveDestinations);
 		saveButton.setOnClickListener(new View.OnClickListener()
 		{
-
 			@Override
 			public void onClick(View v)
 			{
 				parentActivity.chooseTab(0);		
 			}
 		});
-
-
+		
+		//update the listview with any destinations
 		ListView list = (ListView) findViewById(R.id.listDestinations);
 		ArrayList<Destination> ns = parentActivity.getDestination();
 		s.clear();
@@ -89,16 +89,15 @@ public class AddDestinationsActivity extends Activity
 			s.add(ns.get(i).toString());
 		}
 
+		//enable long click deletion
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,s);
 		list.setAdapter(adapter);
 		list.setOnItemLongClickListener(new OnItemLongClickListener()
 		{
-
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3)
 			{
-
 				s.remove(arg2);
 				D.remove(arg2);
 				parentActivity.setDestination(D);
@@ -107,7 +106,7 @@ public class AddDestinationsActivity extends Activity
 			}
 		});
 
-
+		//adds the destination
 		Button addbutton = (Button) findViewById(R.id.buttonAddDestination);
 		addbutton.setOnClickListener(new View.OnClickListener()
 		{
@@ -136,7 +135,6 @@ public class AddDestinationsActivity extends Activity
 							parentActivity.setDestination(D);
 							adapter.add(dest.toString());
 							adapter.notifyDataSetChanged();
-							
 						}
 					});
 					adb.setNegativeButton("Remote Location", new OnClickListener() {
@@ -147,14 +145,11 @@ public class AddDestinationsActivity extends Activity
 						}
 					});
 					adb.show();
-
 				}
 			}
 		});
-
-
 	}
-
+	//receives a remote location from the map activity
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -188,7 +183,6 @@ public class AddDestinationsActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_destinations, menu);
 		return true;
