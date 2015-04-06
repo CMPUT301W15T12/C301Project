@@ -126,8 +126,13 @@ public class AddClaimActivity extends Activity
 		});
 
 	}
+	
+	/**
+	 * Reviews given input and updates an existing Expense Item
+	 * Then returns the user to the claim list page
+	 * @throws ParseException
+	 */
 
-	//saves any changes the user make to the claim and calls finish
 	public void editClaim() throws ParseException {
 		//edit Claim	
 		//Convert EditTexts to Strings and Dates
@@ -168,7 +173,9 @@ public class AddClaimActivity extends Activity
 
 	}	
 
-	//adds a new claim and goes back to claim list
+	/** adds a new claim and returns the user back to the claim list
+	 * @throws Parse Exception
+	 */
 	public void addClaim() throws ParseException  {
 		String name = editTextName.getText().toString();
 		String description = editTextDescription.getText().toString();
@@ -204,10 +211,11 @@ public class AddClaimActivity extends Activity
 		}
 	}
 
-	/** 
+	/** A dialog box which opens to allow the user to choose from any previously 
+	 * existing tags, and save them to the claim. It also allows the user to 
+	 * choose to add a new custom tag.
 	 * @param view
 	 */
-	//initialize the choose from previous tags dialogue
 	public void onClickTags(View view){
 		ArrayList<String> tagList = user.getTagList();
 		AlertDialog.Builder builder = new AlertDialog.Builder(AddClaimActivity.this);
@@ -262,8 +270,8 @@ public class AddClaimActivity extends Activity
 		builder.show();
 
 	}
-
-	//initialize the adding a tag dialogue
+	/**Saves a tag the user just made to the claim list
+	 */
 	protected void addTagDialog(){
 		LayoutInflater layoutInflater = LayoutInflater.from(AddClaimActivity.this);
 		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
@@ -303,7 +311,9 @@ public class AddClaimActivity extends Activity
 		alert.show();
 	}
 
-
+	/** When the date edit texts are clicked this date dialog opens, and allows the user to 
+	 * spin through the dates and add one to a claim.
+	 */ 
 	//http://androidopentutorials.com/android-datepickerdialog-on-edittext-click-event/ 2015/01/26
 	//initialize calendar view dialogues
 	private void setDateTimeField() {
