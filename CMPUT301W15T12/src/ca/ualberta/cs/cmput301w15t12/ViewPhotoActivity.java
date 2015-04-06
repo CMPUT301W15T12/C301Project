@@ -41,9 +41,9 @@ public class ViewPhotoActivity extends Activity {
 		setContentView(R.layout.view_photo);
 		
 		final int id = getIntent().getIntExtra("claim_id", 0);
-		Claim Claim = CLC.getClaim(id);
+		Claim claim = CLC.getClaim(id);
 		final int index = getIntent().getIntExtra("item_index", 0);
-		Item = Claim.getExpenseItems().get(index);
+		Item = claim.getExpenseItems().get(index);
 		
 		ImageView iv = (ImageView) findViewById(R.id.receiptImageView);
 		

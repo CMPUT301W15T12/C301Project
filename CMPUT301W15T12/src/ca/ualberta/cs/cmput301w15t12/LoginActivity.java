@@ -44,6 +44,12 @@ public class LoginActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_main);
 		ULC = new UserListController();
+
+		
+		EditText username = (EditText) findViewById(R.id.editLoginUserName);
+		username.requestFocus();
+		
+
 		new LoadingOnlineRecordTask().execute();
 		
 		//http://stackoverflow.com/questions/8384067/how-to-dismiss-the-dialog-with-click-on-outside-of-the-dialog 2015/04/02
@@ -99,14 +105,17 @@ public class LoginActivity extends Activity
 	private class LoadingOnlineRecordTask extends AsyncTask<Void, Void, Void> {
 	    @Override
 	    protected Void doInBackground(Void... optionalInputs) {
-	        //new ESClient().loadRecordFromServer();
+
+	        new ESClient().loadRecordFromServer();
+
 	        return null;
 	    }
 	    @Override
 	    protected void onPostExecute(Void result) {
 	        progress.dismiss();
-	        ClaimListController claimListController = new ClaimListController();
-	        Toast.makeText(LoginActivity.this,"Loaded: "+claimListController.size()+" claims "+UserList.users.size()+" users", Toast.LENGTH_SHORT).show();       
+	        //ClaimListController claimListController = new ClaimListController();
+	        //Toast.makeText(LoginActivity.this,"Loaded: "+claimListController.size()+" claims "+UserList.users.size()+" users", Toast.LENGTH_SHORT).show();       
+
 	    }  
 	}
 

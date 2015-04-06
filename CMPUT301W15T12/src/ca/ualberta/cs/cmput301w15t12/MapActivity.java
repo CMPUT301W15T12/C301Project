@@ -40,7 +40,8 @@ public class MapActivity extends Activity {
 	private double latitude = 0.0;
 	private double longitude = 0.0;
 	private User user;
-	
+	private ArrayList<OverlayItem> overlays = new ArrayList<OverlayItem>();
+	private String string;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class MapActivity extends Activity {
 					user = UserListController.getUserList().get(i);
 				}
 			}
-			ArrayList<OverlayItem> overlays = new ArrayList<OverlayItem>();
+
 			ClaimListController CLC = new ClaimListController();
 			final int id = getIntent().getIntExtra("claim_id", 0);
 			Claim claim = CLC.getClaim(id);
@@ -76,13 +77,12 @@ public class MapActivity extends Activity {
 				for (int i = 0; i < otherLocations.size(); i ++){
 					Location locItem = otherLocations.get(i);
 					GeoPoint loc = new GeoPoint(locItem);
-					overlays.add(new OverlayItem("" + loc, "", loc));
-					ItemizedIconOverlay<OverlayItem> locationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, null, resourceProxy);
-					this.mapView.getOverlays().add(
-							locationOverlay);
+					overlays.add(new OverlayItem("", "", loc));
+					string = string + locItem;
 				}
 			}
 			catch (Exception e){
+				e.printStackTrace();
 			}
 			Location homeLocation = user.getLocation();
 			GeoPoint homePoint = new GeoPoint(homeLocation);

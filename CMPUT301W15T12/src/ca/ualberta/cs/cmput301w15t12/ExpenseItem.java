@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
-
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 
@@ -51,7 +49,6 @@ public class ExpenseItem implements Serializable{
 	private boolean boolLocation;
 	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-	private Drawable picture;
 	private Integer imageId; 
 	private Uri uri;
 
@@ -193,10 +190,6 @@ public class ExpenseItem implements Serializable{
 			this.uri = imageFileUri;
 			this.receipt = true;
 		}
-	}
-	
-	public Drawable getDrawable(){
-		return this.picture;
 	}
 	
 	public Integer getImageId(){

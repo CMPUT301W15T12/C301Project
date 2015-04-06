@@ -39,7 +39,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -113,6 +112,7 @@ public class AddItemActivity extends Activity
 		if (option.equals("edit")){
 			expenseItemId = intent.getIntExtra("item_index", 0);
 			expenseItem = clc.getClaim(claim_id).getExpenseItems().get(expenseItemId);
+			location = expenseItem.getlocation();
 			//set fields to claim details    
 
 			String d = "";
@@ -209,6 +209,7 @@ public class AddItemActivity extends Activity
 			Toast.makeText(this, "Incorrect currency", Toast.LENGTH_SHORT).show();
 		}
 		expenseItem.setAmount(bdAmount);
+		expenseItem.setFlag(flag);
 		expenseItem.setDate(dfDate);
 		expenseItem.setUri(imageFileUri);
 		expenseItem.setlocation(location);
@@ -304,17 +305,17 @@ public class AddItemActivity extends Activity
 			//saves photo if save clicked
 			if (resultCode == RESULT_OK){
 				Button ib = (Button) findViewById(R.id.buttonAddImage);
-				if (((BitmapDrawable) Drawable.createFromPath(imageFileUri.getPath())).getBitmap().getByteCount() < 65536) {
+				//if (((BitmapDrawable) Drawable.createFromPath(imageFileUri.getPath())).getBitmap().getByteCount() < 65536000) {
 					Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
 					ib.setBackgroundDrawable(picture);
 					ib.setText("");
 					Toast.makeText(AddItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
 					CheckBox flagged = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
 					flagged.setChecked(true);
-				}
-				else{
-					Toast.makeText(AddItemActivity.this, "Receipt too big, try again", Toast.LENGTH_SHORT).show();
-				}
+				//}
+				//else{
+					//Toast.makeText(AddItemActivity.this, "Receipt too big, try again", Toast.LENGTH_SHORT).show();
+				//}
 			}
 			
 			//doesn't save photo if cancel clicked 
