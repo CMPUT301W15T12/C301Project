@@ -15,6 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
+ *   @author olexson
 */
 
 package ca.ualberta.cs.cmput301w15t12;
@@ -29,7 +30,6 @@ import android.widget.TabHost.TabSpec;
 @SuppressWarnings("deprecation")
 public class ChooseListActivity extends TabActivity
 {
-
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -61,8 +61,9 @@ public class ChooseListActivity extends TabActivity
 		tabHost.setCurrentTab(0);
 
 	}
-
-
+	/** menu item which saves all changes to the server
+	 */
+	 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
