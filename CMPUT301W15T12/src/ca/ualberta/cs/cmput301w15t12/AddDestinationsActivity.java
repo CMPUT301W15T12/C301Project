@@ -1,6 +1,6 @@
 /**
  * This  Activity allows a user to add, edit or delete the destinations
- * associated with a claim
+ * associated with a claim, and adds a remote or current location to each destination
  * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author megsum
+ *   @author vanbelle
  */
 
 package ca.ualberta.cs.cmput301w15t12;
@@ -50,7 +51,6 @@ public class AddDestinationsActivity extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_destinations);
 		ClaimListController CLC = new ClaimListController();
