@@ -31,6 +31,12 @@ public class Destination implements Serializable
 	private String Description;
 	private Location location;
 	
+	/**
+	 * creates a new destination from the provided input values
+	 * @param name
+	 * @param desc
+	 * @param location
+	 */
 	public Destination(String name, String desc,Location location)
 	{
 		this.Destination = name;
@@ -39,12 +45,20 @@ public class Destination implements Serializable
 	}
 
 	//for printing the list of destinations
+	/**
+	 * prints the destination name and description together as a string
+	 * @return destination string
+	 */
 	public String toString()
 	{
 		String string = Destination+": "+Description;
 		return string;
 	}	
-
+	/**
+	 * checks if 2 destinations are equals
+	 * @param d
+	 * @return true if they are, otherwise false
+	 */
 	public boolean equals(Destination d) {
 		if (d == null) {
 			return false;
@@ -54,27 +68,47 @@ public class Destination implements Serializable
 	}
 
 	//getters and setters
+	/**
+	 * 
+	 * @return destination name
+	 */
 	public String getDestination(){
 		return Destination;
 	}
+	/**
+	 * sets destination name
+	 * @param destination
+	 */
 	public void setDestination(String destination){
 		Destination = destination;
 	}	
+	/**
+	 * 
+	 * @return destination description
+	 */
 	public String getDescription(){
 		return Description;
 	}
+	/**
+	 * sets destination description
+	 * @param description
+	 */
 	public void setDescription(String description){
 		Description = description;
 	}
-
-	
+	/**
+	 * @return the gps location for a destination
+	 */
 	public Location getLocation()
 	{
 	
 		return location;
 	}
 
-	
+	/**
+	 *  sets the gps location for a destination
+	 * @param location
+	 */
 	public void setLocation(Location location)
 	{
 	

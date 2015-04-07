@@ -24,7 +24,7 @@ public class AlreadyExistsException extends Exception
 {
 
 	/**
-	 * 
+	 * gets thrown when something being added is a clone of something else inside that list
 	 */
 	private static final long serialVersionUID = -8966862467806794639L;
 

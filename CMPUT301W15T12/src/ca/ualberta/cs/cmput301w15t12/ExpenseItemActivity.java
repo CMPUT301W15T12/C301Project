@@ -176,6 +176,11 @@ public class ExpenseItemActivity extends Activity {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+	/**
+	 * responds to flagged checkbox being clicked by setting the expense item flag
+	 * to true or false 
+	 * @param view
+	 */
 	//checkbox function for checkBox1 (in item_page) when pressed by user
 	public void onCheckBoxClicked(View view){
 		boolean checked = ((CheckBox) view).isChecked();
@@ -188,7 +193,10 @@ public class ExpenseItemActivity extends Activity {
 		}
 		
 	}
-	
+	/**
+	 * responds to editButton being clicked by starting the addItemActivity
+	 * @param view
+	 */
 	public void editButton(View view){
 		if (Claim.editable()){
 			Intent intent = new Intent(ExpenseItemActivity.this,AddItemActivity.class);
@@ -200,7 +208,10 @@ public class ExpenseItemActivity extends Activity {
 			Toast.makeText(this,"Claim not editable",Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+	/**
+	 * responds to the delete button being clicked by opening a dialog for confirmation
+	 * @param view
+	 */
 	public void deleteButton(View view){
 		if (Claim.editable()){
 			AlertDialog.Builder adb = new AlertDialog.Builder(ExpenseItemActivity.this);

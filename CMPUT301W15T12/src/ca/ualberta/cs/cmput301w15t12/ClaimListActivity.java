@@ -89,7 +89,7 @@ public class ClaimListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-
+		//opens the manage tags activity
 		Button manager = (Button) findViewById(R.id.buttonManageTags);
 		manager.setOnClickListener(new View.OnClickListener()
 		{
@@ -102,15 +102,13 @@ public class ClaimListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-
-	}
-
-
-	public void onResume(){
-		super.onResume();
+		//updates the list of claims
 		updateList();
 	}
 
+	/**
+	 * updates the list of claims with the correct text color, and the correct image
+	 */
 	public void updateList(){
 		ListView listViewClaims = (ListView) findViewById(R.id.listViewClaims);
 		if (tagsArrayList.size() == 0) {
@@ -201,7 +199,7 @@ public class ClaimListActivity extends Activity {
 		});
 	}
 
-	/** 
+	/** opens the search by tags dialog
 	 * @param view
 	 */
 	//initialize the choose from previous tags dialogue
@@ -230,6 +228,7 @@ public class ClaimListActivity extends Activity {
 		builder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
+				//prints the tags being searched by
 				EditText tags = (EditText) findViewById(R.id.editTextSearchTags);
 				String block = "";
 				for (int i = 0; i < tagsArrayList.size(); i++) {
