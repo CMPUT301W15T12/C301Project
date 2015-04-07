@@ -37,6 +37,7 @@ public class ClaimListActivityTests extends ActivityInstrumentationTestCase2<Cla
 	
 	protected void setUp() throws Exception {
 		super.setUp();
+		ExpenseItem.init(getInstrumentation().getTargetContext());
 	}
 	
 	//US02.03.01 added 2015-03-23

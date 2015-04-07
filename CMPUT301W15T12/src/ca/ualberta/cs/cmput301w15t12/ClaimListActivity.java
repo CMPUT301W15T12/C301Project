@@ -134,13 +134,10 @@ public class ClaimListActivity extends Activity {
 				Float distance = l.distanceTo(u);
 				if (distance < 3000000) {
 					imageId[i] = R.drawable.planeone;
-					Toast.makeText(this, "1",Toast.LENGTH_SHORT).show();
 				} else if (distance < 10000000) {
 					imageId[i] = R.drawable.planetwo;
-					Toast.makeText(this, "2",Toast.LENGTH_SHORT).show();
 				} else if (distance > 10000000) {
 					imageId[i] = R.drawable.planethree;			    	
-					Toast.makeText(this, "3",Toast.LENGTH_SHORT).show();
 				}
 			}
 		}
@@ -153,7 +150,7 @@ public class ClaimListActivity extends Activity {
 				TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
 				ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
 				txtTitle.setText(cl.get(position));
-				//imageView.setImageResource(imageId[position]);
+				imageView.setImageResource(imageId[position]);
 				//			    View view = super.getView(position, convertView, parent);
 				//			    TextView txtTitle = (TextView) view.findViewById(android.R.id.text1);
 				if (claims.get(position).getDestination().size() == 0){

@@ -33,6 +33,7 @@ public class ApproverActivityTests extends ActivityInstrumentationTestCase2<Appr
 	
 	protected void setUp() throws Exception {
 		super.setUp();
+		ExpenseItem.init(getInstrumentation().getTargetContext());
 	}
 	
 	//US08.03.01

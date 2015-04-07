@@ -1,7 +1,9 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
+import ca.ualberta.cs.cmput301w15t12.ClaimListActivity;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.ExpenseList;
 import ca.ualberta.cs.cmput301w15t12.Listener;
@@ -10,13 +12,23 @@ import ca.ualberta.cs.cmput301w15t12.User;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import junit.framework.TestCase;
 
-
-public class ExpenseListTests extends TestCase
+public class ExpenseListTests extends ActivityInstrumentationTestCase2<ClaimListActivity>
 {
 	
+	public ExpenseListTests()
+	{
+
+		super(ClaimListActivity.class);
+	}
+
+
 	private boolean updated = false;
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+		ExpenseItem.init(getInstrumentation().getTargetContext());
+	}
 	
 	//US04.07.01 - able to delete an expense item when allowed
 	public void testdeleteExpense() throws AlreadyExistsException {

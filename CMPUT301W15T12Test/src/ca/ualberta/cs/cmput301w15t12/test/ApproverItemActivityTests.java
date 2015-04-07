@@ -29,6 +29,7 @@ public class ApproverItemActivityTests extends ActivityInstrumentationTestCase2<
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		ExpenseItem.init(getInstrumentation().getTargetContext());
 	}
 
 	public void testitemUI() throws ParseException, AlreadyExistsException {

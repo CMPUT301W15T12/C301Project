@@ -7,16 +7,27 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import junit.framework.TestCase;
-
+import ca.ualberta.cs.cmput301w15t12.ClaimListActivity;
 import ca.ualberta.cs.cmput301w15t12.Destination;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
 import ca.ualberta.cs.cmput301w15t12.User;
 import android.location.Location;
+import android.test.ActivityInstrumentationTestCase2;
 
 
-public class GeolocationTests extends TestCase
+public class GeolocationTests extends ActivityInstrumentationTestCase2<ClaimListActivity>
 {
+	public GeolocationTests()
+	{
+
+		super(ClaimListActivity.class);
+	}
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+		ExpenseItem.init(getInstrumentation().getTargetContext());
+	}
+
 	DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
 
 	
