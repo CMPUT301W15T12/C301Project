@@ -16,6 +16,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
+ *   @author msumner
  */
 
 package ca.ualberta.cs.cmput301w15t12;
@@ -43,11 +44,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * @author msumner
- *
- */
-
 public class ClaimActivity extends Activity {
 
 	public int id;
@@ -62,6 +58,7 @@ public class ClaimActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.claimant_claim_page);
+		//gets the intents
 		try {
 			Username = getIntent().getExtras().getString("username");
 			id = getIntent().getIntExtra("claim_id", 0);
@@ -79,6 +76,7 @@ public class ClaimActivity extends Activity {
 				if (!claim.editable()) {
 					Toast.makeText(ClaimActivity.this, "No Edits allowed",Toast.LENGTH_SHORT).show();
 				} else {
+					//passes on the id and the option pressed
 					Intent intent = new Intent(ClaimActivity.this, AddItemActivity.class);
 					intent.putExtra("claim_id", id);
 					intent.putExtra("option","add");
@@ -122,11 +120,13 @@ public class ClaimActivity extends Activity {
 			eitems.add(Items.get(i).toStringList());
 		}
 
+		//sets the expense item list
 		final CustomList adapter = new CustomList(ClaimActivity.this, eitems, imageId);
 		ListView list = (ListView) findViewById(R.id.listExpenseItems);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
+			//when an item is clicked take the user to the expense item that was chosen
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3)
@@ -142,6 +142,7 @@ public class ClaimActivity extends Activity {
 		CLC.addListener(new Listener() {
 			@Override
 			public void update() {
+				//get the images associated with the expense items
 				ArrayList<String> eitems = new ArrayList<String>();
 				final ArrayList<ExpenseItem> Items = claim.getExpenseItems();
 				Integer[] imageId = new Integer[Items.size()];
@@ -170,7 +171,10 @@ public class ClaimActivity extends Activity {
 		return true;
 	}
 
-	//menu item delete claim
+	/**
+	 * menu item when clicked it deletes the claim
+	 * @param menu
+	 */
 	public void deleteClaim(MenuItem menu) {
 		if (!claim.editable()) {
 			Toast.makeText(ClaimActivity.this, "No edits allowed", Toast.LENGTH_LONG).show();
@@ -195,7 +199,10 @@ public class ClaimActivity extends Activity {
 		}
 	}
 
-	//menu item edit claim
+	/**
+	 * menu item when clicked allows the user to edit the claim
+	 * @param menu
+	 */
 	public void editClaim(MenuItem menu) {
 		if (!claim.editable()) {
 			Toast.makeText(ClaimActivity.this, "No edits allowed", Toast.LENGTH_LONG).show();
@@ -208,7 +215,10 @@ public class ClaimActivity extends Activity {
 		}
 	}
 
-	//menu item submitClaim
+	/**
+	 * menu item when clicked allows the user to submit the Claim
+	 * @param menu
+	 */
 	public void submitClaim(MenuItem menu) {
 		String text = "Submit this Claim?";
 		if (claim.incomplete()) {
@@ -235,21 +245,31 @@ public class ClaimActivity extends Activity {
 		}
 	}
 
-	//menu item email claim	
+	/**
+	 * menu item when clicked allows the user to email the claim	
+	 * @param menu
+	 */
 	public void emailClaim(MenuItem menu) {
 		Intent intent = new Intent(ClaimActivity.this, EmailActivity.class);
 		intent.putExtra("claim_id", id);
 		startActivity(intent);
 	}
 
-	//menu item see comments takes user to seeComments activity
+	/**
+	 * menu item see comments takes user to see a list of Comments corresponding to the returned/approved claim
+	 * @param menu
+	 */
 	public void seeComments(MenuItem menu) {
 		Intent intent = new Intent(ClaimActivity.this, SeeCommentsActivity.class);
 		intent.putExtra("claim_id", id);
 		startActivity(intent);
 	}
 	
-	//open map activity to see all locations associated with a claim
+	/**
+	 * see locations when clicked navigates the user to the map activity 
+	 * to see all locations associated with a claim
+	 * @param menu
+	 */
 	public void seeLocations(MenuItem menu) {
 		Intent intent = new Intent(ClaimActivity.this, MapActivity.class);
 		intent.putExtra("claim_id", id);
@@ -323,7 +343,7 @@ public class ClaimActivity extends Activity {
 		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ClaimActivity.this);
 		alertDialogBuilder.setView(promptView);
-
+		//set the dialog prompt
 		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTagName);
 		
 		alertDialogBuilder.setCancelable(false)
@@ -337,10 +357,12 @@ public class ClaimActivity extends Activity {
 				if (!user.getTagList().contains(editText.getText().toString())) {
 					user.addTag(editText.getText().toString());
 				}
+				//hows the tags and saves them
 				claim.setTagList(tagsArrayList);
 				tags.setText(claim.toStringTagList(tagsArrayList));
 			}
 		})
+		//cancel the add tag
 		.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {

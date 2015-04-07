@@ -77,7 +77,8 @@ public class ChooseListActivity extends TabActivity
 		return true;
 	}
 	
-	/** menu item which saves all changes to the server
+	/** menu item calls the class which saves all changes to the server
+	 * @param menu
 	 */
 	//menu item save claim	
 	public void saveClaim(MenuItem menu) {

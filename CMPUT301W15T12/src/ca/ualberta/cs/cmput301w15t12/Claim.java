@@ -119,11 +119,17 @@ public class Claim {
 			return false;
 		}
 	}
-
+	/** returns whether or not the claim is incomplete
+	 * @return true if there are no expense items, or one of the items has been flagged or the
+	 * claim is missing a necessary parameter.
+	 * Otherwise it returns false.
+	 */
 	public boolean incomplete() {
 		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
+		if (this.expenseList.size() == 0){
+			return true;
+		}
 		for (int i = 0; i < expenseItems.size(); i++) {
-			expenseItems.get(i).incomplete();
 			if (expenseItems.get(i).getFlag()){
 				return true;
 			}
@@ -135,6 +141,10 @@ public class Claim {
 	}
 
 	//All the toString functions
+	/** Creates a string representation of the claim containing all the requirements from the approver list
+	 *  --> the date, claimant name, total,destinations, and any approver name
+	 * @return String representation of the claim
+	 */
 	public String toStringApproverList() {
 		String ds= dateFormat.format(startDate);
 		String block = "["+ds+"] "+Claimant.getUserName()+" - "+Status;
@@ -149,7 +159,10 @@ public class Claim {
 		}
 		return block;
 	}
-
+	/** Creates a string representation of the claim containing all the requirements from the claimant list
+	 *  --> the date, claim name, total,destinations,tags
+	 * @return String representation of the claim
+	 */
 	public String toStringClaimantList() {
 		String ds = dateFormat.format(startDate);
 		String block = "["+ds+"] "+name+" - "+Status;
@@ -162,6 +175,9 @@ public class Claim {
 		}
 		return block;
 	}
+	/** Creates a string representation of the destination list including the descriptions
+	 * @return String representation of the destination list
+	 */
 	public String destinationsToString() {
 		String dests = "";
 		for (int i = 0; i < destinations.size(); i++) {
@@ -173,6 +189,9 @@ public class Claim {
 		}
 		return dests;
 	}
+	/** Creates a string representation of the destination list excluding the descriptions
+	 * @return String representation of the destination list
+	 */
 	public String destinationsListToString() {
 		String dests = "";
 		for (int i = 0; i < destinations.size(); i++) {
@@ -184,6 +203,10 @@ public class Claim {
 		}
 		return dests;
 	}
+	/** Creates a string representation of the tag list
+	 * with commas separating the items
+	 * @return String representation of the tag list
+	 */
 	public String toStringTagList(ArrayList<String> list) {
 		String string = "";
 		for (int i = 0; i < list.size(); i++) {
@@ -195,7 +218,10 @@ public class Claim {
 		}
 		return string;
 	}
-
+	/** Creates a string representation of the claim with everything included, 
+	 * ready to be emailed
+	 * @return String representation of the claim
+	 */
 	public String toEmail() {
 		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
 		String ds = dateFormat.format(startDate);
@@ -212,7 +238,11 @@ public class Claim {
 		return string;
 	}
 	// end toString functions
-
+	/**checks if two claims are equal by comparing the claim ids
+	 * 
+	 * @param claim
+	 * @return true if the ids are equal and false otherwise
+	 */
 	public boolean equals(Claim claim) {
 		if (claim == null) {
 			return false;
@@ -221,22 +251,46 @@ public class Claim {
 	}
 
 	//all the adds/removes/contains for the lists
+	/** removes an expense item from the expense item list with the index i
+	 * @param i
+	 */
 	public void removeItem(int i) {
 		this.expenseList.rmExpenseItem(i);
 	}
-
+	/**adds an expense item to the expense item list
+	 * 
+	 * @param item
+	 */
 	public void addItem(ExpenseItem item) {
 		this.expenseList.addExpenseItem(item);
 	}
+	/**adds a comment to the comment list
+	 * 
+	 * @param Comment
+	 */
 	public void addComment(String Comment) {
 		this.comment.add(Comment);
 	}
+	/**checks if the expense item list contians 
+	 * a particular expense item
+	 * @param Item
+	 * @return true if it does, otherwise false
+	 */
 	public boolean containsItem(ExpenseItem Item){
 		return this.expenseList.contains(Item);	
 	}
+	/** returns the list of photo ids corresponding to the expense items
+	 * @return integer[] where integer[i] corresponds to expense item[i]
+	 * and contains the photo to be placed next to that item in the list view
+	 */
 	public Integer[] getIds() {
 		return expenseList.getIds();
 	}
+	/**
+	 * adds a destination to the destination list
+	 * @param destination
+	 * @throws AlreadyExistsException
+	 */
 	public void addDestination (Destination destination) throws AlreadyExistsException {
 		if (!destinations.contains(destination)){
 			destinations.add(destination);
@@ -244,15 +298,33 @@ public class Claim {
 			throw new AlreadyExistsException();
 		}
 	}
+	/**
+	 * removes a destination from the destinations list
+	 * @param i
+	 */
 	public void removeDestination(int i) {
 		destinations.remove(i);
 	}
+	/**
+	 * checks if the destinations list contains a particular destination
+	 * @param Destination
+	 * @return true if it does otherwise false
+	 */
 	public boolean containsDestination(Destination Destination) {
 		return destinations.contains(Destination);
 	}
+	/**
+	 * removes a tag from the tag list
+	 * @param pos
+	 */
 	public void removeTag(int pos) {
 		tagList.remove(pos);
 	}
+	/**
+	 * adds a tag to the tag list
+	 * @param tag
+	 * @throws AlreadyExistsException if that tag is already in the list
+	 */
 	public void addTag(String tag) throws AlreadyExistsException {
 		if (!tagList.contains(tag)){
 			tagList.add(tag);
@@ -261,12 +333,26 @@ public class Claim {
 		}
 		notifyListeners();
 	}
+	/**
+	 * checks if the tag list contains a particular tag
+	 * @param tag
+	 * @return returns true if it does otherwise false
+	 */
 	public boolean containsTag(String tag){
 		return tagList.contains(tag);	
 	}
 	//end add/remove/contains
 
 	//All the getters and setters
+	/**sets all the claim values to their editted values
+	 * 
+	 * @param name
+	 * @param startDate
+	 * @param endDate
+	 * @param description
+	 * @param tags
+	 * @param destinations
+	 */
 	public void setAll(String name, Date startDate, Date endDate, String description, ArrayList<String> tags,ArrayList<Destination> destinations){
 		setName(name);
 		setStartDate(startDate);
@@ -275,85 +361,177 @@ public class Claim {
 		setTagList(tags);
 		setDestination(destinations);
 	}
+	/**
+	 * @return the claim id
+	 */
 	public int getId(){
 		return id;
 	}
+	/**
+	 * 
+	 * @return the expense item ArrayList
+	 */
 	public ArrayList<ExpenseItem> getExpenseItems() {
 		return this.expenseList.getList();
 	}
+	/**
+	 * sets the expense item list to a given expense item list
+	 * @param expenseItems
+	 */
 	public void setExpenseItems(ArrayList<ExpenseItem> expenseItems) {
 		this.expenseList.setList(expenseItems);
 	}
+	/**
+	 * 
+	 * @return the claim name
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * sets the claim name to the name provided
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 		notifyListeners();
 	}	
+	/**
+	 * 
+	 * @return the claim creator user 
+	 */
 	public User getClaimant() {
 		return Claimant;
 	}
+	/**
+	 * sets the claimant to the provided user
+	 * @param name
+	 */
 	public void setClaimant (User name) {
 		this.Claimant = name;
 	}	
+	/**
+	 * 
+	 * @return the ArrayList of comments
+	 */
 	public ArrayList<String> getComment() {
 		return comment;
 	}
+	/**
+	 * sets the Arraylist of comments to the one provided
+	 * @param comment
+	 */
 	public void setComment(ArrayList<String> comment) {
 		this.comment = comment;
 	}	
+	/**
+	 * 
+	 * @return the claim description
+	 */
 	public String getDescription() {
 		return Description;
 	}
-
+	/**
+	 * sets the claim description to the one provided
+	 * @param desc
+	 */
 	public void setDescription(String desc) {
 		this.Description = desc;
 		notifyListeners();
 	}	
+	/**
+	 * @return the claim status
+	 */
 	public String getStatus() {
 		return Status;
 	}
+	/**
+	 * sets the claim status
+	 * @param status
+	 */
 	public void setStatus(String status) {
 		this.Status = status;
 	}	
+	/**
+	 * 
+	 * @return the claim start date
+	 */
 	public Date getStartDate() {
 		return startDate;
 	}
+	/**
+	 * sets the claim start date
+	 * @param startDate
+	 */
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+	/** 
+	 * 
+	 * @return the claim end date
+	 */
 	public Date getEndDate() {
 		return endDate;
 	}
+	/**
+	 * sets the claim end date
+	 * @param endDate
+	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 		notifyListeners();
 	}
+	/**
+	 * 
+	 * @return the arraylist of destinations
+	 */
 	public ArrayList<Destination> getDestination() {
 		return destinations;
 	}
+	/** 
+	 * sets the array list of destinations to the one provided
+	 * @param destination
+	 */
 	public void setDestination(ArrayList<Destination> destination) {
 		this.destinations = destination;
 		notifyListeners();
 	}
+	/**
+	 * 
+	 * @return the claim approver User
+	 */
 	public User getApprover() {
 		return approver;
 	}
+	/** 
+	 * sets the claim approver to the one provided
+	 * @param app
+	 */
 	public void setApprover(User app) {
 		this.approver = app;
 	}
+	/**
+	 * @return the arraylist of tags
+	 */
 	public ArrayList<String> getTagList(){
 		if (tagList == null){
 			tagList = new ArrayList<String>();
 		}
 		return tagList;
 	}
+	/**
+	 * sets the arraylist of tags to the one provided
+	 * @param list
+	 */
 	public void setTagList(ArrayList<String> list) {
 		this.tagList = list;
 	}
 	
 	//gets the total
+	/**
+	 * computes the total from the expense items in the expense item array
+	 * @return an array list of strings
+	 */
 	public ArrayList<String> getTotal() {
 		ArrayList<ExpenseItem> expenseItems = this.expenseList.getList();
 		HashMap <String,BigDecimal> costDictionary = new HashMap<String, BigDecimal>();
@@ -380,6 +558,9 @@ public class Claim {
 		}
 		return formatedStringList;
 	}
+	/**format the total arraylist into a string
+	 * @return a string format of the total
+	 */
 	public String getTotalString(){
 		ArrayList<String> TS = getTotal();
 		String s = "";
@@ -388,7 +569,9 @@ public class Claim {
 		}
 		return s;
 	}
-	
+	/**
+	 * @return the arraylist of locations from the destinations and expense items
+	 */
 	public ArrayList<Location> getLocations(){
 		locations.clear();
 		for (int i = 0; i < destinations.size(); i++) {
@@ -406,20 +589,34 @@ public class Claim {
 	//end getters and setters
 
 	//All Listener Functions
+	/**
+	 * @return an array list of listeners
+	 */
 	private ArrayList<Listener> getListeners() {
 		if (listeners == null ) {
 			listeners = new ArrayList<Listener>();
 		}
 		return listeners;
 	}
+	/**
+	 * notifies all listeners of a change
+	 */
 	private void notifyListeners() {
 		for (Listener listener : getListeners()) {
 			listener.update();
 		}
 	}
+	/**
+	 * add a listener to the list of listeners
+	 * @param L
+	 */
 	public void addListener (Listener L) {
 		getListeners().add(L);
 	}
+	/**
+	 * removes a listener from the arraylist of listeners
+	 * @param l
+	 */
 	public void removeListener(Listener l) {
 		getListeners().remove(l);
 	}

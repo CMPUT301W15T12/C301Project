@@ -80,7 +80,11 @@ public class AddItemActivity extends Activity
 	private EditText editCurrency;
 	private EditText editAmount;
 	public Location location;
-
+	
+	/**
+	 * 
+	 * 
+	 */
 	
 	private class LoadingPictureTask extends AsyncTask<URI, Void, File> {
 	    @Override
@@ -329,6 +333,11 @@ public class AddItemActivity extends Activity
 		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 	
+	/**
+	 * 
+	 * 
+	 *
+	 */
 	
 	private class SavingPictureTask extends AsyncTask<File, Void, URI> {
 	    @Override
