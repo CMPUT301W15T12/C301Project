@@ -15,6 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
+ *   @author olexson
 */
 
 package ca.ualberta.cs.cmput301w15t12;
@@ -66,8 +67,7 @@ public class ChooseListActivity extends TabActivity
 		tabHost.setCurrentTab(0);
 
 	}
-
-
+	 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -77,6 +77,8 @@ public class ChooseListActivity extends TabActivity
 		return true;
 	}
 	
+	/** menu item which saves all changes to the server
+	 */
 	//menu item save claim	
 	public void saveClaim(MenuItem menu) {
 		progress = new ProgressDialog(this);

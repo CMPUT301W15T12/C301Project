@@ -1,11 +1,11 @@
 /* Description: jUnit tests for testing the ViewPhotoActivity
  * This test ensures the photo is correctly loaded, and the image size meets the requirement.
- * Author: Qiushi Jiang
- * Email: qsjiang@ualberta.ca
  */
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,10 +32,14 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 	
 	public ViewPhotoActivityTest() {
 		super(ViewPhotoActivity.class);
+		
 	}
 	
 	protected void setUp() throws Exception {
 		super.setUp();
+		// Initialize currencies and categories list in ExpenseItem
+		ExpenseItem.init(getInstrumentation().getTargetContext());
+			
 	}
 	
 	//[US06.02.01] - Viewing photograph of a receipt
@@ -47,21 +51,11 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 		assertTrue("receiptImageView should be an instanceof ImageView",receiptImageView.getClass() == ImageView.class);
 	}
 	
-	//[US06.02.01] - Viewing photograph of a receipt
-
-//	public void testImageLoaded() throws ParseException, AlreadyExistsException{
-//		ViewPhotoActivity activity = startViewPhotoActivity();
-//		View receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
-//		if((BitmapDrawable)((ImageView)receiptImageView).getDrawable()==null){
-//			fail("Receipt photo is not loaded inside the image view");
-//			return;
-//		}		
-//	}
-	
 	//[US06.04.01] - Limiting image file size
 	public void testImageSize() throws ParseException, AlreadyExistsException{
 		ViewPhotoActivity activity = startViewPhotoActivity();
 		ImageView receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
+
 		if((BitmapDrawable)receiptImageView.getDrawable()==null){
 			fail("Receipt photo is not loaded inside the image view");
 			return;
@@ -88,8 +82,6 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 		int id = clc.addClaim("name", d1, d2,"desc",user);
 		ExpenseItem item = new ExpenseItem("name", "", "description", "USD", new BigDecimal(12),d1,true);
 		clc.getClaim(id).addItem(item);
-		Uri imageFileUri = Uri.parse("android.resource://CMPUT301W15T12" + R.drawable.globe);
-		item.setUri(imageFileUri);
 		Intent intent = new Intent();
 		intent.putExtra("claim_id",id);
 		intent.putExtra("item_index",0);

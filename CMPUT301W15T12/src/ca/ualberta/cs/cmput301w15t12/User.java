@@ -77,7 +77,14 @@ public class User implements Serializable
 		tagList.add(tag);
 	}
 
-
+	public void removeTag(String tag) {
+		if (tagList.indexOf(tag) > -1) {
+			tagList.remove(tag);
+		} else {
+			throw new RuntimeException("Tag doesn't exist");
+		}	
+	}
+	
 	//getters and setters
 	public String getUserName() {
 		return UserName;
@@ -104,4 +111,5 @@ public class User implements Serializable
 	{
 		this.location = location;
 	}
+
 }

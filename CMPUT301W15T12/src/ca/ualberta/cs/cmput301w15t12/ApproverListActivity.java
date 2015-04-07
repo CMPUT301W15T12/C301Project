@@ -61,12 +61,13 @@ public class ApproverListActivity extends Activity
 		Collections.reverse(claims);
 		ArrayList<String> sclaims = new ArrayList<String>();
 
+		//list the submitted claims displaying appropriate info
 		for (int i = 0; i < claims.size(); i++){
 			if (claims.get(i).getApprover()== null || claims.get(i).getApprover().getUserName().equals(approver)) {
 				sclaims.add(claims.get(i).toStringApproverList());
 			}
 		}
-
+		//toast if there are no claims
 		if (claims.size() == 0) {
 			Toast.makeText(this, "No Submitted Claims", Toast.LENGTH_SHORT).show();
 		}

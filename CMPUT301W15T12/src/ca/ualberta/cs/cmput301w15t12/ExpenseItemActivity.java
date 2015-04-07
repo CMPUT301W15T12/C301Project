@@ -21,6 +21,8 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -31,6 +33,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -50,6 +53,28 @@ public class ExpenseItemActivity extends Activity {
 	public Uri imageFileUri = null;
 	public int id;
 
+	private class LoadingPictureTask extends AsyncTask<URI, Void, File> {
+	    @Override
+	    protected File doInBackground(URI... uris) {
+	    	URI uri = uris[0];	//pick the first one.
+	    	ESClient esClient =new ESClient();
+	        return esClient.loadImageFileFromServer(uri);
+	    }
+	    @Override
+	    protected void onPostExecute(File file) {
+    		Button viewbutton = (Button) findViewById(R.id.buttonImage);
+
+	    	if (file==null){
+				viewbutton.setText("No Receipt");
+	    	}else{
+				Drawable picture = Drawable.createFromPath(file.getPath());
+				viewbutton.setBackgroundDrawable(picture);
+				viewbutton.setText("");
+	    	}
+	    }  
+	}
+	
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +88,8 @@ public class ExpenseItemActivity extends Activity {
 		Item = Claim.getExpenseItems().get(index);
 		final Button viewbutton = (Button) findViewById(R.id.buttonImage);
 		
-		if (!Item.getReceipt()){
-			viewbutton.setText("No Receipt");
-		}
-		else{
-			imageFileUri = Item.getUri();
-			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-			viewbutton.setBackgroundDrawable(picture);
-			viewbutton.setText("");
-		}
+		new LoadingPictureTask().execute(Item.getUri());
+
 		//clickable button, confirms delete choice
 		Button deletebutton = (Button) findViewById(R.id.buttonitemdelete);
 		deletebutton.setOnClickListener(new View.OnClickListener() {
@@ -138,15 +156,8 @@ public class ExpenseItemActivity extends Activity {
 		flag.setChecked(Item.getFlag());
 
 		Button viewbutton = (Button) findViewById(R.id.buttonImage);
-		if (!Item.getReceipt()){
-			viewbutton.setText("No Receipt");
-		}
-		else{
-			imageFileUri = Item.getUri();
-			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-			viewbutton.setBackgroundDrawable(picture);
-			viewbutton.setText("");
-		}
+		new LoadingPictureTask().execute(Item.getUri());
+
 	}
 
 	@Override

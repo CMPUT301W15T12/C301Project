@@ -15,6 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  *   @author vanbelle
+ *   @author megsum
  */
 
 package ca.ualberta.cs.cmput301w15t12;
@@ -66,9 +67,11 @@ public class ApproverClaimActivity extends Activity {
 		Button commentBtn = (Button) findViewById(R.id.buttonAddComment);
 		commentBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				//do not allow a user to comment their own claim
 				if (Claim.getClaimant().getUserName().equals(approver)) {
 					Toast.makeText(ApproverClaimActivity.this, "Not Allowed to Comment Own Claim", Toast.LENGTH_LONG).show();
 				} else {
+					//open a dialog to ask for a comment
 					LayoutInflater LI = LayoutInflater.from(ApproverClaimActivity.this);
 					final View promptView = LI.inflate(R.layout.input_dialog, null);
 					EditText enter = (EditText) promptView.findViewById(R.id.editTextTagName);
@@ -91,6 +94,7 @@ public class ApproverClaimActivity extends Activity {
 							}
 						}
 					})
+					//return to the claim page
 					.setNegativeButton("Cancel",
 							new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
@@ -101,18 +105,20 @@ public class ApproverClaimActivity extends Activity {
 					alert.show();
 				}
 			}
-
 		});
 
 		//approve claim button - asks for confirmation then approves
 		Button approveBtn = (Button) findViewById(R.id.buttonApproverApprove);
 		approveBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				//do not allow a user to approve their own claim
 				if (approver.equals(Claim.getClaimant().getUserName())){
 					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
 				} else if (Claim.getComment().size() == 0){
-					Toast.makeText(ApproverClaimActivity.this,"Stil Needs a Comment", Toast.LENGTH_LONG).show();
+					//do not allow a approver to submit anything without a comment
+					Toast.makeText(ApproverClaimActivity.this,"Still Needs a Comment", Toast.LENGTH_LONG).show();
 				} else {
+					//allow a user to approve a claim
 					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
 					adb.setMessage("Approve this Claim?");
 					adb.setCancelable(true);
@@ -122,12 +128,15 @@ public class ApproverClaimActivity extends Activity {
 							try{
 								Claim.approveClaim(approver);
 							} catch (NotAllowedException e1){
+								//approve own claim exception
 								Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
 							} catch(MissingItemException e2){
+								//missing comment
 								Toast.makeText(ApproverClaimActivity.this,"Stil Needs a Comment", Toast.LENGTH_LONG).show();
 							}
 						}
 					});
+					//return to claim page
 					adb.setNegativeButton("Cancel", new OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 						}
@@ -141,11 +150,14 @@ public class ApproverClaimActivity extends Activity {
 		Button returnBtn = (Button) findViewById(R.id.buttonApproverReturn);
 		returnBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				//do not allow a user to return their own claim
 				if (approver.equals(Claim.getClaimant().getUserName())){
 					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Return Own Claim", Toast.LENGTH_LONG).show();
 				} else if (Claim.getComment().size() == 0){
+					//do not allow a user to return a claim without a comment
 					Toast.makeText(ApproverClaimActivity.this,"Stil Needs a Comment", Toast.LENGTH_LONG).show();
 				} else{
+					//allow a user to return a claim
 					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
 					adb.setMessage("Return this Claim?");
 					adb.setCancelable(true);
@@ -181,7 +193,6 @@ public class ApproverClaimActivity extends Activity {
 		TextView description = (TextView) findViewById(R.id.textApproverClaimDescription);
 		TextView dates = (TextView) findViewById(R.id.textApproverStarttoEndDate);
 		TextView destinations = (TextView) findViewById(R.id.textApproverClaimDestinations);
-
 
 		//sets the textviews
 		name.setText(Claim.getName()+" - "+Claim.getStatus());
@@ -227,7 +238,6 @@ public class ApproverClaimActivity extends Activity {
 
 		CLC.addListener(new Listener()
 		{
-
 			@Override
 			public void update()
 			{

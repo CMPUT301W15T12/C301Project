@@ -21,23 +21,22 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+
+import android.content.Context;
 import android.location.Location;
-import android.net.Uri;
 
 public class ExpenseItem implements Serializable{
 
 	private static final long serialVersionUID = -2552967637419002646L;
-	private static final ArrayList<String> currencies = new ArrayList<String>(
-			Arrays.asList("CAD", "USD", "EUR", "GBP", "CHF", "JPY", "CNY"));
-	private static final ArrayList<String> categories = new ArrayList<String>(
-			Arrays.asList("Air Fare", "Ground Transport", "Vehicle Rental", "Private Automobile",
-					"Fuel", "Parking", "Registration", "Accommodation", "Meal", "Supplies"));
+	private static ArrayList<String> currencies;
+	private static ArrayList<String> categories;
 	private String name;
 	private String category;
 	private String description;
@@ -50,9 +49,14 @@ public class ExpenseItem implements Serializable{
 	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	private Integer imageId; 
-	private Uri uri;
+	private URI uri;
 
-
+	// Initialize currencies and categories if they weren't already initialized
+	public static void init(Context c) {
+		if (currencies == null) currencies = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.currency)));
+		if (categories == null) categories = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.category)));
+	}
+	
 	public ExpenseItem(String name,String category, String description, String currency, 
 			BigDecimal amount, Date date, boolean flag){
 		this.name = name;
@@ -182,7 +186,7 @@ public class ExpenseItem implements Serializable{
 		}
 	}
 
-	public void setUri(Uri imageFileUri) {
+	public void setUri(URI imageFileUri) {
 		if (imageFileUri == null) {
 			this.receipt = false;
 			this.uri = null;
@@ -213,7 +217,7 @@ public class ExpenseItem implements Serializable{
 		return imageId;
 	}
 	
-	public Uri getUri() {
+	public URI getUri() {
 		return uri;
 	}
 	public boolean getBoolLocation(){

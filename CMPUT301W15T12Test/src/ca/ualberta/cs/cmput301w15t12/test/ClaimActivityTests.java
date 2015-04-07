@@ -6,11 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
 import android.test.ViewAsserts;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import ca.ualberta.cs.cmput301w15t12.AddClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimActivity;
@@ -54,26 +58,6 @@ ActivityInstrumentationTestCase2<ClaimActivity> {
 
 	}
 
-	//US07.02.01 - Visual warning of missing values
-	public void testIncompleteClaimPrompt() {
-		// Start ClaimActivity, should be blank since its a new claim
-		//ClaimActivity activity = getActivity();
-
-		// May not end up being a button, but click the submit button
-		//Button submitButton = (Button) activity.getSubmitButton();
-		//submitButton.performClick();
-
-		// FormFragment should have mechanism to clear invalid inputs and reset their hint texts with red color
-		// on click of submitButton 
-
-		// Check if that's the case
-		// TODO: Check all of the inputs in FormFragment have red hint text
-		//FormFragment formFragment = activity.getFormFragment();
-		//EditText description = (EditText) formFragment.editDescription();
-
-		//assertTrue("Missing value prompt was not initiated", description.getHintTextColors() == formFragment.colorStateList);
-		assertTrue(false);
-	}
 
 	// US07.03.01 - Returning a claim, allowing edits thereafter
 	public void testReturnedStatus() throws AlreadyExistsException, NotAllowedException, MissingItemException {

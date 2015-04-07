@@ -18,6 +18,7 @@ import ca.ualberta.cs.cmput301w15t12.User;
 public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 {
 	public ClaimTests(){
+		
 		super(ClaimActivity.class);
 	}
 

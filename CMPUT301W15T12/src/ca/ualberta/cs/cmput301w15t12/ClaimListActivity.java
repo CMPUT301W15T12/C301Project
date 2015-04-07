@@ -208,7 +208,7 @@ public class ClaimListActivity extends Activity {
 	public void onClickTags(View view){
 		ArrayList<String> tagList = user.getTagList();
 		AlertDialog.Builder builder = new AlertDialog.Builder(ClaimListActivity.this);
-		final String[] userTags = (String[]) tagList.toArray(new String[tagList.size()]);
+		final String[] userTags = tagList.toArray(new String[tagList.size()]);
 		builder.setTitle("Choose Tags");
 		tagsArrayList.clear();
 

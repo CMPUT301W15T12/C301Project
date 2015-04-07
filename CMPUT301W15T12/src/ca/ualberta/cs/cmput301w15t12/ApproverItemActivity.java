@@ -1,5 +1,5 @@
 /**
- * This  Activity displays the summary info for a given item. 
+ * This  Activity displays the summary info for a submitted item. 
  * 
  *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
  *   licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +18,14 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import ca.ualberta.cs.cmput301w15t12.R;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -40,12 +43,34 @@ public class ApproverItemActivity extends Activity {
 	public SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 	Uri imageFileUri;
 	
+	private class LoadingPictureTask extends AsyncTask<URI, Void, File> {
+	    @Override
+	    protected File doInBackground(URI... uris) {
+	    	URI uri = uris[0];	//pick the first one.
+	    	ESClient esClient =new ESClient();
+	        return esClient.loadImageFileFromServer(uri);
+	    }
+	    @Override
+	    protected void onPostExecute(File file) {
+    		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
+
+	    	if (file==null){
+				viewbutton.setText("No Receipt");
+	    	}else{
+				Drawable picture = Drawable.createFromPath(file.getPath());
+				viewbutton.setBackgroundDrawable(picture);
+				viewbutton.setText("");
+	    	}
+	    }  
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.approver_expense_item);
-
+		
+		//get extras
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		Claim Claim = CLC.getClaim(id);
 		final int index = getIntent().getIntExtra("item_index", 0);
@@ -53,15 +78,8 @@ public class ApproverItemActivity extends Activity {
 
 		//get the image and place it in the button
 		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
-		if (!Item.getReceipt()){
-			viewbutton.setText("No Receipt");
-		}
-		else{
-			imageFileUri = Item.getUri();
-			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-			viewbutton.setBackgroundDrawable(picture);
-			viewbutton.setText("");
-		}
+		
+		new LoadingPictureTask().execute(Item.getUri());
 		
 		//If there is an image, clicking viewbutton enlarges it
 		viewbutton.setOnClickListener(new View.OnClickListener()
@@ -104,15 +122,7 @@ public class ApproverItemActivity extends Activity {
 		
 		//get the image and place it in the button
 		Button viewbutton = (Button) findViewById(R.id.buttonApproverImage);
-		if (!Item.getReceipt()){
-			viewbutton.setText("No Receipt");
-		}
-		else{
-			imageFileUri = Item.getUri();
-			Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-			viewbutton.setBackgroundDrawable(picture);
-			viewbutton.setText("");
-		}
+		new LoadingPictureTask().execute(Item.getUri());
 	}
 
 	@Override
