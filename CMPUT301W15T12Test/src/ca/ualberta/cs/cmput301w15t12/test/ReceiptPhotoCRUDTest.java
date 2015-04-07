@@ -2,7 +2,7 @@
  * Author: Qiushi Jiang
  * Email: qsjiang@ualberta.ca
  */
-/*package ca.ualberta.cs.cmput301w15t12.test;
+package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import ca.ualberta.cs.cmput301w15t12.AddItemActivity;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
@@ -84,4 +83,4 @@ public class ReceiptPhotoCRUDTest extends ActivityInstrumentationTestCase2<AddIt
 	}
 
 }
-*/
+
