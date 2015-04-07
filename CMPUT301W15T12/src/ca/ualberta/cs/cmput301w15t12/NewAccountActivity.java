@@ -63,13 +63,16 @@ public class NewAccountActivity extends Activity
 			public void onClick(View v) {
 				UserListController ULC = new UserListController();
 				if (!p1.getText().toString().equals(p2.getText().toString())) {
+					//check for matching passwords
 					Toast.makeText(NewAccountActivity.this, "Passwords don't match", Toast.LENGTH_SHORT).show();
 				} else {
 					try {
 						String un = username.getText().toString();
 						if (location == null) {
+							//check for location
 							Toast.makeText(NewAccountActivity.this,"No Home Geolocation chosen", Toast.LENGTH_SHORT).show();
 						} else {
+							//add user
 							ULC.addUserWithPass(un, p1.getText().toString());
 							User user = UserListController.getUserList().getUser(un);
 							user.setLocation(location);
@@ -78,12 +81,14 @@ public class NewAccountActivity extends Activity
 							startActivity(intent);
 						}
 					} catch (AlreadyExistsException e) {
+						//make sure username isnt already in use
 						Toast.makeText(NewAccountActivity.this, "UserName already in use", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
 		});
-
+		
+		//when clicked let user choose between current location or map location
 		Button geolocation = (Button) findViewById(R.id.buttonUserLocation);
 		geolocation.setOnClickListener(new View.OnClickListener()
 		{
@@ -97,29 +102,32 @@ public class NewAccountActivity extends Activity
 				adb.setPositiveButton("Current Location", new OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						//get current location from the gps
 						location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 						if (location == null){
+							//on success
 							Toast.makeText(NewAccountActivity.this,"No GPS Location Found, Enable GPS",Toast.LENGTH_SHORT).show();
 						} else {
+							//on failure
 							Toast.makeText(NewAccountActivity.this,"Current Location added as Home Location",Toast.LENGTH_SHORT).show();
 						}
 					}
 				});
 				adb.setNegativeButton("Remote Location", new OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						//get a location from the map
 						Intent intent = new Intent(NewAccountActivity.this, MapActivity.class);
 						intent.putExtra("option", "add");
 						startActivityForResult(intent, 0);
 					}
-					
 				});
-
 				adb.show();				
 			}
 		});
 	}
 
 	@Override
+	//get the location from the map activity
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		if (resultCode == RESULT_OK){
@@ -139,7 +147,6 @@ public class NewAccountActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.new_account, menu);
 		return true;

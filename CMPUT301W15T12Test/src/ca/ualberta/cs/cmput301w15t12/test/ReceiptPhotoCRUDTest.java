@@ -2,7 +2,7 @@
  * Author: Qiushi Jiang
  * Email: qsjiang@ualberta.ca
  */
-package ca.ualberta.cs.cmput301w15t12.test;
+/*package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -84,3 +84,4 @@ public class ReceiptPhotoCRUDTest extends ActivityInstrumentationTestCase2<AddIt
 	}
 
 }
+*/

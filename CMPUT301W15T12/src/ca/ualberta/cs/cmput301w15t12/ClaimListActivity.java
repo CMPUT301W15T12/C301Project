@@ -39,6 +39,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.cmput301w15t12.R;
 
 
@@ -89,7 +90,7 @@ public class ClaimListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-
+		//opens the manage tags activity
 		Button manager = (Button) findViewById(R.id.buttonManageTags);
 		manager.setOnClickListener(new View.OnClickListener()
 		{
@@ -102,15 +103,17 @@ public class ClaimListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-
 	}
-
-
-	public void onResume(){
+	
+	public void onResume() {
 		super.onResume();
+		//updates the list of claims
 		updateList();
 	}
 
+	/**
+	 * updates the list of claims with the correct text color, and the correct image
+	 */
 	public void updateList(){
 		ListView listViewClaims = (ListView) findViewById(R.id.listViewClaims);
 		if (tagsArrayList.size() == 0) {
@@ -131,10 +134,13 @@ public class ClaimListActivity extends Activity {
 				Float distance = l.distanceTo(u);
 				if (distance < 3000000) {
 					imageId[i] = R.drawable.planeone;
+					Toast.makeText(this, "1",Toast.LENGTH_SHORT).show();
 				} else if (distance < 10000000) {
 					imageId[i] = R.drawable.planetwo;
+					Toast.makeText(this, "2",Toast.LENGTH_SHORT).show();
 				} else if (distance > 10000000) {
-					imageId[i] = R.drawable.planethree;			    		
+					imageId[i] = R.drawable.planethree;			    	
+					Toast.makeText(this, "3",Toast.LENGTH_SHORT).show();
 				}
 			}
 		}
@@ -147,7 +153,7 @@ public class ClaimListActivity extends Activity {
 				TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
 				ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
 				txtTitle.setText(cl.get(position));
-				imageView.setImageResource(imageId[position]);
+				//imageView.setImageResource(imageId[position]);
 				//			    View view = super.getView(position, convertView, parent);
 				//			    TextView txtTitle = (TextView) view.findViewById(android.R.id.text1);
 				if (claims.get(position).getDestination().size() == 0){
@@ -201,7 +207,7 @@ public class ClaimListActivity extends Activity {
 		});
 	}
 
-	/** 
+	/** opens the search by tags dialog
 	 * @param view
 	 */
 	//initialize the choose from previous tags dialogue
@@ -230,6 +236,7 @@ public class ClaimListActivity extends Activity {
 		builder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
+				//prints the tags being searched by
 				EditText tags = (EditText) findViewById(R.id.editTextSearchTags);
 				String block = "";
 				for (int i = 0; i < tagsArrayList.size(); i++) {

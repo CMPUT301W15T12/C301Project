@@ -1,3 +1,20 @@
+/**
+ * TabManagerActivity allows the user to globally edit/add/delete tags they are using.
+ * 
+ *   Copyright [2015] CMPUT301W15T12 https://github.com/CMPUT301W15T12
+ *   licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *   
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *   @author vanbelle
+*/
 package ca.ualberta.cs.cmput301w15t12;
 
 import java.util.ArrayList;
@@ -49,6 +66,7 @@ public class TagManagerActivity extends Activity
 			Toast.makeText(this, "no User found", Toast.LENGTH_SHORT).show();
 		}
 
+		//returns the user to claimlist page
 		Button done = (Button) findViewById(R.id.buttonDoneTagManager);
 		done.setOnClickListener(new View.OnClickListener()
 		{
@@ -60,6 +78,7 @@ public class TagManagerActivity extends Activity
 			}
 		});
 
+		//adds a new tag to the user tag list
 		Button add = (Button) findViewById(R.id.buttonAddTag);
 		add.setOnClickListener(new View.OnClickListener()
 		{
@@ -80,11 +99,13 @@ public class TagManagerActivity extends Activity
 			}
 		});
 
+		//displays existing tags
 		tags = user.getTagList();
 		ListView list = (ListView) findViewById(R.id.listViewTags);
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, tags);
 		list.setAdapter(adapter);
 
+		//allows a user to edit a tag
 		list.setOnItemClickListener(new OnItemClickListener()
 		{
 			@Override
@@ -96,7 +117,7 @@ public class TagManagerActivity extends Activity
 			}
 
 		});
-
+		//allows a user to delete a tag
 		list.setOnItemLongClickListener(new OnItemLongClickListener()
 		{
 
@@ -112,17 +133,21 @@ public class TagManagerActivity extends Activity
 	}
 
 
-	//initialize the adding a tag dialogue
+	/**
+	 * the editing a tag dialog, displays the existing tag and confirms a global change
+	 */
 	protected void editTagDialog(){
+		//shows the claim as it is
 		LayoutInflater layoutInflater = LayoutInflater.from(TagManagerActivity.this);
 		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TagManagerActivity.this);
 		alertDialogBuilder.setView(promptView);
 		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTagName);
 		editText.setText(tag);
-
+		// user can change tag or cancel edit
 		alertDialogBuilder.setCancelable(false)
 		.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+			//change the old tag to the new tag everywhere
 			public void onClick(DialogInterface dialog, int id) {
 				newTag = editText.getText().toString();
 				user.getTagList().remove(tag);
@@ -140,6 +165,7 @@ public class TagManagerActivity extends Activity
 			}
 		})
 		.setNegativeButton("Cancel",
+				//go back to the manager
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				dialog.cancel();
@@ -149,14 +175,18 @@ public class TagManagerActivity extends Activity
 		alert.show();
 	}
 
-	//initialize the adding a tag dialogue
+	/**
+	 * the confirmation delete a tag dialog
+	 */
 	protected void deleteTagDialog(){
+		//confirm delete tag everywhere or cancel
 		AlertDialog.Builder adb = new AlertDialog.Builder(TagManagerActivity.this);
 		adb.setMessage("Delete "+tag+" Everywhere?");
 		adb.setCancelable(true);
 		adb.setCancelable(true)
 		.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
+				//delete tag everywhere
 				user.getTagList().remove(tag);
 				for (int i = 0; i < CLC.getAllClaims().size(); i++) {
 					for (int j = 0; j < CLC.getAllClaims().get(i).getTagList().size(); j++) {
@@ -172,6 +202,7 @@ public class TagManagerActivity extends Activity
 		.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
+				//don't delete anywhere
 				dialog.cancel();
 			}
 		});

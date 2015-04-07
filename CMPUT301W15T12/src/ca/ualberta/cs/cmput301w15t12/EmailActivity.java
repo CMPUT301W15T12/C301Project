@@ -65,7 +65,9 @@ public class EmailActivity extends Activity
 		});
 	}
 	
-	//sends the email
+	/**
+	 * sends the email
+	 */
 	protected void sendEmail() {
 		Intent email = new Intent(Intent.ACTION_SENDTO);
 		String uriText = "mailto:"+Uri.encode(recipient.getText().toString())+"?subject="+Uri.encode(subject.getText().toString())+"&body="+Uri.encode(body.getText().toString());

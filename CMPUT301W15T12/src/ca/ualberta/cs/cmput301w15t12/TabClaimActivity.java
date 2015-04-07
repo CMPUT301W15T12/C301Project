@@ -41,14 +41,14 @@ public class TabClaimActivity extends TabActivity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab_host);
-
+		//get intents
 		String username = getIntent().getExtras().getString("username");
 		String option = getIntent().getExtras().getString("option");
-
+		//start tabhost
 		tabHost = getTabHost();
-		
+		//initialize parent activity
 		parent = (TabClaimActivity) this.getParent();
-
+		//check if the user wants to add or edit a claim
 		if (option.equals("Add")) {
 			// Claim tab
 			Intent intentClaim = new Intent().setClass(this, AddClaimActivity.class);
@@ -111,18 +111,27 @@ public class TabClaimActivity extends TabActivity
 		getMenuInflater().inflate(R.menu.tab_claim, menu);
 		return true;
 	}
-	
+	/**
+	 * saves the destinations list for when the addclaimactivity calls for it
+	 * @param d
+	 */
 	public void setDestination(ArrayList<Destination> d){
 		DP = d;
 	}
-	
+	/** 
+	 * provides the list of destinations from the adddestinations tab to the addClaim activity
+	 * @return arrayllist of destinations
+	 */
 	public ArrayList<Destination> getDestination(){
 		if (DP == null) {
 			return new ArrayList<Destination>();
 		}
 		return DP;
 	}
-	
+	/**
+	 * chooses which tab the activity is displaying
+	 * @param i
+	 */
 	public void chooseTab(int i){
 		tabHost.setCurrentTab(i);
 	}
