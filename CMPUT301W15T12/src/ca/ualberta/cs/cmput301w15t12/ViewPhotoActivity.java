@@ -20,21 +20,40 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import java.io.File;
+import java.net.URI;
+
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+
+
 public class ViewPhotoActivity extends Activity {
 
 	public ExpenseItem Item;
 	public ClaimListController CLC = new ClaimListController();
-    Uri imageFileUri;
-    
+ 
+	
+	private class LoadingPictureTask extends AsyncTask<URI, Void, File> {
+	    @Override
+	    protected File doInBackground(URI... uris) {
+	    	URI uri = uris[0];	//pick the first one.
+	    	ESClient esClient =new ESClient();
+	        return esClient.loadImageFileFromServer(uri);
+	    }
+	    @Override
+	    protected void onPostExecute(File file) {
+			ImageView iv = (ImageView) findViewById(R.id.receiptImageView);
+			Drawable picture = Drawable.createFromPath(file.getPath());
+			iv.setImageDrawable(picture);
+	    }  
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,12 +64,9 @@ public class ViewPhotoActivity extends Activity {
 		final int index = getIntent().getIntExtra("item_index", 0);
 		Item = claim.getExpenseItems().get(index);
 		
-		ImageView iv = (ImageView) findViewById(R.id.receiptImageView);
 		
-		imageFileUri = Item.getUri();
-		Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-		iv.setImageDrawable(picture);
-        
+		new LoadingPictureTask().execute(Item.getUri());
+
 		Button doneBtn = (Button) findViewById(R.id.buttonViewPictureDone);
 		doneBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {

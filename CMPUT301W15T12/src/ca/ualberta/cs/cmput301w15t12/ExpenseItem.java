@@ -21,6 +21,7 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.location.Location;
-import android.net.Uri;
 
 public class ExpenseItem implements Serializable{
 
@@ -49,7 +49,7 @@ public class ExpenseItem implements Serializable{
 	private Location location;
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	private Integer imageId; 
-	private Uri uri;
+	private URI uri;
 
 	// Initialize currencies and categories if they weren't already initialized
 	public static void init(Context c) {
@@ -186,7 +186,7 @@ public class ExpenseItem implements Serializable{
 		}
 	}
 
-	public void setUri(Uri imageFileUri) {
+	public void setUri(URI imageFileUri) {
 		if (imageFileUri == null) {
 			this.receipt = false;
 			this.uri = null;
@@ -217,7 +217,7 @@ public class ExpenseItem implements Serializable{
 		return imageId;
 	}
 	
-	public Uri getUri() {
+	public URI getUri() {
 		return uri;
 	}
 	public boolean getBoolLocation(){
