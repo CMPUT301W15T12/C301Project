@@ -208,14 +208,4 @@ public class ClaimTests extends ActivityInstrumentationTestCase2<ClaimActivity>
 		assertEquals("Wrong sum value",claim.getTotal().get(0),"20 CAD");
 
 	}
-
-	//US01.06.01 - entered information to be remembered, so that I do not lose data
-	public void testInfoSaved(){
-		assertTrue(false);
-	}
-
-	//US09.01.01 - make and work on expense claims and items while offline, and push application and expense information online once I get connectivity.
-	public void testOffline(){
-		assertTrue(false);
-	}
 }

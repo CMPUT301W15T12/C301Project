@@ -80,6 +80,7 @@ public class AddItemActivity extends Activity
 	private EditText editCurrency;
 	private EditText editAmount;
 	public Location location;
+	public boolean delete =  false;
 	
 	/**
 	 * 
@@ -98,6 +99,7 @@ public class AddItemActivity extends Activity
     		Button ib = (Button) findViewById(R.id.buttonAddImage);
 
 	    	if (file==null){
+	    		ib.setBackgroundResource(android.R.drawable.btn_default);
 	    		ib.setText("No Receipt");
 	    	}else{
 				Drawable picture = Drawable.createFromPath(file.getPath());
@@ -172,8 +174,13 @@ public class AddItemActivity extends Activity
 			if(expenseItem.getBoolLocation()){
 				checkLocation.setChecked(true);
 			}
+			
+			if(expenseItem.getReceipt()){
+				checkImage.setChecked(true);
+			}
 
 			new LoadingPictureTask().execute(expenseItem.getUri());
+			
 
 		}
 
@@ -239,7 +246,9 @@ public class AddItemActivity extends Activity
 		expenseItem.setAmount(bdAmount);
 		expenseItem.setFlag(flag);
 		expenseItem.setDate(dfDate);
-		expenseItem.setUri(imageURI);
+		if (imageURI != null || delete) {
+			expenseItem.setUri(imageURI);
+		}
 		expenseItem.setlocation(location);
 		finish();
 
@@ -298,6 +307,7 @@ public class AddItemActivity extends Activity
 	 */ 
 	public void deleteImage(View view){
 		imageURI = null;
+		delete = true;
 		Button ib = (Button) findViewById(R.id.buttonAddImage);
 		//2015/03/26 - http://stackoverflow.com/questions/14802354/how-to-reset-a-buttons-background-color-to-default
 		ib.setBackgroundResource(android.R.drawable.btn_default);

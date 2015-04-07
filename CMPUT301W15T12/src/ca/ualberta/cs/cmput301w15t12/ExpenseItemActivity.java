@@ -65,6 +65,7 @@ public class ExpenseItemActivity extends Activity {
     		Button viewbutton = (Button) findViewById(R.id.buttonImage);
 
 	    	if (file==null){
+	    		viewbutton.setBackgroundResource(android.R.drawable.btn_default);
 				viewbutton.setText("No Receipt");
 	    	}else{
 				Drawable picture = Drawable.createFromPath(file.getPath());
@@ -86,6 +87,7 @@ public class ExpenseItemActivity extends Activity {
 		index = getIntent().getIntExtra("item_index", 0);
 		Item = Claim.getExpenseItems().get(index);
 		final Button viewbutton = (Button) findViewById(R.id.buttonImage);
+		
 		
 		new LoadingPictureTask().execute(Item.getUri());
 

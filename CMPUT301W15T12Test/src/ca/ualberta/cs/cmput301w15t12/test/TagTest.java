@@ -2,17 +2,14 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.cmput301w15t12.AddClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
-import ca.ualberta.cs.cmput301w15t12.ClaimList;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
 import ca.ualberta.cs.cmput301w15t12.User;
-import ca.ualberta.cs.cmput301w15t12.UserListController;
 
 public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> {
 	public TagTest() {
@@ -88,7 +85,6 @@ public class TagTest extends ActivityInstrumentationTestCase2<AddClaimActivity> 
 	public void testPersonalTags () {
 		// Create new User
 		User u = new User("test", "account");
-		UserListController ul = new UserListController();
 
 		// Add tags to u
 		for (int i = 1; i <= 10; i++) {
