@@ -33,8 +33,8 @@ public class ESClient {
 	//[NOTE]: image url is the base directory. If you want to see all the images on server type 
 	//"http://cmput301.softwareprocess.es:8080/cmput301w15t12/image/_search"
 	
-
 	
+
 	class PhotoContainer{
 		private String photoBase64String;
 		public PhotoContainer(File file) throws IOException{
@@ -89,7 +89,9 @@ public class ESClient {
 	    	return _id;
 	    }
 	}
-	
+	/** Save record to elastic search server
+	 * @param none
+	 */ 
 	public void saveRecordToServer(){
 		try {
 			RecordContainer loadedRecordContainer = new RecordContainer(new ClaimList().getAllClaims(),new UserList().getUsers());
@@ -107,7 +109,9 @@ public class ESClient {
 			e.printStackTrace();
 		}
 	}	
-	
+	/** Load record from elastic search server
+	 * @param none
+	 */ 
 	public void loadRecordFromServer(){
 		try{
 			HttpGet getRequest = new HttpGet(recordUrl);
@@ -123,7 +127,10 @@ public class ESClient {
 			e.printStackTrace();
 		} 
 	}	
-	
+	/** Load image from elastic search server
+	 * @param image's relative URI on es server 
+	 * @return image file
+	 */ 
 	public File loadImageFileFromServer(URI uri){
 		try{
 			String targetImageUrl = imageUrl+"/"+uri.getPath();
@@ -139,7 +146,10 @@ public class ESClient {
 			return null;
 		} 
 	}
-
+	/** Save image to elastic search server
+	 * @param image file
+	 * @return image URI
+	 */ 
 	public URI saveImageFileToServer(File file){
 		try{
 			PhotoContainer photoContainer = new PhotoContainer(file);
@@ -162,8 +172,10 @@ public class ESClient {
 		}
 	}
 	
-	//From CMPUT301 in class example
-	// get the http response and return json string
+	/** From CMPUT301 in class example, get the http response and return json string
+	 * @param HttpResponse response
+	 * @return String entity
+	 */
 	private String getEntityContent(HttpResponse response) throws IOException {
 		BufferedReader br = new BufferedReader(
 				new InputStreamReader((response.getEntity().getContent())));
