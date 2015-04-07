@@ -172,6 +172,10 @@ public class AddItemActivity extends Activity
 			if(expenseItem.getBoolLocation()){
 				checkLocation.setChecked(true);
 			}
+			
+			if(expenseItem.getReceipt()){
+				checkImage.setChecked(true);
+			}
 
 			new LoadingPictureTask().execute(expenseItem.getUri());
 
