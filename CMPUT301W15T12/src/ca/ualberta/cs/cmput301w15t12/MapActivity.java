@@ -48,13 +48,13 @@ public class MapActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mapview);
-
+		//initializes map variables
 		mapView = (MapView) this.findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 		mapView.setMultiTouchControls(true);
 		mapController = (MapController) this.mapView.getController();
 		mapController.setZoom(8);
-
+		//sets map center
 		GeoPoint mapCenter = new GeoPoint(53554070, -2959520);
 		mapController.setCenter(mapCenter);
 		mapView.invalidate();
@@ -68,11 +68,13 @@ public class MapActivity extends Activity {
 				}
 			}
 
+			//gets the claim id for the claim whose locations we want to see
 			ClaimListController CLC = new ClaimListController();
 			final int id = getIntent().getIntExtra("claim_id", 0);
 			Claim claim = CLC.getClaim(id);
 			ArrayList<Location> otherLocations = claim.getLocations();
 			
+			//shows icon locations
 			try{
 				for (int i = 0; i < otherLocations.size(); i ++){
 					Location locItem = otherLocations.get(i);
@@ -97,6 +99,11 @@ public class MapActivity extends Activity {
 		}
 	}
 
+	/**
+	 * finds the location of a clicked point on the map
+	 * @param ev
+	 * @return true if successful
+	 */
 	// Implemented from
 	// http://stackoverflow.com/questions/1678493/android-maps-how-to-long-click-a-map
 	// April 2, 2015
@@ -180,7 +187,10 @@ public class MapActivity extends Activity {
 
 	}
 
-
+	/**
+	 * returns the location to the activity that called it
+	 * @param view
+	 */
 	public void returnLocation(View view) {
 		Intent intent = getIntent();
 		if (latitude != 0.0 & longitude != 0.0){

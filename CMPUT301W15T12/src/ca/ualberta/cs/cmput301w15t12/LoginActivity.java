@@ -45,10 +45,8 @@ public class LoginActivity extends Activity
 		setContentView(R.layout.login_main);
 		ULC = new UserListController();
 
-		
 		EditText username = (EditText) findViewById(R.id.editLoginUserName);
 		username.requestFocus();
-		
 
 		new LoadingOnlineRecordTask().execute();
 		

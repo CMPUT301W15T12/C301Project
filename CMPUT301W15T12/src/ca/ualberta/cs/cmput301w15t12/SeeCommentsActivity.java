@@ -66,12 +66,14 @@ public class SeeCommentsActivity extends Activity
 		} else {
 			Approvers.setText("Approver: "+claim.getApprover().getUserName());
 		}
+		//returns user to the claim page
 		Button doneBtn = (Button) findViewById(R.id.buttonSeeCommentsDone);
 		doneBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				finish();
 			}
 		});
+		//display the list of comments in order of most recent to oldest
 		ArrayList<String> comments = claim.getComment();
 		Collections.reverse(comments);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, comments);
@@ -80,6 +82,7 @@ public class SeeCommentsActivity extends Activity
 		{
 
 			@Override
+			//opens comment the user want to view
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3)
 			{
@@ -92,7 +95,6 @@ public class SeeCommentsActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.see_comments, menu);
 		return true;
