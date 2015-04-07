@@ -103,6 +103,10 @@ public class ClaimListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+	}
+	
+	public void onResume() {
+		super.onResume();
 		//updates the list of claims
 		updateList();
 	}
