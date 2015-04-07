@@ -218,7 +218,10 @@ public class ClaimList{
 		}
 	}
 	//Do not call this unless your are ClaimListController or ESClient.
-	//This method should ONLY be used by ClaimListController or ESClient for synchronizing data with the elastic server
+	/**This method should ONLY be used by ClaimListController or ESClient for synchronizing data with the elastic server
+	 * 
+	 * @param ArrayList<Claim> claims
+	 */
 	public void load( ArrayList<Claim> claims){
 		//load the given claim arraylist
 		ClaimList.claims = claims;		
