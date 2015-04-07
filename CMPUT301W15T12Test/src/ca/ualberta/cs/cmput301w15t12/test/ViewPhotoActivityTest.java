@@ -67,10 +67,10 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 			//save the newly created test file on server
 			URI uri = esClient.saveImageFileToServer(testFile);
 			assertTrue("Server down",uri!=null);
-				
+			
 			File file = esClient.loadImageFileFromServer(uri);
 			Bitmap bitmap = BitmapFactory.decodeFile(file.toString());
-			assertTrue("The size of the file is greater than 65536 bytes", bitmap.getByteCount() < 65536) ;
+			assertTrue("The size of the file is greater than 65536 bytes", file.length() < 65536) ;
 			assertEquals("loaded file's file length doesn't match the original file length",originalFileLength, file.length());	
 				
 		}catch (Exception e) {
