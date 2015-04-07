@@ -73,8 +73,6 @@ public class ReceiptPhotoCRUDTest extends ActivityInstrumentationTestCase2<AddIt
 		int id = clc.addClaim("name", d1, d2,"desc",user);
 		ExpenseItem item = new ExpenseItem("name", "", "description", "USD", new BigDecimal(12),d1,true);
 		clc.getClaim(id).addItem(item);
-		Uri imageFileUri = Uri.parse("android.resource://CMPUT301W15T12" + R.drawable.globe);
-		item.setUri(imageFileUri);
 		Intent intent = new Intent();
 		intent.putExtra("claim_id",id);
 		intent.putExtra("item_index",0);

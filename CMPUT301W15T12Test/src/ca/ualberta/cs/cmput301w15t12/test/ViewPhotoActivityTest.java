@@ -1,11 +1,11 @@
 /* Description: jUnit tests for testing the ViewPhotoActivity
  * This test ensures the photo is correctly loaded, and the image size meets the requirement.
- * Author: Qiushi Jiang
- * Email: qsjiang@ualberta.ca
  */
 package ca.ualberta.cs.cmput301w15t12.test;
 
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -88,8 +88,6 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 		int id = clc.addClaim("name", d1, d2,"desc",user);
 		ExpenseItem item = new ExpenseItem("name", "", "description", "USD", new BigDecimal(12),d1,true);
 		clc.getClaim(id).addItem(item);
-		Uri imageFileUri = Uri.parse("android.resource://CMPUT301W15T12" + R.drawable.globe);
-		item.setUri(imageFileUri);
 		Intent intent = new Intent();
 		intent.putExtra("claim_id",id);
 		intent.putExtra("item_index",0);

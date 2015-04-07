@@ -25,6 +25,7 @@ package ca.ualberta.cs.cmput301w15t12;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,6 +46,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -66,7 +68,8 @@ public class AddItemActivity extends Activity
 	public static final String MOCK_PROVIDER = "mockLocationProvider";
 	private Claim claim;
 	private int claim_id;
-	private Uri imageFileUri = null;
+	private Uri tempImageFileUri = null;	//[ATTENTION]: tempImageFileUri links to the temp image file returned from the camera app
+	private URI imageURI = null; 			//[ATTENTION]: imageURI links to the file on the server.
 	private boolean flag;
 	private ExpenseItem expenseItem;
 	private int expenseItemId;
@@ -78,6 +81,28 @@ public class AddItemActivity extends Activity
 	private EditText editAmount;
 	public Location location;
 
+	
+	private class LoadingPictureTask extends AsyncTask<URI, Void, File> {
+	    @Override
+	    protected File doInBackground(URI... uris) {
+	    	URI uri = uris[0];	//pick the first one.
+	    	ESClient esClient =new ESClient();
+	        return esClient.loadImageFileFromServer(uri);
+	    }
+	    @Override
+	    protected void onPostExecute(File file) {
+    		Button ib = (Button) findViewById(R.id.buttonAddImage);
+
+	    	if (file==null){
+	    		ib.setText("No Receipt");
+	    	}else{
+				Drawable picture = Drawable.createFromPath(file.getPath());
+				ib.setBackgroundDrawable(picture);
+				ib.setText("");
+	    	}
+	    }  
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -145,16 +170,8 @@ public class AddItemActivity extends Activity
 				checkLocation.setChecked(true);
 			}
 
-			//set picture and picture checkbox if picture exists
-			if (expenseItem.getReceipt()){
-				imageFileUri = expenseItem.getUri();
-				Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-				checkImage.setChecked(true);
-				ib.setBackgroundDrawable(picture);
-				ib.setText("");
-			} else{
-				ib.setText("No Receipt");
-			}
+			new LoadingPictureTask().execute(expenseItem.getUri());
+
 		}
 
 		//start the user on the username edit text
@@ -162,6 +179,8 @@ public class AddItemActivity extends Activity
 		editName.requestFocus();		
 	}
 
+
+	
 	/**this method delegates responsibility to either the addItem method or to 
 	 * the editItem method depending on the option provided in the getExtra
 	 * @param view
@@ -217,7 +236,7 @@ public class AddItemActivity extends Activity
 		expenseItem.setAmount(bdAmount);
 		expenseItem.setFlag(flag);
 		expenseItem.setDate(dfDate);
-		expenseItem.setUri(imageFileUri);
+		expenseItem.setUri(imageURI);
 		expenseItem.setlocation(location);
 		finish();
 
@@ -241,7 +260,7 @@ public class AddItemActivity extends Activity
 		try {
 			expenseItem = new ExpenseItem(editName.getText().toString(),editCategory.getText().toString(),
 					editDescription.getText().toString(), editCurrency.getText().toString(),amount, date, flag);
-			expenseItem.setUri(imageFileUri);
+			expenseItem.setUri(imageURI);
 			expenseItem.setlocation(location);
 
 			//check to see fields are filled in
@@ -277,7 +296,7 @@ public class AddItemActivity extends Activity
 	 * @param view
 	 */ 
 	public void deleteImage(View view){
-		imageFileUri = null;
+		imageURI = null;
 		Button ib = (Button) findViewById(R.id.buttonAddImage);
 		//2015/03/26 - http://stackoverflow.com/questions/14802354/how-to-reset-a-buttons-background-color-to-default
 		ib.setBackgroundResource(android.R.drawable.btn_default);
@@ -302,13 +321,41 @@ public class AddItemActivity extends Activity
 		String imageFilePath = folder + "/"
 				+ String.valueOf(System.currentTimeMillis()) + ".jpg";
 		File imageFile = new File(imageFilePath);
-		imageFileUri = Uri.fromFile(imageFile);
+		tempImageFileUri = Uri.fromFile(imageFile);
 
 		//takes user to camera app
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempImageFileUri);
 		startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
+	
+	
+	private class SavingPictureTask extends AsyncTask<File, Void, URI> {
+	    @Override
+	    protected URI doInBackground(File... files) {
+	    	File file = files[0];	//pick the first one.
+	    	ESClient esClient =new ESClient();
+	        return esClient.saveImageFileToServer(file);
+	    }
+	    @Override
+	    protected void onPostExecute(URI uri) {
+	    	if (uri ==null){
+				Toast.makeText(AddItemActivity.this, "Receipt too big, try again", Toast.LENGTH_SHORT).show();
+	    	}else{
+	    		imageURI = uri;
+				Button ib = (Button) findViewById(R.id.buttonAddImage);
+				Drawable picture = Drawable.createFromPath(tempImageFileUri.getPath());
+				ib.setText("");
+				ib.setBackgroundDrawable(picture);
+				Toast.makeText(AddItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
+				CheckBox flagged = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
+				flagged.setChecked(true);
+				
+	    	}
+	    }  
+	}
+	
+	
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -318,18 +365,7 @@ public class AddItemActivity extends Activity
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
 			//saves photo if save clicked
 			if (resultCode == RESULT_OK){
-				Button ib = (Button) findViewById(R.id.buttonAddImage);
-				//if (((BitmapDrawable) Drawable.createFromPath(imageFileUri.getPath())).getBitmap().getByteCount() < 65536000) {
-					Drawable picture = Drawable.createFromPath(imageFileUri.getPath());
-					ib.setBackgroundDrawable(picture);
-					ib.setText("");
-					Toast.makeText(AddItemActivity.this, "Photo Saved", Toast.LENGTH_SHORT).show();
-					CheckBox flagged = (CheckBox) findViewById(R.id.checkBoxIncludePicture);
-					flagged.setChecked(true);
-				//}
-				//else{
-					//Toast.makeText(AddItemActivity.this, "Receipt too big, try again", Toast.LENGTH_SHORT).show();
-				//}
+				new SavingPictureTask().execute(new File(tempImageFileUri.getPath()));
 			}
 			
 			//doesn't save photo if cancel clicked 
@@ -401,7 +437,7 @@ public class AddItemActivity extends Activity
 		boolean checked = ((CheckBox) view).isChecked();
 		if (!checked) {
 			deleteImage(view);
-		} else if (imageFileUri == null) {
+		} else if (tempImageFileUri == null) {
 			addImage(view);
 		}
 	}
