@@ -116,7 +116,7 @@ public class ApproverClaimActivity extends Activity {
 					Toast.makeText(ApproverClaimActivity.this,"Not Allowed to Approve Own Claim", Toast.LENGTH_LONG).show();
 				} else if (Claim.getComment().size() == 0){
 					//do not allow a approver to submit anything without a comment
-					Toast.makeText(ApproverClaimActivity.this,"Stil Needs a Comment", Toast.LENGTH_LONG).show();
+					Toast.makeText(ApproverClaimActivity.this,"Still Needs a Comment", Toast.LENGTH_LONG).show();
 				} else {
 					//allow a user to approve a claim
 					AlertDialog.Builder adb = new AlertDialog.Builder(ApproverClaimActivity.this);
