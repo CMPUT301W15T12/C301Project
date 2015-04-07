@@ -107,7 +107,6 @@ public class AddItemActivity extends Activity
 	    }  
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -346,7 +345,8 @@ public class AddItemActivity extends Activity
 	    	ESClient esClient =new ESClient();
 	        return esClient.saveImageFileToServer(file);
 	    }
-	    @Override
+	    @SuppressWarnings("deprecation")
+		@Override
 	    protected void onPostExecute(URI uri) {
 	    	if (uri ==null){
 				Toast.makeText(AddItemActivity.this, "Receipt too big, try again", Toast.LENGTH_SHORT).show();
@@ -368,7 +368,6 @@ public class AddItemActivity extends Activity
 	
 	@SuppressLint("NewApi")
 	@Override
-	@SuppressWarnings("deprecation")
 	//gets the image or the remote location from the map activity or camera app
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){

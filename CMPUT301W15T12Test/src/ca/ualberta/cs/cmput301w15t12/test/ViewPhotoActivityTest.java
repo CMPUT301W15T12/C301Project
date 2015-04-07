@@ -3,9 +3,10 @@
  */
 package ca.ualberta.cs.cmput301w15t12.test;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,15 +14,13 @@ import java.util.Locale;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
-import android.widget.ImageView;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
+import ca.ualberta.cs.cmput301w15t12.ESClient;
 import ca.ualberta.cs.cmput301w15t12.ExpenseItem;
-import ca.ualberta.cs.cmput301w15t12.R;
 import ca.ualberta.cs.cmput301w15t12.User;
 import ca.ualberta.cs.cmput301w15t12.UserListController;
 import ca.ualberta.cs.cmput301w15t12.ViewPhotoActivity;
@@ -42,30 +41,46 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 			
 	}
 	
-	//[US06.02.01] - Viewing photograph of a receipt
-	//[US08.05.01] - As an approver, I want to view any attached photographic receipt for an expense item.
-	public void testImageView() throws ParseException, AlreadyExistsException{
-		ViewPhotoActivity activity = startViewPhotoActivity();
-		View receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
-		assertNotNull("Fail to allocate image view",receiptImageView);
-		assertTrue("receiptImageView should be an instanceof ImageView",receiptImageView.getClass() == ImageView.class);
-	}
 	
 	//[US06.04.01] - Limiting image file size
 	public void testImageSize() throws ParseException, AlreadyExistsException{
-		ViewPhotoActivity activity = startViewPhotoActivity();
-		ImageView receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
+		try {
+			ESClient esClient = new ESClient();
+			String fileContent ="Test file content";
+			//create a test file
+			String folder = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/tmp";
+			File folderF = new File(folder);
+			if (!folderF.exists()) {
+				folderF.mkdir();
+			}		
+			String testFilePath = folder + "/"+ String.valueOf(System.currentTimeMillis()) + ".txt";
+			PrintWriter writer = new PrintWriter(testFilePath, "UTF-8");
+			writer.println(fileContent);
+			writer.close();
+				
+			//open the newly created test file
+			File testFile = new File(testFilePath);
+			long originalFileLength = testFile.length();
 
-		if((BitmapDrawable)receiptImageView.getDrawable()==null){
-			fail("Receipt photo is not loaded inside the image view");
-			return;
-		}
-		Bitmap imageBitMap = ((BitmapDrawable)receiptImageView.getDrawable()).getBitmap();
-		assertTrue("photo should be smaller then 65536 bytes",imageBitMap.getByteCount()<65536);
+				
+			//save the newly created test file on server
+			URI uri = esClient.saveImageFileToServer(testFile);
+			assertTrue("Server down",uri!=null);
+				
+			File file = esClient.loadImageFileFromServer(uri);
+			Bitmap bitmap = BitmapFactory.decodeFile(file.toString());
+			assertTrue("The size of the file is greater than 65536 bytes", bitmap.getByteCount() < 65536) ;
+			assertEquals("loaded file's file length doesn't match the original file length",originalFileLength, file.length());	
+				
+		}catch (Exception e) {
+			fail("Server down");
+		}	
 	}
 	
 	//see [US06.01.01] and [US06.03.01] in ReceiptPhotoCRUDTest
 	
+	@SuppressWarnings("unused")
 	private ViewPhotoActivity startViewPhotoActivity() throws ParseException, AlreadyExistsException{
 		//make a claim with an item
 		User user  = new User("Freddie", "123");

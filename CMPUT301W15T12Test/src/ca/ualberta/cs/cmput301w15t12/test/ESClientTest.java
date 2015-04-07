@@ -1,15 +1,12 @@
 package ca.ualberta.cs.cmput301w15t12.test;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+
 import java.net.URI;
 import java.util.GregorianCalendar;
 
-import org.apache.http.HttpResponse;
 
 import android.os.Environment;
-
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.Claim;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
@@ -30,6 +27,7 @@ public class ESClientTest extends TestCase {
 	}
 	//US01.06.01
 	//As a claimant, I want entered information to be remembered, so that I do not lose data.
+	@SuppressWarnings("unused")
 	public void testSave(){
 		ClaimListController claimListController = new ClaimListController();		
 		User claimantA =  new User("Jim", "123");
@@ -45,6 +43,7 @@ public class ESClientTest extends TestCase {
 		claimListController.removeClaim(id);
 	}
 	
+	@SuppressWarnings("static-access")
 	public void testLoad(){
 		try {
 			ClaimListController claimListController = new ClaimListController();	
@@ -89,6 +88,8 @@ public class ESClientTest extends TestCase {
 		}
 	}
 
+	//[US06.02.01] - Viewing photograph of a receipt
+	//[US08.05.01] - As an approver, I want to view any attached photographic receipt for an expense item.
 	public void testSaveImageAndLoadingImage(){
 		try {
 			ESClient esClient = new ESClient();
