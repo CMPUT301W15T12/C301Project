@@ -91,24 +91,18 @@ public class ESClient {
 	}
 	
 	public void saveRecordToServer(){
-		RecordContainer loadedRecordContainer = new RecordContainer(new ClaimList().getAllClaims(),new UserList().getUsers());
-		HttpPost httpPost = new HttpPost(recordUrl);
-		StringEntity stringentity = null;
 		try {
+			RecordContainer loadedRecordContainer = new RecordContainer(new ClaimList().getAllClaims(),new UserList().getUsers());
+			HttpPost httpPost = new HttpPost(recordUrl);
+			StringEntity stringentity = null;
+	
 			stringentity = new StringEntity(gson.toJson(loadedRecordContainer));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		httpPost.setHeader("Accept","application/json");
-
-		httpPost.setEntity(stringentity);
-		try {
+	
+			httpPost.setHeader("Accept","application/json");
+	
+			httpPost.setEntity(stringentity);
 			httpclient.execute(httpPost);
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -124,12 +118,10 @@ public class ESClient {
 			ElasticSearchResponse<RecordContainer> esResponse = gson.fromJson(json, elasticSearchResponseType);
 			RecordContainer incomingRecordContainer = esResponse.getSource();
 			new ClaimList().load(incomingRecordContainer.getClaims());
-			UserList.users = incomingRecordContainer.getUsers();
-		} catch (ClientProtocolException e) {
+			UserList.users = incomingRecordContainer.getUsers();		
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} 
 	}	
 	
 	public File loadImageFileFromServer(URI uri){
