@@ -12,7 +12,7 @@
     </string-array>
     
   	<string-array name="category">
-  	  	<item>Accommodation</item>
+  	    <item>Accommodation</item>
         <item>Air Fare</item>
         <item>Fuel</item>
         <item>Ground Transport</item>
