@@ -15,7 +15,7 @@ public class UserTest extends TestCase {
 	
 	public void testNewUser() throws AlreadyExistsException{
 		UserListController usrc = new UserListController();
-		usrc.addUser("user1");
+		usrc.addUserWithPass("user1", "123");
 		//assertTrue("Userlist not containing corrent number of users", usrc.contains("user1"));
 		assertTrue("wrong number", UserListController.getUserList().size() > 0);
 		assertTrue("not correct user", UserListController.getUserList().contains("user1"));
@@ -23,7 +23,7 @@ public class UserTest extends TestCase {
 	
 	public void testDeleteUser() throws AlreadyExistsException{
 		UserListController usrc = new UserListController();
-		usrc.addUser("usertodelete");
+		usrc.addUserWithPass("usertodelete", "123");
 		assertTrue("fail add", usrc.contains("usertodelete"));
 		UserListController.removeUser("usertodelete");
 		assertTrue("removed the only user",UserListController.getUserList().size() == 0);
@@ -33,7 +33,7 @@ public class UserTest extends TestCase {
 	
 	public void testEditUserName() throws AlreadyExistsException{
 		UserListController uscr = new UserListController();
-		uscr.addUser("Test_user");
+		uscr.addUserWithPass("Test_user", "123");
 		assertTrue("username incorrect", UserListController.getUserList().getUser("Test_user").getUserName() == "Test_user");
 		UserListController.editUserName("Test_user", "change=True");
 		assertTrue("Username did not change", UserListController.getUserList().getUser("change=True").getUserName() == "change=True");

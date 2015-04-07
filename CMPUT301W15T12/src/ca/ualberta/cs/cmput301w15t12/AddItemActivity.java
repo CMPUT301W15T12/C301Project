@@ -248,13 +248,11 @@ public class AddItemActivity extends Activity
 	/**this method adds a new expense item to the specified claim
 	 */ 
 	private void addItem() {
-		BigDecimal amount;
+		BigDecimal amount = new BigDecimal(0);
 		Date date = null;
 		//default values for incomplete expense items
 		if(!editAmount.getText().toString().equals("")){
 			amount = new BigDecimal(editAmount.getText().toString());
-		} else {
-			amount = new BigDecimal(0);
 		}
 		try {
 			date = df.parse(Date.getText().toString());
