@@ -160,7 +160,6 @@ public class AddClaimActivity extends Activity
 					try{
 						CLC.addTagToClaim(id, tagsArrayList.get(i));
 					} catch (AlreadyExistsException e){
-						e.printStackTrace();
 					}
 				}
 

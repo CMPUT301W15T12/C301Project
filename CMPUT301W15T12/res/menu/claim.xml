@@ -21,6 +21,11 @@
         android:title="@string/Submit_Claim">
     </item>
     <item
+        android:id="@+id/editTags"
+        android:onClick="editTags"
+        android:title="@string/editTags">
+    </item>
+    <item
         android:id="@+id/emailClaimItem"
         android:onClick="emailClaim"
         android:title="@string/Email_Claim">

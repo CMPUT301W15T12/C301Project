@@ -32,11 +32,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +55,8 @@ public class ClaimActivity extends Activity {
 	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	public ClaimListController CLC = new ClaimListController();
 	public String Username;
+	private boolean selected[];
+	private ArrayList<String> tagsArrayList = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +105,7 @@ public class ClaimActivity extends Activity {
 		String ed = df.format(claim.getEndDate());
 		dates.setText(sd+" - "+ed);
 		destinations.setText(claim.destinationsToString());
+		tagsArrayList = claim.getTagList();
 
 		//total list
 		TextView tv = (TextView) findViewById(R.id.listTotalSum);
@@ -181,6 +186,7 @@ public class ClaimActivity extends Activity {
 			});
 			adb.setNegativeButton("Cancel", new OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
+					
 				}
 			});
 			adb.show();
@@ -248,6 +254,93 @@ public class ClaimActivity extends Activity {
 		intent.putExtra("option","see");
 		intent.putExtra("username", Username);
 		startActivity(intent);
+	}
+	
+	/** A dialog box which opens to allow the user to choose from any previously 
+	 * existing tags, and save them to the claim. It also allows the user to 
+	 * choose to add a new custom tag.
+	 * @param view
+	 */
+	public void editTags(MenuItem menu){
+		User user = UserListController.getUserList().getUser(Username);
+		ArrayList<String> tagList = user.getTagList();
+		AlertDialog.Builder builder = new AlertDialog.Builder(ClaimActivity.this);
+		final String[] userTags = tagList.toArray(new String[tagList.size()]);
+		builder.setTitle("Choose Tags");
+
+		//check the items already included
+		selected = new boolean[tagList.size()];
+		for (int i = 0;  i < tagList.size(); i++) {
+			if (tagsArrayList.contains(userTags[i])) {
+				selected[i] = true;
+			}
+		}
+		//when an item is clicked
+		builder.setMultiChoiceItems(userTags, selected,
+				new DialogInterface.OnMultiChoiceClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which, boolean isChecked) {	
+				if (isChecked && !tagsArrayList.contains(userTags[which])) {
+					// If the user checked the item, add it to the selected items
+					tagsArrayList.add(userTags[which]);
+				} else {
+					//if the item was unchecked remove the item
+					tagsArrayList.remove(userTags[which]);
+				}
+			}
+		});
+		//allow the user to add a new tag
+		builder.setPositiveButton("Add New", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				claim.setTagList(tagsArrayList);
+				addTagDialog();
+			}
+
+		});
+		//save any added tags from the user
+		builder.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				claim.setTagList(tagsArrayList);
+			}
+		});
+		builder.show();
+
+	}
+	
+	/**Saves a tag the user just made to the claim list
+	 */
+	protected void addTagDialog(){
+		final User user = UserListController.getUserList().getUser(Username);
+		LayoutInflater layoutInflater = LayoutInflater.from(ClaimActivity.this);
+		View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ClaimActivity.this);
+		alertDialogBuilder.setView(promptView);
+
+		final EditText editText = (EditText) promptView.findViewById(R.id.editTextTagName);
+		
+		alertDialogBuilder.setCancelable(false)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				//adds tags to userList and claimList
+				if (!tagsArrayList.contains(editText.getText().toString())) {
+					tagsArrayList.add(editText.getText().toString());
+				}
+				if (!user.getTagList().contains(editText.getText().toString())) {
+					user.addTag(editText.getText().toString());
+				}
+				claim.setTagList(tagsArrayList);
+			}
+		})
+		.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = alertDialogBuilder.create();
+		alert.show();
 	}
 
 }

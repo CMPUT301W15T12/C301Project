@@ -37,6 +37,7 @@
     <string name="ThereGeolocation">Choose Location</string>
     <string name="ep">Enter Password</string>
     <string name="back">Back</string>
+    <string name="editTags">Edit Tags</string>
     <string name="SaveEverything">Save to Server</string>
     <string name="seeLocations">See Locations</string>
     <string name="flag">Flag as Incomplete</string>
