@@ -19,16 +19,21 @@
 
 package ca.ualberta.cs.cmput301w15t12;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
 public class ChooseListActivity extends TabActivity
 {
+	public ProgressDialog progress;
 
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -70,6 +75,32 @@ public class ChooseListActivity extends TabActivity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.choose_list, menu);
 		return true;
+	}
+	
+	//menu item save claim	
+	public void saveClaim(MenuItem menu) {
+		progress = new ProgressDialog(this);
+		progress.setTitle("Connecting");
+		progress.setCanceledOnTouchOutside(false);
+		progress.setMessage("Wait while the server connects and saves your information");
+		new LoadingOnlineRecordTask().execute();
+	}
+	
+	private class LoadingOnlineRecordTask extends AsyncTask<Void, Void, Void> {
+	    @Override
+	    protected Void doInBackground(Void... optionalInputs) {
+
+	        new ESClient().saveRecordToServer();
+
+	        return null;
+	    }
+	    @Override
+	    protected void onPostExecute(Void result) {
+	        progress.dismiss();
+	        //ClaimListController claimListController = new ClaimListController();
+	        Toast.makeText(ChooseListActivity.this,"Changes Saved", Toast.LENGTH_SHORT).show();       
+
+	    }  
 	}
 
 }

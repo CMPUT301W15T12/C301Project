@@ -84,7 +84,6 @@ public class LoginActivity extends Activity
 				if (!ULC.authenticateUser(name,password.getText().toString())) {
 					Toast.makeText(LoginActivity.this, "Password or UserName is incorrect", Toast.LENGTH_SHORT).show();
 				} else {
-					Toast.makeText(LoginActivity.this, name, Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(LoginActivity.this, ChooseListActivity.class);
 					intent.putExtra("username", name);
 					startActivity(intent);
