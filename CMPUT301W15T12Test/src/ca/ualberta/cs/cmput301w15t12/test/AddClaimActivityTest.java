@@ -4,11 +4,9 @@ import java.util.Date;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Button;
 import ca.ualberta.cs.cmput301w15t12.AddClaimActivity;
 import ca.ualberta.cs.cmput301w15t12.AlreadyExistsException;
 import ca.ualberta.cs.cmput301w15t12.ClaimListController;
-import ca.ualberta.cs.cmput301w15t12.R;
 import ca.ualberta.cs.cmput301w15t12.User;
 import ca.ualberta.cs.cmput301w15t12.UserListController;
 

@@ -75,7 +75,6 @@ public class ExpenseItemActivity extends Activity {
 	}
 	
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -132,7 +131,6 @@ public class ExpenseItemActivity extends Activity {
 		});
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -155,7 +153,6 @@ public class ExpenseItemActivity extends Activity {
 		AC.setText(Item.toACString());
 		flag.setChecked(Item.getFlag());
 
-		Button viewbutton = (Button) findViewById(R.id.buttonImage);
 		new LoadingPictureTask().execute(Item.getUri());
 
 	}
