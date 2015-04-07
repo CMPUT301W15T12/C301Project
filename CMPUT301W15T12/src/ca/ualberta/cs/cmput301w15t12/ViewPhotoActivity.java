@@ -58,7 +58,7 @@ public class ViewPhotoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_photo);
-		
+		//get the extras passes through from the expense item activity
 		final int id = getIntent().getIntExtra("claim_id", 0);
 		Claim claim = CLC.getClaim(id);
 		final int index = getIntent().getIntExtra("item_index", 0);
@@ -66,7 +66,7 @@ public class ViewPhotoActivity extends Activity {
 		
 		
 		new LoadingPictureTask().execute(Item.getUri());
-
+		//return the user back to the expense item page
 		Button doneBtn = (Button) findViewById(R.id.buttonViewPictureDone);
 		doneBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {

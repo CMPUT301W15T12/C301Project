@@ -33,14 +33,20 @@ public class User implements Serializable
 	private ArrayList<String> tagList;
 	private String Password;
 	private Location location;
-
+	/**
+	 * user constructor
+	 * @param name
+	 * @param Password
+	 */
 	public User(String name, String Password) {
 		this.UserName = name;
 		this.Password = Password;
 		this.tagList = new ArrayList<String>();
 
 	}
-
+	/**
+	 * checks that 2 users objects are equal
+	 */
 	public boolean equals(Object compareUser) {
 		if (compareUser != null &&
 				compareUser.getClass()==this.getClass()) {
@@ -49,34 +55,52 @@ public class User implements Serializable
 			return false;
 		}
 	}
-	
+	/**
+	 * checks that 2 users are equal
+	 */
 	public boolean equals(User compareUser) {
 		if(compareUser==null) {
 			return false;
 		}
 		return getUserName().equals(compareUser.getUserName());
 	} 
-
+	/**
+	 * sets user password
+	 * @param password
+	 */
 	public void setPassword(String password){
 		this.Password = password;
 	}
-	
+	/**
+	 * get user password
+	 * @return
+	 */
 	public String getPassword(){
 		return Password;
 	}
 	
-	//check if the old password match, otherwise do not change it.
+	/**
+	 * check if the old password match, otherwise do not change it.
+	 * @param old_pass
+	 * @param password
+	 */
 	public void changePassword(String old_pass, String password){
 		if (Password.equals(old_pass)){
 			this.setPassword(password);
 		}
 	}
 	
-	//add/remove
+	/**
+	 * add tag to user tag list
+	 * @param tag
+	 */
 	public void addTag(String tag){
 		tagList.add(tag);
 	}
-
+	/** 
+	 * remove tag from user tag list
+	 * @param tag
+	 */
 	public void removeTag(String tag) {
 		if (tagList.indexOf(tag) > -1) {
 			tagList.remove(tag);
@@ -86,27 +110,47 @@ public class User implements Serializable
 	}
 	
 	//getters and setters
+	/**
+	 * gets the user name
+	 * @return
+	 */
 	public String getUserName() {
 		return UserName;
 	}
+	/** sets the user name
+	 * 
+	 * @param Name
+	 */
 
 	public void setUserName(String Name) {
 		this.UserName = Name;
 	}
-
-
+	/** gets the taglist 
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getTagList(){
 		return tagList;
 	}
-
+	/** sets the taglist
+	 * 
+	 * @param tagList
+	 */
 	public void setTagList(ArrayList<String> tagList){
 		this.tagList = tagList;
 	}
+	/**
+	 * gets the home location
+	 * @return
+	 */
 	public Location getLocation()
 	{
 		return location;
 	}
-	
+	/** 
+	 * sets the home location
+	 * @param location
+	 */
 	public void setLocation(Location location)
 	{
 		this.location = location;

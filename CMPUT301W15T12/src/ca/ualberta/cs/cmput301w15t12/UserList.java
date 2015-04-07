@@ -28,11 +28,19 @@ public class UserList implements Serializable
 	public static ArrayList<User> users = new ArrayList<User>();
 	protected transient ArrayList<Listener> listeners = null;
 	
+	/** 
+	 * userlist constructor
+	 */
 	public UserList() {
 		listeners = new ArrayList<Listener>();
 	}
 	
-	//returns true if UserName in users
+	/**
+	 * 
+	 * @param UserName
+	 * @param Password
+	 * @return true username and password correspond to a single user
+	 */
 	public boolean authenticateUser(String UserName, String Password){
 		for (int i = 0; i < users.size(); ++i){
 			if (users.get(i).getUserName().equals(UserName) && users.get(i).getPassword().equals(Password)){
@@ -42,7 +50,11 @@ public class UserList implements Serializable
 			return false;
 		
 	}
-	//add user by string
+	/**
+	 * adds a user to the user list
+	 * @param user
+	 * @throws AlreadyExistsException
+	 */
 	public void addUser(User user) throws AlreadyExistsException{
 		if (haveUser(user)) { 
 			throw new AlreadyExistsException();
@@ -50,15 +62,25 @@ public class UserList implements Serializable
 		users.add(user);	
 		notifyListeners();
 	}
-	
+	/**
+	 * checks that userlist contains a certain user
+	 */
 	public static boolean haveUser(User user){
 		return users.contains(user);
 	}
 	
+	/**
+	 * 
+	 * @return the number of users in userlist
+	 */
 	public int size() {
 		return users.size();
 	}
-	
+	/**
+	 * check that userlist contains a user by searching with username
+	 * @param string
+	 * @return
+	 */
     public static boolean contains(String string){
     	for (int i = 0; i < users.size(); ++i){
 			if (users.get(i).getUserName() .equals(string)){
@@ -67,12 +89,18 @@ public class UserList implements Serializable
     	}
     	return false;
     }
-	
+	/**
+	 * remove a user from the userlist
+	 * @param i
+	 */
 	public void remove(int i){
 		users.remove(i);
 		notifyListeners();
 	}
-	
+	/**
+	 * @param username
+	 * @return the user corresponding to the particular username
+	 */
 	public User getUser(String username) {
 		for (int i = 0; i < users.size(); ++i){
 			if (users.get(i).getUserName() .equals(username)){
@@ -81,7 +109,11 @@ public class UserList implements Serializable
 		}
 		throw new RuntimeException();
 		}
-	
+	/**
+	 * allows the user to edit a username
+	 * @param user
+	 * @param string2
+	 */
 	public void editUserName(String user, String string2) {
 		for (int i = 0; i < users.size(); ++i){
 			if (users.get(i).getUserName() .equals(user)){
@@ -90,6 +122,10 @@ public class UserList implements Serializable
 		}
 		
 	}
+	/**
+	 * rmoves a user with a particular username
+	 * @param user_name
+	 */
 	public void removeUser(String user_name){
 		for (int i = 0; i < users.size(); ++i){
 			if (users.get(i).getUserName() .equals(user_name)){
@@ -97,36 +133,55 @@ public class UserList implements Serializable
 			}
 			}
 		}
-	
+	/**
+	 * @return all the users 
+	 */
 	public ArrayList<User> getUsers() {
 		return users;
 	}
-	
+	/** 
+	 * get a user with a particular using an index
+	 * @param i
+	 * @return
+	 */
 	public User get(int i) {
 		return users.get(i);
 	}
-	
+	/** 
+	 * get the listeners for the userlist
+	 * @return
+	 */
 	private ArrayList<Listener> getListeners() {
 		if (listeners == null) {
 			listeners = new ArrayList<Listener>();
 		}
 		return listeners;
 	}
-
+	/**
+	 * add a listener to the listener list
+	 * @param listener
+	 */
 	public void addListener(Listener listener) {
 		getListeners().add(listener);		
 	}
-
+	/**
+	 * remove a listener from the listener list
+	 * @param listener
+	 */
 	public void removeListener(Listener listener) {
 		getListeners().remove(listener);
 	}
-
+	/**
+	 * notifies all listening listeners
+	 */
 	public void notifyListeners() {
 		for (Listener listener : listeners) {
 			listener.update();
 		}
 	}
-
+	/** clear the userlist
+	 * 
+	 */
 	public void clear()
 	{
 
