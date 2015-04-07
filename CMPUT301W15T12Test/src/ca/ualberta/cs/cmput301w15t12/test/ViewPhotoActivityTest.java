@@ -32,10 +32,14 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 	
 	public ViewPhotoActivityTest() {
 		super(ViewPhotoActivity.class);
+		
 	}
 	
 	protected void setUp() throws Exception {
 		super.setUp();
+		// Initialize currencies and categories list in ExpenseItem
+		ExpenseItem.init(getInstrumentation().getTargetContext());
+			
 	}
 	
 	//[US06.02.01] - Viewing photograph of a receipt
@@ -47,21 +51,11 @@ public class ViewPhotoActivityTest extends ActivityInstrumentationTestCase2<View
 		assertTrue("receiptImageView should be an instanceof ImageView",receiptImageView.getClass() == ImageView.class);
 	}
 	
-	//[US06.02.01] - Viewing photograph of a receipt
-
-//	public void testImageLoaded() throws ParseException, AlreadyExistsException{
-//		ViewPhotoActivity activity = startViewPhotoActivity();
-//		View receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
-//		if((BitmapDrawable)((ImageView)receiptImageView).getDrawable()==null){
-//			fail("Receipt photo is not loaded inside the image view");
-//			return;
-//		}		
-//	}
-	
 	//[US06.04.01] - Limiting image file size
 	public void testImageSize() throws ParseException, AlreadyExistsException{
 		ViewPhotoActivity activity = startViewPhotoActivity();
 		ImageView receiptImageView = (ImageView)activity.findViewById(R.id.receiptImageView);
+
 		if((BitmapDrawable)receiptImageView.getDrawable()==null){
 			fail("Receipt photo is not loaded inside the image view");
 			return;

@@ -33,31 +33,32 @@ public class ReceiptPhotoCRUDTest extends ActivityInstrumentationTestCase2<AddIt
 	public ReceiptPhotoCRUDTest() {
 		super(AddItemActivity.class);
 	}
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+		// Initialize currencies and categories list in ExpenseItem
+		ExpenseItem.init(getInstrumentation().getTargetContext());
+			
+	}
 	//[US06.01.01] - Taking photograph of a receipt
-	public void testImageButton(){
+	public void testImageButton() throws ParseException, AlreadyExistsException{
 		AddItemActivity activity = startExpenseItemActivity();
 		View buttonImage=activity.findViewById(R.id.buttonImage);
 		assertTrue("receiptImageView should be an instanceof ImageButton",buttonImage.getClass() == ImageButton.class);
 	}	
 	
 	//[US06.03.01] - Retaking photograph of a receipt
-	public void testDeleteImage(){
+	public void testDeleteImage() throws ParseException, AlreadyExistsException{
 		AddItemActivity activity = startExpenseItemActivity();
 		//deleteImage(view);
-		//assertTrue("After deleting the receiptphoto, deleteImage() should return null",activity.getPhoto()==null);
-		assert(false);
+		assertTrue("After deleting the receiptphoto, deleteImage() should return null",activity.getUri()==null);
 	}
 	
 	//see [US06.02.01] and [US06.04.01] in ViewPhotoActivityTest.java
-	
-	private AddItemActivity startExpenseItemActivity(){
-		Intent intent = new Intent();
-		setActivityIntent(intent);
-		return (AddItemActivity) getActivity();
-	}
+
 	
 	
-	private AddItemActivity startViewPhotoActivity() throws ParseException, AlreadyExistsException{
+	private AddItemActivity startExpenseItemActivity() throws ParseException, AlreadyExistsException{
 		//make a claim with an item
 		User user  = new User("Freddie", "123");
 		
@@ -71,13 +72,15 @@ public class ReceiptPhotoCRUDTest extends ActivityInstrumentationTestCase2<AddIt
 		clc.clear();
 		
 		int id = clc.addClaim("name", d1, d2,"desc",user);
-		ExpenseItem item = new ExpenseItem("name", "", "description", "USD", new BigDecimal(12),d1,true);
+		ExpenseItem item = new ExpenseItem("name","","description","", new BigDecimal(66.69), new Date(), false);
 		clc.getClaim(id).addItem(item);
 		Uri imageFileUri = Uri.parse("android.resource://CMPUT301W15T12" + R.drawable.globe);
 		item.setUri(imageFileUri);
 		Intent intent = new Intent();
 		intent.putExtra("claim_id",id);
 		intent.putExtra("item_index",0);
+		intent.putExtra("username","Freddie");
+		intent.putExtra("option","Add");
 		setActivityIntent(intent);
 		return (AddItemActivity) getActivity();
 	}

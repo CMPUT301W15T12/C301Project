@@ -19,6 +19,7 @@ public class GeolocationTests extends TestCase
 {
 	DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
 
+	
 	//US10.02.01 added 2015-03-23
 	//As a claimant, I want to specify a geolocation assisted by my mobile device (e.g., GPS) or manually using a map.
 	//Test for getting current location
@@ -30,14 +31,18 @@ public class GeolocationTests extends TestCase
 	//As a claimant, I want to specify a geolocation assisted by my mobile device (e.g., GPS) or manually using a map.
 	//test for getting remote locations
 	public void testgetRemoteLocation(){
-		//TODO Megan
+		Location loc = new Location("dummyprovider");
+		loc.setLatitude(20.3);
+		loc.setLongitude(52.6);
+		User user = new User("Sarah", "132");
+		user.setLocation(loc);
+		assertTrue(user.getLocation().equals(loc));
 	}
 
 	//US10.03.01 added 2015-03-23
 	//As a claimant, I want to view any set or attached geolocation using a map.
 	//test for viewing locations
 	public void testviewLocations(){
-		//TODO Megan
 		Location loc = new Location("dummyprovider");
 		loc.setLatitude(20.3);
 		loc.setLongitude(52.6);
