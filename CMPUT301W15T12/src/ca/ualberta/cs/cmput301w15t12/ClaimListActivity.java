@@ -39,7 +39,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import ca.ualberta.cs.cmput301w15t12.R;
 
 
@@ -250,7 +249,9 @@ public class ClaimListActivity extends Activity {
 		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
+				EditText tags = (EditText) findViewById(R.id.editTextSearchTags);
+				tags.setText("");
+				updateList();
 			}
 		});
 		builder.show();
