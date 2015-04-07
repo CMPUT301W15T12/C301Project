@@ -35,6 +35,8 @@ import android.location.Location;
 public class ExpenseItem implements Serializable{
 
 	private static final long serialVersionUID = -2552967637419002646L;
+	static private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+
 	private static ArrayList<String> currencies;
 	private static ArrayList<String> categories;
 	private String name;
@@ -47,7 +49,6 @@ public class ExpenseItem implements Serializable{
 	private boolean receipt;
 	private boolean boolLocation;
 	private Location location;
-	private DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	private Integer imageId; 
 	private URI uri;
 
