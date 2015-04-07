@@ -97,6 +97,7 @@ public class ClaimActivity extends Activity {
 		TextView description = (TextView) findViewById(R.id.textClaimDescription);
 		TextView dates = (TextView) findViewById(R.id.textStarttoEndDate);
 		TextView destinations = (TextView) findViewById(R.id.textClaimDestinations);
+		TextView tags = (TextView) findViewById(R.id.textViewTagView);
 
 		//sets the textviews
 		name.setText(claim.getName()+" - "+claim.getStatus());
@@ -106,6 +107,7 @@ public class ClaimActivity extends Activity {
 		dates.setText(sd+" - "+ed);
 		destinations.setText(claim.destinationsToString());
 		tagsArrayList = claim.getTagList();
+		tags.setText(claim.toStringTagList(tagsArrayList));
 
 		//total list
 		TextView tv = (TextView) findViewById(R.id.listTotalSum);
@@ -293,7 +295,9 @@ public class ClaimActivity extends Activity {
 		builder.setPositiveButton("Add New", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
+				TextView tags = (TextView) findViewById(R.id.textViewTagView);
 				claim.setTagList(tagsArrayList);
+				tags.setText(claim.toStringTagList(tagsArrayList));
 				addTagDialog();
 			}
 
@@ -302,7 +306,9 @@ public class ClaimActivity extends Activity {
 		builder.setNegativeButton("Save", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
+				TextView tags = (TextView) findViewById(R.id.textViewTagView);
 				claim.setTagList(tagsArrayList);
+				tags.setText(claim.toStringTagList(tagsArrayList));
 			}
 		});
 		builder.show();
@@ -324,6 +330,7 @@ public class ClaimActivity extends Activity {
 		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				//adds tags to userList and claimList
+				TextView tags = (TextView) findViewById(R.id.textViewTagView);
 				if (!tagsArrayList.contains(editText.getText().toString())) {
 					tagsArrayList.add(editText.getText().toString());
 				}
@@ -331,6 +338,7 @@ public class ClaimActivity extends Activity {
 					user.addTag(editText.getText().toString());
 				}
 				claim.setTagList(tagsArrayList);
+				tags.setText(claim.toStringTagList(tagsArrayList));
 			}
 		})
 		.setNegativeButton("Cancel",

@@ -23,7 +23,7 @@
         android:layout_above="@+id/buttonAddItem"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/listTotalSum"
+        android:layout_below="@+id/textViewTagView"
         android:visibility="visible" >
 
     </ListView>
@@ -86,5 +86,16 @@
         android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="@string/destinations" />
+
+    <TextView
+        android:id="@+id/textViewTagView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/listTotalSum"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="@string/tag" />
 
 </RelativeLayout>
