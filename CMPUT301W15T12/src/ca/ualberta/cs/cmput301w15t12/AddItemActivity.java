@@ -454,6 +454,7 @@ public class AddItemActivity extends Activity
 		if (!checked) {
 			deleteImage(view);
 		} else if (tempImageFileUri == null) {
+			delete = false;
 			addImage(view);
 		}
 	}
